@@ -124,6 +124,18 @@ public sealed partial class AppCatalog : IAppCatalog
             },
             new AppDefinition
             {
+                Id = "github",
+                Title = "Pedro Tunin (@Pedroltz) - GitHub",
+                Icon = "github",
+                Content = AppContentKind.Fragment,
+                DefaultWidth = 680,
+                DefaultHeight = 500,
+                MinWidth = 360,
+                MinHeight = 280,
+                MultiInstance = false,
+            },
+            new AppDefinition
+            {
                 Id = "minesweeper",
                 Title = "Minesweeper",
                 Icon = "minesweeper",

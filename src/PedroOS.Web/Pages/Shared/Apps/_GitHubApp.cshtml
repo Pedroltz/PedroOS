@@ -1,0 +1,113 @@
+@{
+    var githubUrl = "https://github.com/Pedroltz";
+    var projects = Portfolio.GetProjects();
+    var publicProjects = projects.Where(p => !string.IsNullOrWhiteSpace(p.RepositoryUrl)).ToList();
+}
+<div class="app-shell github-app">
+    <div class="win95-menubar" role="menubar" aria-label="Menu do GitHub">
+        <span class="win95-menu-item"><u>F</u>ile</span>
+        <span class="win95-menu-item"><u>E</u>dit</span>
+        <span class="win95-menu-item"><u>V</u>iew</span>
+        <span class="win95-menu-item"><u>H</u>elp</span>
+    </div>
+
+    <div class="win95-toolbar" role="toolbar" aria-label="Ações do perfil GitHub">
+        <a class="toolbar-btn" href="@githubUrl" target="_blank" rel="noopener noreferrer">
+            <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+            <span>Abrir no GitHub Oficial &#8599;</span>
+        </a>
+        <button type="button" class="toolbar-btn" data-open-app="projects">
+            <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+            <span>Projetos (Projects.exe)</span>
+        </button>
+        <button type="button" class="toolbar-btn" data-open-app="resume">
+            <img class="pixel-icon" src="@Icons.GetPath("resume", 16)" width="16" height="16" alt="" />
+            <span>Ver Currículo</span>
+        </button>
+        <button type="button" class="toolbar-btn" data-open-app="linkedin">
+            <img class="pixel-icon" src="@Icons.GetPath("linkedin", 16)" width="16" height="16" alt="" />
+            <span>Ver LinkedIn</span>
+        </button>
+    </div>
+
+    <div class="win95-addressbar">
+        <label class="addressbar-label">Address</label>
+        <div class="addressbar-field sunken-panel">
+            <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+            <span>@githubUrl</span>
+        </div>
+    </div>
+
+    <div class="github-viewport sunken-panel" tabindex="0">
+        <div class="github-page">
+            <header class="github-banner">
+                <div class="github-banner-top">
+                    <img class="pixel-icon github-avatar" src="@Icons.GetPath("github", 48)" width="48" height="48" alt="Octocat GitHub" />
+                    <div class="github-banner-title">
+                        <h2>Pedro Tunin <small class="github-handle">@@Pedroltz</small></h2>
+                        <p class="github-headline">Software Engineer &bull; .NET 10 &bull; Python &bull; Linux / DevOps &bull; AI Systems</p>
+                        <p class="github-location">Brasil &bull; <a href="@githubUrl" target="_blank" rel="noopener noreferrer" class="github-external-link">github.com/Pedroltz &#8599;</a></p>
+                    </div>
+                </div>
+
+                <div class="github-cta-buttons">
+                    <a class="button win95-btn-primary" href="@githubUrl" target="_blank" rel="noopener noreferrer">
+                        Visitar Perfil no GitHub (github.com/Pedroltz) &#8599;
+                    </a>
+                    <button type="button" data-open-app="projects">
+                        Abrir Projects.exe
+                    </button>
+                    <button type="button" data-open-app="linkedin">
+                        Abrir LinkedIn
+                    </button>
+                </div>
+            </header>
+
+            <fieldset class="win95-fieldset">
+                <legend>Repositórios Públicos e Projetos em Destaque</legend>
+                <div class="github-repos-grid">
+                    @foreach (var proj in publicProjects)
+                    {
+                        <div class="github-repo-card sunken-panel">
+                            <div class="github-repo-head">
+                                <img class="pixel-icon" src="@Icons.GetPath(proj.Icon, 16)" width="16" height="16" alt="" />
+                                <strong>@proj.Name</strong>
+                                <span class="win95-tag" style="margin-left: auto;">Public</span>
+                            </div>
+                            <p class="github-repo-desc">@proj.Summary</p>
+                            <div class="project-stack-list">
+                                @foreach (var tech in proj.Stack.Take(4))
+                                {
+                                    <span class="win95-tag">@tech</span>
+                                }
+                            </div>
+                            <div class="github-repo-actions">
+                                <button type="button" data-open-app="project" data-arg-slug="@proj.Slug">
+                                    Inspecionar no OS
+                                </button>
+                                <a class="button" href="@proj.RepositoryUrl" target="_blank" rel="noopener noreferrer">
+                                    GitHub &#8599;
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset class="win95-fieldset">
+                <legend>Sobre a Presença no GitHub</legend>
+                <p>
+                    Mantenedor e autor de projetos open-source e monólitos modulares com foco em arquitetura de backend (.NET 10, ASP.NET Core, Python, FastAPI), aplicações desktop Linux nativas em GTK 4 / libadwaita e infraestrutura conteinerizada.
+                </p>
+                <p class="muted-note">
+                    <em>Dica: Você pode abrir cada projeto em sua janela individual no PedroOS 95 ou navegar diretamente pelo código-fonte no GitHub.</em>
+                </p>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <p class="status-bar-field">Done — @githubUrl</p>
+        <p class="status-bar-field">PedroOS Internet Zone</p>
+    </div>
+</div>

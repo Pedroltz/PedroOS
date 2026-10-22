@@ -416,8 +416,8 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                             Description = "Perfil oficial no GitHub (https://github.com/Pedroltz)",
                             Action = new FileAction
                             {
-                                Kind = "open-url",
-                                Url = "https://github.com/Pedroltz",
+                                Kind = "open-app",
+                                AppId = "github",
                             },
                         },
                         new VirtualNode

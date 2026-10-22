@@ -184,10 +184,19 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
 
   // 11. GitHub e LinkedIn apontam para URLs corretas
   test('11. github and linkedin icons link to correct verified URLs with noopener', async ({ page, isMobile }) => {
-    const githubLink = page.locator('#icon-github');
-    await expect(githubLink).toHaveAttribute('href', 'https://github.com/Pedroltz');
-    await expect(githubLink).toHaveAttribute('target', '_blank');
-    await expect(githubLink).toHaveAttribute('rel', /noopener/);
+    const githubIcon = page.locator('#icon-github');
+    if (isMobile) {
+      await githubIcon.click();
+    } else {
+      await githubIcon.dblclick();
+    }
+
+    const githubWin = page.locator('.os-window[data-app-id="github"]');
+    await expect(githubWin).toBeVisible({ timeout: 5000 });
+    const ghProfileLink = githubWin.locator('a[href*="github.com/Pedroltz"]').first();
+    await expect(ghProfileLink).toBeVisible();
+    await expect(ghProfileLink).toHaveAttribute('target', '_blank');
+    await expect(ghProfileLink).toHaveAttribute('rel', /noopener/);
 
     const linkedinIcon = page.locator('#icon-linkedin');
     if (isMobile) {
