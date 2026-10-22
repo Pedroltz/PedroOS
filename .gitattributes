@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.map -diff
+src/PedroOS.Web/wwwroot/js/pedroos.js -diff linguist-generated
+src/PedroOS.Web/wwwroot/css/98.css linguist-vendored
