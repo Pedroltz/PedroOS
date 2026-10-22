@@ -1,6 +1,7 @@
 import type { IWindowManager, WindowRecord } from '../types/index.js';
 import { DesktopStore } from '../core/DesktopStore.js';
 import { IconRegistryClient } from '../core/IconRegistryClient.js';
+import { withBase } from '../core/BasePath.js';
 import { SoundEffects } from '../core/SoundEffects.js';
 
 export class DesktopController {
@@ -368,7 +369,7 @@ export class DesktopController {
           desktop.style.backgroundImage = 'none';
           desktop.style.backgroundColor = '#008080';
         } else {
-          desktop.style.backgroundImage = `url('/assets/wallpapers/${e.wallpaper}.png')`;
+          desktop.style.backgroundImage = `url('${withBase('/assets/wallpapers/' + e.wallpaper + '.png')}')`;
           desktop.style.backgroundRepeat = 'repeat';
         }
       }

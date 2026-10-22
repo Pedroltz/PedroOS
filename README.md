@@ -211,6 +211,17 @@ Acesse: **http://localhost:8080**
 
 ---
 
+### Deploy no GitHub Pages (CI/CD)
+
+A cada push na `main`, o workflow [`ci.yml`](.github/workflows/ci.yml) roda build, lint, testes (frontend, .NET e E2E) e, se tudo passar, publica o site em **https://pedroltz.github.io/PedroOS/**.
+
+Como o GitHub Pages só serve arquivos estáticos, o script [`scripts/export-static.mjs`](scripts/export-static.mjs) sobe a aplicação ASP.NET Core, percorre todas as rotas (`/`, `/projects`, `/projects/{slug}`, `/resume`, `/skills`), os fragmentos de janela e o PDF do currículo, e grava um site estático em `dist/pages` com os caminhos ajustados para a subpasta (`/PedroOS`). O cliente usa [`BasePath.ts`](src/PedroOS.Web/Client/core/BasePath.ts) para se adaptar a esse prefixo; no servidor normal nada muda.
+
+```bash
+npm run build
+dotnet build src/PedroOS.Web -c Release
+npm run export:pages -- --base /PedroOS --site https://pedroltz.github.io
+```
 ## 9. Atalhos e Segredos (Easter Eggs)
 
 - **Alt + F4**: Fecha a janela atualmente focada.

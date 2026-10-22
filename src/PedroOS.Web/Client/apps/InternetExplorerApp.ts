@@ -1,5 +1,6 @@
 import type { AppMountContext, ClientAppModule, ProjectSummary } from '../types/index.js';
 import { IconRegistryClient } from '../core/IconRegistryClient.js';
+import { resumePdfUrl } from '../core/BasePath.js';
 
 interface FavoriteLink {
   label: string;
@@ -247,7 +248,7 @@ export class InternetExplorerApp implements ClientAppModule {
                 <ul>
                   <li><a href="https://github.com/Pedroltz" target="_blank" rel="noopener noreferrer">GitHub — https://github.com/Pedroltz &#8599;</a></li>
                   <li><a href="https://www.linkedin.com/in/pedrotunin/" target="_blank" rel="noopener noreferrer">LinkedIn — https://www.linkedin.com/in/pedrotunin/ &#8599;</a></li>
-                  <li><a href="/resume/pdf" download="Pedro-Tunin-Resume.pdf">Download do Currículo em PDF</a></li>
+                  <li><a href="${resumePdfUrl()}" download="Pedro-Tunin-Resume.pdf">Download do Currículo em PDF</a></li>
                 </ul>
               </div>
             </div>
@@ -309,7 +310,7 @@ export class InternetExplorerApp implements ClientAppModule {
             <div class="ie-actions-row">
               <button type="button" data-ie-open-app="resume">Abrir Resume.doc no WordPad</button>
               <button type="button" data-ie-open-app="sysprops">Abrir System Properties</button>
-              <a class="button" href="/resume/pdf" download="Pedro-Tunin-Resume.pdf">Baixar Currículo PDF</a>
+              <a class="button" href="${resumePdfUrl()}" download="Pedro-Tunin-Resume.pdf">Baixar Currículo PDF</a>
             </div>
             <p><a href="#home" data-ie-nav="pedroos://home">&laquo; Voltar para PedroOS Home</a></p>
           </div>`,

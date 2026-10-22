@@ -1,8 +1,9 @@
 import type { IconManifestEntry } from '../types/index.js';
+import { withBase } from './BasePath.js';
 
 export class IconRegistryClient {
   private readonly entries = new Map<string, IconManifestEntry>();
-  private readonly basePath = '/assets/icons';
+  private readonly basePath = withBase('/assets/icons');
 
   public constructor(manifest: Record<string, IconManifestEntry> = {}) {
     for (const [key, value] of Object.entries(manifest)) {

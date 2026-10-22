@@ -5,6 +5,7 @@ import { IconRegistryClient } from './core/IconRegistryClient.js';
 import { VirtualFileSystemClient } from './core/VirtualFileSystemClient.js';
 import { SoundEffects } from './core/SoundEffects.js';
 import { WindowManager } from './core/WindowManager.js';
+import { stripBase } from './core/BasePath.js';
 import { ExplorerApp } from './apps/ExplorerApp.js';
 import { InternetExplorerApp } from './apps/InternetExplorerApp.js';
 import { MinesweeperApp } from './apps/MinesweeperApp.js';
@@ -86,7 +87,7 @@ function boot(): void {
   // Handle browser back/forward history navigation
   window.addEventListener('popstate', (ev: PopStateEvent) => {
     const state = ev.state as { appId?: string; args?: Record<string, string> } | null;
-    const pathname = window.location.pathname.toLowerCase();
+    const pathname = stripBase(window.location.pathname).toLowerCase();
 
     if (pathname === '/') {
       const activeId = store.getActiveWindowId();

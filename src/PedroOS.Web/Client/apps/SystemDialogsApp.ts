@@ -1,5 +1,6 @@
 import type { AppMountContext, ClientAppModule } from '../types/index.js';
 import { IconRegistryClient } from '../core/IconRegistryClient.js';
+import { withBase } from '../core/BasePath.js';
 import { VirtualFileSystemClient } from '../core/VirtualFileSystemClient.js';
 import { DesktopStore } from '../core/DesktopStore.js';
 
@@ -241,7 +242,7 @@ export class DisplayPropertiesApp implements ClientAppModule {
       if (val === 'solid') {
         screenPreview.style.background = '#008080';
       } else {
-        screenPreview.style.background = `#008080 url('/assets/wallpapers/${val}.png') repeat`;
+        screenPreview.style.background = `#008080 url('${withBase('/assets/wallpapers/' + val + '.png')}') repeat`;
       }
     };
 
@@ -302,7 +303,7 @@ export class ShutDownDialogApp implements ClientAppModule {
       const val = (form.elements.namedItem('sd-action') as RadioNodeList).value;
 
       if (val === 'restart') {
-        window.location.href = '/';
+        window.location.href = withBase('/');
       } else if (val === 'bsod') {
         document.getElementById('bsod-overlay')?.removeAttribute('hidden');
       } else if (val === 'safe-off') {

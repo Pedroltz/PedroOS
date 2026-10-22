@@ -9,6 +9,7 @@ import type {
 import { AppRegistry } from './AppRegistry.js';
 import { DesktopStore } from './DesktopStore.js';
 import { IconRegistryClient } from './IconRegistryClient.js';
+import { fragmentUrl, stripBase, withBase } from './BasePath.js';
 import { SoundEffects } from './SoundEffects.js';
 
 const TASKBAR_HEIGHT = 28;
@@ -218,8 +219,8 @@ export class WindowManager implements IWindowManager {
         if (topDef) {
           this.syncBrowserRoute(topDef, top.args, false);
         }
-      } else if (typeof window !== 'undefined' && window.location.pathname !== '/') {
-        window.history.pushState({}, '', '/');
+      } else if (typeof window !== 'undefined' && stripBase(window.location.pathname) !== '/') {
+        window.history.pushState({}, '', withBase('/'));
       }
     }
   }
@@ -765,9 +766,7 @@ export class WindowManager implements IWindowManager {
     // Fragment application: fetch server-rendered Razor Partial View
     body.innerHTML = `<div class="win95-loading" role="status">${this.icons.render('computer', 16)} <span>Loading ${this.escapeHtml(def.title)}...</span></div>`;
 
-    const params = new URLSearchParams(record.args);
-    const queryString = params.toString();
-    const url = `/fragments/${encodeURIComponent(def.id)}${queryString ? `?${queryString}` : ''}`;
+    const url = fragmentUrl(def.id, record.args);
 
     fetch(url, { headers: { 'X-Requested-With': 'PedroOSWindowManager' } })
       .then(async (resp) => {
@@ -855,8 +854,8 @@ export class WindowManager implements IWindowManager {
       }
       route = route.replace('{slug}', encodeURIComponent(args.slug));
     }
-    if (window.location.pathname.toLowerCase() !== route.toLowerCase()) {
-      window.history.pushState({ appId: def.id, args }, '', route);
+    if (stripBase(window.location.pathname).toLowerCase() !== route.toLowerCase()) {
+      window.history.pushState({ appId: def.id, args }, '', withBase(route));
     }
   }
 

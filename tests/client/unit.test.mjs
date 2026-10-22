@@ -474,10 +474,23 @@ var AppRegistry = class {
   }
 };
 
+// src/PedroOS.Web/Client/core/BasePath.ts
+function readMeta(name) {
+  if (typeof document === "undefined") {
+    return "";
+  }
+  return document.querySelector(`meta[name="${name}"]`)?.content ?? "";
+}
+var BASE = readMeta("pedroos-base").replace(/\/+$/, "");
+var IS_STATIC = readMeta("pedroos-static") === "true";
+function withBase(path) {
+  return path.startsWith("/") && !path.startsWith("//") ? `${BASE}${path}` : path;
+}
+
 // src/PedroOS.Web/Client/core/IconRegistryClient.ts
 var IconRegistryClient = class {
   entries = /* @__PURE__ */ new Map();
-  basePath = "/assets/icons";
+  basePath = withBase("/assets/icons");
   constructor(manifest = {}) {
     for (const [key, value] of Object.entries(manifest)) {
       this.entries.set(key.toLowerCase(), value);

@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint \"src/PedroOS.Web/Client/**/*.ts\" \"tests/PedroOS.E2E/**/*.ts\" \"tests/client/**/*.ts\"",
     "test:client": "node scripts/test-client.mjs && node --test tests/client/icon-assets.test.mjs",
+    "export:pages": "node scripts/export-static.mjs",
     "test:e2e": "playwright test -c tests/PedroOS.E2E/playwright.config.ts"
   },
   "dependencies": {
