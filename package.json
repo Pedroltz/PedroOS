@@ -6,6 +6,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "start": "dotnet run --project src/PedroOS.Web",
+    "dev": "node scripts/build.mjs && dotnet run --project src/PedroOS.Web",
     "build": "node scripts/build.mjs",
     "build:dev": "node scripts/build.mjs --dev",
     "watch": "node scripts/build.mjs --dev --watch",
