@@ -64,7 +64,9 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
     const projectsWin = page.locator('.os-window[data-app-id="projects"]');
     await expect(projectsWin).toBeVisible({ timeout: 5000 });
     await expect(projectsWin).toContainText('Ofizzy');
-    await expect(projectsWin).toContainText('RDP Session Manager');
+    await expect(projectsWin).toContainText('RDP-Session-Manager.exe');
+    await expect(projectsWin.locator('[data-exp-items]')).toBeVisible();
+    await expect(projectsWin.locator('.project-card')).toHaveCount(0);
   });
 
   // 5. Uma janela de projeto abre
@@ -142,13 +144,10 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
 
   // 9. Fechar uma janela não encerra outras
   test('9. closing one window does not close other running applications', async ({ page, isMobile }) => {
-    if (isMobile) {
-      await page.locator('#icon-minesweeper').click();
-      await page.locator('#icon-readme').click();
-    } else {
-      await page.locator('#icon-minesweeper').dblclick();
-      await page.locator('#icon-readme').dblclick();
-    }
+    if (isMobile) test.skip(); // Mobile mode displays one active window at a time
+
+    await page.locator('#icon-minesweeper').dblclick();
+    await page.locator('#icon-readme').dblclick();
 
     const mineWin = page.locator('.os-window[data-app-id="minesweeper"]');
     const noteWin = page.locator('.os-window[data-app-id="notepad"]');
@@ -200,6 +199,8 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
 
     const linkedinIcon = page.locator('#icon-linkedin');
     if (isMobile) {
+      await githubWin.locator('button[data-win-action="close"]').click();
+      await page.waitForTimeout(200);
       await linkedinIcon.click();
     } else {
       await linkedinIcon.dblclick();

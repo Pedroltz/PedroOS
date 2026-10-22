@@ -1,5 +1,7 @@
 # PedroOS 95
 
+[![CI](https://github.com/Pedroltz/PedroOS/actions/workflows/ci.yml/badge.svg)](https://github.com/Pedroltz/PedroOS/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![.NET 10](https://img.shields.io/badge/.NET-10-512BD4) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6)
+
 > Um portfólio profissional interativo e sistema operacional virtual completo inspirado no Microsoft Windows 95, desenvolvido com **ASP.NET Core (.NET 10 LTS)**, **Razor Pages**, **TypeScript**, **98.css** e **interact.js**.
 
 ---
@@ -72,7 +74,7 @@ PedroOS/
 │       ├── Client/                       # Código TypeScript frontend
 │       │   ├── core/                     # WindowManager, DesktopStore, VFS, AppRegistry
 │       │   ├── components/               # DesktopController (Taskbar, Menus, Atalhos)
-│       │   ├── apps/                     # Explorer, Internet Explorer, Minesweeper, Notepad, Dialogs
+│       │   ├── apps/                     # Explorer, Internet Explorer, Minesweeper, Notepad, MS-DOS Prompt, Dialogs
 │       │   ├── types/                    # Tipos e interfaces TypeScript
 │       │   └── pedroos.ts                # Ponto de entrada do bundle
 │       ├── wwwroot/
@@ -114,6 +116,7 @@ PedroOS/
 | **Internet Explorer** | `IExplore.exe` | Simulação do IE clássico com favoritos, histórico, páginas internas e links externos seguros. |
 | **Minesweeper** | `Winmine.exe` | Campo Minado com primeiro clique seguro, dificuldades, temporizador LED e modo touch. |
 | **Notepad** | `Notepad.exe` | Editor de texto para leitura de `Readme.txt`, notas e segredos do sistema. |
+| **MS-DOS Prompt** | `Command.com` | Terminal estilo Windows 95 com `dir`, `cd`, `type`, `tree`, `start` e mais (`help` lista tudo). |
 | **Find** | `Find: All Files` | Mecanismo de busca textual sobre arquivos e projetos virtuais. |
 | **Run...** | `Run` | Execução rápida de comandos (`ofizzy`, `minesweeper`, `explorer`, `bsod`, etc.). |
 | **Display Properties** | `Display` | Configuração de papel de parede (Classic Teal, Bricks, Weave, Scottie, Dots). |
@@ -212,7 +215,7 @@ Acesse: **http://localhost:8080**
 
 - **Alt + F4**: Fecha a janela atualmente focada.
 - **Ctrl + Alt + B**: Dispara voluntariamente a tela azul clássica (BSOD segura). Pressione qualquer tecla para retornar.
-- **Start > Run...**: Digite `bsod` para testar a tela azul, ou digite o nome de qualquer executável (`ofizzy`, `winmine`, `notepad`).
+- **Start > Run...**: Digite `bsod` para testar a tela azul, ou digite o nome de qualquer executável (`ofizzy`, `winmine`, `notepad`, `cmd`).
 - **Campo Minado**: Digite `xyzzy` + Enter durante a partida para ativar o pixel espião no canto superior esquerdo.
 - **Internet Explorer**: Navegue até `about:mozilla` para ler um versículo secreto de *The Book of PedroOS*.
 - **Arquivos Ocultos**: No Windows Explorer, clique no botão `Hidden` para exibir a pasta secreta `C:\PEDROOS` com `Credits.txt` e `EasterEggs.txt`.

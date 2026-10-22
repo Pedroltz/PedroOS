@@ -9,6 +9,7 @@ import { ExplorerApp } from './apps/ExplorerApp.js';
 import { InternetExplorerApp } from './apps/InternetExplorerApp.js';
 import { MinesweeperApp } from './apps/MinesweeperApp.js';
 import { NotepadApp } from './apps/NotepadApp.js';
+import { TerminalApp } from './apps/TerminalApp.js';
 import { FindDialogApp, RunDialogApp, DisplayPropertiesApp, ShutDownDialogApp } from './apps/SystemDialogsApp.js';
 import { hydrateWindowFragment } from './apps/FragmentHydrator.js';
 import { DesktopController } from './components/DesktopController.js';
@@ -36,9 +37,11 @@ function boot(): void {
 
   // Register client modules
   registry.registerClientApp('explorer', new ExplorerApp(vfs, icons));
+  registry.registerClientApp('projects', new ExplorerApp(vfs, icons, 'C:\\Projects'));
   registry.registerClientApp('iexplore', new InternetExplorerApp(icons, data.projects));
   registry.registerClientApp('minesweeper', new MinesweeperApp(icons));
   registry.registerClientApp('notepad', new NotepadApp(vfs));
+  registry.registerClientApp('terminal', new TerminalApp(vfs));
   registry.registerClientApp('find', new FindDialogApp(vfs, icons));
   registry.registerClientApp('run', new RunDialogApp(icons));
   registry.registerClientApp('display', new DisplayPropertiesApp(store, icons));
@@ -57,6 +60,10 @@ function boot(): void {
     icons,
     sound,
     (windowEl, record) => {
+      const project = windowEl.querySelector<HTMLElement>('[data-project-details]');
+      if (project?.dataset.projectTitle) {
+        wm.setWindowTitle(record.id, project.dataset.projectTitle, project.dataset.projectIcon);
+      }
       hydrateWindowFragment(windowEl, record, wm);
     },
   );

@@ -31,6 +31,18 @@ export class DesktopController {
     let selectedIcon: HTMLElement | null = null;
     let lastClickId = '';
     let lastClickTime = 0;
+    let lastActionId = '';
+    let lastActionTime = 0;
+
+    const executeAction = (icon: HTMLElement): void => {
+      const now = Date.now();
+      if (lastActionId === icon.id && now - lastActionTime < 450) {
+        return;
+      }
+      lastActionId = icon.id;
+      lastActionTime = now;
+      this.triggerIconAction(icon);
+    };
 
     const selectIcon = (el: HTMLElement | null): void => {
       if (selectedIcon) selectedIcon.classList.remove('selected');
@@ -55,14 +67,14 @@ export class DesktopController {
 
       // On mobile or on double-tap, trigger action
       if (isDouble || window.innerWidth <= 640) {
-        this.triggerIconAction(icon);
+        executeAction(icon);
       }
     });
 
     container.addEventListener('dblclick', (ev) => {
       const icon = (ev.target as HTMLElement).closest<HTMLElement>('[data-desktop-icon]');
       if (icon) {
-        this.triggerIconAction(icon);
+        executeAction(icon);
       }
     });
 
@@ -180,7 +192,7 @@ export class DesktopController {
                   data-taskbar-win-id="${w.id}"
                   aria-pressed="${isActive}"
                   title="${this.escapeHtml(w.title)}">
-            <img class="pixel-icon" src="${this.icons.getPath(w.icon, 16)}" width="16" height="16" alt="" />
+            ${this.icons.render(w.icon, 16)}
             <span class="taskbar-item-label">${this.escapeHtml(w.title)}</span>
           </button>
         `;

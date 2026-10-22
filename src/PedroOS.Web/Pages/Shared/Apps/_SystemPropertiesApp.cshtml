@@ -16,7 +16,7 @@
     <div class="window sysprops-panel" role="tabpanel" data-sysprops-panel="general">
         <div class="sysprops-general-grid">
             <div class="sysprops-computer-badge">
-                <img class="pixel-icon" src="@Icons.GetPath("my-computer", 48)" width="48" height="48" alt="Computador PedroOS 95" />
+                <os-icon key="my-computer" size="48" alt="Computador PedroOS 95" />
                 <div class="sysprops-os-label">
                     <strong>Microsoft Windows 95</strong>
                     <span>PedroOS 95 Portfolio Edition</span>
@@ -74,7 +74,7 @@
                                                     data-skill-usage="@skill.Usage"
                                                     data-skill-cases="@string.Join("||", skill.UseCases)"
                                                     data-skill-projects="@string.Join(",", skill.RelatedProjects)">
-                                                <img class="pixel-icon" src="@Icons.GetPath("sys", 16)" width="16" height="16" alt="" />
+                                                <os-icon key="sys" size="16" alt="" />
                                                 <span>@skill.Name</span>
                                             </button>
                                         </li>
@@ -104,7 +104,7 @@
     {
         <div class="window sysprops-panel" role="tabpanel" data-sysprops-panel="@cat.Id" hidden>
             <div class="sysprops-cat-header">
-                <img class="pixel-icon" src="@Icons.GetPath(cat.Icon, 32)" width="32" height="32" alt="" />
+                <os-icon key="@cat.Icon" size="32" alt="" />
                 <div>
                     <h3>@cat.Name — <small>@cat.DeviceClass (@cat.FileName)</small></h3>
                     <p>@cat.Description</p>

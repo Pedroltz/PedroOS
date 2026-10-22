@@ -13,19 +13,19 @@
 
     <div class="win95-toolbar" role="toolbar" aria-label="Ações do perfil GitHub">
         <a class="toolbar-btn" href="@githubUrl" target="_blank" rel="noopener noreferrer">
-            <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+            <os-icon key="github" size="16" alt="" />
             <span>Abrir no GitHub Oficial &#8599;</span>
         </a>
         <button type="button" class="toolbar-btn" data-open-app="projects">
-            <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+            <os-icon key="projects" size="16" alt="" />
             <span>Projetos (Projects.exe)</span>
         </button>
         <button type="button" class="toolbar-btn" data-open-app="resume">
-            <img class="pixel-icon" src="@Icons.GetPath("resume", 16)" width="16" height="16" alt="" />
+            <os-icon key="resume" size="16" alt="" />
             <span>Ver Currículo</span>
         </button>
         <button type="button" class="toolbar-btn" data-open-app="linkedin">
-            <img class="pixel-icon" src="@Icons.GetPath("linkedin", 16)" width="16" height="16" alt="" />
+            <os-icon key="linkedin" size="16" alt="" />
             <span>Ver LinkedIn</span>
         </button>
     </div>
@@ -33,7 +33,7 @@
     <div class="win95-addressbar">
         <label class="addressbar-label">Address</label>
         <div class="addressbar-field sunken-panel">
-            <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+            <os-icon key="github" size="16" alt="" />
             <span>@githubUrl</span>
         </div>
     </div>
@@ -42,7 +42,7 @@
         <div class="github-page">
             <header class="github-banner">
                 <div class="github-banner-top">
-                    <img class="pixel-icon github-avatar" src="@Icons.GetPath("github", 48)" width="48" height="48" alt="Octocat GitHub" />
+                    <os-icon key="github" size="48" class="github-avatar" alt="Octocat GitHub" />
                     <div class="github-banner-title">
                         <h2>Pedro Tunin <small class="github-handle">@@Pedroltz</small></h2>
                         <p class="github-headline">Software Engineer &bull; .NET 10 &bull; Python &bull; Linux / DevOps &bull; AI Systems</p>
@@ -70,7 +70,7 @@
                     {
                         <div class="github-repo-card sunken-panel">
                             <div class="github-repo-head">
-                                <img class="pixel-icon" src="@Icons.GetPath(proj.Icon, 16)" width="16" height="16" alt="" />
+                                <os-icon key="@proj.Icon" size="16" alt="" />
                                 <strong>@proj.Name</strong>
                                 <span class="win95-tag" style="margin-left: auto;">Public</span>
                             </div>

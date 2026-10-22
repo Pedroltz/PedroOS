@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace PedroOS.Web.Services;
 
@@ -11,7 +12,9 @@ public interface IIconRegistry
     IReadOnlyDictionary<string, IconEntry> All { get; }
 }
 
-public sealed record IconEntry(string Category, string Description, IReadOnlyList<int> Sizes);
+public sealed record IconEntry(string Category, string Description, IReadOnlyList<int> Sizes,
+    IReadOnlyDictionary<int, string>? Variants = null, string? Fallback = null,
+    string? Attribution = null, IReadOnlyList<int>? NativeSizes = null);
 
 /// <summary>
 /// Central registry for pixel-art icons so views and scripts never hardcode asset paths.
@@ -27,8 +30,17 @@ public sealed partial class IconRegistry : IIconRegistry
     [GeneratedRegex("^[a-z0-9-]+$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex SafeKeyRegex();
 
-    public IconRegistry(IWebHostEnvironment env) : this(Path.Combine(env.ContentRootPath, "Data", "icons.json"))
+    public IconRegistry(IWebHostEnvironment env, IFileVersionProvider fileVersions) : this(Path.Combine(env.ContentRootPath, "Data", "icons.json"))
     {
+        // Publish the same hashed URLs to Razor and to the TypeScript boot manifest.
+        foreach (var (key, entry) in _icons.ToArray())
+        {
+            var variants = entry.Sizes.ToDictionary(size => size, size =>
+                fileVersions.AddFileVersionToPath(PathString.Empty,
+                    entry.Variants?.GetValueOrDefault(size)
+                    ?? $"{_basePath}/{entry.Category}/{key}-{size}.png"));
+            _icons[key] = entry with { Variants = variants };
+        }
     }
 
     public IconRegistry(string manifestPath)
@@ -56,7 +68,13 @@ public sealed partial class IconRegistry : IIconRegistry
                 var sizes = prop.Value.TryGetProperty("sizes", out var s) && s.ValueKind == JsonValueKind.Array
                     ? s.EnumerateArray().Select(x => x.GetInt32()).ToArray()
                     : SupportedSizes;
-                _icons[prop.Name] = new IconEntry(cat, desc, sizes);
+                var variants = prop.Value.TryGetProperty("variants", out var v)
+                    ? v.EnumerateObject().ToDictionary(x => int.Parse(x.Name), x => x.Value.GetString()!) : null;
+                var fallback = prop.Value.TryGetProperty("fallback", out var f) ? f.GetString() : "exe";
+                var attribution = prop.Value.TryGetProperty("attribution", out var a) ? a.GetString() : null;
+                var nativeSizes = prop.Value.TryGetProperty("nativeSizes", out var ns)
+                    ? ns.EnumerateArray().Select(x => x.GetInt32()).ToArray() : sizes;
+                _icons[prop.Name] = new IconEntry(cat, desc, sizes, variants, fallback, attribution, nativeSizes);
             }
         }
 
@@ -82,20 +100,23 @@ public sealed partial class IconRegistry : IIconRegistry
         var normalizedSize = NormalizeSize(size);
         if (!string.IsNullOrWhiteSpace(key) && SafeKeyRegex().IsMatch(key) && _icons.TryGetValue(key, out var entry))
         {
-            return $"{_basePath}/{entry.Category}/{key.ToLowerInvariant()}-{normalizedSize}.png";
+            var variant = entry.Sizes.OrderBy(s => Math.Abs(s - normalizedSize)).FirstOrDefault(normalizedSize);
+            return entry.Variants?.GetValueOrDefault(variant)
+                ?? $"{_basePath}/{entry.Category}/{key.ToLowerInvariant()}-{variant}.png";
         }
 
-        return $"{_basePath}/system/exe-{normalizedSize}.png";
+        return _icons.GetValueOrDefault("exe")?.Variants?.GetValueOrDefault(normalizedSize)
+            ?? $"{_basePath}/system/exe-{normalizedSize}.png";
     }
 
     public string GetGlyphPath(string name)
     {
         if (!string.IsNullOrWhiteSpace(name) && SafeKeyRegex().IsMatch(name) && _glyphs.Contains(name))
         {
-            return $"{_basePath}/ui/px-{name.ToLowerInvariant()}.svg";
+            return GetPath($"glyph-{name.ToLowerInvariant()}", 16);
         }
 
-        return $"{_basePath}/ui/px-file.svg";
+        return GetPath("glyph-file", 16);
     }
 
     private static int NormalizeSize(int requested) =>

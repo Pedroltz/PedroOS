@@ -26,7 +26,8 @@ export class MinesweeperApp implements ClientAppModule {
             <option value="expert">Expert (30x16, 99 mines)</option>
           </select>
           <button type="button" class="mine-flag-toggle" data-mine-flag-toggle aria-pressed="false" title="Alternar modo de marcação de bandeira (ótimo para touch)">
-            🚩 Marcação
+            ${this.icons.render('flag', 16)}
+            <span>Marcação</span>
           </button>
         </div>
 
@@ -94,14 +95,14 @@ export class MinesweeperApp implements ClientAppModule {
             classes += ' revealed';
             if (cell.isMine) {
               classes += cell.exploded ? ' exploded' : ' mine';
-              content = `<img class="pixel-icon" src="${this.icons.getPath('mine', 16)}" width="16" height="16" alt="*" />`;
+              content = `${this.icons.render('mine', 16, 'pixel-icon', '*')}`;
             } else if (cell.adjacentMines > 0) {
               classes += ` adj-${cell.adjacentMines}`;
               content = `${cell.adjacentMines}`;
             }
           } else if (cell.state === 'flagged') {
             classes += cell.misflagged ? ' misflagged' : ' flagged';
-            content = `<img class="pixel-icon" src="${this.icons.getPath('flag', 16)}" width="16" height="16" alt="F" />`;
+            content = `${this.icons.render('flag', 16, 'pixel-icon', 'F')}`;
           }
 
           html += `<button type="button" class="${classes}" data-row="${r}" data-col="${c}" aria-label="R${r}C${c}">${content}</button>`;
@@ -111,7 +112,7 @@ export class MinesweeperApp implements ClientAppModule {
 
       // Adjust window size for expert/intermediate
       if (engine.difficulty === 'beginner') {
-        ctx.windowManager.resize(ctx.windowId, 280, 360);
+        ctx.windowManager.resize(ctx.windowId, 220, 340);
       } else if (engine.difficulty === 'intermediate') {
         ctx.windowManager.resize(ctx.windowId, 390, 470);
       } else if (engine.difficulty === 'expert') {

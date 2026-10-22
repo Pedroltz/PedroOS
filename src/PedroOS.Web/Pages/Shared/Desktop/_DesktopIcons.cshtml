@@ -11,6 +11,7 @@
         ("icon-iexplore", "Internet Explorer", "iexplore", "app", "iexplore", null, null),
         ("icon-minesweeper", "Minesweeper", "minesweeper", "app", "minesweeper", null, null),
         ("icon-readme", "Readme.txt", "text", "app", "notepad", "path", @"C:\AboutMe\Readme.txt"),
+        ("icon-msdos", "MS-DOS Prompt", "msdos", "app", "terminal", null, null),
         ("icon-github", "GitHub", "github", "app", "github", null, null),
         ("icon-linkedin", "LinkedIn", "linkedin", "app", "linkedin", null, null),
         ("icon-recycle", "Recycle Bin", "recycle-bin", "app", "explorer", "path", @"C:\PEDROOS"),
@@ -30,7 +31,7 @@
                data-action="url"
                data-url="@item.Target"
                aria-label="@item.Label (abre em nova aba)">
-                <img class="pixel-icon" src="@Icons.GetPath(item.Icon, 32)" width="32" height="32" alt="" draggable="false" />
+                <os-icon key="@item.Icon" size="32" alt="" draggable="false" />
                 <span class="desktop-icon-label">@item.Label</span>
             </a>
         }
@@ -45,7 +46,7 @@
                     data-arg-key="@item.ArgKey"
                     data-arg-value="@item.ArgValue"
                     aria-label="@item.Label">
-                <img class="pixel-icon" src="@Icons.GetPath(item.Icon, 32)" width="32" height="32" alt="" draggable="false" />
+                <os-icon key="@item.Icon" size="32" alt="" draggable="false" />
                 <span class="desktop-icon-label">@item.Label</span>
             </button>
         }

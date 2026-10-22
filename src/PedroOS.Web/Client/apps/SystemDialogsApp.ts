@@ -52,7 +52,7 @@ export class FindDialogApp implements ClientAppModule {
                 (h) => `
               <tr data-node-path="${h.path}">
                 <td>
-                  <img class="pixel-icon" src="${this.icons.getPath(h.icon, 16)}" width="16" height="16" alt="" />
+                  ${this.icons.render(h.icon, 16)}
                   <button type="button" class="find-item-btn" data-open-path="${h.path}">${h.name}</button>
                 </td>
                 <td>${h.path.substring(0, h.path.lastIndexOf('\\') || 3)}</td>
@@ -96,12 +96,12 @@ export class RunDialogApp implements ClientAppModule {
     ctx.container.innerHTML = `
       <div class="app-shell run-dialog">
         <div class="run-row">
-          <img class="pixel-icon" src="${this.icons.getPath('run', 32)}" width="32" height="32" alt="" />
+          ${this.icons.render('run', 32)}
           <p>Type the name of a program, folder, document, or Internet resource, and PedroOS will open it for you.</p>
         </div>
         <form class="run-form" data-run-form>
           <label for="run-cmd-${ctx.windowId}"><u>O</u>pen:</label>
-          <input type="text" id="run-cmd-${ctx.windowId}" class="run-input" data-run-input autofocus placeholder="explorer, ofizzy, bsod, minesweeper..." />
+          <input type="text" id="run-cmd-${ctx.windowId}" class="run-input" data-run-input autofocus placeholder="explorer, cmd, ofizzy, bsod, minesweeper..." />
           <div class="run-buttons">
             <button type="submit" class="win95-btn-primary">OK</button>
             <button type="button" data-run-cancel>Cancel</button>
@@ -145,6 +145,10 @@ export class RunDialogApp implements ClientAppModule {
       }
       if (cmd === 'iexplore' || cmd === 'ie') {
         ctx.windowManager.open('iexplore');
+        return;
+      }
+      if (cmd === 'cmd' || cmd === 'command' || cmd === 'msdos') {
+        ctx.windowManager.open('terminal');
         return;
       }
       if (cmd === 'notepad') {
@@ -197,7 +201,7 @@ export class DisplayPropertiesApp implements ClientAppModule {
         </menu>
         <div class="display-panel window">
           <div class="display-monitor-preview">
-            <img class="pixel-icon" src="${this.icons.getPath('display', 48)}" width="48" height="48" alt="" />
+            ${this.icons.render('display', 48)}
             <div class="monitor-screen" data-monitor-screen></div>
           </div>
           <fieldset class="win95-fieldset">
@@ -270,7 +274,7 @@ export class ShutDownDialogApp implements ClientAppModule {
     ctx.container.innerHTML = `
       <div class="app-shell shutdown-dialog">
         <div class="shutdown-row">
-          <img class="pixel-icon" src="${this.icons.getPath('shutdown', 32)}" width="32" height="32" alt="" />
+          ${this.icons.render('shutdown', 32)}
           <p>What do you want the computer to do?</p>
         </div>
         <form class="shutdown-form" data-shutdown-form>

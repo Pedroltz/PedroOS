@@ -29,7 +29,7 @@
                      style="left: 96px; top: 32px; width: @(app.DefaultWidth)px; height: @(app.DefaultHeight)px; z-index: 20;">
                 <div class="title-bar" data-window-drag-handle>
                     <div class="title-bar-text">
-                        <img class="pixel-icon title-bar-icon" src="@Icons.GetPath(Model.InitialWindowIcon, 16)" width="16" height="16" alt="" />
+                        <os-icon key="@Model.InitialWindowIcon" size="16" class="title-bar-icon" alt="" />
                         <span class="title-bar-label">@Model.InitialWindowTitle</span>
                     </div>
                     <div class="title-bar-controls">
@@ -75,7 +75,7 @@
                      style="left: 160px; top: 90px; width: 420px; height: 220px; z-index: 30;">
                 <div class="title-bar" data-window-drag-handle>
                     <div class="title-bar-text" id="win-404-title">
-                        <img class="pixel-icon title-bar-icon" src="@Icons.GetPath("warning", 16)" width="16" height="16" alt="" />
+                        <os-icon key="warning" size="16" class="title-bar-icon" alt="" />
                         <span class="title-bar-label">PedroOS 95 — File Not Found (404)</span>
                     </div>
                     <div class="title-bar-controls">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="window-body os-window-body" data-window-content>
                     <div class="dialog-404">
-                        <img class="pixel-icon" src="@Icons.GetPath("error", 32)" width="32" height="32" alt="Erro 404" />
+                        <os-icon key="error" size="32" alt="Erro 404" />
                         <div>
                             <p><strong>Cannot find <code>@HttpContext.Request.Path</code>.</strong></p>
                             <p>Make sure the path or project name is correct, or use Windows Explorer / Start Menu to browse available applications.</p>

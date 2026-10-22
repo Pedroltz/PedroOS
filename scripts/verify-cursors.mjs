@@ -1,0 +1,80 @@
+import { chromium, expect } from '@playwright/test';
+import assert from 'node:assert/strict';
+import { mkdirSync, readFileSync } from 'node:fs';
+
+const base = process.env.PEDROOS_BASE_URL || 'http://localhost:5159';
+const names = ['arrow', 'link', 'text', 'wait', 'move', 'size-ew', 'size-ns', 'size-nwse', 'size-nesw'];
+const browser = await chromium.launch();
+const output = 'test-results/cursors';
+mkdirSync(output, { recursive: true });
+try {
+  const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto(base);
+  for (const name of names) {
+    const png = await page.request.get(`${base}/assets/cursors/${name}.png`);
+    assert.equal(png.status(), 200, name + ' PNG');
+    assert.match(png.headers()['content-type'], /image\/png/);
+    await page.evaluate(async name => {
+      const image = new Image();
+      image.src = `/assets/cursors/${name}.png`;
+      await image.decode();
+      if (image.naturalWidth !== 32 || image.naturalHeight !== 32) throw new Error(name + ' PNG did not decode');
+    }, name);
+    const response = await page.request.get(`${base}/assets/cursors/${name}.cur`);
+    assert.equal(response.status(), 200, name);
+    assert.match(response.headers()['content-type'], /image\/x-icon/);
+    const bytes = await response.body();
+    assert.equal(bytes.readUInt16LE(2), 2, 'Native CUR format');
+    assert.equal(bytes[6], 32); assert.equal(bytes[7], 32);
+    assert.ok(bytes.readUInt16LE(10) < 32 && bytes.readUInt16LE(12) < 32, 'Hotspot inside image');
+    await page.evaluate(async name => {
+      const image = new Image();
+      image.src = `/assets/cursors/${name}.cur`;
+      await image.decode();
+      if (image.naturalWidth !== 32 || image.naturalHeight !== 32) throw new Error(name + ' did not decode at 32px');
+    }, name);
+  }
+  await expect(page.locator('#desktop')).toHaveCSS('cursor', /arrow\.cur/);
+  await page.locator('#icon-explorer img').hover();
+  await expect(page.locator('#icon-explorer img')).toHaveCSS('cursor', /link\.png/);
+  await page.locator('#start-button').hover();
+  await expect(page.locator('#start-button')).toHaveCSS('cursor', /link\.png/);
+  await page.locator('#icon-explorer').dblclick();
+  const win = page.locator('.os-window[data-app-id="explorer"]');
+  await expect(win).toBeVisible();
+  await win.locator('.toolbar-btn[data-exp-view="icons"]').hover();
+  await expect(win.locator('.toolbar-btn[data-exp-view="icons"]')).toHaveCSS('cursor', /link\.png/);
+  await expect(win.locator('[data-exp-address]')).toHaveCSS('cursor', /text\.cur/);
+  await expect(win.locator('[data-exp-splitter]')).toHaveCSS('cursor', /size-ew\.cur/);
+  const initial = await win.boundingBox();
+  await page.mouse.move(initial.x + initial.width - 2, initial.y + initial.height - 2);
+  await expect(win).toHaveCSS('cursor', /size-nwse\.cur/);
+  await page.mouse.down();
+  await page.mouse.move(initial.x + initial.width + 30, initial.y + initial.height + 20, { steps: 4 });
+  await expect(page.locator('#desktop')).toHaveClass(/is-window-interacting/);
+  await expect(page.locator('#desktop')).toHaveCSS('cursor', /size-nwse\.cur/);
+  await page.mouse.up();
+  await expect(page.locator('#desktop')).not.toHaveClass(/is-window-interacting/);
+  const resized = await win.boundingBox();
+  assert.ok(resized.width > initial.width && resized.height > initial.height, 'Resize behavior preserved');
+  await page.mouse.move(resized.x + 100, resized.y + 10);
+  await page.mouse.down();
+  await page.mouse.move(resized.x + 140, resized.y + 35, { steps: 4 });
+  await expect(page.locator('#desktop')).toHaveCSS('cursor', /move\.cur/);
+  await page.mouse.up();
+  await expect(page.locator('#desktop')).not.toHaveClass(/is-window-interacting/);
+  await page.goto(base + '/projects/ofizzy');
+  await expect(page.locator('.project-details-app a[href]').first()).toHaveCSS('cursor', /link\.cur/);
+  await page.locator('.project-details-app').evaluate(element => element.setAttribute('aria-busy', 'true'));
+  await expect(page.locator('.project-details-app')).toHaveCSS('cursor', /wait\.cur/);
+  assert.deepEqual(errors, []);
+  const svg = readFileSync('test-results/cursors-preview.svg', 'utf8');
+  const preview = await browser.newPage({ viewport: { width: 1060, height: 180 } });
+  await preview.setContent(svg);
+  await preview.locator('body').evaluate(element => { element.style.margin = '0'; });
+  await preview.screenshot({ path: output + '/preview.png' });
+  await preview.close();
+  console.log('PASS: 9 PNG/CUR cursors decoded; hover on icon images/buttons; text/wait/resize/move states and window interactions verified.');
+} finally { await browser.close(); }

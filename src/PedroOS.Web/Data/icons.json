@@ -8,6 +8,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/my-computer-16.png",
+        "32": "/assets/icons/system/my-computer-32.png",
+        "48": "/assets/icons/system/my-computer-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "drive": {
@@ -17,6 +27,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/drive-16.png",
+        "32": "/assets/icons/system/drive-32.png",
+        "48": "/assets/icons/system/drive-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "folder": {
@@ -26,6 +46,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/folder-16.png",
+        "32": "/assets/icons/system/folder-32.png",
+        "48": "/assets/icons/system/folder-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "folder-open": {
@@ -35,6 +65,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/folder-open-16.png",
+        "32": "/assets/icons/system/folder-open-32.png",
+        "48": "/assets/icons/system/folder-open-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "recycle-bin": {
@@ -44,6 +84,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/recycle-bin-16.png",
+        "32": "/assets/icons/system/recycle-bin-32.png",
+        "48": "/assets/icons/system/recycle-bin-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "document": {
@@ -53,6 +103,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/document-16.png",
+        "32": "/assets/icons/system/document-32.png",
+        "48": "/assets/icons/system/document-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "text": {
@@ -62,6 +122,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/text-16.png",
+        "32": "/assets/icons/system/text-32.png",
+        "48": "/assets/icons/system/text-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "doc": {
@@ -71,6 +141,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/doc-16.png",
+        "32": "/assets/icons/system/doc-32.png",
+        "48": "/assets/icons/system/doc-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "exe": {
@@ -80,6 +160,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/exe-16.png",
+        "32": "/assets/icons/system/exe-32.png",
+        "48": "/assets/icons/system/exe-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "sys": {
@@ -89,6 +179,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/sys-16.png",
+        "32": "/assets/icons/system/sys-32.png",
+        "48": "/assets/icons/system/sys-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "url": {
@@ -98,6 +198,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/url-16.png",
+        "32": "/assets/icons/system/url-32.png",
+        "48": "/assets/icons/system/url-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "control-panel": {
@@ -107,6 +217,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/control-panel-16.png",
+        "32": "/assets/icons/system/control-panel-32.png",
+        "48": "/assets/icons/system/control-panel-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "display": {
@@ -116,6 +236,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/display-16.png",
+        "32": "/assets/icons/system/display-32.png",
+        "48": "/assets/icons/system/display-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "system": {
@@ -125,6 +255,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/system-16.png",
+        "32": "/assets/icons/system/system-32.png",
+        "48": "/assets/icons/system/system-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "help": {
@@ -134,6 +274,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/help-16.png",
+        "32": "/assets/icons/system/help-32.png",
+        "48": "/assets/icons/system/help-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "info": {
@@ -143,6 +293,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/info-16.png",
+        "32": "/assets/icons/system/info-32.png",
+        "48": "/assets/icons/system/info-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "warning": {
@@ -152,6 +312,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/warning-16.png",
+        "32": "/assets/icons/system/warning-32.png",
+        "48": "/assets/icons/system/warning-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "error": {
@@ -161,6 +331,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/error-16.png",
+        "32": "/assets/icons/system/error-32.png",
+        "48": "/assets/icons/system/error-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "run": {
@@ -170,6 +350,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/run-16.png",
+        "32": "/assets/icons/system/run-32.png",
+        "48": "/assets/icons/system/run-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "find": {
@@ -179,6 +369,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/find-16.png",
+        "32": "/assets/icons/system/find-32.png",
+        "48": "/assets/icons/system/find-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "shutdown": {
@@ -188,6 +388,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/shutdown-16.png",
+        "32": "/assets/icons/system/shutdown-32.png",
+        "48": "/assets/icons/system/shutdown-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "power": {
@@ -197,6 +407,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/power-16.png",
+        "32": "/assets/icons/system/power-32.png",
+        "48": "/assets/icons/system/power-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "logo": {
@@ -206,6 +426,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/logo-16.png",
+        "32": "/assets/icons/system/logo-32.png",
+        "48": "/assets/icons/system/logo-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "speaker": {
@@ -215,6 +445,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/speaker-16.png",
+        "32": "/assets/icons/system/speaker-32.png",
+        "48": "/assets/icons/system/speaker-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "speaker-muted": {
@@ -224,6 +464,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/speaker-muted-16.png",
+        "32": "/assets/icons/system/speaker-muted-32.png",
+        "48": "/assets/icons/system/speaker-muted-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "explorer": {
@@ -233,6 +483,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/explorer-16.png",
+        "32": "/assets/icons/applications/explorer-32.png",
+        "48": "/assets/icons/applications/explorer-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "iexplore": {
@@ -242,6 +502,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/iexplore-16.png",
+        "32": "/assets/icons/applications/iexplore-32.png",
+        "48": "/assets/icons/applications/iexplore-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "minesweeper": {
@@ -251,6 +521,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/minesweeper-16.png",
+        "32": "/assets/icons/applications/minesweeper-32.png",
+        "48": "/assets/icons/applications/minesweeper-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "projects": {
@@ -260,6 +540,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/projects-16.png",
+        "32": "/assets/icons/applications/projects-32.png",
+        "48": "/assets/icons/applications/projects-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "resume": {
@@ -269,6 +559,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/resume-16.png",
+        "32": "/assets/icons/applications/resume-32.png",
+        "48": "/assets/icons/applications/resume-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "notepad": {
@@ -278,6 +578,35 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/notepad-16.png",
+        "32": "/assets/icons/applications/notepad-32.png",
+        "48": "/assets/icons/applications/notepad-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "msdos": {
+      "category": "applications",
+      "description": "MS-DOS Prompt",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/msdos-16.png",
+        "32": "/assets/icons/applications/msdos-32.png",
+        "48": "/assets/icons/applications/msdos-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "github": {
@@ -287,6 +616,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/github-16.png",
+        "32": "/assets/icons/applications/github-32.png",
+        "48": "/assets/icons/applications/github-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "linkedin": {
@@ -296,6 +635,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/linkedin-16.png",
+        "32": "/assets/icons/applications/linkedin-32.png",
+        "48": "/assets/icons/applications/linkedin-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "ofizzy": {
@@ -305,6 +654,76 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/projects/ofizzy-16.png",
+        "32": "/assets/icons/projects/ofizzy-32.png",
+        "48": "/assets/icons/projects/ofizzy-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "anycomic": {
+      "category": "projects",
+      "description": "AnyComic illustrated comic book",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/projects/anycomic-16.png",
+        "32": "/assets/icons/projects/anycomic-32.png",
+        "48": "/assets/icons/projects/anycomic-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16,
+        32
+      ]
+    },
+    "2091-retrogame": {
+      "category": "projects",
+      "description": "2091 retro game controller",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/projects/2091-retrogame-16.png",
+        "32": "/assets/icons/projects/2091-retrogame-32.png",
+        "48": "/assets/icons/projects/2091-retrogame-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16,
+        32
+      ]
+    },
+    "autoapply": {
+      "category": "projects",
+      "description": "AutoApply automated form",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/projects/autoapply-16.png",
+        "32": "/assets/icons/projects/autoapply-32.png",
+        "48": "/assets/icons/projects/autoapply-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16,
+        32
       ]
     },
     "rdp-session-manager": {
@@ -314,6 +733,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/projects/rdp-session-manager-16.png",
+        "32": "/assets/icons/projects/rdp-session-manager-32.png",
+        "48": "/assets/icons/projects/rdp-session-manager-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "zellapedia": {
@@ -323,6 +752,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/projects/zellapedia-16.png",
+        "32": "/assets/icons/projects/zellapedia-32.png",
+        "48": "/assets/icons/projects/zellapedia-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "project": {
@@ -332,6 +771,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/projects/project-16.png",
+        "32": "/assets/icons/projects/project-32.png",
+        "48": "/assets/icons/projects/project-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "mine": {
@@ -341,6 +790,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/mine-16.png",
+        "32": "/assets/icons/ui/mine-32.png",
+        "48": "/assets/icons/ui/mine-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "flag": {
@@ -350,6 +809,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/flag-16.png",
+        "32": "/assets/icons/ui/flag-32.png",
+        "48": "/assets/icons/ui/flag-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "face-smile": {
@@ -359,6 +828,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/face-smile-16.png",
+        "32": "/assets/icons/ui/face-smile-32.png",
+        "48": "/assets/icons/ui/face-smile-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "face-wow": {
@@ -368,6 +847,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/face-wow-16.png",
+        "32": "/assets/icons/ui/face-wow-32.png",
+        "48": "/assets/icons/ui/face-wow-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "face-dead": {
@@ -377,6 +866,16 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/face-dead-16.png",
+        "32": "/assets/icons/ui/face-dead-32.png",
+        "48": "/assets/icons/ui/face-dead-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     },
     "face-cool": {
@@ -386,6 +885,391 @@
         16,
         32,
         48
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/face-cool-16.png",
+        "32": "/assets/icons/ui/face-cool-32.png",
+        "48": "/assets/icons/ui/face-cool-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-arrow-left": {
+      "category": "ui",
+      "description": "arrow-left",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-arrow-left-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-arrow-right": {
+      "category": "ui",
+      "description": "arrow-right",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-arrow-right-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-arrow-up": {
+      "category": "ui",
+      "description": "arrow-up",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-arrow-up-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-reload": {
+      "category": "ui",
+      "description": "reload",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-reload-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-home": {
+      "category": "ui",
+      "description": "home",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-home-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-close": {
+      "category": "ui",
+      "description": "close",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-close-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-search": {
+      "category": "ui",
+      "description": "search",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-search-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-bookmark": {
+      "category": "ui",
+      "description": "bookmark",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-bookmark-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-external-link": {
+      "category": "ui",
+      "description": "external-link",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-external-link-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-printer": {
+      "category": "ui",
+      "description": "printer",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-printer-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-download": {
+      "category": "ui",
+      "description": "download",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-download-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-mail": {
+      "category": "ui",
+      "description": "mail",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-mail-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-folder": {
+      "category": "ui",
+      "description": "folder",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-folder-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-file": {
+      "category": "ui",
+      "description": "file",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-file-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-cut": {
+      "category": "ui",
+      "description": "cut",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-cut-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-copy": {
+      "category": "ui",
+      "description": "copy",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-copy-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-clipboard": {
+      "category": "ui",
+      "description": "clipboard",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-clipboard-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-undo": {
+      "category": "ui",
+      "description": "undo",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-undo-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-trash": {
+      "category": "ui",
+      "description": "trash",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-trash-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-sliders": {
+      "category": "ui",
+      "description": "sliders",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-sliders-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-layout": {
+      "category": "ui",
+      "description": "layout",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-layout-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-grid-3x3": {
+      "category": "ui",
+      "description": "grid-3x3",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-grid-3x3-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-bulletlist": {
+      "category": "ui",
+      "description": "bulletlist",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-bulletlist-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-card-text": {
+      "category": "ui",
+      "description": "card-text",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-card-text-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "glyph-check": {
+      "category": "ui",
+      "description": "check",
+      "sizes": [
+        16
+      ],
+      "variants": {
+        "16": "/assets/icons/ui/glyph-check-16.png"
+      },
+      "fallback": "glyph-file",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
       ]
     }
   },
@@ -403,6 +1287,17 @@
     "download",
     "mail",
     "folder",
-    "file"
+    "file",
+    "cut",
+    "copy",
+    "clipboard",
+    "undo",
+    "trash",
+    "sliders",
+    "layout",
+    "grid-3x3",
+    "bulletlist",
+    "card-text",
+    "check"
   ]
 }

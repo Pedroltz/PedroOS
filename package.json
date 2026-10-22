@@ -12,9 +12,10 @@
     "build:dev": "node scripts/build.mjs --dev",
     "watch": "node scripts/build.mjs --dev --watch",
     "icons": "node scripts/generate-icons.mjs",
+    "cursors": "node scripts/generate-cursors.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint \"src/PedroOS.Web/Client/**/*.ts\" \"tests/PedroOS.E2E/**/*.ts\" \"tests/client/**/*.ts\"",
-    "test:client": "node scripts/test-client.mjs",
+    "test:client": "node scripts/test-client.mjs && node --test tests/client/icon-assets.test.mjs",
     "test:e2e": "playwright test -c tests/PedroOS.E2E/playwright.config.ts"
   },
   "dependencies": {

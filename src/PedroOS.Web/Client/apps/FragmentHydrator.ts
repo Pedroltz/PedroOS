@@ -1,37 +1,7 @@
 import type { WindowRecord, IWindowManager } from '../types/index.js';
 
 export function hydrateWindowFragment(windowEl: HTMLElement, record: WindowRecord, wm: IWindowManager): void {
-  // 1. Projects App Hydration
-  const projectsApp = windowEl.querySelector('[data-projects-app]');
-  if (projectsApp) {
-    const iconsBtn = projectsApp.querySelector<HTMLButtonElement>('[data-projects-view="icons"]');
-    const detailsBtn = projectsApp.querySelector<HTMLButtonElement>('[data-projects-view="details"]');
-    const grid = projectsApp.querySelector<HTMLElement>('.projects-section');
-    const moreGrid = projectsApp.querySelector<HTMLElement>('.projects-section:nth-of-type(2)');
-    const table = projectsApp.querySelector<HTMLElement>('[data-projects-table]');
-
-    iconsBtn?.addEventListener('click', () => {
-      iconsBtn.classList.add('active');
-      iconsBtn.setAttribute('aria-pressed', 'true');
-      detailsBtn?.classList.remove('active');
-      detailsBtn?.setAttribute('aria-pressed', 'false');
-      if (grid) grid.hidden = false;
-      if (moreGrid) moreGrid.hidden = false;
-      if (table) table.hidden = true;
-    });
-
-    detailsBtn?.addEventListener('click', () => {
-      detailsBtn.classList.add('active');
-      detailsBtn.setAttribute('aria-pressed', 'true');
-      iconsBtn?.classList.remove('active');
-      iconsBtn?.setAttribute('aria-pressed', 'false');
-      if (grid) grid.hidden = true;
-      if (moreGrid) moreGrid.hidden = true;
-      if (table) table.hidden = false;
-    });
-  }
-
-  // 2. System Properties App Hydration
+  // System Properties App Hydration
   const syspropsApp = windowEl.querySelector('[data-sysprops-app]');
   if (syspropsApp) {
     const tabs = syspropsApp.querySelectorAll<HTMLElement>('[data-sysprops-tab]');

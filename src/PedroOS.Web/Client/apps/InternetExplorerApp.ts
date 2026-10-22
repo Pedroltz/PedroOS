@@ -67,7 +67,7 @@ export class InternetExplorerApp implements ClientAppModule {
           ${FAVORITES.map((fav) =>
             fav.external
               ? `<a class="ie-fav-chip" href="${fav.url}" target="_blank" rel="noopener noreferrer">${this.escapeHtml(fav.label)} &#8599;</a>`
-              : `<button type="button" class="ie-fav-chip" data-ie-nav="${fav.url}">${this.escapeHtml(fav.label)}</button>`,
+              : `<button type="button" class="ie-fav-chip" data-ie-fav-nav="${fav.url}">${this.escapeHtml(fav.label)}</button>`,
           ).join('')}
         </div>
 
@@ -160,10 +160,11 @@ export class InternetExplorerApp implements ClientAppModule {
     });
 
     ctx.container.addEventListener('click', (ev) => {
-      const navBtn = (ev.target as HTMLElement | null)?.closest<HTMLElement>('[data-ie-nav]');
-      if (navBtn?.dataset.ieNav) {
+      const navBtn = (ev.target as HTMLElement | null)?.closest<HTMLElement>('[data-ie-nav], [data-ie-fav-nav]');
+      const navUrl = navBtn?.dataset.ieNav || navBtn?.dataset.ieFavNav;
+      if (navUrl) {
         ev.preventDefault();
-        navigate(navBtn.dataset.ieNav, true);
+        navigate(navUrl, true);
         return;
       }
 
@@ -223,7 +224,7 @@ export class InternetExplorerApp implements ClientAppModule {
         html: `
           <div class="ie-page">
             <div class="ie-hero">
-              <img class="pixel-icon" src="${this.icons.getPath('iexplore', 48)}" width="48" height="48" alt="" />
+              ${this.icons.render('iexplore', 48)}
               <div>
                 <h2>PedroOS 95 — Intranet &amp; Developer Portal</h2>
                 <p>Bem-vindo ao navegador interno do portfólio de <strong>Pedro Tunin</strong> (Engenheiro de Software — .NET, Python, Linux/DevOps &amp; IA).</p>

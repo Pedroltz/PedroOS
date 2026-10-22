@@ -29,6 +29,7 @@ public class AppCatalogTests
         Assert.Contains("iexplore", ids);
         Assert.Contains("minesweeper", ids);
         Assert.Contains("notepad", ids);
+        Assert.Contains("terminal", ids);
         Assert.Contains("about", ids);
         Assert.Contains("find", ids);
         Assert.Contains("run", ids);

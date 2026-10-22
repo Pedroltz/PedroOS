@@ -6,7 +6,7 @@
             aria-expanded="false"
             aria-controls="start-menu"
             aria-label="Start">
-        <img class="pixel-icon" src="@Icons.GetPath("logo", 16)" width="16" height="16" alt="" />
+        <os-icon key="logo" size="16" alt="" />
         <span>Start</span>
     </button>
 
@@ -21,14 +21,14 @@
                 data-sound-toggle
                 aria-label="Alternar efeitos sonoros"
                 title="Efeitos sonoros do sistema">
-            <img class="pixel-icon" id="tray-sound-icon" src="@Icons.GetPath("speaker", 16)" width="16" height="16" alt="Som ativo" />
+            <os-icon key="speaker" size="16" id="tray-sound-icon" alt="Som ativo" />
         </button>
         <button type="button"
                 class="tray-icon-btn"
                 data-open-app="sysprops"
                 aria-label="Abrir Propriedades do Sistema"
                 title="PedroOS 95 — System Properties">
-            <img class="pixel-icon" src="@Icons.GetPath("system", 16)" width="16" height="16" alt="Sistema" />
+            <os-icon key="system" size="16" alt="Sistema" />
         </button>
         <time class="taskbar-clock" id="taskbar-clock" aria-live="off">12:00</time>
     </div>

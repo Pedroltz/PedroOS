@@ -119,7 +119,11 @@ export class WindowManager implements IWindowManager {
       this.store.addWindow(record);
       this.store.setActiveWindow(record.id);
       this.syncWindowElement(record);
-      this.onFragmentHydrate?.(el, record);
+      if (def?.content === 'client') {
+        this.populateWindowContent(record, def, el);
+      } else {
+        this.onFragmentHydrate?.(el, record);
+      }
     }
   }
 
@@ -443,7 +447,7 @@ export class WindowManager implements IWindowManager {
     const step = (this.cascadeOffset % 6) * 26;
     this.cascadeOffset += 1;
 
-    const defaultX = Math.max(16, Math.min(72 + step, work.width - width - 16));
+    const defaultX = Math.max(16, Math.min(184 + step, work.width - width - 16));
     const defaultY = Math.max(14, Math.min(28 + step, work.height - height - 16));
     return this.clampBounds(
       {
@@ -494,12 +498,7 @@ export class WindowManager implements IWindowManager {
     const titleText = document.createElement('div');
     titleText.className = 'title-bar-text';
 
-    const iconImg = document.createElement('img');
-    iconImg.className = 'pixel-icon title-bar-icon';
-    iconImg.width = 16;
-    iconImg.height = 16;
-    iconImg.alt = '';
-    iconImg.src = this.icons.getPath(record.icon, 16);
+    const iconImg = this.icons.create(record.icon, 16, 'pixel-icon title-bar-icon');
 
     const labelSpan = document.createElement('span');
     labelSpan.className = 'title-bar-label';
@@ -603,13 +602,33 @@ export class WindowManager implements IWindowManager {
     try {
       const interactFn = (typeof interact === 'function' ? interact : (interact as unknown as { default: typeof interact }).default) as unknown as (target: HTMLElement | string) => any;
       const interactable = interactFn(windowEl);
+      const desktop = this.container.closest<HTMLElement>('.desktop');
+      const endCursor = (): void => {
+        desktop?.classList.remove('is-window-interacting');
+        desktop?.style.removeProperty('--interaction-cursor');
+      };
+      const beginCursor = (name: string): void => {
+        desktop?.style.setProperty('--interaction-cursor', `var(--cursor-${name})`);
+        desktop?.classList.add('is-window-interacting');
+      };
+      const resizeCursor = (edges: { left?: boolean; right?: boolean; top?: boolean; bottom?: boolean } = {}): string => {
+        const win = this.store.getWindow(windowId);
+        if (!win?.resizable || win.state !== 'normal') return 'arrow';
+        const horizontal = edges.left || edges.right;
+        const vertical = edges.top || edges.bottom;
+        if (horizontal && vertical) return (edges.left && edges.bottom) || (edges.right && edges.top) ? 'size-nesw' : 'size-nwse';
+        return horizontal ? 'size-ew' : 'size-ns';
+      };
       interactable.draggable({
+        cursorChecker: (_action: unknown, _interactable: unknown, _element: unknown, interacting: boolean) => interacting ? 'var(--cursor-move)' : 'var(--cursor-arrow)',
         allowFrom: '[data-window-drag-handle]',
         ignoreFrom: '.title-bar-controls, button, input, select, a',
         listeners: {
           start: () => {
             this.focus(windowId);
+            beginCursor('move');
           },
+          end: endCursor,
           move: (event: { dx: number; dy: number }) => {
             const win = this.store.getWindow(windowId);
             if (!win || win.state !== 'normal') {
@@ -621,12 +640,15 @@ export class WindowManager implements IWindowManager {
       });
 
       interactable.resizable({
+        cursorChecker: (action: { edges?: { left?: boolean; right?: boolean; top?: boolean; bottom?: boolean } }) => `var(--cursor-${resizeCursor(action.edges)})`,
         edges: { left: true, right: true, bottom: true, top: false },
         margin: 6,
         listeners: {
-          start: () => {
+          start: (event: { edges?: { left?: boolean; right?: boolean; top?: boolean; bottom?: boolean } }) => {
             this.focus(windowId);
+            beginCursor(resizeCursor(event.edges));
           },
+          end: endCursor,
           move: (event: { rect: { width: number; height: number }; deltaRect: { left: number; top: number } }) => {
             const win = this.store.getWindow(windowId);
             if (!win || !win.resizable || win.state !== 'normal') {
@@ -650,7 +672,7 @@ export class WindowManager implements IWindowManager {
         },
       });
 
-      cleanup.push(() => interactable.unset());
+      cleanup.push(() => { endCursor(); interactable.unset(); });
     } catch {
       // Headless environments without DOM geometry still work via direct WindowManager methods
     }
@@ -741,7 +763,7 @@ export class WindowManager implements IWindowManager {
     }
 
     // Fragment application: fetch server-rendered Razor Partial View
-    body.innerHTML = `<div class="win95-loading" role="status"><img class="pixel-icon" src="${this.icons.getPath('computer', 16)}" width="16" height="16" alt="" /> <span>Loading ${this.escapeHtml(def.title)}...</span></div>`;
+    body.innerHTML = `<div class="win95-loading" role="status">${this.icons.render('computer', 16)} <span>Loading ${this.escapeHtml(def.title)}...</span></div>`;
 
     const params = new URLSearchParams(record.args);
     const queryString = params.toString();
@@ -767,7 +789,7 @@ export class WindowManager implements IWindowManager {
         }
         body.innerHTML = `
           <div class="win95-error-box" role="alert">
-            <img class="pixel-icon" src="${this.icons.getPath('error', 32)}" width="32" height="32" alt="Error" />
+            ${this.icons.render('error', 32, 'pixel-icon', 'Error')}
             <div>
               <p><strong>PedroOS 95 could not load ${this.escapeHtml(def.title)}.</strong></p>
               <p>Check your connection or click Retry.</p>
@@ -805,7 +827,7 @@ export class WindowManager implements IWindowManager {
     if (body) {
       body.innerHTML = `
         <div class="win95-error-box" role="alert">
-          <img class="pixel-icon" src="${this.icons.getPath('error', 32)}" width="32" height="32" alt="Erro" />
+          ${this.icons.render('error', 32, 'pixel-icon', 'Erro')}
           <div>
             <p>${this.escapeHtml(message)}</p>
             <button type="button" data-win-action="close">OK</button>

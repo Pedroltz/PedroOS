@@ -91,6 +91,10 @@ export interface IconManifestEntry {
   category: string;
   description: string;
   sizes: number[];
+  variants?: Partial<Record<16 | 32 | 48, string>>;
+  fallback?: string;
+  attribution?: string;
+  nativeSizes?: number[];
 }
 
 export interface ProjectSummary {

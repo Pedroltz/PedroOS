@@ -1,10 +1,11 @@
 // PedroOS 95 — original pixel-art icon generator.
-// All icons below are original 16x16 drawings (Windows 95 16-colour palette + a few accents).
-// Output: integer-scaled PNGs (16/32/48, nearest neighbour — no smoothing), favicon.ico,
+// Original 16px sprites and separately composed native 32px artwork.
+// Output: PNGs (16/32/48, integer pixels, no smoothing), favicon.ico,
 // Open Graph image, wallpaper tiles, and Data/icons.json (central icon registry manifest).
 // Run with: npm run icons
 import { deflateSync } from 'node:zlib';
-import { mkdirSync, writeFileSync, copyFileSync, existsSync, rmSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { native32, project16, glyph16, glyphNames } from './icon-drawings.mjs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -118,6 +119,24 @@ S.wordpad = (() => {
   return doc;
 })();
 
+S.msdos = [
+  '................',
+  '................',
+  'kkkkkkkkkkkkkkkk',
+  'knnnnnnnnnnnwgdk',
+  'kwwwwwwwwwwwwwdk',
+  'kwkkkkkkkkkkkgdk',
+  'kwkgggkkkkkkkgdk',
+  'kwkkkgkkkkkkkgdk',
+  'kwkgggkkkkkkkgdk',
+  'kwkkkkkgggkkkgdk',
+  'kwkkkkkkkkkkkgdk',
+  'kwkkkkkkkkkkkgdk',
+  'kwddddddddddddkk',
+  'kkkkkkkkkkkkkkkk',
+  '................',
+  '................',
+];
 S.exe = [
   '................',
   '................',
@@ -567,10 +586,14 @@ const ICONS = {
   'projects': ['applications', overlay(S.folder, O8.window, 7, 7), 'Projects'],
   'resume': ['applications', overlay(S.wordpad, O8.star, 8, 0), 'Resume'],
   'notepad': ['applications', S.text, 'Notepad'],
+  'msdos': ['applications', S.msdos, 'MS-DOS Prompt'],
   'github': ['applications', S.github, 'GitHub'],
   'linkedin': ['applications', S.linkedin, 'LinkedIn'],
   // projects
   'ofizzy': ['projects', S.ofizzy, 'Ofizzy'],
+  'anycomic': ['projects', project16('anycomic'), 'AnyComic illustrated comic book'],
+  '2091-retrogame': ['projects', project16('2091-retrogame'), '2091 retro game controller'],
+  'autoapply': ['projects', project16('autoapply'), 'AutoApply automated form'],
   'rdp-session-manager': ['projects', overlay(S.remoteMonitor, O8.arrow, 0, 8), 'RDP Session Manager'],
   'zellapedia': ['projects', overlay(S.book, O8.magnifier, 8, 8), 'ZellaPedia'],
   'project': ['projects', overlay(S.exe, O8.gear, 8, 8), 'Project'],
@@ -615,16 +638,16 @@ function encodePng(width, height, rgba) {
   ]);
 }
 
-function validate(key, sprite) {
-  if (sprite.length !== 16) throw new Error(`${key}: expected 16 rows, got ${sprite.length}`);
+function validate(key, sprite, size = 16) {
+  if (sprite.length !== size) throw new Error(`${key}: expected ${size} rows, got ${sprite.length}`);
   sprite.forEach((row, i) => {
-    if (row.length !== 16) throw new Error(`${key}: row ${i} has ${row.length} columns: "${row}"`);
+    if (row.length !== size) throw new Error(`${key}: row ${i} has ${row.length} columns: "${row}"`);
     for (const ch of row) if (ch !== '.' && !PALETTE[ch]) throw new Error(`${key}: unknown colour "${ch}"`);
   });
 }
 
 function rasterize(sprite, scale) {
-  const size = 16 * scale;
+  const size = sprite.length * scale;
   const buf = Buffer.alloc(size * size * 4);
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
@@ -683,25 +706,33 @@ function text(cv, str, x, y, scale, color) {
 }
 
 // ---------------------------------------------------------------- write
-rmSync(iconsOut, { recursive: true, force: true });
 const manifest = {};
 for (const [key, [category, sprite, description]] of Object.entries(ICONS)) {
   validate(key, sprite);
   const dir = join(iconsOut, category);
   mkdirSync(dir, { recursive: true });
-  for (const scale of [1, 2, 3]) writeFileSync(join(dir, `${key}-${16 * scale}.png`), rasterize(sprite, scale));
-  manifest[key] = { category, description, sizes: [16, 32, 48] };
+  const large = native32(key);
+  if (large) validate(key, large, 32);
+  for (const scale of [1, 2, 3]) writeFileSync(join(dir, `${key}-${16 * scale}.png`), rasterize(scale === 2 && large ? large : sprite, scale === 2 && large ? 1 : scale));
+  manifest[key] = {
+    category, description, sizes: [16, 32, 48],
+    variants: Object.fromEntries([16, 32, 48].map(size => [size, `/assets/icons/${category}/${key}-${size}.png`])),
+    fallback: 'exe', attribution: 'Original PedroOS pixel artwork',
+    nativeSizes: large ? [16, 32] : [16],
+  };
 }
 
-// Pixelarticons (MIT) — toolbar glyphs
-const pixelSrc = join(root, 'node_modules', 'pixelarticons', 'svg');
-const uiGlyphs = ['arrow-left', 'arrow-right', 'arrow-up', 'reload', 'home', 'close', 'search', 'bookmark', 'external-link', 'printer', 'download', 'mail', 'folder', 'file'];
+// Original native 16px toolbar glyphs, registered like every other icon.
 mkdirSync(join(iconsOut, 'ui'), { recursive: true });
 const glyphs = [];
-for (const name of uiGlyphs) {
-  const src = join(pixelSrc, `${name}.svg`);
-  if (existsSync(src)) { copyFileSync(src, join(iconsOut, 'ui', `px-${name}.svg`)); glyphs.push(name); }
-  else console.warn(`pixelarticons: missing ${name}.svg`);
+for (const name of glyphNames) {
+  const sprite = glyph16(name);
+  validate(name, sprite);
+  const key = `glyph-${name}`;
+  const path = `/assets/icons/ui/${key}-16.png`;
+  writeFileSync(join(iconsOut, 'ui', `${key}-16.png`), rasterize(sprite, 1));
+  manifest[key] = { category: 'ui', description: name, sizes: [16], variants: { 16: path }, fallback: 'glyph-file', attribution: 'Original PedroOS pixel artwork', nativeSizes: [16] };
+  glyphs.push(name);
 }
 
 mkdirSync(join(web, 'Data'), { recursive: true });
@@ -757,7 +788,7 @@ if (process.argv.includes('--sheet')) {
   const keys = Object.keys(ICONS);
   const cols = 10, cell = 40;
   const cv = canvas(cols * cell, Math.ceil(keys.length / cols) * cell, PALETTE.t);
-  keys.forEach((k, i) => cv.sprite(ICONS[k][1], (i % cols) * cell + 4, Math.floor(i / cols) * cell + 4, 2));
+  keys.forEach((k, i) => { const large = native32(k); cv.sprite(large ?? ICONS[k][1], (i % cols) * cell + 4, Math.floor(i / cols) * cell + 4, large ? 1 : 2); });
   const out = process.argv[process.argv.indexOf('--sheet') + 1];
   writeFileSync(out, cv.png());
   console.log('sheet:', keys.join(', '));

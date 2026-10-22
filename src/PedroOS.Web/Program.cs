@@ -44,12 +44,19 @@ if (!app.Environment.IsDevelopment())
 app.UseStatusCodePagesWithReExecute("/not-found");
 
 var contentTypeProvider = new FileExtensionContentTypeProvider();
+contentTypeProvider.Mappings[".cur"] = "image/x-icon";
 app.UseStaticFiles(new StaticFileOptions
 {
     ContentTypeProvider = contentTypeProvider,
     OnPrepareResponse = ctx =>
     {
-        ctx.Context.Response.Headers.CacheControl = "public,max-age=604800,immutable";
+        // Only content-versioned URLs can safely be immutable. Icons, fonts and
+        // other stable URLs must be revalidated after a rebuild/deployment.
+        ctx.Context.Response.Headers.CacheControl = app.Environment.IsDevelopment()
+            ? "no-cache"
+            : ctx.Context.Request.Query.ContainsKey("v")
+                ? "public,max-age=604800,immutable"
+                : "public,max-age=0,must-revalidate";
     },
 });
 

@@ -2,28 +2,28 @@
 @{
     var project = Model ?? Portfolio.GetProjectBySlug("ofizzy") ?? Portfolio.GetProjects().First();
 }
-<div class="app-shell project-details-app" data-project-details="@project.Slug">
+<div class="app-shell project-details-app" data-project-details="@project.Slug" data-project-title="@project.Name (@project.ExecutableName)" data-project-icon="@project.Icon">
     <div class="win95-toolbar" role="toolbar" aria-label="Ações do projeto @project.Name">
         <button type="button" class="toolbar-btn" data-open-app="projects">
-            <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+            <os-icon key="projects" size="16" alt="" />
             <span>All Projects</span>
         </button>
         <button type="button" class="toolbar-btn" data-open-app="explorer" data-arg-path="C:\Projects">
-            <img class="pixel-icon" src="@Icons.GetPath("explorer", 16)" width="16" height="16" alt="" />
+            <os-icon key="explorer" size="16" alt="" />
             <span>C:\Projects</span>
         </button>
         <span class="toolbar-sep" aria-hidden="true"></span>
         @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
         {
             <a class="toolbar-btn" href="@project.RepositoryUrl" target="_blank" rel="noopener noreferrer">
-                <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+                <os-icon key="github" size="16" alt="" />
                 <span>Repositório GitHub &#8599;</span>
             </a>
         }
         @if (!string.IsNullOrWhiteSpace(project.DemoUrl))
         {
             <a class="toolbar-btn" href="@project.DemoUrl" target="_blank" rel="noopener noreferrer">
-                <img class="pixel-icon" src="@Icons.GetPath("iexplore", 16)" width="16" height="16" alt="" />
+                <os-icon key="iexplore" size="16" alt="" />
                 <span>Demonstração / Site &#8599;</span>
             </a>
         }
@@ -31,7 +31,7 @@
 
     <div class="project-details-body">
         <header class="project-banner sunken-panel">
-            <img class="pixel-icon project-banner-icon" src="@Icons.GetPath(project.Icon, 48)" width="48" height="48" alt="Ícone de @project.Name" />
+            <os-icon key="@project.Icon" size="32" class="project-banner-icon" alt="Ícone de @project.Name" />
             <div class="project-banner-meta">
                 <h2 class="project-banner-title">@project.Name <small>(@project.ExecutableName)</small></h2>
                 <p class="project-banner-summary">@project.Summary</p>
@@ -48,7 +48,7 @@
         @if (project.IsPlaceholder && !string.IsNullOrWhiteSpace(project.PlaceholderNote))
         {
             <div class="win95-callout win95-callout-warning" role="note">
-                <img class="pixel-icon" src="@Icons.GetPath("warning", 16)" width="16" height="16" alt="Aviso" />
+                <os-icon key="warning" size="16" alt="Aviso" />
                 <div>
                     <strong>Nota de Transparência (Placeholder Explícito):</strong>
                     <span>@project.PlaceholderNote</span>

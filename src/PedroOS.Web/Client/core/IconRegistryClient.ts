@@ -16,17 +16,43 @@ export class IconRegistryClient {
     if (/^[a-z0-9-]+$/.test(safeKey)) {
       const entry = this.entries.get(safeKey);
       if (entry) {
-        return `${this.basePath}/${entry.category}/${safeKey}-${normalizedSize}.png`;
+        const available = [...entry.sizes].sort((a, b) => Math.abs(a - normalizedSize) - Math.abs(b - normalizedSize));
+        const variant = (available[0] ?? normalizedSize) as 16 | 32 | 48;
+        return entry.variants?.[variant] ?? `${this.basePath}/${entry.category}/${safeKey}-${variant}.png`;
       }
     }
-    return `${this.basePath}/system/exe-${normalizedSize}.png`;
+    return this.entries.get('exe')?.variants?.[normalizedSize]
+      ?? `${this.basePath}/system/exe-${normalizedSize}.png`;
+  }
+
+  /** Shared markup renderer: dimensions and fallback always come from the registry. */
+  public render(key: string, size: 16 | 32 | 48 = 32, className = 'pixel-icon', alt = ''): string {
+    const escape = (value: string): string => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
+    return `<img class="${escape(className)}" src="${escape(this.getPath(key, size))}" width="${size}" height="${size}" alt="${escape(alt)}" draggable="false" />`;
+  }
+
+  public create(key: string, size: 16 | 32 | 48 = 32, className = 'pixel-icon'): HTMLImageElement {
+    const img = document.createElement('img');
+    img.className = className;
+    img.width = img.height = size;
+    img.alt = '';
+    img.draggable = false;
+    img.src = this.getPath(key, size);
+    return img;
   }
 
   public getGlyphPath(name: string): string {
-    const safe = (name || '').toLowerCase();
-    if (/^[a-z0-9-]+$/.test(safe)) {
-      return `${this.basePath}/ui/px-${safe}.svg`;
-    }
-    return `${this.basePath}/ui/px-file.svg`;
+    const raw = (name || '').toLowerCase();
+    const aliasMap: Record<string, string> = {
+      paste: 'clipboard',
+      delete: 'trash',
+      properties: 'sliders',
+      views: 'layout',
+      details: 'card-text',
+      list: 'bulletlist',
+      icons: 'grid-3x3',
+    };
+    const safe = aliasMap[raw] || raw;
+    return this.getPath(this.entries.has(`glyph-${safe}`) ? `glyph-${safe}` : 'glyph-file', 16);
   }
 }
