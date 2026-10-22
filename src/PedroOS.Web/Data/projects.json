@@ -1,0 +1,220 @@
+[
+  {
+    "slug": "ofizzy",
+    "name": "Ofizzy",
+    "executableName": "Ofizzy.exe",
+    "icon": "ofizzy",
+    "summary": "Plataforma SaaS multi-tenant de gestão operacional para prestadores de serviços e oficinas automotivas.",
+    "description": "Sistema de gestão operacional para empresas prestadoras de serviços, iniciando pela vertical automotiva. Centraliza clientes, veículos, catálogo de serviços e peças, ordens de serviço (OS), recebimentos e impressão em HTML/PDF dentro de uma arquitetura multi-tenant com isolamento por organização.",
+    "problem": "Empresas prestadoras de serviços e oficinas automotivas frequentemente operam com rotinas dispersas entre planilhas, anotações manuais e controles separados para atendimento, orçamento, execução e cobrança.",
+    "solution": "Plataforma SaaS multi-tenant em monólito modular onde cada organização possui usuários, permissões, módulos e dados próprios. Cobre o fluxo completo: cliente → veículo → diagnóstico → serviços e peças → ordem de serviço → recebimento (com baixas parciais, taxas e estornos) → entrega.",
+    "stack": [
+      "C#",
+      ".NET 10",
+      "ASP.NET Core 10 Web API",
+      "Entity Framework Core",
+      "PostgreSQL 18",
+      "Angular 21",
+      "TypeScript",
+      "PrimeNG",
+      "Tailwind CSS",
+      "QuestPDF",
+      "Nginx",
+      "Docker Compose",
+      "GitHub Actions"
+    ],
+    "highlights": [
+      "Arquitetura SaaS multi-tenant com provisionamento de organizações na própria plataforma.",
+      "Gestão de clientes, veículos, catálogo com vigência de preços e ordens de serviço completas.",
+      "Financeiro operacional com suporte a baixas parciais, taxas, estornos e impressão de OS em HTML/PDF.",
+      "Suíte automatizada de testes unitários, de integração e end-to-end no pipeline CI."
+    ],
+    "status": "Em desenvolvimento ativo (fluxos operacionais e financeiro manual implementados; módulo fiscal dependente de homologação externa).",
+    "repositoryUrl": "https://github.com/Pedroltz/ofizzy",
+    "demoUrl": null,
+    "license": "Proprietário — Todos os direitos reservados",
+    "screenshots": [
+      {
+        "src": "/assets/screenshots/ofizzy/dashboard.png",
+        "alt": "Painel operacional do Ofizzy com indicadores e resumo de ordens de serviço",
+        "caption": "Dashboard operacional (dados fictícios de demonstração)"
+      },
+      {
+        "src": "/assets/screenshots/ofizzy/work-orders.png",
+        "alt": "Listagem de ordens de serviço no Ofizzy",
+        "caption": "Gestão e acompanhamento de Ordens de Serviço"
+      },
+      {
+        "src": "/assets/screenshots/ofizzy/work-order-editor.png",
+        "alt": "Editor detalhado de ordem de serviço no Ofizzy",
+        "caption": "Editor de OS: diagnóstico, serviços, peças e totais"
+      },
+      {
+        "src": "/assets/screenshots/ofizzy/payments.png",
+        "alt": "Tela de recebimentos e financeiro do Ofizzy",
+        "caption": "Controle de recebimentos, baixas parciais e conciliação"
+      },
+      {
+        "src": "/assets/screenshots/ofizzy/mobile.png",
+        "alt": "Interface responsiva do Ofizzy em dispositivo móvel",
+        "caption": "Visualização responsiva para operação em smartphones"
+      }
+    ],
+    "featured": true,
+    "isPlaceholder": false,
+    "placeholderNote": null
+  },
+  {
+    "slug": "rdp-session-manager",
+    "name": "RDP Session Manager",
+    "executableName": "RDP-Session-Manager.exe",
+    "icon": "rdp-session-manager",
+    "summary": "Aplicação desktop nativa GTK 4 / libadwaita para administração de sessões remotas xrdp e compatibilidade Windows via Wine/umu no Linux.",
+    "description": "Interface gráfica nativa em GTK 4 e libadwaita para administração de acesso remoto via xrdp em distribuições Linux (Ubuntu, Debian, Arch e derivados). Centraliza criação e controle de usuários RDP, configuração de sessões desktop ou RemoteApp, execução de aplicativos Windows via umu/Wine, diagnóstico de saúde e reparo transacional.",
+    "problem": "Configurar e manter servidores xrdp multiusuário no Linux exige edição manual de arquivos de sessão, ajustes de PolicyKit, verificação de dependências e configuração de wrappers para publicar aplicativos Linux ou Windows via RemoteApp.",
+    "solution": "Aplicação desktop centralizada com gerenciamento de contas RDP, seleção de ambientes (KDE Plasma, GNOME, XFCE), publicação de Linux RemoteApp e aplicativos Windows via umu, centro de diagnóstico (`rdpsm health`) e reparo automático com rollback e trilha de auditoria em JSONL.",
+    "stack": [
+      "Python",
+      "GTK 4",
+      "libadwaita",
+      "Linux",
+      "xrdp",
+      "FreeRDP",
+      "Wine / umu",
+      "PolicyKit",
+      "Bash",
+      "GitHub Actions"
+    ],
+    "highlights": [
+      "Gerenciamento completo de usuários RDP (criação, ativação, desativação e remoção).",
+      "Suporte a sessões completas (KDE, GNOME, XFCE), Linux RemoteApp e aplicativos Windows via umu/Wine.",
+      "Centro de saúde (`rdpsm health`) com reparo transacional, rollback automático e auditoria JSONL.",
+      "Monitoramento de sessões e verificação/instalação assistida de dependências por distribuição."
+    ],
+    "status": "Release pública v0.7.0 disponível no GitHub (GPL-3.0).",
+    "repositoryUrl": "https://github.com/Pedroltz/rdp-session-manager",
+    "demoUrl": "https://pedroltz.github.io/rdp-session-manager/",
+    "license": "GPL-3.0",
+    "screenshots": [
+      {
+        "src": "/assets/screenshots/rdp-session-manager/RDPSM.png",
+        "alt": "Interface principal do RDP Session Manager em GTK 4 / libadwaita",
+        "caption": "Interface GTK 4 / libadwaita do RDP Session Manager"
+      },
+      {
+        "src": "/assets/screenshots/rdp-session-manager/rdp-session-manager-header.png",
+        "alt": "Visão geral do projeto RDP Session Manager",
+        "caption": "Apresentação visual do RDP Session Manager"
+      }
+    ],
+    "featured": true,
+    "isPlaceholder": false,
+    "placeholderNote": null
+  },
+  {
+    "slug": "zellapedia",
+    "name": "ZellaPedia",
+    "executableName": "ZellaPedia.exe",
+    "icon": "zellapedia",
+    "summary": "Projeto de busca documental corporativa com navegação por arquivos, pesquisa e recuperação de informações.",
+    "description": "Sistema voltado à organização, navegação por diretórios e documentos, pesquisa textual e recuperação de informações em base documental corporativa.",
+    "problem": "Centralizar o acesso e a pesquisa rápida sobre acervos de documentos internos e bases de conhecimento corporativas.",
+    "solution": "Interface de navegação documental combinada a mecanismos de indexação, busca e recuperação estruturada de informações.",
+    "stack": [
+      "[PLACEHOLDER: confirmar stack exata do ZellaPedia em Data/projects.json]"
+    ],
+    "highlights": [
+      "Navegação estruturada por arquivos e categorias documentais.",
+      "Pesquisa e recuperação de informações corporativas."
+    ],
+    "status": "[PLACEHOLDER: repositório privado / detalhes técnicos públicos não localizados no workspace]",
+    "repositoryUrl": null,
+    "demoUrl": null,
+    "license": null,
+    "screenshots": [],
+    "featured": true,
+    "isPlaceholder": true,
+    "placeholderNote": "Os detalhes técnicos, stack exata, métricas e capturas de tela do ZellaPedia não estão disponíveis publicamente nos repositórios inspecionados. Edite Data/projects.json para preencher dados autorizados."
+  },
+  {
+    "slug": "anycomic",
+    "name": "AnyComic",
+    "executableName": "AnyComic.exe",
+    "icon": "project",
+    "summary": "Sistema web em ASP.NET Core MVC para gerenciamento e leitura de mangás e catálogo de animes.",
+    "description": "Aplicação web desenvolvida em ASP.NET Core 8 MVC com Entity Framework Core e PostgreSQL para catalogação, administração e leitura de capítulos, com autenticação e área administrativa.",
+    "problem": "Organização e leitura centralizada de acervos de quadrinhos/mangás com controle administrativo.",
+    "solution": "Aplicação MVC com persistência relacional em PostgreSQL, controle de acesso e leitor web integrado.",
+    "stack": [
+      "C#",
+      "ASP.NET Core 8 MVC",
+      "Entity Framework Core 9",
+      "PostgreSQL 15"
+    ],
+    "highlights": [
+      "Catálogo, leitor web e área administrativa com autenticação."
+    ],
+    "status": "Repositório público no GitHub",
+    "repositoryUrl": "https://github.com/Pedroltz/AnyComic",
+    "demoUrl": null,
+    "license": null,
+    "screenshots": [],
+    "featured": false,
+    "isPlaceholder": false,
+    "placeholderNote": null
+  },
+  {
+    "slug": "2091-retrogame",
+    "name": "2091 — RetroGame",
+    "executableName": "2091-RetroGame.exe",
+    "icon": "project",
+    "summary": "Jogo de aventura textual cyberpunk em C# (.NET 8) com narrativa dirigida por JSON e sistema de save/load.",
+    "description": "Aventura textual interativa ambientada em 2091, executada em console com motor narrativo baseado em arquivos JSON e persistência de estado.",
+    "problem": "Explorar arquitetura desacoplada de narrativa interativa e estado de jogo em C#.",
+    "solution": "Motor de console em .NET 8 com cenas e escolhas carregadas de JSON e serialização de progresso.",
+    "stack": [
+      "C#",
+      ".NET 8",
+      "JSON"
+    ],
+    "highlights": [
+      "Motor narrativo dirigido por dados JSON e sistema de save/load."
+    ],
+    "status": "Pre-Alpha / Em desenvolvimento",
+    "repositoryUrl": "https://github.com/Pedroltz/2091-RetroGame",
+    "demoUrl": null,
+    "license": null,
+    "screenshots": [],
+    "featured": false,
+    "isPlaceholder": false,
+    "placeholderNote": null
+  },
+  {
+    "slug": "autoapply",
+    "name": "AutoApply (Evidence Ledger)",
+    "executableName": "AutoApply.exe",
+    "icon": "project",
+    "summary": "Assistente de candidaturas em Python/FastAPI com arquitetura 'Zero-Alucinação' baseada em Evidence Ledger e revisão humana.",
+    "description": "Backend modular em Python 3.12 e FastAPI com SQLAlchemy 2.0 assíncrono e Pydantic v2 para apoio a candidaturas técnicas com rastreabilidade de evidências e aprovação humana (human-in-the-loop).",
+    "problem": "Evitar geração de informações não verificadas na adaptação de currículos e respostas técnicas.",
+    "solution": "Pipeline com Evidence Ledger que restringe a geração a fatos comprovados e exige validação humana.",
+    "stack": [
+      "Python 3.12",
+      "FastAPI",
+      "SQLAlchemy 2.0 Async",
+      "Pydantic v2",
+      "SQL"
+    ],
+    "highlights": [
+      "Arquitetura em monólito modular com validação estrita de evidências e human-in-the-loop."
+    ],
+    "status": "Projeto local / em desenvolvimento",
+    "repositoryUrl": null,
+    "demoUrl": null,
+    "license": null,
+    "screenshots": [],
+    "featured": false,
+    "isPlaceholder": false,
+    "placeholderNote": null
+  }
+]

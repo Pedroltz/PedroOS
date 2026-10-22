@@ -1,0 +1,108 @@
+@page "/"
+@model IndexModel
+@{
+    var hasPrerenderedWindow = !string.IsNullOrEmpty(Model.InitialAppId) && Model.InitialApp is not null;
+    var instanceKey = Model.InitialAppId == "project" && Model.InitialProject is not null
+        ? $"project:{Model.InitialProject.Slug}"
+        : Model.InitialAppId ?? string.Empty;
+}
+
+<main class="desktop" id="desktop" aria-label="Área de trabalho do PedroOS 95">
+    <h1 class="sr-only">PedroOS 95 — Portfólio Interativo de Pedro Tunin</h1>
+
+    <partial name="Shared/Desktop/_DesktopIcons" />
+
+    <section class="desktop-windows" id="desktop-windows" aria-label="Janelas de aplicativos">
+        @if (hasPrerenderedWindow && Model.InitialApp is not null)
+        {
+            var app = Model.InitialApp;
+            <section class="window os-window active"
+                     id="win-ssr-1"
+                     role="dialog"
+                     aria-label="@Model.InitialWindowTitle"
+                     data-prerendered-window="true"
+                     data-window-id="win-ssr-1"
+                     data-app-id="@app.Id"
+                     data-instance-key="@instanceKey"
+                     data-window-icon="@Model.InitialWindowIcon"
+                     data-arg-slug="@Model.InitialProject?.Slug"
+                     style="left: 96px; top: 32px; width: @(app.DefaultWidth)px; height: @(app.DefaultHeight)px; z-index: 20;">
+                <div class="title-bar" data-window-drag-handle>
+                    <div class="title-bar-text">
+                        <img class="pixel-icon title-bar-icon" src="@Icons.GetPath(Model.InitialWindowIcon, 16)" width="16" height="16" alt="" />
+                        <span class="title-bar-label">@Model.InitialWindowTitle</span>
+                    </div>
+                    <div class="title-bar-controls">
+                        <button type="button" aria-label="Minimize" data-win-action="minimize" title="Minimize"></button>
+                        @if (app.Maximizable)
+                        {
+                            <button type="button" aria-label="Maximize" data-win-action="maximize" title="Maximize"></button>
+                        }
+                        <button type="button" aria-label="Close" data-win-action="close" title="Close"></button>
+                    </div>
+                </div>
+                <div class="window-body os-window-body" data-window-content>
+                    @switch (app.Id)
+                    {
+                        case "projects":
+                            <partial name="Shared/Apps/_ProjectsApp" />
+                            break;
+                        case "project":
+                            <partial name="Shared/Apps/_ProjectDetailsApp" model="Model.InitialProject" />
+                            break;
+                        case "resume":
+                            <partial name="Shared/Apps/_ResumeApp" />
+                            break;
+                        case "sysprops":
+                            <partial name="Shared/Apps/_SystemPropertiesApp" />
+                            break;
+                    }
+                </div>
+            </section>
+        }
+
+        @if (Model.IsNotFoundRoute)
+        {
+            <section class="window os-window active"
+                     id="win-404"
+                     role="alertdialog"
+                     aria-labelledby="win-404-title"
+                     data-prerendered-window="true"
+                     data-window-id="win-404"
+                     data-app-id="about"
+                     data-instance-key="404"
+                     data-window-icon="warning"
+                     style="left: 160px; top: 90px; width: 420px; height: 220px; z-index: 30;">
+                <div class="title-bar" data-window-drag-handle>
+                    <div class="title-bar-text" id="win-404-title">
+                        <img class="pixel-icon title-bar-icon" src="@Icons.GetPath("warning", 16)" width="16" height="16" alt="" />
+                        <span class="title-bar-label">PedroOS 95 — File Not Found (404)</span>
+                    </div>
+                    <div class="title-bar-controls">
+                        <button type="button" aria-label="Close" data-win-action="close"></button>
+                    </div>
+                </div>
+                <div class="window-body os-window-body" data-window-content>
+                    <div class="dialog-404">
+                        <img class="pixel-icon" src="@Icons.GetPath("error", 32)" width="32" height="32" alt="Erro 404" />
+                        <div>
+                            <p><strong>Cannot find <code>@HttpContext.Request.Path</code>.</strong></p>
+                            <p>Make sure the path or project name is correct, or use Windows Explorer / Start Menu to browse available applications.</p>
+                            <div class="dialog-404-actions">
+                                <button type="button" data-open-app="projects">Abrir Projects.exe</button>
+                                <button type="button" data-open-app="explorer" data-arg-path="C:\">Abrir Explorer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </section>
+
+    <partial name="Shared/Desktop/_StartMenu" />
+    <partial name="Shared/Desktop/_ContextMenu" />
+    <partial name="Shared/Desktop/_Taskbar" />
+    <partial name="Shared/Desktop/_BsodOverlay" />
+</main>
+
+<script id="pedroos-boot-data" type="application/json">@Html.Raw(Model.BootDataJson)</script>

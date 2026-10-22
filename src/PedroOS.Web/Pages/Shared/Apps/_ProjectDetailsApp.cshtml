@@ -1,0 +1,143 @@
+@model Project?
+@{
+    var project = Model ?? Portfolio.GetProjectBySlug("ofizzy") ?? Portfolio.GetProjects().First();
+}
+<div class="app-shell project-details-app" data-project-details="@project.Slug">
+    <div class="win95-toolbar" role="toolbar" aria-label="Ações do projeto @project.Name">
+        <button type="button" class="toolbar-btn" data-open-app="projects">
+            <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+            <span>All Projects</span>
+        </button>
+        <button type="button" class="toolbar-btn" data-open-app="explorer" data-arg-path="C:\Projects">
+            <img class="pixel-icon" src="@Icons.GetPath("explorer", 16)" width="16" height="16" alt="" />
+            <span>C:\Projects</span>
+        </button>
+        <span class="toolbar-sep" aria-hidden="true"></span>
+        @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
+        {
+            <a class="toolbar-btn" href="@project.RepositoryUrl" target="_blank" rel="noopener noreferrer">
+                <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+                <span>Repositório GitHub &#8599;</span>
+            </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(project.DemoUrl))
+        {
+            <a class="toolbar-btn" href="@project.DemoUrl" target="_blank" rel="noopener noreferrer">
+                <img class="pixel-icon" src="@Icons.GetPath("iexplore", 16)" width="16" height="16" alt="" />
+                <span>Demonstração / Site &#8599;</span>
+            </a>
+        }
+    </div>
+
+    <div class="project-details-body">
+        <header class="project-banner sunken-panel">
+            <img class="pixel-icon project-banner-icon" src="@Icons.GetPath(project.Icon, 48)" width="48" height="48" alt="Ícone de @project.Name" />
+            <div class="project-banner-meta">
+                <h2 class="project-banner-title">@project.Name <small>(@project.ExecutableName)</small></h2>
+                <p class="project-banner-summary">@project.Summary</p>
+                <div class="project-status-line">
+                    <strong>Status:</strong> <span>@project.Status</span>
+                    @if (!string.IsNullOrWhiteSpace(project.License))
+                    {
+                        <span class="project-license"> | <strong>Licença:</strong> @project.License</span>
+                    }
+                </div>
+            </div>
+        </header>
+
+        @if (project.IsPlaceholder && !string.IsNullOrWhiteSpace(project.PlaceholderNote))
+        {
+            <div class="win95-callout win95-callout-warning" role="note">
+                <img class="pixel-icon" src="@Icons.GetPath("warning", 16)" width="16" height="16" alt="Aviso" />
+                <div>
+                    <strong>Nota de Transparência (Placeholder Explícito):</strong>
+                    <span>@project.PlaceholderNote</span>
+                </div>
+            </div>
+        }
+
+        <div class="project-grid-two">
+            <fieldset class="win95-fieldset">
+                <legend>Problema Abordado</legend>
+                <p>@project.Problem</p>
+            </fieldset>
+            <fieldset class="win95-fieldset">
+                <legend>Solução Desenvolvida</legend>
+                <p>@project.Solution</p>
+            </fieldset>
+        </div>
+
+        <fieldset class="win95-fieldset">
+            <legend>Descrição &amp; Destaques Técnicos</legend>
+            <p>@project.Description</p>
+            @if (project.Highlights.Count > 0)
+            {
+                <ul class="win95-list">
+                    @foreach (var item in project.Highlights)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+            }
+        </fieldset>
+
+        <fieldset class="win95-fieldset">
+            <legend>Stack Tecnológica</legend>
+            <div class="project-stack-list">
+                @foreach (var tech in project.Stack)
+                {
+                    <span class="win95-tag">@tech</span>
+                }
+            </div>
+        </fieldset>
+
+        <fieldset class="win95-fieldset">
+            <legend>Capturas de Tela (@project.Screenshots.Count)</legend>
+            @if (project.Screenshots.Count == 0)
+            {
+                <p class="muted-note">
+                    Nenhuma captura de tela pública registrada para este projeto no repositório local.
+                </p>
+            }
+            else
+            {
+                <div class="screenshot-gallery" data-screenshot-gallery>
+                    @foreach (var shot in project.Screenshots)
+                    {
+                        <figure class="screenshot-figure sunken-panel">
+                            <img src="@shot.Src"
+                                 alt="@shot.Alt"
+                                 loading="lazy"
+                                 class="screenshot-img" />
+                            @if (!string.IsNullOrWhiteSpace(shot.Caption))
+                            {
+                                <figcaption class="screenshot-caption">@shot.Caption</figcaption>
+                            }
+                        </figure>
+                    }
+                </div>
+            }
+        </fieldset>
+
+        <div class="project-footer-links">
+            @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
+            {
+                <a class="button" href="@project.RepositoryUrl" target="_blank" rel="noopener noreferrer">
+                    Abrir Repositório no GitHub (@project.RepositoryUrl)
+                </a>
+            }
+            @if (!string.IsNullOrWhiteSpace(project.DemoUrl))
+            {
+                <a class="button" href="@project.DemoUrl" target="_blank" rel="noopener noreferrer">
+                    Abrir Página / Documentação (@project.DemoUrl)
+                </a>
+            }
+            <button type="button" data-open-app="sysprops">Ver Habilidades Relacionadas</button>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <p class="status-bar-field">C:\Projects\@project.ExecutableName</p>
+        <p class="status-bar-field">@project.Stack.Count tecnologias listadas</p>
+    </div>
+</div>

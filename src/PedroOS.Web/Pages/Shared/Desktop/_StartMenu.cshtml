@@ -1,0 +1,174 @@
+@{
+    var featuredProjects = Portfolio.GetProjects(featuredOnly: true);
+}
+<nav class="start-menu window" id="start-menu" aria-label="Menu Iniciar" hidden>
+    <div class="start-menu-banner" aria-hidden="true">
+        <span class="start-menu-banner-text"><strong>PedroOS</strong> 95</span>
+    </div>
+    <ul class="start-menu-list" role="menu">
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img class="pixel-icon" src="@Icons.GetPath("folder", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label"><u>P</u>rograms</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Programs">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="explorer" data-arg-path="C:\">
+                        <img class="pixel-icon" src="@Icons.GetPath("explorer", 16)" width="16" height="16" alt="" />
+                        <span>Windows Explorer</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="projects">
+                        <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+                        <span>Projects Explorer</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="resume">
+                        <img class="pixel-icon" src="@Icons.GetPath("resume", 16)" width="16" height="16" alt="" />
+                        <span>WordPad (Resume.doc)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="iexplore">
+                        <img class="pixel-icon" src="@Icons.GetPath("iexplore", 16)" width="16" height="16" alt="" />
+                        <span>Internet Explorer</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="minesweeper">
+                        <img class="pixel-icon" src="@Icons.GetPath("minesweeper", 16)" width="16" height="16" alt="" />
+                        <span>Minesweeper</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="notepad" data-arg-path="C:\AboutMe\Readme.txt">
+                        <img class="pixel-icon" src="@Icons.GetPath("notepad", 16)" width="16" height="16" alt="" />
+                        <span>Notepad (Readme.txt)</span>
+                    </button>
+                </li>
+            </ul>
+        </li>
+
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img class="pixel-icon" src="@Icons.GetPath("projects", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label">Pr<u>o</u>jects</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Projects">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="projects">
+                        <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+                        <span>All Projects (Projects.exe)</span>
+                    </button>
+                </li>
+                <li class="start-menu-separator" role="separator"></li>
+                @foreach (var project in featuredProjects)
+                {
+                    <li role="none">
+                        <button type="button" class="start-menu-action" role="menuitem" data-open-app="project" data-arg-slug="@project.Slug">
+                            <img class="pixel-icon" src="@Icons.GetPath(project.Icon, 16)" width="16" height="16" alt="" />
+                            <span>@project.Name</span>
+                        </button>
+                    </li>
+                }
+            </ul>
+        </li>
+
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img class="pixel-icon" src="@Icons.GetPath("doc", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label"><u>D</u>ocuments</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Documents">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="resume">
+                        <img class="pixel-icon" src="@Icons.GetPath("resume", 16)" width="16" height="16" alt="" />
+                        <span>Resume.doc (Currículo)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="resume" data-arg-section="experience">
+                        <img class="pixel-icon" src="@Icons.GetPath("doc", 16)" width="16" height="16" alt="" />
+                        <span>Career.doc (Experiência)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="notepad" data-arg-path="C:\AboutMe\Readme.txt">
+                        <img class="pixel-icon" src="@Icons.GetPath("text", 16)" width="16" height="16" alt="" />
+                        <span>Readme.txt</span>
+                    </button>
+                </li>
+                <li class="start-menu-separator" role="separator"></li>
+                <li role="none">
+                    <a class="start-menu-action" role="menuitem" href="https://github.com/Pedroltz" target="_blank" rel="noopener noreferrer">
+                        <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+                        <span>GitHub (@@Pedroltz)</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a class="start-menu-action" role="menuitem" href="https://www.linkedin.com/in/pedrotunin/" target="_blank" rel="noopener noreferrer">
+                        <img class="pixel-icon" src="@Icons.GetPath("linkedin", 16)" width="16" height="16" alt="" />
+                        <span>LinkedIn (pedrotunin)</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img class="pixel-icon" src="@Icons.GetPath("control-panel", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label"><u>S</u>ettings</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Settings">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="sysprops">
+                        <img class="pixel-icon" src="@Icons.GetPath("system", 16)" width="16" height="16" alt="" />
+                        <span>System Properties (Skills)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="display">
+                        <img class="pixel-icon" src="@Icons.GetPath("display", 16)" width="16" height="16" alt="" />
+                        <span>Display Properties</span>
+                    </button>
+                </li>
+            </ul>
+        </li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="find">
+                <img class="pixel-icon" src="@Icons.GetPath("find", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label"><u>F</u>ind Files or Projects...</span>
+            </button>
+        </li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="about">
+                <img class="pixel-icon" src="@Icons.GetPath("help", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label"><u>A</u>bout PedroOS 95</span>
+            </button>
+        </li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="run">
+                <img class="pixel-icon" src="@Icons.GetPath("run", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label"><u>R</u>un...</span>
+            </button>
+        </li>
+
+        <li class="start-menu-separator" role="separator"></li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="shutdown">
+                <img class="pixel-icon" src="@Icons.GetPath("shutdown", 32)" width="24" height="24" alt="" />
+                <span class="start-menu-label">Sh<u>u</u>t Down...</span>
+            </button>
+        </li>
+    </ul>
+</nav>

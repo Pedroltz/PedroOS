@@ -1,0 +1,171 @@
+@{
+    var allProjects = Portfolio.GetProjects(featuredOnly: false);
+    var featured = allProjects.Where(p => p.Featured).ToList();
+    var more = allProjects.Where(p => !p.Featured).ToList();
+}
+<div class="app-shell projects-app" data-projects-app>
+    <div class="win95-menubar" role="menubar" aria-label="Menu do Projects.exe">
+        <span class="win95-menu-item"><u>F</u>ile</span>
+        <span class="win95-menu-item"><u>E</u>dit</span>
+        <span class="win95-menu-item"><u>V</u>iew</span>
+        <span class="win95-menu-item"><u>H</u>elp</span>
+    </div>
+
+    <div class="win95-toolbar" role="toolbar" aria-label="Barra de ferramentas de projetos">
+        <button type="button" class="toolbar-btn" data-open-app="explorer" data-arg-path="C:\Projects" title="Abrir no Windows Explorer">
+            <img class="pixel-icon" src="@Icons.GetPath("explorer", 16)" width="16" height="16" alt="" />
+            <span>Explorer</span>
+        </button>
+        <span class="toolbar-sep" aria-hidden="true"></span>
+        <button type="button" class="toolbar-btn active" data-projects-view="icons" aria-pressed="true">
+            <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+            <span>Large Icons</span>
+        </button>
+        <button type="button" class="toolbar-btn" data-projects-view="details" aria-pressed="false">
+            <img class="pixel-icon" src="@Icons.GetPath("document", 16)" width="16" height="16" alt="" />
+            <span>Details</span>
+        </button>
+        <span class="toolbar-sep" aria-hidden="true"></span>
+        <a class="toolbar-btn" href="https://github.com/Pedroltz" target="_blank" rel="noopener noreferrer">
+            <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+            <span>GitHub Profile</span>
+        </a>
+    </div>
+
+    <div class="win95-addressbar">
+        <label class="addressbar-label">Address</label>
+        <div class="addressbar-field sunken-panel">
+            <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+            <span>C:\Projects</span>
+        </div>
+    </div>
+
+    <div class="projects-workspace sunken-panel" data-projects-container="icons">
+        <section aria-labelledby="featured-projects-heading" class="projects-section">
+            <h2 id="featured-projects-heading" class="projects-section-title">Projetos Principais (C:\Projects)</h2>
+            <div class="projects-grid">
+                @foreach (var project in featured)
+                {
+                    <article class="project-card" data-project-slug="@project.Slug">
+                        <div class="project-card-header">
+                            <img class="pixel-icon" src="@Icons.GetPath(project.Icon, 32)" width="32" height="32" alt="" />
+                            <div>
+                                <h3 class="project-card-title">@project.Name</h3>
+                                <div class="project-card-exe">@project.ExecutableName</div>
+                            </div>
+                        </div>
+                        <p class="project-card-summary">@project.Summary</p>
+                        <div class="project-card-tags" aria-label="Tecnologias principais">
+                            @foreach (var tech in project.Stack.Take(5))
+                            {
+                                <span class="win95-tag">@tech</span>
+                            }
+                        </div>
+                        <div class="project-card-actions">
+                            <button type="button"
+                                    class="win95-btn-primary"
+                                    data-open-app="project"
+                                    data-arg-slug="@project.Slug"
+                                    aria-label="Abrir detalhes de @project.Name">
+                                Abrir @project.Name
+                            </button>
+                            @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
+                            {
+                                <a class="button win95-link-btn"
+                                   href="@project.RepositoryUrl"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="Repositório GitHub de @project.Name">
+                                    GitHub &#8599;
+                                </a>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(project.DemoUrl))
+                            {
+                                <a class="button win95-link-btn"
+                                   href="@project.DemoUrl"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="Página de demonstração de @project.Name">
+                                    Website &#8599;
+                                </a>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+
+        @if (more.Count > 0)
+        {
+            <section aria-labelledby="more-projects-heading" class="projects-section">
+                <h2 id="more-projects-heading" class="projects-section-title">Mais Projetos (C:\Projects\MoreProjects)</h2>
+                <div class="projects-grid projects-grid-compact">
+                    @foreach (var project in more)
+                    {
+                        <article class="project-card project-card-compact" data-project-slug="@project.Slug">
+                            <div class="project-card-header">
+                                <img class="pixel-icon" src="@Icons.GetPath(project.Icon, 32)" width="24" height="24" alt="" />
+                                <div>
+                                    <h3 class="project-card-title">@project.Name</h3>
+                                    <div class="project-card-exe">@project.ExecutableName</div>
+                                </div>
+                            </div>
+                            <p class="project-card-summary">@project.Summary</p>
+                            <div class="project-card-actions">
+                                <button type="button"
+                                        data-open-app="project"
+                                        data-arg-slug="@project.Slug"
+                                        aria-label="Abrir detalhes de @project.Name">
+                                    Inspecionar
+                                </button>
+                                @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
+                                {
+                                    <a class="button win95-link-btn"
+                                       href="@project.RepositoryUrl"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        GitHub &#8599;
+                                    </a>
+                                }
+                            </div>
+                        </article>
+                    }
+                </div>
+            </section>
+        }
+
+        <table class="projects-details-table" data-projects-table hidden>
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Executable</th>
+                    <th scope="col">Stack</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in allProjects)
+                {
+                    <tr>
+                        <td>
+                            <img class="pixel-icon" src="@Icons.GetPath(project.Icon, 16)" width="16" height="16" alt="" />
+                            <strong>@project.Name</strong>
+                        </td>
+                        <td><code>@project.ExecutableName</code></td>
+                        <td>@string.Join(", ", project.Stack.Take(4))</td>
+                        <td>@project.Status</td>
+                        <td>
+                            <button type="button" data-open-app="project" data-arg-slug="@project.Slug">Open</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="status-bar">
+        <p class="status-bar-field">@allProjects.Count object(s) (@featured.Count featured, @more.Count in MoreProjects)</p>
+        <p class="status-bar-field">C:\Projects</p>
+    </div>
+</div>

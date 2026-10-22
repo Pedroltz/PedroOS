@@ -1,0 +1,98 @@
+{
+  "name": "Pedro Tunin",
+  "headline": "Engenheiro de Software — Backend (.NET & Python), Linux/DevOps e Sistemas de IA",
+  "location": "Brasil (Remoto)",
+  "summary": "Engenheiro de Software com foco em arquitetura e desenvolvimento backend em C# / ASP.NET Core e Python, administração e automação de infraestrutura Linux/DevOps (Docker, Docker Compose, GitHub Actions, CI/CD) e engenharia de sistemas aplicados de Inteligência Artificial (integração com LLMs, RAG, Embeddings, Agentes e Tool Calling).",
+  "about": [
+    "Construo aplicações completas — do modelo de domínio e banco de dados relacional até a interface web ou desktop e o pipeline de entrega contínua.",
+    "No ecossistema .NET, desenvolvo sistemas web e APIs multi-tenant com C#, ASP.NET Core, Entity Framework Core, PostgreSQL e testes automatizados.",
+    "Em Linux e Python, desenvolvo ferramentas de administração de sistemas e aplicações desktop nativas em GTK 4 / libadwaita, além de APIs com FastAPI.",
+    "Este portfólio (PedroOS 95) foi projetado como um sistema operacional clássico funcional em ASP.NET Core (.NET 10 LTS), Razor Pages e TypeScript."
+  ],
+  "links": [
+    {
+      "id": "github",
+      "label": "GitHub (@Pedroltz)",
+      "url": "https://github.com/Pedroltz",
+      "icon": "github"
+    },
+    {
+      "id": "linkedin",
+      "label": "LinkedIn (pedrotunin)",
+      "url": "https://www.linkedin.com/in/pedrotunin/",
+      "icon": "linkedin"
+    },
+    {
+      "id": "email",
+      "label": "pedro.tunin@outlook.com",
+      "url": "mailto:pedro.tunin@outlook.com",
+      "icon": "document"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Engenheiro de Software",
+      "organization": "[PLACEHOLDER: informar nome da empresa autorizada em Data/profile.json]",
+      "period": "2023 — Presente (conforme portfólio anterior — confirmar datas exatas)",
+      "location": "Brasil",
+      "bullets": [
+        "Desenvolvimento e manutenção de sistemas corporativos, fluxos operacionais/logísticos e integrações com modelos de linguagem (LLMs).",
+        "Atuação com C# / .NET, Python / FastAPI, Angular / TypeScript, bancos de dados relacionais (PostgreSQL / SQL Server), Docker e pipelines CI/CD.",
+        "[PLACEHOLDER: detalhar projetos internos, responsabilidades específicas e resultados verificados em Data/profile.json]"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "role": "Desenvolvedor de Software & Infraestrutura",
+      "organization": "[PLACEHOLDER: informar organização ou atuação em Data/profile.json]",
+      "period": "2022 — 2023 (conforme portfólio anterior — confirmar datas exatas)",
+      "location": "Brasil",
+      "bullets": [
+        "Desenvolvimento de aplicações e scripts de automação em Python, C# e Bash.",
+        "Administração de ambientes Linux, conteinerização com Docker e automação de workflows com GitHub Actions.",
+        "[PLACEHOLDER: complementar histórico profissional verificado em Data/profile.json]"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "role": "Autor & Mantenedor — Projetos Autorais",
+      "organization": "GitHub (github.com/Pedroltz)",
+      "period": "Em andamento",
+      "location": "Remoto",
+      "bullets": [
+        "Ofizzy: plataforma SaaS multi-tenant para prestadores de serviços e oficinas automotivas (.NET 10, Angular 21, PostgreSQL 18, Docker Compose).",
+        "RDP Session Manager: aplicação nativa GTK 4 / libadwaita em Python para administração de sessões remotas xrdp e compatibilidade Windows via umu/Wine no Linux (GPL-3.0).",
+        "PedroOS 95: portfólio interativo simulando o Windows 95 em ASP.NET Core (.NET 10), Razor Pages e TypeScript."
+      ],
+      "isPlaceholder": false
+    }
+  ],
+  "education": [
+    {
+      "course": "Engenharia de Computação / Engenharia de Software",
+      "institution": "[PLACEHOLDER: confirmar instituição e situação acadêmica em Data/profile.json]",
+      "period": "[PLACEHOLDER: período acadêmico]",
+      "isPlaceholder": true
+    }
+  ],
+  "certifications": [],
+  "languages": [
+    "Português — Nativo",
+    "Inglês — Avançado / Proficiente"
+  ],
+  "competencies": [
+    {
+      "name": "Desenvolvimento Backend & Frontend",
+      "items": ["C#", ".NET 10", "ASP.NET Core", "Entity Framework Core", "Python", "FastAPI", "GTK 4 / libadwaita", "TypeScript", "Angular", "SQL / PostgreSQL"]
+    },
+    {
+      "name": "Infraestrutura & DevOps",
+      "items": ["Linux (Debian/Ubuntu/Arch)", "Docker", "Docker Compose", "GitHub Actions", "CI/CD", "Bash", "Nginx", "xrdp / FreeRDP", "Terraform", "Kubernetes"]
+    },
+    {
+      "name": "Inteligência Artificial Aplicada",
+      "items": ["Integração com LLMs", "RAG", "Embeddings", "Agentes de IA", "Tool Calling", "vLLM"]
+    }
+  ],
+  "resumePdf": null
+}

@@ -1,0 +1,12 @@
+services:
+  pedroos:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pedroos-95:latest
+    container_name: pedroos-95
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production

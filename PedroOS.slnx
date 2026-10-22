@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PedroOS.Web/PedroOS.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PedroOS.Tests/PedroOS.Tests.csproj" />
+  </Folder>
+</Solution>

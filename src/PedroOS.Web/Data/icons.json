@@ -1,0 +1,408 @@
+{
+  "basePath": "/assets/icons",
+  "icons": {
+    "my-computer": {
+      "category": "system",
+      "description": "My Computer",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "drive": {
+      "category": "system",
+      "description": "Local disk",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "folder": {
+      "category": "system",
+      "description": "Folder",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "folder-open": {
+      "category": "system",
+      "description": "Open folder",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "recycle-bin": {
+      "category": "system",
+      "description": "Recycle Bin",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "document": {
+      "category": "system",
+      "description": "Document",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "text": {
+      "category": "system",
+      "description": "Text document",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "doc": {
+      "category": "system",
+      "description": "WordPad document",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "exe": {
+      "category": "system",
+      "description": "Application",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "sys": {
+      "category": "system",
+      "description": "System file",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "url": {
+      "category": "system",
+      "description": "Internet shortcut",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "control-panel": {
+      "category": "system",
+      "description": "Control Panel",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "display": {
+      "category": "system",
+      "description": "Display",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "system": {
+      "category": "system",
+      "description": "System",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "help": {
+      "category": "system",
+      "description": "Help",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "info": {
+      "category": "system",
+      "description": "Information",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "warning": {
+      "category": "system",
+      "description": "Warning",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "error": {
+      "category": "system",
+      "description": "Error",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "run": {
+      "category": "system",
+      "description": "Run",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "find": {
+      "category": "system",
+      "description": "Find",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "shutdown": {
+      "category": "system",
+      "description": "Shut Down",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "power": {
+      "category": "system",
+      "description": "Power",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "logo": {
+      "category": "system",
+      "description": "PedroOS logo",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "speaker": {
+      "category": "system",
+      "description": "Volume",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "speaker-muted": {
+      "category": "system",
+      "description": "Volume muted",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "explorer": {
+      "category": "applications",
+      "description": "Explorer",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "iexplore": {
+      "category": "applications",
+      "description": "Internet Explorer",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "minesweeper": {
+      "category": "applications",
+      "description": "Minesweeper",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "projects": {
+      "category": "applications",
+      "description": "Projects",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "resume": {
+      "category": "applications",
+      "description": "Resume",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "notepad": {
+      "category": "applications",
+      "description": "Notepad",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "github": {
+      "category": "applications",
+      "description": "GitHub",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "linkedin": {
+      "category": "applications",
+      "description": "LinkedIn",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "ofizzy": {
+      "category": "projects",
+      "description": "Ofizzy",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "rdp-session-manager": {
+      "category": "projects",
+      "description": "RDP Session Manager",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "zellapedia": {
+      "category": "projects",
+      "description": "ZellaPedia",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "project": {
+      "category": "projects",
+      "description": "Project",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "mine": {
+      "category": "ui",
+      "description": "Mine",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "flag": {
+      "category": "ui",
+      "description": "Flag",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "face-smile": {
+      "category": "ui",
+      "description": "Smile",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "face-wow": {
+      "category": "ui",
+      "description": "Surprised",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "face-dead": {
+      "category": "ui",
+      "description": "Game over",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    },
+    "face-cool": {
+      "category": "ui",
+      "description": "Winner",
+      "sizes": [
+        16,
+        32,
+        48
+      ]
+    }
+  },
+  "glyphs": [
+    "arrow-left",
+    "arrow-right",
+    "arrow-up",
+    "reload",
+    "home",
+    "close",
+    "search",
+    "bookmark",
+    "external-link",
+    "printer",
+    "download",
+    "mail",
+    "folder",
+    "file"
+  ]
+}

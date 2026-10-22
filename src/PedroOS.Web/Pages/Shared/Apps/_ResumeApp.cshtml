@@ -1,0 +1,170 @@
+@{
+    var profile = Portfolio.GetProfile();
+    var featuredProjects = Portfolio.GetProjects(featuredOnly: true);
+}
+<div class="app-shell resume-app" data-resume-app>
+    <div class="win95-menubar" role="menubar" aria-label="Menu do WordPad">
+        <span class="win95-menu-item"><u>F</u>ile</span>
+        <span class="win95-menu-item"><u>E</u>dit</span>
+        <span class="win95-menu-item"><u>V</u>iew</span>
+        <span class="win95-menu-item"><u>I</u>nsert</span>
+        <span class="win95-menu-item">F<u>o</u>rmat</span>
+        <span class="win95-menu-item"><u>H</u>elp</span>
+    </div>
+
+    <div class="win95-toolbar" role="toolbar" aria-label="Barra de ferramentas do currículo">
+        <a class="toolbar-btn"
+           href="/resume"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Visualizar currículo em página dedicada">
+            <img class="pixel-icon" src="@Icons.GetPath("resume", 16)" width="16" height="16" alt="" />
+            <span>Visualizar Currículo</span>
+        </a>
+        <a class="toolbar-btn"
+           href="/resume/pdf"
+           download="Pedro-Tunin-Resume.pdf"
+           aria-label="Baixar currículo em PDF">
+            <img class="pixel-icon" src="@Icons.GetPath("doc", 16)" width="16" height="16" alt="" />
+            <span>Baixar PDF</span>
+        </a>
+        <button type="button" class="toolbar-btn" data-resume-print aria-label="Imprimir currículo">
+            <img class="pixel-icon" src="@Icons.GetPath("document", 16)" width="16" height="16" alt="" />
+            <span>Imprimir</span>
+        </button>
+        <span class="toolbar-sep" aria-hidden="true"></span>
+        <a class="toolbar-btn" href="https://github.com/Pedroltz" target="_blank" rel="noopener noreferrer">
+            <img class="pixel-icon" src="@Icons.GetPath("github", 16)" width="16" height="16" alt="" />
+            <span>GitHub</span>
+        </a>
+        <a class="toolbar-btn" href="https://www.linkedin.com/in/pedrotunin/" target="_blank" rel="noopener noreferrer">
+            <img class="pixel-icon" src="@Icons.GetPath("linkedin", 16)" width="16" height="16" alt="" />
+            <span>LinkedIn</span>
+        </a>
+    </div>
+
+    <div class="wordpad-ruler" aria-hidden="true">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+    </div>
+
+    <div class="wordpad-sheet sunken-panel" tabindex="0" aria-label="Documento Resume.doc">
+        <article class="wordpad-document">
+            <header class="resume-header">
+                <h2 class="resume-name">@profile.Name</h2>
+                <p class="resume-headline">@profile.Headline</p>
+                <p class="resume-meta">
+                    <span>@profile.Location</span>
+                    @foreach (var link in profile.Links)
+                    {
+                        <span> &bull; <a href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label</a></span>
+                    }
+                </p>
+                <div class="resume-cta-row">
+                    <a class="button" href="/resume" target="_blank" rel="noopener noreferrer">Visualizar Currículo (/resume)</a>
+                    <a class="button" href="/resume/pdf" download="Pedro-Tunin-Resume.pdf">Baixar PDF</a>
+                    <button type="button" data-open-app="projects">Ver Projetos</button>
+                    <button type="button" data-open-app="sysprops">Ver System Properties</button>
+                </div>
+            </header>
+
+            <section class="resume-section" id="resume-about">
+                <h3>1. Apresentação Profissional &amp; Resumo</h3>
+                <p>@profile.Summary</p>
+                @foreach (var p in profile.About)
+                {
+                    <p>@p</p>
+                }
+            </section>
+
+            <section class="resume-section" id="resume-experience">
+                <h3>2. Histórico Profissional</h3>
+                @foreach (var exp in profile.Experience)
+                {
+                    <div class="resume-item">
+                        <div class="resume-item-head">
+                            <strong>@exp.Role</strong> — <span>@exp.Organization</span>
+                            @if (exp.IsPlaceholder)
+                            {
+                                <span class="win95-badge-placeholder" title="Edite Data/profile.json para atualizar este campo">PLACEHOLDER</span>
+                            }
+                        </div>
+                        <div class="resume-item-sub">@exp.Period | @exp.Location</div>
+                        <ul class="win95-list">
+                            @foreach (var bullet in exp.Bullets)
+                            {
+                                <li>@bullet</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </section>
+
+            <section class="resume-section" id="resume-projects">
+                <h3>3. Projetos Principais</h3>
+                @foreach (var proj in featuredProjects)
+                {
+                    <div class="resume-item">
+                        <div class="resume-item-head">
+                            <strong>@proj.Name</strong>
+                            <button type="button" class="inline-open-btn" data-open-app="project" data-arg-slug="@proj.Slug">Abrir janela do projeto</button>
+                        </div>
+                        <p>@proj.Summary</p>
+                        <div class="project-stack-list">
+                            @foreach (var tech in proj.Stack)
+                            {
+                                <span class="win95-tag">@tech</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </section>
+
+            <section class="resume-section" id="resume-competencies">
+                <h3>4. Tecnologias e Competências</h3>
+                @foreach (var group in profile.Competencies)
+                {
+                    <div class="resume-item">
+                        <strong>@group.Name:</strong>
+                        <span>@string.Join(", ", group.Items)</span>
+                    </div>
+                }
+            </section>
+
+            <section class="resume-section" id="resume-education">
+                <h3>5. Formação Acadêmica &amp; Idiomas</h3>
+                @foreach (var edu in profile.Education)
+                {
+                    <div class="resume-item">
+                        <strong>@edu.Course</strong> — <span>@edu.Institution</span> (@edu.Period)
+                        @if (edu.IsPlaceholder)
+                        {
+                            <span class="win95-badge-placeholder">PLACEHOLDER</span>
+                        }
+                    </div>
+                }
+                @if (profile.Languages.Count > 0)
+                {
+                    <p><strong>Idiomas:</strong> @string.Join(" | ", profile.Languages)</p>
+                }
+            </section>
+
+            <section class="resume-section" id="resume-links">
+                <h3>6. Links Profissionais</h3>
+                <ul class="win95-list">
+                    @foreach (var link in profile.Links)
+                    {
+                        <li>
+                            <strong>@link.Label:</strong>
+                            <a href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Url</a>
+                        </li>
+                    }
+                </ul>
+            </section>
+        </article>
+    </div>
+
+    <div class="status-bar">
+        <p class="status-bar-field">C:\Documents\Resume.doc (configurável em Data/profile.json)</p>
+        <p class="status-bar-field">WordPad — UTF-8</p>
+    </div>
+</div>

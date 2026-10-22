@@ -1,0 +1,23 @@
+@page "/fragments/{appId}"
+@model PedroOS.Web.Pages.Apps.WindowFragmentModel
+@{
+    Layout = null;
+}
+@switch (Model.AppId)
+{
+    case "projects":
+        <partial name="Shared/Apps/_ProjectsApp" />
+        break;
+    case "project":
+        <partial name="Shared/Apps/_ProjectDetailsApp" model="Model.SelectedProject" />
+        break;
+    case "resume":
+        <partial name="Shared/Apps/_ResumeApp" />
+        break;
+    case "sysprops":
+        <partial name="Shared/Apps/_SystemPropertiesApp" />
+        break;
+    case "about":
+        <partial name="Shared/Apps/_AboutApp" />
+        break;
+}

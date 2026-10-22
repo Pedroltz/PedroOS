@@ -1,0 +1,33 @@
+{
+  "name": "pedroos-95",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PedroOS 95 — interactive Windows 95-inspired portfolio (frontend toolchain)",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:dev": "node scripts/build.mjs --dev",
+    "watch": "node scripts/build.mjs --dev --watch",
+    "icons": "node scripts/generate-icons.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint \"src/PedroOS.Web/Client/**/*.ts\" \"tests/PedroOS.E2E/**/*.ts\" \"tests/client/**/*.ts\"",
+    "test:client": "node scripts/test-client.mjs",
+    "test:e2e": "playwright test -c tests/PedroOS.E2E/playwright.config.ts"
+  },
+  "dependencies": {
+    "98.css": "^0.1.21",
+    "interactjs": "^1.10.28"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0",
+    "pixelarticons": "^2.4.2",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.0"
+  }
+}

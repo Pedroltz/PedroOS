@@ -1,0 +1,240 @@
+[
+  {
+    "id": "development",
+    "name": "Development",
+    "deviceClass": "Development Processors & Runtime Subsystems",
+    "fileName": "Development.sys",
+    "icon": "sys",
+    "description": "Linguagens, frameworks backend/frontend e bancos de dados utilizados na construção de sistemas web e aplicações desktop.",
+    "items": [
+      {
+        "id": "csharp-dotnet",
+        "name": "C# e .NET",
+        "driver": "DOTNET10.DRV (CLR Runtime Bus)",
+        "usage": "Desenvolvimento de APIs, monólitos modulares, serviços de domínio, aplicações web e ferramentas de console em .NET 8 e .NET 10 LTS.",
+        "useCases": [
+          "Modelagem de domínio multi-tenant, regras financeiras e ordens de serviço no Ofizzy (.NET 10).",
+          "Testes automatizados com xUnit, geração de documentos PDF com QuestPDF e acesso a dados com EF Core.",
+          "Construção completa do próprio PedroOS 95 em .NET 10 LTS."
+        ],
+        "relatedProjects": ["ofizzy", "anycomic", "2091-retrogame"]
+      },
+      {
+        "id": "aspnet-core",
+        "name": "ASP.NET Core",
+        "driver": "ASPNET.SYS (HTTP/Razor Pipeline)",
+        "usage": "Construção de Web APIs RESTful, aplicações Razor Pages e sistemas MVC com injeção de dependência, middlewares de segurança e renderização híbrida.",
+        "useCases": [
+          "Backend Web API multi-tenant do Ofizzy com autenticação, autorização por organização e validação.",
+          "Renderização SSR + Partial Views, rotas canônicas para SEO e endpoints de fragmentos no PedroOS 95.",
+          "Aplicação MVC com área administrativa no AnyComic."
+        ],
+        "relatedProjects": ["ofizzy", "anycomic"]
+      },
+      {
+        "id": "python",
+        "name": "Python",
+        "driver": "PYTHON3.DLL (System & API Engine)",
+        "usage": "Desenvolvimento de aplicações desktop Linux nativas (GTK 4 / libadwaita), automação de sistemas operacionais e APIs assíncronas com FastAPI.",
+        "useCases": [
+          "Administração de usuários xrdp, sessões remotas, diagnóstico de saúde e reparo transacional no RDP Session Manager.",
+          "APIs assíncronas com FastAPI, SQLAlchemy 2.0 e Pydantic v2 no AutoApply."
+        ],
+        "relatedProjects": ["rdp-session-manager", "autoapply"]
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "driver": "TSlang.VXD (Typed UI Controller)",
+        "usage": "Arquitetura de aplicações frontend tipadas, gerenciamento de estado no navegador, componentes interativos e testes E2E com Playwright.",
+        "useCases": [
+          "Frontend corporativo do Ofizzy em TypeScript + Angular.",
+          "WindowManager, DesktopStore, Virtual File System, Internet Explorer e Campo Minado do PedroOS 95 sem dependências de SPA."
+        ],
+        "relatedProjects": ["ofizzy"]
+      },
+      {
+        "id": "angular",
+        "name": "Angular",
+        "driver": "NGCORE.DRV (Enterprise SPA Adapter)",
+        "usage": "Desenvolvimento de interfaces web corporativas responsivas com componentes reutilizáveis, formulários reativos e integração com APIs REST.",
+        "useCases": [
+          "Frontend completo do Ofizzy em Angular 21 com PrimeNG e Tailwind CSS (dashboard, editor de OS, pagamentos e visão mobile)."
+        ],
+        "relatedProjects": ["ofizzy"]
+      },
+      {
+        "id": "sql",
+        "name": "SQL (PostgreSQL / SQL Server)",
+        "driver": "PGSQL18.SYS (Relational Storage Controller)",
+        "usage": "Modelagem relacional, migrações controladas, consultas transacionais, isolamento multi-tenant e integridade referencial.",
+        "useCases": [
+          "Banco de dados PostgreSQL 18 do Ofizzy para clientes, veículos, catálogo com vigência, ordens de serviço e lançamentos financeiros.",
+          "Persistência relacional com PostgreSQL e Entity Framework Core no AnyComic."
+        ],
+        "relatedProjects": ["ofizzy", "anycomic", "autoapply"]
+      }
+    ]
+  },
+  {
+    "id": "devops",
+    "name": "Infrastructure / DevOps",
+    "deviceClass": "System Bus, Containers & Linux Kernel Adapters",
+    "fileName": "DevOps.sys",
+    "icon": "sys",
+    "description": "Administração de ambientes Linux, conteinerização, automação de entrega contínua e infraestrutura como código.",
+    "items": [
+      {
+        "id": "linux",
+        "name": "Linux",
+        "driver": "VMLINUZ.SYS (POSIX Environment)",
+        "usage": "Administração de distribuições Debian/Ubuntu e Arch Linux, gerenciamento de usuários/grupos, systemd, PolicyKit, xrdp e compatibilidade Wine/umu.",
+        "useCases": [
+          "Suporte multi-distribuição (Ubuntu, Debian, Arch, Manjaro, EndeavourOS, CachyOS) e diagnóstico de sistema no RDP Session Manager."
+        ],
+        "relatedProjects": ["rdp-session-manager"]
+      },
+      {
+        "id": "docker",
+        "name": "Docker",
+        "driver": "DOCKER.VXD (Container Isolation Unit)",
+        "usage": "Criação de imagens multi-stage enxutas para aplicações .NET e frontends compilados, garantindo paridade entre desenvolvimento, CI e produção.",
+        "useCases": [
+          "Empacotamento dos serviços do Ofizzy e build multi-stage (Node + .NET 10 SDK → ASP.NET Runtime) do PedroOS 95."
+        ],
+        "relatedProjects": ["ofizzy"]
+      },
+      {
+        "id": "docker-compose",
+        "name": "Docker Compose",
+        "driver": "COMPOSE.DRV (Multi-Service Orchestrator)",
+        "usage": "Orquestração local e de homologação com múltiplos serviços, redes isoladas, volumes persistentes, healthchecks e proxy reverso Nginx.",
+        "useCases": [
+          "Ambiente completo do Ofizzy orquestrando API .NET 10, frontend Angular, PostgreSQL 18 e Nginx."
+        ],
+        "relatedProjects": ["ofizzy"]
+      },
+      {
+        "id": "github-actions",
+        "name": "GitHub Actions",
+        "driver": "GHACTION.SYS (Automated Build Pipeline)",
+        "usage": "Automação de workflows de integração contínua para restore, compilação, lint, testes unitários, testes E2E e publicação de releases.",
+        "useCases": [
+          "Pipelines de verificação de qualidade e releases no Ofizzy, no RDP Session Manager e no PedroOS 95."
+        ],
+        "relatedProjects": ["ofizzy", "rdp-session-manager"]
+      },
+      {
+        "id": "cicd",
+        "name": "CI/CD",
+        "driver": "PIPELINE.DRV (Quality Gate Controller)",
+        "usage": "Estruturação de gates de qualidade automatizados (build, lint, testes unitários/integração/E2E e validação de artefatos) antes de entregas.",
+        "useCases": [
+          "Validação contínua de backend, frontend e testes Playwright nos projetos principais do portfólio."
+        ],
+        "relatedProjects": ["ofizzy", "rdp-session-manager"]
+      },
+      {
+        "id": "bash",
+        "name": "Bash",
+        "driver": "BASHSH.EXE (Shell Automation Utility)",
+        "usage": "Scripts de instalação automatizada, verificação de dependências, configuração de ambiente Linux e utilitários de build/deploy.",
+        "useCases": [
+          "Instalador automatizado (`install.sh`) e scripts auxiliares de sessão e diagnóstico no RDP Session Manager."
+        ],
+        "relatedProjects": ["rdp-session-manager"]
+      },
+      {
+        "id": "terraform",
+        "name": "Terraform",
+        "driver": "TFSTATE.DRV (Declarative IaC Module)",
+        "usage": "Declaração e provisionamento reprodutível de recursos de infraestrutura como código (plan, apply e controle de estado).",
+        "useCases": [
+          "Automação declarativa de ambientes e estudos de provisionamento em infraestrutura cloud."
+        ],
+        "relatedProjects": []
+      },
+      {
+        "id": "kubernetes",
+        "name": "Kubernetes",
+        "driver": "KUBELET.SYS (Cluster Workload Scheduler)",
+        "usage": "Conceitos e configuração de workloads conteinerizados (Deployments, Services, ConfigMaps, health probes e escalonamento).",
+        "useCases": [
+          "Preparação de serviços web stateless e healthchecks compatíveis com orquestradores de containers."
+        ],
+        "relatedProjects": []
+      }
+    ]
+  },
+  {
+    "id": "ai",
+    "name": "Artificial Intelligence",
+    "deviceClass": "Neural Co-Processor & Knowledge Retrieval Units",
+    "fileName": "ArtificialIntelligence.sys",
+    "icon": "sys",
+    "description": "Engenharia de sistemas com modelos de linguagem (LLMs), recuperação aumentada por geração (RAG), agentes com tool calling e inferência dedicada.",
+    "items": [
+      {
+        "id": "llm-integration",
+        "name": "Integração com LLMs",
+        "driver": "LLMAPI.DLL (Language Model Gateway)",
+        "usage": "Integração de backends .NET e Python com APIs de modelos de linguagem, saídas estruturadas (JSON Schema / Pydantic), controle de contexto e tratamento de falhas.",
+        "useCases": [
+          "Validação estrita de saídas com Pydantic v2 e rastreamento de evidências no AutoApply.",
+          "Integração de assistentes conversacionais sobre dados operacionais."
+        ],
+        "relatedProjects": ["autoapply"]
+      },
+      {
+        "id": "rag",
+        "name": "RAG (Retrieval-Augmented Generation)",
+        "driver": "RAGINDEX.SYS (Contextual Retrieval Engine)",
+        "usage": "Arquitetura de pipelines de ingestão documental, segmentação (chunking), recuperação híbrida e fundamentação de respostas em fontes verificáveis.",
+        "useCases": [
+          "Recuperação de informações corporativas e restrição de respostas a documentos e evidências registradas."
+        ],
+        "relatedProjects": ["zellapedia", "autoapply"]
+      },
+      {
+        "id": "embeddings",
+        "name": "Embeddings",
+        "driver": "VECTOR.DRV (Semantic Indexing Unit)",
+        "usage": "Representação vetorial de textos e documentos para busca por similaridade semântica e ranqueamento de trechos relevantes.",
+        "useCases": [
+          "Indexação semântica para busca documental e cruzamento de requisitos técnicos com evidências."
+        ],
+        "relatedProjects": ["zellapedia", "autoapply"]
+      },
+      {
+        "id": "ai-agents",
+        "name": "Agentes de IA",
+        "driver": "AGENT.VXD (Autonomous Task Coordinator)",
+        "usage": "Desenho de fluxos multi-etapas com estado explícito, limites de atuação, validação determinística e supervisão humana (human-in-the-loop).",
+        "useCases": [
+          "Fluxo assistido de análise e geração controlada por Evidence Ledger no AutoApply."
+        ],
+        "relatedProjects": ["autoapply"]
+      },
+      {
+        "id": "tool-calling",
+        "name": "Tool Calling",
+        "driver": "TOOLCALL.DLL (Function Invocation Bridge)",
+        "usage": "Exposição segura de funções e endpoints de aplicação para invocação estruturada por LLMs com validação de argumentos e permissões.",
+        "useCases": [
+          "Consulta a endpoints internos de métricas e relatórios operacionais por assistentes de IA."
+        ],
+        "relatedProjects": ["autoapply"]
+      },
+      {
+        "id": "vllm",
+        "name": "vLLM",
+        "driver": "VLLMGPU.SYS (Self-Hosted Inference Server)",
+        "usage": "Execução de servidores de inferência compatíveis com a API OpenAI em ambiente Linux com aceleração por GPU para modelos abertos.",
+        "useCases": [
+          "Hospedagem local/privada de modelos de linguagem com baixa latência e controle de dados."
+        ],
+        "relatedProjects": []
+      }
+    ]
+  }
+]

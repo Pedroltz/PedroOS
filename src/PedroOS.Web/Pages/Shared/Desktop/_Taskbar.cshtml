@@ -1,0 +1,35 @@
+<header class="taskbar" id="taskbar" role="banner" aria-label="Barra de tarefas do PedroOS 95">
+    <button type="button"
+            class="start-button"
+            id="start-button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="start-menu"
+            aria-label="Start">
+        <img class="pixel-icon" src="@Icons.GetPath("logo", 16)" width="16" height="16" alt="" />
+        <span>Start</span>
+    </button>
+
+    <span class="taskbar-divider" aria-hidden="true"></span>
+
+    <div class="taskbar-windows" id="taskbar-windows" role="group" aria-label="Janelas em execução"></div>
+
+    <div class="taskbar-tray" role="region" aria-label="Área de notificação">
+        <button type="button"
+                class="tray-icon-btn"
+                id="tray-sound-toggle"
+                data-sound-toggle
+                aria-label="Alternar efeitos sonoros"
+                title="Efeitos sonoros do sistema">
+            <img class="pixel-icon" id="tray-sound-icon" src="@Icons.GetPath("speaker", 16)" width="16" height="16" alt="Som ativo" />
+        </button>
+        <button type="button"
+                class="tray-icon-btn"
+                data-open-app="sysprops"
+                aria-label="Abrir Propriedades do Sistema"
+                title="PedroOS 95 — System Properties">
+            <img class="pixel-icon" src="@Icons.GetPath("system", 16)" width="16" height="16" alt="Sistema" />
+        </button>
+        <time class="taskbar-clock" id="taskbar-clock" aria-live="off">12:00</time>
+    </div>
+</header>

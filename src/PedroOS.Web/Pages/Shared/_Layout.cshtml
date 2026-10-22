@@ -1,0 +1,42 @@
+@{
+    var title = ViewData["Title"] as string ?? "PedroOS 95 — Portfólio Interativo de Pedro Tunin";
+    var description = ViewData["MetaDescription"] as string ?? "Portfólio profissional interativo de Pedro Tunin simulando o Microsoft Windows 95.";
+    var canonicalPath = ViewData["CanonicalPath"] as string ?? Context.Request.Path.Value ?? "/";
+    var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
+    var canonicalUrl = $"{baseUrl}{canonicalPath}";
+    var ogImage = $"{baseUrl}/assets/og-image.png";
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title</title>
+    <meta name="description" content="@description" />
+    <meta name="author" content="Pedro Tunin" />
+    <meta name="theme-color" content="#008080" />
+    <link rel="canonical" href="@canonicalUrl" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PedroOS 95" />
+    <meta property="og:title" content="@title" />
+    <meta property="og:description" content="@description" />
+    <meta property="og:url" content="@canonicalUrl" />
+    <meta property="og:image" content="@ogImage" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@title" />
+    <meta name="twitter:description" content="@description" />
+    <meta name="twitter:image" content="@ogImage" />
+
+    <link rel="stylesheet" href="/css/98.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/css/pedroos.css" asp-append-version="true" />
+</head>
+<body>
+    @RenderBody()
+    <script src="/js/pedroos.js" asp-append-version="true" defer></script>
+</body>
+</html>
