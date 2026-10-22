@@ -1356,3 +1356,70 @@ html, body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ====================================================================
+   LinkedIn App
+   ==================================================================== */
+.linkedin-app {
+  background: var(--win-silver);
+}
+
+.linkedin-viewport {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--win-white);
+  padding: 12px;
+}
+
+.linkedin-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.linkedin-banner {
+  background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
+  color: var(--win-white);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: inset -1px -1px var(--win-black), inset 1px 1px var(--win-white);
+}
+
+.linkedin-banner-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.linkedin-logo {
+  border: 2px solid var(--win-white);
+}
+
+.linkedin-banner-title h2 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--win-white);
+}
+
+.linkedin-headline {
+  margin: 4px 0;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.linkedin-location {
+  margin: 2px 0;
+  font-size: 10px;
+  color: #dfdfdf;
+}
+
+.linkedin-connections {
+  color: #a0e0ff;
+  font-weight: bold;
+}
+
+.linkedin-cta-buttons {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}

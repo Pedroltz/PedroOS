@@ -183,16 +183,25 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
   });
 
   // 11. GitHub e LinkedIn apontam para URLs corretas
-  test('11. github and linkedin icons link to correct verified URLs with noopener', async ({ page }) => {
+  test('11. github and linkedin icons link to correct verified URLs with noopener', async ({ page, isMobile }) => {
     const githubLink = page.locator('#icon-github');
     await expect(githubLink).toHaveAttribute('href', 'https://github.com/Pedroltz');
     await expect(githubLink).toHaveAttribute('target', '_blank');
     await expect(githubLink).toHaveAttribute('rel', /noopener/);
 
-    const linkedinLink = page.locator('#icon-linkedin');
-    await expect(linkedinLink).toHaveAttribute('href', 'https://www.linkedin.com/in/pedrotunin/');
-    await expect(linkedinLink).toHaveAttribute('target', '_blank');
-    await expect(linkedinLink).toHaveAttribute('rel', /noopener/);
+    const linkedinIcon = page.locator('#icon-linkedin');
+    if (isMobile) {
+      await linkedinIcon.click();
+    } else {
+      await linkedinIcon.dblclick();
+    }
+
+    const linkedinWin = page.locator('.os-window[data-app-id="linkedin"]');
+    await expect(linkedinWin).toBeVisible({ timeout: 5000 });
+    const profileLink = linkedinWin.locator('a[href*="linkedin.com/in/pedrotunin"]').first();
+    await expect(profileLink).toBeVisible();
+    await expect(profileLink).toHaveAttribute('target', '_blank');
+    await expect(profileLink).toHaveAttribute('rel', /noopener/);
   });
 
   // 12. Internet Explorer navega por páginas internas

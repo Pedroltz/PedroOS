@@ -1,0 +1,101 @@
+@{
+    var profile = Portfolio.GetProfile();
+    var linkedinUrl = "https://www.linkedin.com/in/pedrotunin/";
+}
+<div class="app-shell linkedin-app">
+    <div class="win95-menubar" role="menubar" aria-label="Menu do LinkedIn">
+        <span class="win95-menu-item"><u>F</u>ile</span>
+        <span class="win95-menu-item"><u>E</u>dit</span>
+        <span class="win95-menu-item"><u>V</u>iew</span>
+        <span class="win95-menu-item"><u>H</u>elp</span>
+    </div>
+
+    <div class="win95-toolbar" role="toolbar" aria-label="Ações do perfil">
+        <a class="toolbar-btn" href="@linkedinUrl" target="_blank" rel="noopener noreferrer">
+            <img class="pixel-icon" src="@Icons.GetPath("linkedin", 16)" width="16" height="16" alt="" />
+            <span>Abrir no LinkedIn Oficial &#8599;</span>
+        </a>
+        <button type="button" class="toolbar-btn" data-open-app="resume">
+            <img class="pixel-icon" src="@Icons.GetPath("resume", 16)" width="16" height="16" alt="" />
+            <span>Ver Currículo (WordPad)</span>
+        </button>
+        <button type="button" class="toolbar-btn" data-open-app="projects">
+            <img class="pixel-icon" src="@Icons.GetPath("projects", 16)" width="16" height="16" alt="" />
+            <span>Ver Projetos</span>
+        </button>
+    </div>
+
+    <div class="win95-addressbar">
+        <label class="addressbar-label">Address</label>
+        <div class="addressbar-field sunken-panel">
+            <img class="pixel-icon" src="@Icons.GetPath("linkedin", 16)" width="16" height="16" alt="" />
+            <span>@linkedinUrl</span>
+        </div>
+    </div>
+
+    <div class="linkedin-viewport sunken-panel" tabindex="0">
+        <div class="linkedin-page">
+            <header class="linkedin-banner">
+                <div class="linkedin-banner-top">
+                    <img class="pixel-icon linkedin-logo" src="@Icons.GetPath("linkedin", 48)" width="48" height="48" alt="LinkedIn" />
+                    <div class="linkedin-banner-title">
+                        <h2>Pedro Tunin</h2>
+                        <p class="linkedin-headline">@profile.Headline</p>
+                        <p class="linkedin-location">@profile.Location &bull; <span class="linkedin-connections">500+ conexões</span></p>
+                    </div>
+                </div>
+
+                <div class="linkedin-cta-buttons">
+                    <a class="button win95-btn-primary" href="@linkedinUrl" target="_blank" rel="noopener noreferrer">
+                        Conectar no LinkedIn (linkedin.com/in/pedrotunin/) &#8599;
+                    </a>
+                    <a class="button" href="mailto:pedro.tunin@outlook.com">
+                        Enviar Mensagem por E-mail &#8599;
+                    </a>
+                    <button type="button" data-open-app="resume">
+                        Abrir Resume.doc
+                    </button>
+                </div>
+            </header>
+
+            <fieldset class="win95-fieldset">
+                <legend>Sobre (About)</legend>
+                <p>@profile.Summary</p>
+                @foreach (var p in profile.About)
+                {
+                    <p>@p</p>
+                }
+            </fieldset>
+
+            <fieldset class="win95-fieldset">
+                <legend>Principais Competências Destacadas</legend>
+                <div class="project-stack-list">
+                    @foreach (var group in profile.Competencies)
+                    {
+                        @foreach (var item in group.Items.Take(4))
+                        {
+                            <span class="win95-tag">@item</span>
+                        }
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset class="win95-fieldset">
+                <legend>Projetos &amp; Contato Direto</legend>
+                <ul class="win95-list">
+                    <li><strong>Perfil Oficial:</strong> <a href="@linkedinUrl" target="_blank" rel="noopener noreferrer">@linkedinUrl</a></li>
+                    <li><strong>GitHub:</strong> <a href="https://github.com/Pedroltz" target="_blank" rel="noopener noreferrer">https://github.com/Pedroltz</a></li>
+                    <li><strong>E-mail:</strong> <a href="mailto:pedro.tunin@outlook.com">pedro.tunin@outlook.com</a></li>
+                </ul>
+                <p class="muted-note" style="margin-top: 8px;">
+                    <em>Nota: Devido a restrições de segurança padrão dos navegadores (políticas de X-Frame-Options do próprio LinkedIn), redes sociais externas bloqueiam embutimento direto em iframes sem autenticação. Use o botão acima para abrir a sessão autenticada do LinkedIn em nova aba.</em>
+                </p>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <p class="status-bar-field">Done — @linkedinUrl</p>
+        <p class="status-bar-field">PedroOS Internet Zone</p>
+    </div>
+</div>

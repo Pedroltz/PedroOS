@@ -431,8 +431,8 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                             Description = "Perfil oficial no LinkedIn (https://www.linkedin.com/in/pedrotunin/)",
                             Action = new FileAction
                             {
-                                Kind = "open-url",
-                                Url = "https://www.linkedin.com/in/pedrotunin/",
+                                Kind = "open-app",
+                                AppId = "linkedin",
                             },
                         },
                     ],

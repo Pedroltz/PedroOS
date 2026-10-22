@@ -112,6 +112,18 @@ public sealed partial class AppCatalog : IAppCatalog
             },
             new AppDefinition
             {
+                Id = "linkedin",
+                Title = "Pedro Tunin - LinkedIn",
+                Icon = "linkedin",
+                Content = AppContentKind.Fragment,
+                DefaultWidth = 660,
+                DefaultHeight = 480,
+                MinWidth = 360,
+                MinHeight = 280,
+                MultiInstance = false,
+            },
+            new AppDefinition
+            {
                 Id = "minesweeper",
                 Title = "Minesweeper",
                 Icon = "minesweeper",
