@@ -2,7 +2,7 @@
   "name": "pedroos-95",
   "version": "1.0.0",
   "private": true,
-  "description": "PedroOS 95 — interactive Windows 95-inspired portfolio (frontend toolchain)",
+  "description": "PedroOS 95 — portfólio interativo com interface clássica (ferramentas de frontend)",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -17,9 +17,11 @@
     "lint": "eslint \"src/PedroOS.Web/Client/**/*.ts\" \"tests/PedroOS.E2E/**/*.ts\" \"tests/client/**/*.ts\"",
     "test:client": "node scripts/test-client.mjs && node --test tests/client/icon-assets.test.mjs",
     "export:pages": "node scripts/export-static.mjs",
-    "test:e2e": "playwright test -c tests/PedroOS.E2E/playwright.config.ts"
+    "test:e2e": "playwright test -c tests/PedroOS.E2E/playwright.config.ts",
+    "test:terminal-backend": "python3 -m unittest discover -s tests/terminal -v"
   },
   "dependencies": {
+    "@xterm/xterm": "^6.0.0",
     "98.css": "^0.1.21",
     "interactjs": "^1.10.28"
   },

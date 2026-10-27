@@ -22,3 +22,8 @@ yarn-error.log*
 *.sln.docstates
 .DS_Store
 Thumbs.db
+
+# Native terminal visitor saves (never ship these)
+.local-data/
+__pycache__/
+*.py[cod]

@@ -595,7 +595,6 @@ const ICONS = {
   '2091-retrogame': ['projects', project16('2091-retrogame'), '2091 retro game controller'],
   'autoapply': ['projects', project16('autoapply'), 'AutoApply automated form'],
   'rdp-session-manager': ['projects', overlay(S.remoteMonitor, O8.arrow, 0, 8), 'RDP Session Manager'],
-  'zellapedia': ['projects', overlay(S.book, O8.magnifier, 8, 8), 'ZellaPedia'],
   'project': ['projects', overlay(S.exe, O8.gear, 8, 8), 'Project'],
   // ui
   'mine': ['ui', S.mine, 'Mine'],

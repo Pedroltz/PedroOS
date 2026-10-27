@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>RetroGame2091</RootNamespace>
+    <AssemblyName>Game2091.Native</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <Compile Remove="Original/Program.cs;Original/Utils/FFmpegInstaller.cs;Original/Utils/ServiceContainer.cs;Original/Services/MusicService.cs" />
+    <EmbeddedResource Include="Original/Chapters/**/*.json;Original/Enemies/**/*.json;Original/Items/**/*.json;Original/NPCs/**/*.json" />
+    <None Update="Newtonsoft.Json-LICENSE.md" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

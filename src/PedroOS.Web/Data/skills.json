@@ -1,8 +1,8 @@
 [
   {
     "id": "development",
-    "name": "Development",
-    "deviceClass": "Development Processors & Runtime Subsystems",
+    "name": "Desenvolvimento",
+    "deviceClass": "Processadores de desenvolvimento e subsistemas de execução",
     "fileName": "Development.sys",
     "icon": "sys",
     "description": "Linguagens, frameworks backend/frontend e bancos de dados utilizados na construção de sistemas web e aplicações desktop.",
@@ -17,7 +17,11 @@
           "Testes automatizados com xUnit, geração de documentos PDF com QuestPDF e acesso a dados com EF Core.",
           "Construção completa do próprio PedroOS 95 em .NET 10 LTS."
         ],
-        "relatedProjects": ["ofizzy", "anycomic", "2091-retrogame"]
+        "relatedProjects": [
+          "ofizzy",
+          "anycomic",
+          "2091-retrogame"
+        ]
       },
       {
         "id": "aspnet-core",
@@ -26,10 +30,13 @@
         "usage": "Construção de Web APIs RESTful, aplicações Razor Pages e sistemas MVC com injeção de dependência, middlewares de segurança e renderização híbrida.",
         "useCases": [
           "Backend Web API multi-tenant do Ofizzy com autenticação, autorização por organização e validação.",
-          "Renderização SSR + Partial Views, rotas canônicas para SEO e endpoints de fragmentos no PedroOS 95.",
+          "Renderização SSR + componentes de página, rotas canônicas para SEO e endpoints de fragmentos no PedroOS 95.",
           "Aplicação MVC com área administrativa no AnyComic."
         ],
-        "relatedProjects": ["ofizzy", "anycomic"]
+        "relatedProjects": [
+          "ofizzy",
+          "anycomic"
+        ]
       },
       {
         "id": "python",
@@ -40,7 +47,10 @@
           "Administração de usuários xrdp, sessões remotas, diagnóstico de saúde e reparo transacional no RDP Session Manager.",
           "APIs assíncronas com FastAPI, SQLAlchemy 2.0 e Pydantic v2 no AutoApply."
         ],
-        "relatedProjects": ["rdp-session-manager", "autoapply"]
+        "relatedProjects": [
+          "rdp-session-manager",
+          "autoapply"
+        ]
       },
       {
         "id": "typescript",
@@ -49,9 +59,11 @@
         "usage": "Arquitetura de aplicações frontend tipadas, gerenciamento de estado no navegador, componentes interativos e testes E2E com Playwright.",
         "useCases": [
           "Frontend corporativo do Ofizzy em TypeScript + Angular.",
-          "WindowManager, DesktopStore, Virtual File System, Internet Explorer e Campo Minado do PedroOS 95 sem dependências de SPA."
+          "WindowManager, DesktopStore, Sistema de arquivos virtual, Navegador PedroOS e Campo Minado do PedroOS 95 sem dependências de SPA."
         ],
-        "relatedProjects": ["ofizzy"]
+        "relatedProjects": [
+          "ofizzy"
+        ]
       },
       {
         "id": "angular",
@@ -61,7 +73,9 @@
         "useCases": [
           "Frontend completo do Ofizzy em Angular 21 com PrimeNG e Tailwind CSS (dashboard, editor de OS, pagamentos e visão mobile)."
         ],
-        "relatedProjects": ["ofizzy"]
+        "relatedProjects": [
+          "ofizzy"
+        ]
       },
       {
         "id": "sql",
@@ -72,14 +86,18 @@
           "Banco de dados PostgreSQL 18 do Ofizzy para clientes, veículos, catálogo com vigência, ordens de serviço e lançamentos financeiros.",
           "Persistência relacional com PostgreSQL e Entity Framework Core no AnyComic."
         ],
-        "relatedProjects": ["ofizzy", "anycomic", "autoapply"]
+        "relatedProjects": [
+          "ofizzy",
+          "anycomic",
+          "autoapply"
+        ]
       }
     ]
   },
   {
     "id": "devops",
-    "name": "Infrastructure / DevOps",
-    "deviceClass": "System Bus, Containers & Linux Kernel Adapters",
+    "name": "Infraestrutura / DevOps",
+    "deviceClass": "Barramento do sistema, contêineres e adaptadores do núcleo Linux",
     "fileName": "DevOps.sys",
     "icon": "sys",
     "description": "Administração de ambientes Linux, conteinerização, automação de entrega contínua e infraestrutura como código.",
@@ -92,7 +110,9 @@
         "useCases": [
           "Suporte multi-distribuição (Ubuntu, Debian, Arch, Manjaro, EndeavourOS, CachyOS) e diagnóstico de sistema no RDP Session Manager."
         ],
-        "relatedProjects": ["rdp-session-manager"]
+        "relatedProjects": [
+          "rdp-session-manager"
+        ]
       },
       {
         "id": "docker",
@@ -102,7 +122,9 @@
         "useCases": [
           "Empacotamento dos serviços do Ofizzy e build multi-stage (Node + .NET 10 SDK → ASP.NET Runtime) do PedroOS 95."
         ],
-        "relatedProjects": ["ofizzy"]
+        "relatedProjects": [
+          "ofizzy"
+        ]
       },
       {
         "id": "docker-compose",
@@ -112,7 +134,9 @@
         "useCases": [
           "Ambiente completo do Ofizzy orquestrando API .NET 10, frontend Angular, PostgreSQL 18 e Nginx."
         ],
-        "relatedProjects": ["ofizzy"]
+        "relatedProjects": [
+          "ofizzy"
+        ]
       },
       {
         "id": "github-actions",
@@ -122,7 +146,10 @@
         "useCases": [
           "Pipelines de verificação de qualidade e releases no Ofizzy, no RDP Session Manager e no PedroOS 95."
         ],
-        "relatedProjects": ["ofizzy", "rdp-session-manager"]
+        "relatedProjects": [
+          "ofizzy",
+          "rdp-session-manager"
+        ]
       },
       {
         "id": "cicd",
@@ -132,7 +159,10 @@
         "useCases": [
           "Validação contínua de backend, frontend e testes Playwright nos projetos principais do portfólio."
         ],
-        "relatedProjects": ["ofizzy", "rdp-session-manager"]
+        "relatedProjects": [
+          "ofizzy",
+          "rdp-session-manager"
+        ]
       },
       {
         "id": "bash",
@@ -142,7 +172,9 @@
         "useCases": [
           "Instalador automatizado (`install.sh`) e scripts auxiliares de sessão e diagnóstico no RDP Session Manager."
         ],
-        "relatedProjects": ["rdp-session-manager"]
+        "relatedProjects": [
+          "rdp-session-manager"
+        ]
       },
       {
         "id": "terraform",
@@ -168,9 +200,9 @@
   },
   {
     "id": "ai",
-    "name": "Artificial Intelligence",
-    "deviceClass": "Neural Co-Processor & Knowledge Retrieval Units",
-    "fileName": "ArtificialIntelligence.sys",
+    "name": "Inteligência Artificial",
+    "deviceClass": "Coprocessador neural e unidades de recuperação de conhecimento",
+    "fileName": "InteligenciaArtificial.sys",
     "icon": "sys",
     "description": "Engenharia de sistemas com modelos de linguagem (LLMs), recuperação aumentada por geração (RAG), agentes com tool calling e inferência dedicada.",
     "items": [
@@ -183,7 +215,9 @@
           "Validação estrita de saídas com Pydantic v2 e rastreamento de evidências no AutoApply.",
           "Integração de assistentes conversacionais sobre dados operacionais."
         ],
-        "relatedProjects": ["autoapply"]
+        "relatedProjects": [
+          "autoapply"
+        ]
       },
       {
         "id": "rag",
@@ -193,7 +227,9 @@
         "useCases": [
           "Recuperação de informações corporativas e restrição de respostas a documentos e evidências registradas."
         ],
-        "relatedProjects": ["zellapedia", "autoapply"]
+        "relatedProjects": [
+          "autoapply"
+        ]
       },
       {
         "id": "embeddings",
@@ -203,7 +239,9 @@
         "useCases": [
           "Indexação semântica para busca documental e cruzamento de requisitos técnicos com evidências."
         ],
-        "relatedProjects": ["zellapedia", "autoapply"]
+        "relatedProjects": [
+          "autoapply"
+        ]
       },
       {
         "id": "ai-agents",
@@ -213,7 +251,9 @@
         "useCases": [
           "Fluxo assistido de análise e geração controlada por Evidence Ledger no AutoApply."
         ],
-        "relatedProjects": ["autoapply"]
+        "relatedProjects": [
+          "autoapply"
+        ]
       },
       {
         "id": "tool-calling",
@@ -223,7 +263,9 @@
         "useCases": [
           "Consulta a endpoints internos de métricas e relatórios operacionais por assistentes de IA."
         ],
-        "relatedProjects": ["autoapply"]
+        "relatedProjects": [
+          "autoapply"
+        ]
       },
       {
         "id": "vllm",

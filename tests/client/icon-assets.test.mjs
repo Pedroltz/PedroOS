@@ -17,7 +17,6 @@ test('established desktop artwork retains its original appearance', () => {
     'system/system-32.png': '0bbefbdb1bad1211dfdb2f2e27d062de9851c3e070434611f2448ff062a12a50',
     'applications/github-32.png': '1a2e3d3c822cc5bc2d178fad356d5a59d2003a3a144183968e3022437c4f8e4d',
     'applications/linkedin-32.png': '973e809c95df886faf5aa6174c43d5db076bdebef6077360966bc77ae552e75c',
-    'projects/zellapedia-32.png': '705a30774e160411b7b6b654b98d8675e4c90e31ab06a5901e3c07b08c3e9fb2',
   };
   for (const [path, hash] of Object.entries(originals)) {
     const bytes = readFileSync(new URL('wwwroot/assets/icons/' + path, web));
@@ -49,9 +48,9 @@ test('every registered icon variant exists at its advertised dimensions with har
     }
   }
 });
-test('all six projects have distinct small and large assets', () => {
+test('established project icons retain distinct small and large assets', () => {
   const assets = new Set();
-  for (const key of ['ofizzy', 'rdp-session-manager', 'zellapedia', 'anycomic', '2091-retrogame', 'autoapply']) {
+  for (const key of ['ofizzy', 'rdp-session-manager', 'anycomic', '2091-retrogame', 'autoapply']) {
     const entry = manifest.icons[key];
     assert.ok(entry.variants[16] && entry.variants[32]);
     if (['anycomic', '2091-retrogame', 'autoapply'].includes(key)) assert.deepEqual(entry.nativeSizes, [16, 32]);

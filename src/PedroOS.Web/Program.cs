@@ -9,6 +9,7 @@ builder.Services.AddSingleton<IPortfolioCatalog, JsonPortfolioCatalog>();
 builder.Services.AddSingleton<IAppCatalog, AppCatalog>();
 builder.Services.AddSingleton<IVirtualFileSystem, VirtualFileSystemService>();
 builder.Services.AddSingleton<IResumePdfService, ResumePdfService>();
+builder.Services.AddSingleton<Game2091TerminalService>();
 
 builder.Services.AddRazorPages(options =>
 {
@@ -31,7 +32,9 @@ app.Use(async (context, next) =>
     headers.TryAdd("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
     headers.TryAdd(
         "Content-Security-Policy",
-        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'");
+        (context.Request.Path.Equals("/assets/games/doom/player.html", StringComparison.OrdinalIgnoreCase)
+            ? "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+            : "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"));
 
     await next();
 });
@@ -41,10 +44,12 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 
-app.UseStatusCodePagesWithReExecute("/not-found");
+app.UseWhen(context => !context.Request.Path.StartsWithSegments("/api"), branch => branch.UseStatusCodePagesWithReExecute("/not-found"));
 
 var contentTypeProvider = new FileExtensionContentTypeProvider();
 contentTypeProvider.Mappings[".cur"] = "image/x-icon";
+contentTypeProvider.Mappings[".wad"] = "application/octet-stream";
+contentTypeProvider.Mappings[".wasm"] = "application/wasm";
 app.UseStaticFiles(new StaticFileOptions
 {
     ContentTypeProvider = contentTypeProvider,
@@ -61,6 +66,9 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
+app.UseWebSockets(new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(30), KeepAliveTimeout = TimeSpan.FromSeconds(20) });
+app.MapGet("/api/game2091/status", (HttpContext context, Game2091TerminalService terminal) => Results.Ok(new { available = terminal.Available, busy = terminal.IsBusy(context) }));
+app.Map("/api/game2091/terminal", (HttpContext context, Game2091TerminalService terminal) => terminal.HandleAsync(context));
 
 app.MapGet("/resume/pdf", (IResumePdfService pdfService) =>
 {
@@ -93,6 +101,73 @@ app.MapGet("/sitemap.xml", (HttpContext ctx, IPortfolioCatalog portfolio) =>
 });
 
 app.MapGet("/healthz", () => Results.Ok(new { status = "ok", os = "PedroOS 95" }));
+
+app.MapPost("/api/internal/deploy", async (HttpContext ctx, IHostApplicationLifetime lifetime) =>
+{
+    var maxBodyFeature = ctx.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>();
+    if (maxBodyFeature is { IsReadOnly: false })
+    {
+        maxBodyFeature.MaxRequestBodySize = 100_000_000;
+    }
+
+    var expected = Environment.GetEnvironmentVariable("PEDROOS_DEPLOY_TOKEN");
+    if (string.IsNullOrWhiteSpace(expected))
+    {
+        return Results.StatusCode(503);
+    }
+
+    var provided = ctx.Request.Headers["X-Deploy-Token"].ToString();
+    var expectedBytes = Encoding.UTF8.GetBytes(expected);
+    var providedBytes = Encoding.UTF8.GetBytes(provided);
+    if (!System.Security.Cryptography.CryptographicOperations.FixedTimeEquals(expectedBytes, providedBytes))
+    {
+        return Results.Unauthorized();
+    }
+
+    var tempArchive = Path.Combine(Path.GetTempPath(), $"pedroos-deploy-{Guid.NewGuid():N}.tar.gz");
+    try
+    {
+        await using (var fs = File.Create(tempArchive))
+        {
+            await ctx.Request.Body.CopyToAsync(fs, ctx.RequestAborted);
+        }
+
+        var targetDir = AppContext.BaseDirectory;
+        using var proc = System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = "tar",
+            ArgumentList = { "-xzf", tempArchive, "-C", targetDir },
+            RedirectStandardError = true,
+            UseShellExecute = false,
+        });
+        if (proc is null)
+        {
+            return Results.Problem("Failed to start tar process.");
+        }
+
+        var err = await proc.StandardError.ReadToEndAsync(ctx.RequestAborted);
+        await proc.WaitForExitAsync(ctx.RequestAborted);
+        if (proc.ExitCode != 0)
+        {
+            return Results.Problem($"tar exited with {proc.ExitCode}: {err}");
+        }
+    }
+    finally
+    {
+        if (File.Exists(tempArchive))
+        {
+            File.Delete(tempArchive);
+        }
+    }
+
+    _ = Task.Run(async () =>
+    {
+        await Task.Delay(800);
+        lifetime.StopApplication();
+    });
+
+    return Results.Ok(new { status = "deployed", restarting = true });
+});
 
 app.MapRazorPages();
 

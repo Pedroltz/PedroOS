@@ -165,4 +165,58 @@ console.log('--- Starting Client Unit Tests ---');
   console.log('✓ AppRegistry & IconRegistryClient passed');
 }
 
+
+// Window pressure is probabilistic only for new windows above the threshold.
+{
+  const { WindowPressure } = await import('../../src/PedroOS.Web/Client/core/WindowPressure.js');
+  let now = 100_000;
+  let roll = .079;
+  let draws = 0;
+  const pressure = new WindowPressure(() => { draws++; return roll; }, () => now);
+  assert.equal(pressure.shouldFail(3), false);
+  assert.equal(draws, 0);
+  assert.equal(pressure.shouldFail(4), true);
+  roll = .08;
+  assert.equal(pressure.shouldFail(4), false);
+  assert.equal(pressure.shouldFail(5), true);
+  roll = .6;
+  assert.equal(pressure.shouldFail(50), false, 'Probability is capped at 60%.');
+  roll = 0;
+  pressure.recover();
+  const previousDraws = draws;
+  assert.equal(pressure.shouldFail(50), false);
+  assert.equal(draws, previousDraws, 'No random draw during recovery cooldown.');
+  now += 59_999;
+  assert.equal(pressure.shouldFail(50), false);
+  now++;
+  assert.equal(pressure.shouldFail(4), true);
+  console.log('✓ WindowPressure passed');
+}
+
+
+// Welcome preference survives reloads and falls back to memory without storage.
+{
+  const { WelcomePreference, WELCOME_PREFERENCE_KEY } = await import('../../src/PedroOS.Web/Client/core/WelcomePreference.js');
+  let saved: string | null = null;
+  const storage = { getItem: (key: string) => { assert.equal(key, WELCOME_PREFERENCE_KEY); return saved; }, setItem: (key: string, value: string) => { assert.equal(key, WELCOME_PREFERENCE_KEY); saved = value; } };
+  const first = new WelcomePreference(() => storage);
+  assert.equal(first.read(), true);
+  first.set(false);
+  assert.equal(new WelcomePreference(() => storage).read(), false);
+  first.set(true);
+  assert.equal(new WelcomePreference(() => storage).read(), true);
+  saved = 'invalid json';
+  assert.equal(new WelcomePreference(() => storage).read(), true);
+  saved = '{"showOnStartup":"false"}';
+  assert.equal(new WelcomePreference(() => storage).read(), true);
+  const unavailable = new WelcomePreference(() => { throw new Error('Storage blocked'); });
+  assert.equal(unavailable.read(), true);
+  unavailable.set(false);
+  assert.equal(unavailable.read(), false);
+  const readOnly = new WelcomePreference(() => ({ getItem: () => null, setItem: () => { throw new Error('Quota exceeded'); } }));
+  readOnly.set(false);
+  assert.equal(readOnly.read(), false);
+  console.log('✓ WelcomePreference passed');
+}
+
 console.log('--- ALL CLIENT UNIT TESTS PASSED ---');

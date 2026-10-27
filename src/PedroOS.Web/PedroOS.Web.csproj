@@ -6,4 +6,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../Game2091.Native/Game2091.Native.csproj" ReferenceOutputAssembly="false" />
+    <Content Include="Terminal/**/*.py" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="CopyNativeGame" AfterTargets="Build">
+    <ItemGroup>
+      <NativeGameFiles Include="../Game2091.Native/bin/$(Configuration)/net10.0/*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(NativeGameFiles)" DestinationFolder="$(TargetDir)game2091" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="PublishNativeGame" AfterTargets="Publish">
+    <ItemGroup>
+      <NativeGamePublishFiles Include="$(TargetDir)game2091/*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(NativeGamePublishFiles)" DestinationFolder="$(PublishDir)game2091" SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

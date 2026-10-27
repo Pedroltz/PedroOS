@@ -24,6 +24,12 @@ if (existsSync(dist98)) {
 }
 
 const isDev = process.argv.includes('--dev');
+// Loaded only when a native game starts inside CMD.
+const xtermDist = join(root, 'node_modules', '@xterm', 'xterm');
+mkdirSync(join(jsOut, 'vendor'), { recursive: true });
+copyFileSync(join(xtermDist, 'lib', 'xterm.mjs'), join(jsOut, 'vendor', 'xterm.mjs'));
+copyFileSync(join(xtermDist, 'css', 'xterm.css'), join(cssOut, 'xterm.css'));
+copyFileSync(join(xtermDist, 'LICENSE'), join(jsOut, 'vendor', 'xterm-LICENSE.txt'));
 const isWatch = process.argv.includes('--watch');
 
 // 2. Bundle Client TypeScript with esbuild

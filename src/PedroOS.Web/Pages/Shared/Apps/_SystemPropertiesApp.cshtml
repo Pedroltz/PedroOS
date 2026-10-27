@@ -1,156 +1,45 @@
 @{
     var categories = Portfolio.GetSkillCategories();
     var profile = Portfolio.GetProfile();
-    var allProjects = Portfolio.GetProjects().ToDictionary(p => p.Slug, StringComparer.OrdinalIgnoreCase);
+    var firstSkill = categories.SelectMany(c => c.Items).FirstOrDefault();
 }
-<div class="app-shell sysprops-app" data-sysprops-app>
-    <menu role="tablist" aria-label="Abas das Propriedades do Sistema" class="sysprops-tabs">
-        <li role="tab" aria-selected="true" tabindex="0" data-sysprops-tab="general">General</li>
-        <li role="tab" aria-selected="false" tabindex="-1" data-sysprops-tab="dev-manager">Device Manager</li>
-        @foreach (var cat in categories)
-        {
-            <li role="tab" aria-selected="false" tabindex="-1" data-sysprops-tab="@cat.Id">@cat.Name</li>
-        }
-    </menu>
-
-    <div class="window sysprops-panel" role="tabpanel" data-sysprops-panel="general">
-        <div class="sysprops-general-grid">
-            <div class="sysprops-computer-badge">
-                <os-icon key="my-computer" size="48" alt="Computador PedroOS 95" />
-                <div class="sysprops-os-label">
-                    <strong>Microsoft Windows 95</strong>
-                    <span>PedroOS 95 Portfolio Edition</span>
-                    <span>Version 4.00.950 (.NET 10 LTS)</span>
-                </div>
-            </div>
-            <div class="sysprops-specs">
-                <fieldset class="win95-fieldset">
-                    <legend>Registered to</legend>
-                    <p><strong>@profile.Name</strong></p>
-                    <p>@profile.Headline</p>
-                    <p>Product ID: <code>19950-OEM-0010295-PEDRO</code></p>
-                </fieldset>
-                <fieldset class="win95-fieldset">
-                    <legend>Computer Architecture (Skill Subsystems)</legend>
-                    <ul class="win95-list">
-                        @foreach (var cat in categories)
-                        {
-                            <li>
-                                <strong>@cat.Name (@cat.FileName):</strong>
-                                @string.Join(", ", cat.Items.Select(i => i.Name))
-                            </li>
-                        }
-                    </ul>
-                    <p class="muted-note">
-                        Selecione as abas acima ou o <strong>Device Manager</strong> para inspecionar casos de uso reais e projetos relacionados de cada tecnologia.
-                    </p>
-                </fieldset>
+<div class="app-shell sysprops-app" data-sysprops-app data-info-tabs>
+    <div role="tablist" aria-label="Abas das Propriedades do Sistema" class="info-tabs">
+        <button type="button" role="tab" aria-selected="true" data-info-tab="general">Geral</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1" data-info-tab="dev-manager" aria-label="Gerenciador de Dispositivos">Dispositivos</button>
+        @foreach (var cat in categories) { <button type="button" role="tab" aria-selected="false" tabindex="-1" data-info-tab="@cat.Id">@cat.Name</button> }
+    </div>
+    <section role="tabpanel" class="info-panel" data-info-panel="general">
+        <div class="system-general-layout">
+            <div class="system-computer-picture"><os-icon key="my-computer" size="48" alt="" /><strong>PedroOS 95</strong></div>
+            <div class="system-general-copy">
+                <div class="system-general-section"><h3>Sistema:</h3><p>PedroOS 95<br />Edição Portfólio<br />4.00.950</p></div>
+                <div class="system-general-section"><h3>Registrado para:</h3><p>@profile.Name<br />@profile.Headline</p><p>19950-OEM-0010295-PEDRO</p></div>
+                <div class="system-general-section system-summary"><h3>Computador:</h3><p>ASP.NET Core · .NET 10 LTS<br />@categories.Count subsistemas de competências<br />@categories.Sum(c => c.Items.Count) competências documentadas<br />@Portfolio.GetProjects().Count projetos no portfólio</p></div>
             </div>
         </div>
-    </div>
-
-    <div class="window sysprops-panel" role="tabpanel" data-sysprops-panel="dev-manager" hidden>
-        <p class="sysprops-intro">
-            Clique em qualquer componente abaixo para inspecionar o driver, a experiência prática e os projetos em que é utilizado:
-        </p>
-        <div class="sysprops-devmgr-split">
-            <ul class="tree-view sysprops-tree" role="tree" aria-label="Árvore de dispositivos e competências">
-                <li role="treeitem" aria-expanded="true">
-                    <strong>PEDRO-WORKSTATION-95</strong>
-                    <ul>
-                        @foreach (var cat in categories)
-                        {
-                            <li role="treeitem" aria-expanded="true">
-                                <span>@cat.DeviceClass (@cat.FileName)</span>
-                                <ul>
-                                    @foreach (var skill in cat.Items)
-                                    {
-                                        <li>
-                                            <button type="button"
-                                                    class="tree-skill-btn"
-                                                    data-skill-select="@skill.Id"
-                                                    data-skill-name="@skill.Name"
-                                                    data-skill-driver="@skill.Driver"
-                                                    data-skill-usage="@skill.Usage"
-                                                    data-skill-cases="@string.Join("||", skill.UseCases)"
-                                                    data-skill-projects="@string.Join(",", skill.RelatedProjects)">
-                                                <os-icon key="sys" size="16" alt="" />
-                                                <span>@skill.Name</span>
-                                            </button>
-                                        </li>
-                                    }
-                                </ul>
-                            </li>
-                        }
-                    </ul>
-                </li>
-            </ul>
-
-            <div class="sysprops-device-inspector sunken-panel" data-skill-inspector>
-                <h3 data-inspector-title>C# e .NET</h3>
-                <p class="inspector-driver">Driver: <code data-inspector-driver>DOTNET10.DRV (CLR Runtime Bus)</code></p>
-                <p class="inspector-status">Device status: <strong>This capability is working properly in production and personal projects.</strong></p>
-                <p data-inspector-usage>Desenvolvimento de APIs, monólitos modulares, serviços de domínio, aplicações web e ferramentas de console em .NET 8 e .NET 10 LTS.</p>
-                <h4>Casos de uso concretos:</h4>
-                <ul class="win95-list" data-inspector-cases>
-                    <li>Modelagem de domínio multi-tenant, regras financeiras e ordens de serviço no Ofizzy (.NET 10).</li>
-                    <li>Construção completa do próprio PedroOS 95 em .NET 10 LTS.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    @foreach (var cat in categories)
-    {
-        <div class="window sysprops-panel" role="tabpanel" data-sysprops-panel="@cat.Id" hidden>
-            <div class="sysprops-cat-header">
-                <os-icon key="@cat.Icon" size="32" alt="" />
-                <div>
-                    <h3>@cat.Name — <small>@cat.DeviceClass (@cat.FileName)</small></h3>
-                    <p>@cat.Description</p>
-                </div>
-            </div>
-            <div class="sysprops-skill-cards">
-                @foreach (var skill in cat.Items)
-                {
-                    <article class="sysprops-skill-card sunken-panel">
-                        <header class="sysprops-skill-head">
-                            <strong>@skill.Name</strong>
-                            <code>@skill.Driver</code>
-                        </header>
-                        <p>@skill.Usage</p>
-                        @if (skill.UseCases.Count > 0)
-                        {
-                            <ul class="win95-list">
-                                @foreach (var uc in skill.UseCases)
-                                {
-                                    <li>@uc</li>
-                                }
-                            </ul>
-                        }
-                        @if (skill.RelatedProjects.Count > 0)
-                        {
-                            <div class="sysprops-related-projects">
-                                <span>Projetos relacionados:</span>
-                                @foreach (var slug in skill.RelatedProjects)
-                                {
-                                    if (allProjects.TryGetValue(slug, out var proj))
-                                    {
-                                        <button type="button" data-open-app="project" data-arg-slug="@proj.Slug">
-                                            @proj.Name
-                                        </button>
-                                    }
-                                }
-                            </div>
-                        }
-                    </article>
+        <fieldset class="system-subsystems"><legend>Subsistemas instalados</legend><div class="system-actions">@foreach (var cat in categories) { <button type="button" data-info-go="@cat.Id">@cat.Name</button> }</div></fieldset>
+        <p class="system-note">Use o Gerenciador de Dispositivos para consultar cada competência.</p>
+    </section>
+    <section role="tabpanel" class="info-panel system-devices-panel" data-info-panel="dev-manager" hidden>
+        <p class="system-note">Selecione um componente para consultar a experiência prática e os projetos relacionados.</p>
+        <div class="system-device-layout">
+            <nav class="system-device-tree sunken-panel" aria-label="Componentes do sistema"><strong class="system-tree-root">PEDROOS-95</strong>
+                @foreach (var cat in categories) {
+                    <details open><summary><os-icon key="@cat.Icon" size="16" alt="" />@cat.Name</summary><ul>
+                    @foreach (var skill in cat.Items) { <li><button type="button" class="tree-skill-btn" data-skill-select="@skill.Id" aria-pressed="@(skill == firstSkill ? "true" : "false")"><os-icon key="sys" size="16" alt="" /><span>@skill.Name</span></button></li> }
+                    </ul></details>
                 }
-            </div>
+            </nav>
+            <div class="system-device-inspector sunken-panel" data-skill-inspector aria-label="Detalhes da competência" tabindex="0">@if (firstSkill is not null) { <partial name="Apps/_SkillDetails" model="firstSkill" /> }</div>
         </div>
+        @foreach (var skill in categories.SelectMany(c => c.Items)) { <template data-skill-template="@skill.Id"><partial name="Apps/_SkillDetails" model="skill" /></template> }
+    </section>
+    @foreach (var cat in categories) {
+        <section role="tabpanel" class="info-panel" data-info-panel="@cat.Id" hidden>
+            <header class="system-category-heading"><os-icon key="@cat.Icon" size="32" alt="" /><div><h3>@cat.Name</h3><p>@cat.Description</p></div></header>
+            <div class="system-skill-cards">@foreach (var skill in cat.Items) { <fieldset><legend>@skill.Name</legend><partial name="Apps/_SkillDetails" model="skill" /></fieldset> }</div>
+        </section>
     }
-
-    <div class="sysprops-dialog-footer">
-        <button type="button" data-open-app="projects">Projects.exe</button>
-        <button type="button" data-open-app="resume">Resume.doc</button>
-    </div>
+    <footer class="system-dialog-footer"><span data-info-status class="sr-only">Geral</span><div class="system-actions"><button type="button" data-open-app="projects">Projetos</button><button type="button" data-open-app="resume">Currículo</button><button type="button" data-close-fragment aria-label="Fechar janela">OK</button></div></footer>
 </div>

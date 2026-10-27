@@ -18,7 +18,9 @@ public sealed record Project
     public string? DemoUrl { get; init; }
     public string? License { get; init; }
     public IReadOnlyList<ProjectScreenshot> Screenshots { get; init; } = [];
-    /// <summary>Featured projects get their own .exe in C:\Projects; others live in MoreProjects.</summary>
+    /// <summary>Position among repositories pinned on the public GitHub profile; null for other projects.</summary>
+    public int? GitHubPinnedOrder { get; init; }
+    /// <summary>Featured projects get their own .exe in C:\Projetos; others live in MaisProjetos.</summary>
     public bool Featured { get; init; } = true;
     /// <summary>Marks content that still needs to be completed by the owner.</summary>
     public bool IsPlaceholder { get; init; }

@@ -1,0 +1,24 @@
+@{ var profile = Portfolio.GetProfile(); }
+<div class="app-shell welcome-app" data-welcome-app>
+    <header class="welcome-heading"><os-icon key="logo" size="32" alt="" /><h2>Bem-vindo ao <strong>PedroOS 95</strong></h2></header>
+    <p class="welcome-intro">Este é o portfólio interativo de <strong>@profile.Name</strong>. Explore os projetos como aplicativos, veja suas imagens e tecnologias e conheça minhas experiências e competências.</p>
+    <div class="welcome-main">
+        <div class="welcome-discovery">
+            <div class="welcome-illustration" aria-hidden="true">
+                <div class="welcome-monitor"><div class="welcome-mini-screen"><div class="welcome-mini-window"><span></span><i></i><i></i></div><div class="welcome-mini-taskbar"><b>Iniciar</b></div></div></div>
+                <div class="welcome-monitor-neck"></div><div class="welcome-monitor-foot"></div>
+                <svg class="welcome-arrow" viewBox="0 0 60 28" width="60" height="28"><polygon points="1,14 20,1 20,9 58,9 58,19 20,19 20,27" fill="#ffff00" stroke="#000" stroke-width="2" /></svg>
+            </div>
+            <div class="welcome-tip" role="region" aria-label="Você sabia?" aria-live="polite" aria-atomic="true">
+                <h3>Você sabia?</h3><h4 data-welcome-tip-title>Explore o desktop</h4><p data-welcome-tip-text>Abra os ícones com um duplo clique. No celular, basta um toque. Use o menu Iniciar para encontrar os aplicativos do portfólio.</p>
+            </div>
+        </div>
+        <div class="welcome-actions">
+            <button type="button" data-open-app="projects" data-close-before-open>Explorar projetos</button>
+            <button type="button" data-open-app="resume" data-close-before-open>Ver currículo</button>
+            <button type="button" data-open-app="sysprops" data-close-before-open>Competências</button>
+            <button type="button" data-welcome-next>Próxima dica</button>
+        </div>
+    </div>
+    <footer class="welcome-footer"><div class="field-row"><input type="checkbox" data-welcome-startup checked /><label data-welcome-startup-label>Mostrar esta tela ao iniciar</label></div><button type="button" data-close-fragment>Fechar</button></footer>
+</div>

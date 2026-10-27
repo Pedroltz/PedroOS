@@ -6,11 +6,11 @@
     <div class="win95-toolbar" role="toolbar" aria-label="Ações do projeto @project.Name">
         <button type="button" class="toolbar-btn" data-open-app="projects">
             <os-icon key="projects" size="16" alt="" />
-            <span>All Projects</span>
+            <span>Todos os projetos</span>
         </button>
-        <button type="button" class="toolbar-btn" data-open-app="explorer" data-arg-path="C:\Projects">
+        <button type="button" class="toolbar-btn" data-open-app="explorer" data-arg-path="C:\Projetos">
             <os-icon key="explorer" size="16" alt="" />
-            <span>C:\Projects</span>
+            <span>C:\Projetos</span>
         </button>
         <span class="toolbar-sep" aria-hidden="true"></span>
         @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
@@ -27,21 +27,29 @@
                 <span>Demonstração / Site &#8599;</span>
             </a>
         }
+        @if (project.Slug == "2091-retrogame")
+        {
+            <button type="button" class="toolbar-btn" data-open-app="terminal" data-arg-command="2091">
+                <os-icon key="2091-retrogame" size="16" alt="" />
+                <span>Jogar 2091</span>
+            </button>
+        }
     </div>
 
-    <div class="project-details-body">
-        <header class="project-banner sunken-panel">
+    <div class="project-details-body sunken-panel" tabindex="0" aria-label="Detalhes de @project.Name">
+      <div class="project-content">
+        <header class="project-banner">
             <os-icon key="@project.Icon" size="32" class="project-banner-icon" alt="Ícone de @project.Name" />
             <div class="project-banner-meta">
-                <h2 class="project-banner-title">@project.Name <small>(@project.ExecutableName)</small></h2>
+                <h2 class="project-banner-title">@project.Name</h2>
                 <p class="project-banner-summary">@project.Summary</p>
-                <div class="project-status-line">
-                    <strong>Status:</strong> <span>@project.Status</span>
+                <dl class="project-properties">
+                    <dt>Situação:</dt><dd>@project.Status</dd>
                     @if (!string.IsNullOrWhiteSpace(project.License))
                     {
-                        <span class="project-license"> | <strong>Licença:</strong> @project.License</span>
+                        <dt>Licença:</dt><dd>@project.License</dd>
                     }
-                </div>
+                </dl>
             </div>
         </header>
 
@@ -50,12 +58,72 @@
             <div class="win95-callout win95-callout-warning" role="note">
                 <os-icon key="warning" size="16" alt="Aviso" />
                 <div>
-                    <strong>Nota de Transparência (Placeholder Explícito):</strong>
+                    <strong>Nota de transparência (informação a preencher):</strong>
                     <span>@project.PlaceholderNote</span>
                 </div>
             </div>
         }
 
+        <fieldset class="win95-fieldset project-gallery-section"><legend>Capturas de tela (@project.Screenshots.Count)</legend>
+            @if (project.Screenshots.Count == 0)
+            {
+                <div class="project-gallery-empty sunken-panel">
+                    <os-icon key="folder" size="32" alt="" />
+                    <p>Este projeto ainda não possui capturas públicas.</p>
+                    <span>Conheça os detalhes e as tecnologias abaixo.</span>
+                </div>
+            }
+            else
+            {
+                var firstShot = project.Screenshots[0];
+                <div class="project-gallery" data-project-gallery>
+                    <div class="project-gallery-controls">
+                        <div class="project-gallery-navigation" role="group" aria-label="Navegar pelas capturas">
+                            <button type="button" data-project-previous aria-label="Captura anterior" title="Captura anterior" disabled="@(project.Screenshots.Count < 2)">&#9664;</button>
+                            <span data-project-counter aria-live="polite">1 de @project.Screenshots.Count</span>
+                            <button type="button" data-project-next aria-label="Próxima captura" title="Próxima captura" disabled="@(project.Screenshots.Count < 2)">&#9654;</button>
+                        </div>
+                        <button type="button" data-project-enlarge>Ampliar imagem</button>
+                    </div>
+                    <div class="project-preview-stage sunken-panel">
+                        <a class="project-preview-link" href="@firstShot.Src" target="_blank" rel="noopener noreferrer" data-project-enlarge aria-label="Ampliar captura de @project.Name">
+                            <img src="@firstShot.Src" alt="@firstShot.Alt" class="project-preview-image" data-project-preview-image decoding="async" />
+                        </a>
+                        <p class="project-image-error" data-project-preview-error role="status" hidden>Não foi possível carregar esta imagem. Selecione outra captura ou tente abri-la em uma nova aba.</p>
+                    </div>
+                    <p class="project-gallery-caption" data-project-caption>@(string.IsNullOrWhiteSpace(firstShot.Caption) ? firstShot.Alt : firstShot.Caption)</p>
+                    <div class="project-thumbnails" role="group" aria-label="Escolher captura de @project.Name">
+                        @for (var index = 0; index < project.Screenshots.Count; index++)
+                        {
+                            var shot = project.Screenshots[index];
+                            <button type="button" class="project-thumbnail" data-project-shot="@index" data-src="@shot.Src" data-alt="@shot.Alt" data-caption="@(string.IsNullOrWhiteSpace(shot.Caption) ? shot.Alt : shot.Caption)" aria-label="Ver imagem @(index + 1): @shot.Alt" aria-pressed="@(index == 0 ? "true" : "false")" title="@shot.Caption">
+                                <img src="@shot.Src" alt="" loading="lazy" decoding="async" />
+                                <span>@(index + 1)</span>
+                            </button>
+                        }
+                    </div>
+                    <p class="project-gallery-hint">Clique na imagem para ampliar. No visualizador, use as setas para navegar e Esc para fechar.</p>
+                    <dialog class="window project-image-viewer" aria-label="Visualizador de imagens de @project.Name" data-project-viewer>
+                        <div class="title-bar">
+                            <span class="title-bar-text">@project.Name — Visualizador de imagens</span>
+                            <div class="title-bar-controls"><button type="button" class="close" aria-label="Fechar visualizador" data-project-viewer-close></button></div>
+                        </div>
+                        <div class="project-viewer-toolbar" role="toolbar" aria-label="Controles da imagem">
+                            <button type="button" data-project-previous disabled="@(project.Screenshots.Count < 2)">&#9664; Anterior</button>
+                            <button type="button" data-project-next disabled="@(project.Screenshots.Count < 2)">Próxima &#9654;</button>
+                            <span class="toolbar-sep" aria-hidden="true"></span>
+                            <button type="button" data-project-zoom aria-pressed="false">Tamanho original</button>
+                            <a class="button" href="@firstShot.Src" target="_blank" rel="noopener noreferrer" data-project-original>Abrir em nova aba &#8599;</a>
+                        </div>
+                        <div class="project-viewer-stage sunken-panel" tabindex="0" aria-label="Imagem ampliada; use a rolagem no tamanho original">
+                            <img data-project-viewer-image alt="" decoding="async" />
+                            <p class="project-image-error" data-project-viewer-error role="status" hidden>Não foi possível carregar esta imagem. Tente abrir o arquivo em uma nova aba.</p>
+                        </div>
+                        <div class="status-bar"><p class="status-bar-field" data-project-viewer-caption></p><p class="status-bar-field" data-project-viewer-counter></p></div>
+                    </dialog>
+                </div>
+            }
+        </fieldset>
         <div class="project-grid-two">
             <fieldset class="win95-fieldset">
                 <legend>Problema Abordado</legend>
@@ -68,7 +136,7 @@
         </div>
 
         <fieldset class="win95-fieldset">
-            <legend>Descrição &amp; Destaques Técnicos</legend>
+            <legend>Descrição e detalhes técnicos</legend>
             <p>@project.Description</p>
             @if (project.Highlights.Count > 0)
             {
@@ -82,62 +150,35 @@
         </fieldset>
 
         <fieldset class="win95-fieldset">
-            <legend>Stack Tecnológica</legend>
-            <div class="project-stack-list">
+            <legend>Tecnologias utilizadas</legend>
+            <ul class="project-technology-list sunken-panel">
                 @foreach (var tech in project.Stack)
                 {
-                    <span class="win95-tag">@tech</span>
+                    <li><os-icon key="sys" size="16" alt="" /><span>@tech</span></li>
                 }
-            </div>
-        </fieldset>
-
-        <fieldset class="win95-fieldset">
-            <legend>Capturas de Tela (@project.Screenshots.Count)</legend>
-            @if (project.Screenshots.Count == 0)
-            {
-                <p class="muted-note">
-                    Nenhuma captura de tela pública registrada para este projeto no repositório local.
-                </p>
-            }
-            else
-            {
-                <div class="screenshot-gallery" data-screenshot-gallery>
-                    @foreach (var shot in project.Screenshots)
-                    {
-                        <figure class="screenshot-figure sunken-panel">
-                            <img src="@shot.Src"
-                                 alt="@shot.Alt"
-                                 loading="lazy"
-                                 class="screenshot-img" />
-                            @if (!string.IsNullOrWhiteSpace(shot.Caption))
-                            {
-                                <figcaption class="screenshot-caption">@shot.Caption</figcaption>
-                            }
-                        </figure>
-                    }
-                </div>
-            }
+            </ul>
         </fieldset>
 
         <div class="project-footer-links">
             @if (!string.IsNullOrWhiteSpace(project.RepositoryUrl))
             {
                 <a class="button" href="@project.RepositoryUrl" target="_blank" rel="noopener noreferrer">
-                    Abrir Repositório no GitHub (@project.RepositoryUrl)
+                    Repositório no GitHub &#8599;
                 </a>
             }
             @if (!string.IsNullOrWhiteSpace(project.DemoUrl))
             {
                 <a class="button" href="@project.DemoUrl" target="_blank" rel="noopener noreferrer">
-                    Abrir Página / Documentação (@project.DemoUrl)
+                    Página e documentação &#8599;
                 </a>
             }
-            <button type="button" data-open-app="sysprops">Ver Habilidades Relacionadas</button>
+            <button type="button" data-open-app="sysprops">Competências relacionadas</button>
         </div>
+      </div>
     </div>
 
     <div class="status-bar">
-        <p class="status-bar-field">C:\Projects\@project.ExecutableName</p>
+        <p class="status-bar-field">C:\Projetos\@project.ExecutableName</p>
         <p class="status-bar-field">@project.Stack.Count tecnologias listadas</p>
     </div>
 </div>

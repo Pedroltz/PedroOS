@@ -1,0 +1,110 @@
+{
+  "Id": "bar_scene_test",
+  "Title": "The Neon Dragon Bar",
+  "StartNode": "enter_bar",
+  "Nodes": {
+    "enter_bar": {
+      "Text": [
+        "Você entra no Neon Dragon, um bar decadente em Japantown.",
+        "O ar está denso com fumaça sintética e o cheiro de álcool barato.",
+        "Luzes neon piscam fracamente nas paredes, projetando sombras distorcidas.",
+        "",
+        "O bartender, Tom 'Wirehead', limpa copos atrás do balcão com movimentos mecânicos.",
+        "Alguns clientes solitários bebem em silêncio nos cantos escuros.",
+        "Música sintética toca baixinho no fundo."
+      ],
+      "Options": [
+        {
+          "Text": "Sentar no balcão e conversar com Tom",
+          "StartChat": "bartender_tom",
+          "PostChatNode": "apos_conversa_bar"
+        },
+        {
+          "Text": "Pedir uma bebida (20 créditos)",
+          "NextNode": "pedir_bebida"
+        },
+        {
+          "Text": "Observar o ambiente",
+          "NextNode": "observar_bar"
+        },
+        {
+          "Text": "Sair do bar",
+          "NextChapter": "init_inicio"
+        }
+      ]
+    },
+    "apos_conversa_bar": {
+      "Text": [
+        "Você encerra a conversa com Tom e volta a observar o bar.",
+        "O ambiente continua o mesmo - escuro, tenso, cheio de segredos não ditos.",
+        "Tom volta a limpar copos, mas você nota um leve aceno de reconhecimento."
+      ],
+      "Options": [
+        {
+          "Text": "Conversar com Tom novamente",
+          "StartChat": "bartender_tom",
+          "PostChatNode": "apos_conversa_bar"
+        },
+        {
+          "Text": "Pedir uma bebida (20 créditos)",
+          "NextNode": "pedir_bebida"
+        },
+        {
+          "Text": "Sair do bar",
+          "NextChapter": "init_inicio"
+        }
+      ]
+    },
+    "pedir_bebida": {
+      "Text": [
+        "Tom serve uma bebida sintética com gelo artificial.",
+        "O líquido azul neon brilha fracamente no copo.",
+        "",
+        "'Isso vai te custar 20 créditos, choom', ele diz sem olhar para você.",
+        "",
+        "A bebida tem um gosto metálico, mas pelo menos é forte."
+      ],
+      "Options": [
+        {
+          "Text": "Conversar com Tom enquanto bebe",
+          "StartChat": "bartender_tom",
+          "PostChatNode": "apos_conversa_bar"
+        },
+        {
+          "Text": "Observar o ambiente",
+          "NextNode": "observar_bar"
+        },
+        {
+          "Text": "Terminar a bebida e sair",
+          "NextChapter": "init_inicio"
+        }
+      ]
+    },
+    "observar_bar": {
+      "Text": [
+        "Você observa o bar com mais atenção.",
+        "",
+        "No canto, um homem de terno escuro fala baixinho em um comm implantado.",
+        "Perto da porta, uma mulher com implantes pesados vigia a entrada.",
+        "As paredes estão cobertas de pôsteres rasgados de bandas antigas e avisos corporativos.",
+        "",
+        "Este lugar já viu dias melhores - muito melhores."
+      ],
+      "Options": [
+        {
+          "Text": "Voltar ao balcão e conversar com Tom",
+          "StartChat": "bartender_tom",
+          "PostChatNode": "apos_conversa_bar"
+        },
+        {
+          "Text": "Pedir uma bebida",
+          "NextNode": "pedir_bebida"
+        },
+        {
+          "Text": "Sair do bar",
+          "NextChapter": "init_inicio"
+        }
+      ]
+    }
+  }
+}

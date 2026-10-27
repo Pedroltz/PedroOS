@@ -1,32 +1,37 @@
-<div class="app-shell about-app">
-    <div class="about-layout">
-        <os-icon key="logo" size="48" class="about-logo" alt="Logotipo PedroOS 95" />
-        <div class="about-content">
-            <h2>PedroOS 95 <small>Version 4.00.950</small></h2>
-            <p>Copyright &copy; Pedro Tunin. Portfólio profissional interativo inspirado no Microsoft Windows 95.</p>
-            <fieldset class="win95-fieldset">
-                <legend>Arquitetura do Sistema</legend>
-                <ul class="win95-list">
-                    <li><strong>Backend:</strong> ASP.NET Core Razor Pages (.NET 10 LTS), C#, Partial Views, DI.</li>
-                    <li><strong>Frontend:</strong> TypeScript, WindowManager independente, DesktopStore, Virtual File System, 98.css (adaptado para Win95) e interact.js.</li>
-                    <li><strong>Qualidade:</strong> Testes unitários xUnit + Testes E2E Playwright + Docker + GitHub Actions.</li>
-                </ul>
-            </fieldset>
-
-            <fieldset class="win95-fieldset">
-                <legend>Segredos &amp; Easter Eggs</legend>
-                <ul class="win95-list">
-                    <li>Pressione <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd> ou clique abaixo para testar a tela azul clássica (BSOD segura).</li>
-                    <li>No Campo Minado, digite <code>xyzzy</code> + <kbd>Enter</kbd> para ativar o pixel espião clássico.</li>
-                    <li>No Internet Explorer, navegue para <code>about:mozilla</code> ou <code>pedroos://credits</code>.</li>
-                </ul>
-                <div class="about-actions">
-                    <button type="button" data-trigger-bsod>Testar Tela Azul (BSOD Segura)</button>
-                    <button type="button" data-open-app="notepad" data-arg-path="C:\PEDROOS\Credits.txt">Licenças de Terceiros</button>
-                    <a class="button" href="https://github.com/Pedroltz" target="_blank" rel="noopener noreferrer">GitHub &#8599;</a>
-                    <a class="button" href="https://www.linkedin.com/in/pedrotunin/" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
-                </div>
-            </fieldset>
-        </div>
+@{ var profile = Portfolio.GetProfile(); }
+<div class="app-shell about-app" data-info-tabs>
+    <div role="tablist" aria-label="Sobre o PedroOS" class="info-tabs">
+        <button type="button" role="tab" aria-selected="true" data-info-tab="general">Geral</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1" data-info-tab="architecture">Componentes</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1" data-info-tab="credits">Créditos</button>
     </div>
+    <section role="tabpanel" class="info-panel" data-info-panel="general">
+        <div class="about-classic-layout">
+            <os-icon key="logo" size="48" class="about-classic-logo" alt="" />
+            <div class="about-classic-copy">
+                <h2>PedroOS <span>95</span></h2>
+                <p>Versão 4.00.950<br />Edição Portfólio</p>
+                <p>Copyright &copy; @profile.Name.<br />Todos os direitos reservados.</p>
+                <hr class="system-rule" />
+                <p>Este produto está licenciado para:</p>
+                <p class="about-licensee"><strong>@profile.Name</strong><br />@profile.Headline</p>
+                <p>19950-OEM-0010295-PEDRO</p>
+                <hr class="system-rule" />
+                <p>Portfólio profissional interativo.<br />Desenvolvido com ASP.NET Core e TypeScript.</p>
+            </div>
+        </div>
+    </section>
+    <section role="tabpanel" class="info-panel" data-info-panel="architecture" hidden>
+        <h3>Componentes do sistema</h3><p>Uma aplicação web com janelas independentes, arquivos virtuais e programas feitos para explorar o portfólio.</p>
+        <fieldset><legend>Aplicação</legend><p><strong>ASP.NET Core Razor Pages e C#</strong></p><p>.NET 10 LTS, componentes de página e injeção de dependência.</p></fieldset>
+        <fieldset><legend>Desktop e interação</legend><p><strong>TypeScript, 98.css e interact.js</strong></p><p>Gerenciador de janelas, estado do desktop e sistema de arquivos virtual.</p></fieldset>
+        <fieldset><legend>Qualidade e distribuição</legend><p>xUnit, Playwright, Docker e GitHub Actions.</p></fieldset>
+    </section>
+    <section role="tabpanel" class="info-panel" data-info-panel="credits" hidden>
+        <h3>Créditos e recursos adicionais</h3>
+        <ul class="system-secrets"><li><strong>Tela azul:</strong> pressione <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> para uma simulação clássica.</li><li><strong>Campo Minado:</strong> digite <code>xyzzy</code> e pressione <kbd>Enter</kbd> para ativar o pixel espião.</li><li><strong>Navegador PedroOS:</strong> visite <code>about:mozilla</code> ou <code>pedroos://credits</code>.</li></ul>
+        <div class="system-actions"><button type="button" data-trigger-bsod>Testar tela azul</button><button type="button" data-open-app="notepad" data-arg-path="C:\PEDROOS\Creditos.txt">Licenças de terceiros</button></div>
+        <fieldset><legend>Autor</legend><p><a href="https://github.com/Pedroltz" target="_blank" rel="noopener noreferrer">GitHub ↗</a> · <a href="https://www.linkedin.com/in/pedrotunin/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></p><p>Os links abrem em outra aba.</p></fieldset>
+    </section>
+    <footer class="system-dialog-footer about-dialog-footer"><div class="system-actions"><button type="button" data-open-app="sysprops">Propriedades do sistema</button><button type="button" data-open-app="resume">Currículo</button></div><button type="button" data-close-fragment aria-label="Fechar janela">OK</button></footer>
 </div>

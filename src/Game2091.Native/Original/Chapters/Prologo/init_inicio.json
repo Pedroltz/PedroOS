@@ -1,0 +1,2081 @@
+{
+  "Id": "init_inicio",
+  "Title": "2091 - Night City",
+  "StartNode": "despertar",
+  "Nodes": {
+    "despertar": {
+      "Text": [
+        "São 03h27. Uma figura me encara pelo espelho, morta e esgotada pelo tempo.",
+        "",
+        "Você é {name}, um jovem de 21 anos tentando sobreviver na máquina corporativa de Night City.",
+        "Outro pesadelo. Ou seria ansiedade? A distinção perdeu o sentido faz tempo.",
+        "A pele encharcada de suor frio, você se vira na cama tentando arrancar alguns minutos extras de descanso.",
+        "",
+        "Mas a cidade não negocia o silêncio. A luz forte de néon atravessa a rachadura da janela quebrada.",
+        "Do lado de fora, um outdoor brilha: 'Novos adesivos de nicotina! Livres de efeitos colaterais!'",
+        "Promessas sintéticas em cores que não existem na natureza.",
+        "",
+        "Você desvia o olhar para o relógio. Três e meia. Hora de levantar."
+      ],
+      "Options": [
+        {
+          "Text": "Levantar-se imediatamente e começar o dia",
+          "NextNode": "banheiro_reflexao"
+        },
+        {
+          "Text": "Tentar dormir mais alguns minutos",
+          "NextNode": "tentativa_sono"
+        },
+        {
+          "Text": "Observar o outdoor pela janela quebrada",
+          "NextNode": "observar_outdoor"
+        }
+      ]
+    },
+    "banheiro_reflexao": {
+      "Text": [
+        "Você empurra o lençol para o lado e se levanta devagar, os pés tocando o chão frio de concreto mal polido.",
+        "O quarto é pequeno, abarrotado de cabos, roupas amassadas e o zumbido constante de um ventilador quebrado.",
+        "",
+        "No banheiro, o espelho trincado devolve sua imagem em fragmentos.",
+        "Você abre a torneira; a água escorre fraca e gelada, respingando na pia manchada de ferrugem.",
+        "Junta as mãos, lava o rosto e respira fundo.",
+        "",
+        "O reflexo mostra um jovem de feições orientais cansadas, cabelos pretos lisos que chegam até o pescoço.",
+        "Nada de implantes, nada de cibernética visível. Apenas carne, osso e olheiras profundas."
+      ],
+      "Options": [
+        {
+          "Text": "Examinar as olheiras no espelho",
+          "NextNode": "reflexao_cansaco"
+        },
+        {
+          "Text": "Preparar-se rapidamente para o trabalho",
+          "NextNode": "preparacao_trabalho"
+        },
+        {
+          "Text": "Lembrar dos tempos de escola",
+          "NextNode": "flashback_escola"
+        }
+      ]
+    },
+    "tentativa_sono": {
+      "Text": [
+        "Você puxa o lençol sobre a cabeça, tentando bloquear a luz invasiva do néon.",
+        "Por alguns minutos, você quase consegue relaxar... mas então os sons começam.",
+        "",
+        "Sirenes distantes. O zumbido elétrico dos hologramas publicitários.",
+        "O barulho de uma briga no andar de cima - provavelmente os vizinhos discutindo sobre as taxas de 'proteção'.",
+        "",
+        "Não adianta. Night City nunca dorme, e você também não."
+      ],
+      "Options": [
+        {
+          "Text": "Desistir e levantar-se",
+          "NextNode": "banheiro_reflexao"
+        },
+        {
+          "Text": "Cobrir os ouvidos e insistir",
+          "NextNode": "sono_frustrado"
+        }
+      ]
+    },
+    "observar_outdoor": {
+      "Text": [
+        "Você se aproxima da janela quebrada, evitando os cacos de vidro no chão.",
+        "O outdoor da Biotechnica pulsa em azul e verde, suas cores artificiais quase hipnóticas.",
+        "",
+        "'Novos adesivos de nicotina TransDerm™ - A evolução do bem-estar!'",
+        "'Sem dependência! Sem efeitos colaterais! Aprovado pela ComBoard!'",
+        "",
+        "Você conhece essas mentiras. Trabalha para quem as cria.",
+        "Lá embaixo, algumas pessoas já caminham pelas ruas, sombras apressadas na madrugada.",
+        "Todos correndo para alimentar a máquina que os devora lentamente."
+      ],
+      "Options": [
+        {
+          "Text": "Sentir raiva da hipocrisia corporativa",
+          "NextNode": "reflexao_corporacao"
+        },
+        {
+          "Text": "Aceitar resignadamente a realidade",
+          "NextNode": "aceitacao_realidade"
+        },
+        {
+          "Text": "Lembrar-se do que sua mãe fez por você",
+          "NextNode": "lembranca_mae"
+        }
+      ]
+    },
+    "reflexao_cansaco": {
+      "Text": [
+        "As olheiras são profundas, quase violáceas. Quando foi a última vez que você dormiu realmente bem?",
+        "Três? Quatro meses atrás?",
+        "",
+        "A rotina da Biotechnica está te consumindo por dentro.",
+        "12 horas por dia, 6 dias por semana. E no seu único dia 'livre', sempre aparece algum superior",
+        "'pedindo um favorzinho' que não pode ser recusado.",
+        "",
+        "'Isso tudo vai valer a pena', você repete para si mesmo.",
+        "Mas é mentira, e no fundo você sabe disso."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar se preparando, ignorando os pensamentos",
+          "NextNode": "preparacao_trabalho"
+        },
+        {
+          "Text": "Questionar se vale a pena continuar assim",
+          "NextNode": "questionamento_vida"
+        }
+      ]
+    },
+    "preparacao_trabalho": {
+      "Text": [
+        "Você veste o uniforme padrão da Biotechnica: camisa verde-escura, calça preta, distintivo de identificação.",
+        "O tecido é sintético, barato, e sempre deixa você suado depois de algumas horas.",
+        "",
+        "Pega a carteira - poucos eurodollars restantes depois de pagar a 'proteção' das Garras de Tigre.",
+        "Um sanduíche de nutriente sintético para o almoço.",
+        "",
+        "Na mesinha ao lado da porta, você vê seu passe de transporte corporativo brilhando levemente."
+      ],
+      "Options": [
+        {
+          "Text": "Pegar o passe de transporte e sair",
+          "NextNode": "caminho_bondinho",
+          "GiveItems": [
+            {
+              "ItemId": "access_card",
+              "Quantity": 1
+            }
+          ]
+        },
+        {
+          "Text": "Ignorar o passe e sair direto",
+          "NextNode": "caminho_bondinho"
+        },
+        {
+          "Text": "Hesitar na porta por um momento",
+          "NextNode": "hesitacao_porta"
+        },
+        {
+          "Text": "Verificar se tem mensagens no terminal",
+          "NextNode": "verificar_mensagens"
+        }
+      ]
+    },
+    "flashback_escola": {
+      "Text": [
+        "A memória volta como um soco no estômago.",
+        "O colégio preparatório particular, cercado de filhos de executivos corporativos.",
+        "Você, o 'zé-ninguém', sempre na mira dos valentões.",
+        "",
+        "Lembra dos corredores opressivos, dos risos maldosos, dos empurrões 'acidentais'.",
+        "E principalmente, lembra da escolha que teve que fazer sobre como reagir ao bullying.",
+        "Essa decisão moldou quem você se tornou hoje."
+      ],
+      "Options": [
+        {
+          "Text": "Lembrar de quando revidava com violência",
+          "NextNode": "escolha_violencia",
+          "SkillRequirement": {
+            "Skill": "forca",
+            "MinValue": 0
+          }
+        },
+        {
+          "Text": "Lembrar de quando ficava calado e aguentava",
+          "NextNode": "escolha_silencio",
+          "SkillRequirement": {
+            "Skill": "psicologia",
+            "MinValue": 0
+          }
+        },
+        {
+          "Text": "Lembrar de quando buscava ajuda dos professores",
+          "NextNode": "escolha_dialogo",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 0
+          }
+        }
+      ]
+    },
+    "escolha_violencia": {
+      "Text": [
+        "Você lembra dos punhos cerrados, da raiva explodindo em brigas nos corredores.",
+        "Cada soco que dava era uma pequena vitória contra a humilhação.",
+        "Eventualmente, aprenderam a te respeitar... ou pelo menos a te temer.",
+        "",
+        "Essa fase te ensinou que às vezes a força física é a única linguagem que alguns entendem.",
+        "Você desenvolveu músculos, resistência, e uma reputação de 'não mexer com o {name}'.",
+        "",
+        "Mas também te custou algumas suspensões e olhares desapontados dos seus pais."
+      ],
+      "NextNode": "pos_flashback"
+    },
+    "escolha_silencio": {
+      "Text": [
+        "Você lembra dos dias engolindo a humilhação, absorvendo cada insulto sem reação.",
+        "Cabeça baixa, evitando confronto, construindo muralhas mentais cada vez mais altas.",
+        "Aprendeu a suportar dor emocional que teria quebrado outros estudantes.",
+        "",
+        "Essa resistência silenciosa te fortaleceu psicologicamente de formas inimagináveis.",
+        "Você desenvolveu uma capacidade impressionante de manter a calma sob pressão.",
+        "Sua mente se tornou sua fortaleza.",
+        "",
+        "Mas também te ensinou a aceitar injustiças... talvez mais do que deveria."
+      ],
+      "NextNode": "pos_flashback"
+    },
+    "escolha_dialogo": {
+      "Text": [
+        "Você lembra das conversas difíceis com professores, coordenadores, até mesmo alguns pais.",
+        "Aprendeu a articular seus problemas, a negociar soluções, a construir alianças.",
+        "Nem sempre funcionava, mas quando funcionava, era mais efetivo que qualquer briga.",
+        "",
+        "Essa experiência te ensinou o poder das palavras certas na hora certa.",
+        "Você desenvolveu uma habilidade social rara em Night City: empatia genuína.",
+        "Conseguiu até fazer alguns amigos entre os filhos dos executivos.",
+        "",
+        "Mas também aprendeu que nem todo problema pode ser resolvido com conversa."
+      ],
+      "NextNode": "pos_flashback"
+    },
+    "pos_flashback": {
+      "Text": [
+        "A lembrança se desvanece, mas as lições permaneceram gravadas em quem você é.",
+        "Você se formou, conseguiu o emprego na Biotechnica através dos contatos da sua mãe.",
+        "Só mais tarde descobriu o preço que ela pagou por essa oportunidade...",
+        "",
+        "Hoje, vivendo sozinho neste apartamento decadente em Japantown,",
+        "sendo extorquido pelas Garras de Tigre, trabalhando em uma rotina desumana,",
+        "você às vezes se pergunta se valeu a pena."
+      ],
+      "Options": [
+        {
+          "Text": "Focar no presente e se preparar para trabalhar",
+          "NextNode": "preparacao_trabalho"
+        },
+        {
+          "Text": "Pensar no sacrifício da sua mãe",
+          "NextNode": "lembranca_mae"
+        }
+      ]
+    },
+    "sono_frustrado": {
+      "Text": [
+        "Você cobre os ouvidos com força, tentando bloquear o caos urbano.",
+        "Por alguns segundos, consegue um silêncio relativo... mas então a ansiedade bate mais forte.",
+        "",
+        "As preocupações começam a se acumular na sua mente:",
+        "A apresentação para os superiores hoje. As contas do mês. A taxa de 'proteção' que vai aumentar.",
+        "O relatório atrasado. O prazo impossível do projeto.",
+        "",
+        "Não adianta. Você não vai conseguir dormir."
+      ],
+      "NextNode": "banheiro_reflexao"
+    },
+    "reflexao_corporacao": {
+      "Text": [
+        "A raiva sobe pela garganta como bile.",
+        "Você trabalha para eles. Ajuda a criar essas mentiras brilhantes que destroem vidas.",
+        "Quantas pessoas vão acreditar nessa propaganda? Quantas vão se viciar?",
+        "",
+        "Mas o que você pode fazer? Precisa do emprego.",
+        "Precisa sobreviver em Night City, onde não há espaço para idealistas.",
+        "",
+        "A hipocrisia dói, mas a fome dói mais."
+      ],
+      "Options": [
+        {
+          "Text": "Reprimir a raiva e se preparar para trabalhar",
+          "NextNode": "preparacao_trabalho"
+        },
+        {
+          "Text": "Questionar se existe uma alternativa",
+          "NextNode": "questionamento_alternativas"
+        }
+      ]
+    },
+    "aceitacao_realidade": {
+      "Text": [
+        "Você suspira, aceitando mais um dia na engrenagem.",
+        "É assim que o mundo funciona. Sempre foi, sempre será.",
+        "Night City não perdoa os que sonham com algo melhor.",
+        "",
+        "Pelo menos você tem um teto, comida (mesmo que sintética), e um emprego estável.",
+        "Muita gente na cidade não pode dizer o mesmo.",
+        "",
+        "Conformismo é uma forma de sobrevivência."
+      ],
+      "NextNode": "preparacao_trabalho"
+    },
+    "lembranca_mae": {
+      "Text": [
+        "O nó na garganta aperta quando você pensa nela.",
+        "Sua mãe, ex-policial, que fez sacrifícios para garantir sua entrada na Biotechnica.",
+        "Você nunca soube exatamente o que ela fez, que favores prestou, que compromissos assumiu.",
+        "",
+        "Só sabe que ela sacrificou a própria dignidade para que você 'tivesse uma chance'.",
+        "E agora você está aqui, sendo lentamente moído pela mesma máquina que ela alimentou.",
+        "",
+        "Foi tudo em vão? Ou ainda há esperança de que os sacrifícios dela tenham significado?"
+      ],
+      "Options": [
+        {
+          "Text": "Honrar o sacrifício dela trabalhando duro",
+          "NextNode": "preparacao_trabalho"
+        },
+        {
+          "Text": "Questionar se é isso que ela realmente queria",
+          "NextNode": "questionamento_vida"
+        }
+      ]
+    },
+    "questionamento_vida": {
+      "Text": [
+        "A pergunta que você evita há meses finalmente se cristaliza:",
+        "'O que eu estou fazendo da minha vida?'",
+        "",
+        "Você está desperdiçando seus dias alimentando uma máquina que te devora?",
+        "Ou está construindo algo, mesmo que lentamente?",
+        "Existe uma saída dessa rotina sufocante?",
+        "",
+        "Por um momento, você considera possibilidades que há muito tempo abandonou.",
+        "Mas então a realidade bate: em Night City, sonhar é um luxo que poucos podem se dar."
+      ],
+      "Options": [
+        {
+          "Text": "Aceitar que esta é sua realidade por agora",
+          "NextNode": "preparacao_trabalho"
+        },
+        {
+          "Text": "Decidir que algo precisa mudar",
+          "NextNode": "decisao_mudanca"
+        }
+      ]
+    },
+    "questionamento_alternativas": {
+      "Text": [
+        "Existe mesmo uma alternativa?",
+        "Você poderia largar a Biotechnica, tentar algo diferente...",
+        "Mas então o que? Virar mais um sem-teto nas ruas? Trabalhar para as gangues?",
+        "",
+        "Em Night City, as opções são limitadas:",
+        "Trabalhar para as corporações, trabalhar para o crime organizado, ou morrer devagar nas ruas.",
+        "Pelo menos na Biotechnica você tem um salário garantido.",
+        "",
+        "Mesmo que esse salário mal cubra o básico para sobreviver."
+      ],
+      "NextNode": "preparacao_trabalho"
+    },
+    "decisao_mudanca": {
+      "Text": [
+        "Algo precisa mudar. Não pode continuar assim para sempre.",
+        "Talvez não hoje, talvez não amanhã... mas em algum momento.",
+        "",
+        "Você não sabe ainda o que fazer, mas a semente está plantada.",
+        "Uma pequena chama de rebelião acende no seu peito.",
+        "",
+        "Por enquanto, você vai continuar jogando o jogo deles.",
+        "Mas vai ficar de olhos abertos para oportunidades.",
+        "Algum dia, você vai encontrar uma saída."
+      ],
+      "NextNode": "preparacao_trabalho"
+    },
+    "caminho_bondinho": {
+      "Text": [
+        "Você sai do prédio para as ruas ainda escuras de Japantown.",
+        "O ar está carregado de poluição e cheiro de comida sintética dos vendedores de rua.",
+        "Hologramas publicitários piscam em japonês e inglês, prometendo produtos que nunca poderá comprar.",
+        "",
+        "No caminho para o ponto do bondinho, você vê as figuras familiares:",
+        "Trabalhadores como você, zumbis corporativos arrastando os pés.",
+        "Alguns vendedores ilegais oferecendo estimulantes baratos.",
+        "E sempre, sempre, a presença sutil das Garras de Tigre observando seus 'protegidos'."
+      ],
+      "Options": [
+        {
+          "Text": "Manter a cabeça baixa e seguir direto",
+          "NextNode": "bondinho_chegada"
+        },
+        {
+          "Text": "Observar o movimento das gangues",
+          "NextNode": "observacao_gangues"
+        },
+        {
+          "Text": "Cumprimentar outros trabalhadores",
+          "NextNode": "interacao_trabalhadores"
+        },
+        {
+          "Text": "Parar no Neon Dragon Bar para um café",
+          "NextNode": "entrada_neon_dragon"
+        },
+        {
+          "Text": "Falar com a vendedora de rua na esquina",
+          "NextNode": "encontro_vendedora"
+        }
+      ]
+    },
+    "entrada_neon_dragon": {
+      "Text": [
+        "Você empurra a porta do Neon Dragon Bar, um estabelecimento decadente que já viu dias melhores.",
+        "O ar está denso com fumaça sintética e o cheiro de álcool barato.",
+        "Luzes neon piscam fracamente nas paredes, projetando sombras distorcidas.",
+        "",
+        "Atrás do balcão, Tom 'Wirehead' limpa copos com movimentos mecânicos.",
+        "Ex-netrunner da Arasaka, ele conhece mais segredos de Night City do que qualquer um.",
+        "Os implantes neurais baratos nas têmporas dele piscam fracamente."
+      ],
+      "Options": [
+        {
+          "Text": "Sentar no balcão e conversar com Tom",
+          "StartChat": "bartender_tom",
+          "PostChatNode": "apos_conversa_tom"
+        },
+        {
+          "Text": "Apenas pegar um café sintético e sair",
+          "NextNode": "caminho_bondinho"
+        }
+      ]
+    },
+    "apos_conversa_tom": {
+      "Text": [
+        "Você encerra a conversa com Tom e se levanta do balcão.",
+        "O bartender volta a limpar copos, mas você nota um leve aceno de reconhecimento.",
+        "Talvez tenha feito um aliado útil em Night City.",
+        "",
+        "Melhor voltar para a rua antes de se atrasar mais."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar para o trabalho",
+          "NextNode": "bondinho_chegada"
+        },
+        {
+          "Text": "Falar com Tom novamente",
+          "StartChat": "bartender_tom",
+          "PostChatNode": "apos_conversa_tom"
+        }
+      ]
+    },
+    "encontro_vendedora": {
+      "Text": [
+        "Você se aproxima de uma barraca colorida na esquina da rua.",
+        "Uma jovem asiática de cabelos pretos com mechas rosa neon te olha com um sorriso comercial.",
+        "",
+        "'Ei, choom! Quer dar uma olhada? Tenho estimulantes, snacks sintéticos, gadgets!'",
+        "Seus implantes oculares mudam de cor enquanto ela te analisa.",
+        "Apesar da alegria na voz, você percebe uma tensão nos olhos dela."
+      ],
+      "Options": [
+        {
+          "Text": "Conversar com a vendedora",
+          "StartChat": "street_vendor_yuki",
+          "PostChatNode": "apos_conversa_vendedora"
+        },
+        {
+          "Text": "Apenas acenar e seguir em frente",
+          "NextNode": "caminho_bondinho"
+        }
+      ]
+    },
+    "apos_conversa_vendedora": {
+      "Text": [
+        "Você se despede da vendedora e volta para a rua principal.",
+        "Ela acena de volta, já focando no próximo potencial cliente.",
+        "A vida nas ruas de Japantown não espera por ninguém.",
+        "",
+        "Você ainda precisa chegar ao trabalho."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar para o bondinho",
+          "NextNode": "bondinho_chegada"
+        },
+        {
+          "Text": "Conversar com ela novamente",
+          "StartChat": "street_vendor_yuki",
+          "PostChatNode": "apos_conversa_vendedora"
+        },
+        {
+          "Text": "Parar no Neon Dragon Bar",
+          "NextNode": "entrada_neon_dragon"
+        }
+      ]
+    },
+    "hesitacao_porta": {
+      "Text": [
+        "Sua mão paira sobre a maçaneta por longos segundos.",
+        "Por um momento insano, você considera não sair.",
+        "Considerar fazer corpo mole, fingir estar doente, ter um dia só seu...",
+        "",
+        "Mas então lembra das consequências: advertência, desconto no salário, possível demissão.",
+        "Em Night City, não há folga para os fracos.",
+        "",
+        "Você respira fundo e abre a porta."
+      ],
+      "NextNode": "caminho_bondinho"
+    },
+    "verificar_mensagens": {
+      "Text": [
+        "O terminal barato pisca com uma mensagem nova.",
+        "'{name} - Reunião extra hoje às 7h. Projeto Transderm precisa de revisão urgente.",
+        "Não se atrase. - Supervisor Chen'",
+        "",
+        "Claro. Como se seu dia já não fosse longo o suficiente.",
+        "Mais duas horas extras não remuneradas para 'demonstrar comprometimento'.",
+        "",
+        "Você apaga a mensagem com mais força do que necessário."
+      ],
+      "NextNode": "caminho_bondinho"
+    },
+    "observacao_gangues": {
+      "Text": [
+        "Você nota três membros das Garras de Tigre na esquina.",
+        "Reconhece um deles - Kenji, que sempre 'visita' seu prédio para coletar as taxas.",
+        "Eles não estão prestando atenção em você, focados em algo ou alguém.",
+        "",
+        "Um comerciante idoso se aproxima deles com uma sacola.",
+        "Pagamento de proteção, obviamente.",
+        "O ciclo eterno de extorsão que mantém Japantown 'seguro'."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar observando discretamente",
+          "NextNode": "observacao_detalhada"
+        },
+        {
+          "Text": "Seguir para o bondinho rapidamente",
+          "NextNode": "bondinho_chegada"
+        }
+      ]
+    },
+    "interacao_trabalhadores": {
+      "Text": [
+        "Você acena para Yuki, uma colega que mora no prédio ao lado.",
+        "Ela trabalha para a Arasaka, turnos ainda mais longos que os seus.",
+        "",
+        "'Outro dia no paraíso, né {name}?' ela diz com um sorriso amargo.",
+        "'Pelo menos estamos vivos', você responde, o cumprimento automático dos oprimidos.",
+        "",
+        "Vocês caminham juntos em silêncio. Não há muito mais a dizer.",
+        "A solidariedade silenciosa dos que sofrem juntos."
+      ],
+      "NextNode": "bondinho_chegada"
+    },
+    "observacao_detalhada": {
+      "Text": [
+        "Você fica parado fingindo mexer no terminal, observando a transação.",
+        "O comerciante entrega a sacola com mãos trêmulas.",
+        "Kenji conta o dinheiro rapidamente, faz um gesto de aprovação.",
+        "",
+        "Mas então você nota algo estranho:",
+        "Há mais movimento de gangue que o normal.",
+        "Carros circulando, mais membros nas esquinas.",
+        "",
+        "Algo está acontecendo em Japantown hoje."
+      ],
+      "Options": [
+        {
+          "Text": "Tentar descobrir mais sobre o movimento",
+          "NextNode": "investigacao_movimento"
+        },
+        {
+          "Text": "Não se envolver e ir para o trabalho",
+          "NextNode": "bondinho_chegada"
+        }
+      ]
+    },
+    "investigacao_movimento": {
+      "Text": [
+        "Você se aproxima discretamente de um grupo de moradores sussurrando.",
+        "'...dizem que a Militech vai fazer uma operação hoje...'",
+        "'...as Garras estão se preparando para alguma coisa...'",
+        "'...melhor ficar em casa...'",
+        "",
+        "Tensão no ar. Japantown está prestes a se tornar zona de guerra?",
+        "Você trabalha no centro da cidade. Se as coisas esquentarem...",
+        "",
+        "Talvez seja melhor ir trabalhar normalmente e torcer para não se envolver."
+      ],
+      "NextNode": "bondinho_chegada"
+    },
+    "bondinho_chegada": {
+      "Text": [
+        "Você chega ao ponto do bondinho pontualmente às 4:15.",
+        "A plataforma elevada está repleta de trabalhadores sonolentos esperando o transporte.",
+        "",
+        "Na entrada da plataforma, um segurança corporativo com implantes de scanner óptico verifica os passageiros.",
+        "Ele usa o uniforme da TransitCorp - a empresa que gerencia o sistema de transporte público.",
+        "Sem passe corporativo válido, você não entra na plataforma.",
+        "",
+        "Ao seu lado, trabalhadores mostram seus passes magnéticos e entram sem problemas.",
+        "O segurança te olha, esperando que você faça o mesmo."
+      ],
+      "Options": [
+        {
+          "Text": "Mostrar o passe de transporte corporativo",
+          "NextNode": "entrada_bondinho_normal",
+          "RequireItem": {
+            "ItemId": "access_card",
+            "MinQuantity": 1
+          }
+        },
+        {
+          "Text": "Tentar convencer o segurança a deixar passar sem o passe",
+          "NextNode": "conversa_seguranca",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 60
+          }
+        },
+        {
+          "Text": "Tentar forçar a passagem",
+          "NextNode": "confronto_seguranca"
+        },
+        {
+          "Text": "Procurar uma entrada alternativa",
+          "NextNode": "entrada_alternativa"
+        }
+      ]
+    },
+    "entrada_bondinho_normal": {
+      "Text": [
+        "Você mostra seu passe de transporte corporativo ao segurança.",
+        "Ele passa o scanner sobre o cartão magnético - um bip verde confirma sua autenticidade.",
+        "'Passe, funcionário', ele diz mecanicamente.",
+        "",
+        "Você entra na plataforma e embarca no bondinho apinhado de trabalhadores sonolentos.",
+        "Consegue um lugar em pé, agarrado no corrimão oxidado.",
+        "O vagão balança e range enquanto se move pelas linhas elevadas.",
+        "",
+        "Pela janela suja, você vê Night City despertando:",
+        "Néons se apagando, primeiras luzes do dia filtradas pela poluição.",
+        "Edifícios corporativos dominando o horizonte como torres de vidro e metal.",
+        "",
+        "Mas então você nota algo perturbador: um grupo de três figuras suspeitas no fundo do vagão.",
+        "Implantes baratos brilhando, roupas rasgadas, olhares predatórios varrendo os passageiros.",
+        "Bandidos cibernéticos. E eles estão escolhendo suas vítimas para extorsão matinal."
+      ],
+      "Options": [
+        {
+          "Text": "Manter a cabeça baixa e ignorá-los",
+          "NextNode": "ignorar_bandidos"
+        },
+        {
+          "Text": "Observar discretamente seus movimentos",
+          "NextNode": "observacao_bandidos"
+        },
+        {
+          "Text": "Tentar descansar durante a viagem",
+          "NextNode": "descanso_bondinho_tenso"
+        },
+        {
+          "Text": "Se posicionar estrategicamente no vagão",
+          "NextNode": "posicionamento_estrategico"
+        }
+      ]
+    },
+    "conversa_seguranca": {
+      "Text": [
+        "'Olha, eu esqueci meu passe em casa', você diz com sinceridade calculada.",
+        "'Trabalho na Biotechnica há meses, nunca tive problema. Só hoje que saí com pressa...'",
+        "O segurança te examina com olhos cibernéticos, processando suas micro-expressões.",
+        "",
+        "Você mantém a calma, demonstrando a honestidade que desenvolveu com suas habilidades sociais.",
+        "Após alguns segundos tensos, ele suspira: 'Só hoje. Mas amanhã sem passe, sem entrada.'",
+        "'Obrigado, sério', você responde aliviado.",
+        "",
+        "Você conseguiu usar sua lábia para resolver a situação."
+      ],
+      "NextNode": "entrada_bondinho_normal"
+    },
+    "confronto_seguranca": {
+      "Text": [
+        "Você tenta passar pelo segurança ignorando o protocolo.",
+        "'Ei! Pare aí!' ele grita, bloqueando seu caminho com o braço cibernético.",
+        "Outros trabalhadores param para observar a confusão.",
+        "",
+        "O segurança é grande, com implantes de combate visíveis.",
+        "'Sem passe, sem entrada. Protocolo da TransitCorp.'",
+        "'Quer tentar me forçar, cidadão?'",
+        "",
+        "A situação está escalando rapidamente."
+      ],
+      "Options": [
+        {
+          "Text": "Recuar e tentar negociar",
+          "NextNode": "tentativa_negociacao_seguranca"
+        },
+        {
+          "Text": "Aceitar o confronto físico",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "vitoria_seguranca",
+          "DefeatNode": "derrota_seguranca",
+          "FleeNode": "fuga_seguranca"
+        },
+        {
+          "Text": "Procurar entrada alternativa",
+          "NextNode": "entrada_alternativa"
+        }
+      ]
+    },
+    "tentativa_negociacao_seguranca": {
+      "Text": [
+        "Você levanta as mãos em sinal de paz.",
+        "'Desculpa, desculpa. Não quero confusão.'",
+        "'Eu realmente preciso ir trabalhar. Tem alguma outra forma?'",
+        "",
+        "O segurança relaxa ligeiramente mas mantém a postura firme.",
+        "'Pode comprar um passe temporário ali na máquina. 50 eurodollars.'",
+        "Você verifica sua carteira - só tem 47 eurodollars.",
+        "",
+        "Merda."
+      ],
+      "Options": [
+        {
+          "Text": "Tentar convencê-lo a aceitar 47 eurodollars",
+          "NextNode": "conversa_seguranca",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 55
+          }
+        },
+        {
+          "Text": "Procurar entrada alternativa",
+          "NextNode": "entrada_alternativa"
+        },
+        {
+          "Text": "Aceitar que vai se atrasar",
+          "NextNode": "aceitar_atraso"
+        }
+      ]
+    },
+    "entrada_alternativa": {
+      "Text": [
+        "Você se afasta da entrada principal e procura outras formas de acessar a plataforma.",
+        "Há uma escada de manutenção nos fundos, mas está trancada com cadeado eletrônico.",
+        "Alguns trabalhadores pulam a catraca quando o segurança não está olhando.",
+        "",
+        "Você poderia tentar a mesma coisa, mas se for pego...",
+        "As câmeras de segurança estão por todo lado.",
+        "Night City não perdoa os que tentam burlar o sistema."
+      ],
+      "Options": [
+        {
+          "Text": "Tentar pular a catraca rapidamente",
+          "NextNode": "pular_catraca"
+        },
+        {
+          "Text": "Tentar hackear o cadeado eletrônico",
+          "NextNode": "hackear_cadeado",
+          "SkillRequirement": {
+            "Skill": "inteligencia",
+            "MinValue": 65
+          }
+        },
+        {
+          "Text": "Voltar e enfrentar o segurança",
+          "NextNode": "confronto_seguranca"
+        }
+      ]
+    },
+    "pular_catraca": {
+      "Text": [
+        "Você espera o momento certo - quando um grupo grande de trabalhadores passa.",
+        "Na confusão, você pula a catraca rapidamente e se mistura à multidão.",
+        "Por alguns segundos tensos, você acha que vai funcionar...",
+        "",
+        "Mas então ouve um apito atrás de você.",
+        "'EI! VOCÊ AÍ!'",
+        "O segurança te viu. E ele não parece feliz."
+      ],
+      "Options": [
+        {
+          "Text": "Correr para o bondinho antes dele te pegar",
+          "NextNode": "corrida_bondinho"
+        },
+        {
+          "Text": "Parar e tentar explicar",
+          "NextNode": "explicacao_catraca"
+        },
+        {
+          "Text": "Preparar para lutar se necessário",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "vitoria_seguranca",
+          "DefeatNode": "derrota_seguranca",
+          "FleeNode": "fuga_seguranca"
+        }
+      ]
+    },
+    "hackear_cadeado": {
+      "Text": [
+        "Você puxa seu terminal e conecta ao sistema do cadeado eletrônico.",
+        "Seu treinamento na Biotechnica finalmente serve para algo útil.",
+        "Protocolo de segurança... TransitCorp modelo T-400... senha padrão...",
+        "",
+        "CLICK. O cadeado se abre.",
+        "Você sobe rapidamente a escada de manutenção e acessa a plataforma pelos fundos.",
+        "Ninguém te viu. Você está dentro.",
+        "",
+        "Conhecimento técnico vale ouro em Night City."
+      ],
+      "NextNode": "entrada_bondinho_normal"
+    },
+    "corrida_bondinho": {
+      "Text": [
+        "Você corre em direção ao bondinho que está prestes a partir.",
+        "O segurança corre atrás, mas você é mais rápido.",
+        "Você pula para dentro do vagão segundos antes das portas fecharem.",
+        "",
+        "Através da janela, você vê o segurança frustrado gritando algo pelo rádio.",
+        "Provavelmente reportando o incidente. Isso pode dar problema depois.",
+        "Mas por agora, você conseguiu."
+      ],
+      "NextNode": "entrada_bondinho_normal"
+    },
+    "explicacao_catraca": {
+      "Text": [
+        "Você para e se vira para o segurança que se aproxima rapidamente.",
+        "'Eu... eu esqueci meu passe e não tenho dinheiro para o temporário', você explica.",
+        "Ele não parece convencido. 'Isso é invasão de propriedade corporativa.'",
+        "",
+        "'Eu trabalho na Biotechnica! Juro! Só estou tentando não me atrasar!'",
+        "O segurança hesita, analisando você com seus implantes.",
+        "A situação pode ir para qualquer lado agora."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar apelando à compreensão dele",
+          "NextNode": "conversa_seguranca",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 50
+          }
+        },
+        {
+          "Text": "Aceitar as consequências",
+          "NextNode": "aceitar_atraso"
+        },
+        {
+          "Text": "Tentar subornar com o que tem",
+          "NextNode": "tentativa_suborno"
+        }
+      ]
+    },
+    "tentativa_suborno": {
+      "Text": [
+        "'Olha, eu tenho 47 eurodollars aqui', você oferece discretamente.",
+        "'É tudo que tenho, mas é seu se me deixar passar.'",
+        "O segurança olha ao redor, verificando se alguém está vendo.",
+        "",
+        "Você pode ver a hesitação nos olhos cibernéticos dele.",
+        "Em Night City, todo mundo tem um preço.",
+        "A questão é se 47 eurodollars é suficiente."
+      ],
+      "Options": [
+        {
+          "Text": "Insistir na oferta com confiança",
+          "NextNode": "suborno_aceito",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 45
+          }
+        },
+        {
+          "Text": "Guardar o dinheiro e procurar outra solução",
+          "NextNode": "entrada_alternativa"
+        }
+      ]
+    },
+    "suborno_aceito": {
+      "Text": [
+        "O segurança pega os créditos rapidamente e os guarda.",
+        "'Você tem 30 segundos. Não te vi.'",
+        "Você corre para a plataforma e embarca no bondinho.",
+        "",
+        "Perdeu todo seu dinheiro, mas conseguiu entrar.",
+        "Vai ser um dia longo sem dinheiro para almoço.",
+        "Mas pelo menos não vai se atrasar."
+      ],
+      "NextNode": "entrada_bondinho_normal"
+    },
+    "vitoria_seguranca": {
+      "Text": [
+        "O segurança cai pesadamente, seus implantes piscando em sobrecarga.",
+        "Outros trabalhadores gritam e se afastam.",
+        "Você está ofegante, mãos tremendo com adrenalina.",
+        "",
+        "Mas não há tempo para processar o que aconteceu.",
+        "Câmeras gravaram tudo. Reforços estão a caminho.",
+        "Você precisa sair daqui AGORA."
+      ],
+      "Options": [
+        {
+          "Text": "Correr para o bondinho",
+          "NextNode": "corrida_bondinho"
+        },
+        {
+          "Text": "Fugir da estação completamente",
+          "NextNode": "fuga_estacao"
+        }
+      ]
+    },
+    "derrota_seguranca": {
+      "Text": [
+        "Você cai no chão, derrotado.",
+        "O segurança te imobiliza com facilidade profissional.",
+        "'Resistência a autoridade corporativa. Agressão a funcionário de segurança.'",
+        "",
+        "Ele fala pelo comunicador: 'Preciso de reforços. Tenho um detido.'",
+        "Sirenes ao longe. Você está ferrado.",
+        "Isso vai dar muito problema."
+      ],
+      "NextNode": "prisao_temporaria"
+    },
+    "fuga_seguranca": {
+      "Text": [
+        "Você se afasta rapidamente do combate, recuando pela multidão.",
+        "O segurança não persegue - não pode abandonar o posto.",
+        "Mas você o ouve falando pelo rádio, reportando o incidente.",
+        "",
+        "Você está livre, mas agora tem um registro de incidente.",
+        "Isso pode complicar sua vida corporativa.",
+        "Night City sempre cobra seu preço."
+      ],
+      "NextNode": "entrada_alternativa"
+    },
+    "fuga_estacao": {
+      "Text": [
+        "Você corre para longe da estação, perdendo-se nas ruas de Japantown.",
+        "Não vai conseguir pegar o bondinho hoje.",
+        "Vai se atrasar no trabalho. Muito.",
+        "",
+        "Mas pelo menos não foi preso.",
+        "Pequenas vitórias em Night City.",
+        "Você vai ter que lidar com as consequências depois."
+      ],
+      "NextNode": "aceitar_atraso"
+    },
+    "prisao_temporaria": {
+      "Text": [
+        "Você é levado para uma sala de detenção temporária da TransitCorp.",
+        "Três horas depois, após verificações e multa pesada descontada do seu salário,",
+        "você é liberado com uma advertência oficial.",
+        "",
+        "Perdeu o turno inteiro de trabalho.",
+        "Sua ficha agora tem um registro de incidente.",
+        "E você está completamente fodido com seus superiores.",
+        "",
+        "Talvez tivesse sido melhor só pegar o maldito passe."
+      ],
+      "NextNode": "chegada_final_prologo"
+    },
+    "aceitar_atraso": {
+      "Text": [
+        "Você aceita que vai se atrasar.",
+        "Senta num banco da estação e espera conseguir dinheiro emprestado ou outra solução.",
+        "Duas horas depois, consegue convencer um colega a te emprestar créditos para o passe temporário.",
+        "",
+        "Quando finalmente chega à Biotechnica, está atrasado.",
+        "Seu supervisor não vai gostar nada disso.",
+        "Mais um dia merda em Night City."
+      ],
+      "NextNode": "chegada_final_prologo"
+    },
+    "descanso_bondinho": {
+      "Text": [
+        "Você fecha os olhos e tenta relaxar com o balanço do bondinho.",
+        "Por alguns momentos preciosos, consegue quase meditar.",
+        "O barulho vira ruído branco, a tensão dos ombros diminui levemente.",
+        "",
+        "Mas então o bondinho faz uma parada brusca.",
+        "'Problema técnico, pessoal. Vamos resolver rapidamente.'",
+        "",
+        "Você abre os olhos. Através da janela, vê prédios da Biotechnica ao longe.",
+        "Quase chegando. Quase na hora de colocar a máscara profissional."
+      ],
+      "NextNode": "chegada_biotechnica"
+    },
+    "observacao_passageiros": {
+      "Text": [
+        "Você estuda discretamente os outros passageiros.",
+        "Uma executiva da Arasaka, implantes neurais brilhando suavemente.",
+        "Um técnico de manutenção, mãos sujas de graxa sintética.",
+        "Estudantes de alguma escola técnica, olhares esperançosos que logo serão quebrados.",
+        "",
+        "Todos indo para alimentar a máquina de uma forma ou outra.",
+        "Peças intercambiáveis no grande jogo corporativo.",
+        "Você incluído."
+      ],
+      "NextNode": "chegada_biotechnica"
+    },
+    "preparacao_mental": {
+      "Text": [
+        "Você faz uma lista mental das tarefas de hoje:",
+        "Revisar dados dos testes do TransDerm.",
+        "Reunião com a equipe de marketing sobre 'efeitos colaterais aceitáveis'.",
+        "Relatório para o Supervisor Chen sobre otimização de custos.",
+        "",
+        "Cada tarefa um pequeno tijolo construindo uma parede de mentiras.",
+        "Mas também cada tarefa um passo a mais na sua 'carreira'.",
+        "",
+        "Contradições que você aprendeu a viver."
+      ],
+      "NextNode": "chegada_biotechnica"
+    },
+    "chegada_biotechnica": {
+      "Text": [
+        "O bondinho para em frente ao complexo Biotechnica.",
+        "Torres de vidro verde se erguem como monumentos à ambição corporativa.",
+        "Logo da empresa piscando em holografia: 'Biotechnica - Evolução da Vida'.",
+        "",
+        "Você se junta ao fluxo de funcionários entrando pelos detectores de segurança.",
+        "Cartão de identificação, scanner biométrico, breve pausa enquanto a IA verifica sua identidade.",
+        "",
+        "'Bem-vindo, {name} Ishida. Tenha um dia produtivo.'",
+        "",
+        "E assim começa mais um dia no inferno corporativo."
+      ],
+      "Options": [
+        {
+          "Text": "Ir direto para seu departamento",
+          "NextChapter": "dia_trabalho_rotina"
+        },
+        {
+          "Text": "Parar no refeitório para um café",
+          "NextChapter": "refeitorio_corporativo"
+        },
+        {
+          "Text": "Verificar emails antes de começar",
+          "NextChapter": "emails_matinais"
+        }
+      ]
+    },
+    "ignorar_bandidos": {
+      "Text": [
+        "Você baixa a cabeça e finge mexer no seu terminal pessoal.",
+        "Por alguns minutos, a estratégia parece funcionar.",
+        "Os bandidos estão focados em outros passageiros - uma mulher idosa com uma bolsa cara, um estudante com equipamentos eletrônicos visíveis.",
+        "",
+        "Mas então o líder do grupo, um cara com implantes oculares piscando em vermelho, nota você.",
+        "'Ei, você aí de uniforme da Biotechnica!'"
+      ],
+      "Options": [
+        {
+          "Text": "Continuar ignorando e esperar que passem",
+          "NextNode": "escalacao_tensao"
+        },
+        {
+          "Text": "Olhar na direção dele mas permanecer em silêncio",
+          "NextNode": "confronto_visual"
+        },
+        {
+          "Text": "Fingir que não está ouvindo",
+          "NextNode": "fingir_ignorancia"
+        }
+      ]
+    },
+    "observacao_bandidos": {
+      "Text": [
+        "Você observa discretamente o grupo através do reflexo da janela.",
+        "O líder tem implantes oculares baratos que piscam irregularmente - provavelmente com defeito.",
+        "O segundo cara tem braços cibernéticos mal instalados, cicatrizes visíveis das cirurgias.",
+        "A terceira figura é menor, mais jovem, mas seus implantes neurais brilham com uma luz azul instável.",
+        "",
+        "Eles estão sussurrando entre si, apontando discretamente para diferentes passageiros.",
+        "Planejando seus alvos para extorsão."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar observando para entender o plano deles",
+          "NextNode": "analise_detalhada"
+        },
+        {
+          "Text": "Tentar alertar outros passageiros discretamente",
+          "NextNode": "tentar_alerta"
+        },
+        {
+          "Text": "Preparar-se mentalmente para um possível confronto",
+          "NextNode": "preparacao_confronto"
+        }
+      ]
+    },
+    "descanso_bondinho_tenso": {
+      "Text": [
+        "Você tenta fechar os olhos e relaxar, mas a tensão no ar é palpável.",
+        "Mesmo com os olhos fechados, você sente os olhares dos bandidos varrendo o vagão.",
+        "O barulho normal do bondinho é interrompido por sussurros ameaçadores.",
+        "",
+        "Então você ouve passos se aproximando na sua direção.",
+        "'Ei, cara do uniforme verde. Abra os olhos quando eu estou falando com você.'"
+      ],
+      "Options": [
+        {
+          "Text": "Abrir os olhos lentamente e encará-lo",
+          "NextNode": "confronto_direto"
+        },
+        {
+          "Text": "Manter os olhos fechados e continuar fingindo",
+          "NextNode": "fingir_sono"
+        },
+        {
+          "Text": "Abrir os olhos mas evitar contato visual",
+          "NextNode": "evitar_confronto"
+        }
+      ]
+    },
+    "posicionamento_estrategico": {
+      "Text": [
+        "Você se move discretamente pelo vagão, posicionando-se perto da porta de emergência.",
+        "Também fica próximo a alguns passageiros que parecem mais capazes de se defender.",
+        "Um homem grande com cicatrizes militares, uma mulher com implantes de segurança corporativa.",
+        "",
+        "Sua movimentação chama atenção, mas também demonstra que você não é uma vítima fácil.",
+        "O líder dos bandidos nota sua manobra e sorri maliciosamente.",
+        "'Esperto. Mas não vai adiantar muito.'"
+      ],
+      "Options": [
+        {
+          "Text": "Manter sua posição e prepara-se para o confronto",
+          "NextNode": "preparacao_confronto"
+        },
+        {
+          "Text": "Tentar formar aliança com outros passageiros",
+          "NextNode": "formar_alianca"
+        },
+        {
+          "Text": "Avaliar se consegue fugir na próxima parada",
+          "NextNode": "planejamento_fuga"
+        }
+      ]
+    },
+    "escalacao_tensao": {
+      "Text": [
+        "O bandido se aproxima, seus passos fazendo o vagão vibrar ligeiramente.",
+        "'Não gosto de ser ignorado, funcionário de merda.'",
+        "Ele bate com a mão cibernética no corrimão próximo à sua cabeça.",
+        "",
+        "Outros passageiros começam a se afastar, criando um círculo ao redor de vocês.",
+        "Você sente o cheiro de óleo de máquina e substâncias químicas dos implantes dele.",
+        "A situação está escalando rapidamente."
+      ],
+      "Options": [
+        {
+          "Text": "Encará-lo e falar com firmeza",
+          "NextNode": "confronto_verbal",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 55
+          }
+        },
+        {
+          "Text": "Preparar-se para luta física",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        },
+        {
+          "Text": "Tentar se afastar e evitar conflito",
+          "NextNode": "tentativa_retirada"
+        }
+      ]
+    },
+    "confronto_visual": {
+      "Text": [
+        "Você levanta a cabeça e encontra os olhos vermelhos cibernéticos do bandido.",
+        "Por um momento, há um duelo silencioso de vontades.",
+        "Ele está testando sua coragem, medindo se você é presa fácil ou ameaça.",
+        "",
+        "Seus implantes oculares fazem um ruído de processamento enquanto ele te analisa.",
+        "'Interessante. Você tem um pouco de espinha dorsal.'"
+      ],
+      "Options": [
+        {
+          "Text": "Manter o contato visual sem recuar",
+          "NextNode": "desafio_aceito"
+        },
+        {
+          "Text": "Baixar o olhar em submissão",
+          "NextNode": "submissao_forçada"
+        },
+        {
+          "Text": "Sorrir levemente, demonstrando confiança",
+          "NextNode": "demonstracao_confianca",
+          "SkillRequirement": {
+            "Skill": "psicologia",
+            "MinValue": 45
+          }
+        }
+      ]
+    },
+    "confronto_direto": {
+      "Text": [
+        "Você abre os olhos e encara o bandido diretamente.",
+        "'Posso ajudar em alguma coisa?' você pergunta com uma calma que não sente.",
+        "Ele ri, um som metálico que ecoa dos implantes na sua garganta.",
+        "",
+        "'Pode sim, corporate. Pode me dar seus créditos e seu terminal.'",
+        "Ele flexiona os dedos cibernéticos, fazendo as articulações emitirem clicks ameaçadores.",
+        "'Ou podemos resolver isso de outro jeito.'"
+      ],
+      "Options": [
+        {
+          "Text": "Recusar educadamente mas com firmeza",
+          "NextNode": "recusa_educada"
+        },
+        {
+          "Text": "Aceitar o confronto físico",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        },
+        {
+          "Text": "Tentar negociar uma saída",
+          "NextNode": "tentativa_negociacao_bondinho",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 50
+          }
+        },
+        {
+          "Text": "Entregar o que ele pede",
+          "NextNode": "capitulacao"
+        }
+      ]
+    },
+    "recusa_educada": {
+      "Text": [
+        "'Desculpe, mas não posso fazer isso', você responde mantendo a voz firme.",
+        "O bandido inclina a cabeça, seus implantes emitindo um zumbido de irritação.",
+        "'Não pode ou não quer, corporate?'",
+        "",
+        "A tensão no vagão é cortante. Outros passageiros fingem não ver.",
+        "Você percebe que chegou ao ponto sem volta.",
+        "Suas escolhas na escola sobre como lidar com bullying vão ser testadas agora."
+      ],
+      "Options": [
+        {
+          "Text": "Explicar calmamente por que não pode ceder",
+          "NextNode": "explicacao_calma",
+          "SkillRequirement": {
+            "Skill": "conversacao",
+            "MinValue": 60
+          }
+        },
+        {
+          "Text": "Assumir posição de combate",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        },
+        {
+          "Text": "Usar conhecimento técnico para intimidar",
+          "NextNode": "intimidacao_tecnica",
+          "SkillRequirement": {
+            "Skill": "inteligencia",
+            "MinValue": 55
+          }
+        }
+      ]
+    },
+    "intimidacao_tecnica": {
+      "Text": [
+        "'Seus implantes são série B-40K da TechCorp, certo?' você diz calmamente.",
+        "'Conheço bem esses modelos. Especialmente suas... vulnerabilidades.'",
+        "O bandido hesita, seus implantes piscando mais rapidamente.",
+        "",
+        "'Você está blefando, corporate.'",
+        "'Estou? Frequência 2.4GHz, protocolo de segurança desatualizado...'",
+        "Você vê a incerteza crescendo nos olhos dele."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar o blefe técnico",
+          "NextNode": "blefe_avancado"
+        },
+        {
+          "Text": "Usar a hesitação para atacar",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        },
+        {
+          "Text": "Oferecer ajuda técnica em troca de paz",
+          "NextNode": "oferta_tecnica"
+        }
+      ]
+    },
+    "blefe_avancado": {
+      "Text": [
+        "'Buffer overflow no módulo de controle motor. Já vi acontecer.'",
+        "Você tira o terminal do bolso e finge mexer em algumas configurações.",
+        "'Uma pequena interferência e seus implantes podem travar por horas.'",
+        "",
+        "O bandido recua um passo, claramente nervoso agora.",
+        "Seus companheiros também parecem menos confiantes.",
+        "'Você... você não faria isso num transporte público.'"
+      ],
+      "Options": [
+        {
+          "Text": "Sorrir e confirmar que faria sim",
+          "NextNode": "confirmacao_ameaca"
+        },
+        {
+          "Text": "Propor um acordo mutuamente benéfico",
+          "NextNode": "acordo_mutuo"
+        },
+        {
+          "Text": "Usar a vantagem psicológica para encerrar",
+          "NextNode": "encerramento_blefe"
+        }
+      ]
+    },
+    "confirmacao_ameaca": {
+      "Text": [
+        "'Claro que faria. Você acha que trabalho na Biotechnica por acaso?'",
+        "Você se inclina ligeiramente para frente, demonstrando confiança.",
+        "'Sabemos como quebrar qualquer sistema cibernético do mercado.'",
+        "",
+        "O bandido olha para seus companheiros, claramente em dúvida.",
+        "A dinâmica mudou. Agora ele é quem está na defensiva.",
+        "Você conseguiu virar o jogo usando apenas conhecimento e psicologia."
+      ],
+      "Options": [
+        {
+          "Text": "Dar uma última chance para ele recuar",
+          "NextNode": "ultima_chance"
+        },
+        {
+          "Text": "Pressionar para que eles deixem todos em paz",
+          "NextNode": "pressionar_vantagem"
+        }
+      ]
+    },
+    "ultima_chance": {
+      "Text": [
+        "'Olha, não quero problemas com vocês', você diz diplomaticamente.",
+        "'Mas também não vou deixar vocês intimidarem pessoas inocentes.'",
+        "'Que tal simplesmente irmos cada um para seu destino?'",
+        "",
+        "O líder hesita, seu orgulho batendo com a prudência.",
+        "Finalmente, ele faz um gesto para os companheiros.",
+        "'Essa não acabou, corporate. Nos vemos por aí.'"
+      ],
+      "NextNode": "vitoria_sem_violencia"
+    },
+    "vitoria_sem_violencia": {
+      "Text": [
+        "O grupo de bandidos se afasta, resmungando entre si.",
+        "Você vê outros passageiros relaxando, aliviados.",
+        "Uma senhora idosa te agradece discretamente com um aceno.",
+        "",
+        "Você conseguiu resolver a situação sem violência.",
+        "O conhecimento técnico e a confiança valeram mais que qualquer implante caro.",
+        "O bondinho continua sua jornada em paz relativa."
+      ],
+      "NextNode": "chegada_biotechnica_pos_conflito"
+    },
+    "chegada_biotechnica_pos_conflito": {
+      "Text": [
+        "O resto da viagem passa em silêncio tenso.",
+        "Você nota que alguns passageiros te olham com respeito novo.",
+        "Enfrentar bandidos cibernéticos num bondinho não é algo que todo corporate faria.",
+        "",
+        "Quando o bondinho finalmente para na estação Biotechnica, você se sente diferente.",
+        "Não como o mesmo zé-ninguém que entrou no transporte.",
+        "Talvez ainda haja alguma coisa do antigo {name} que valha a pena preservar."
+      ],
+      "Options": [
+        {
+          "Text": "Refletir sobre o que aconteceu",
+          "NextNode": "reflexao_pos_confronto"
+        },
+        {
+          "Text": "Seguir direto para o trabalho",
+          "NextNode": "chegada_biotechnica"
+        }
+      ]
+    },
+    "reflexao_pos_confronto": {
+      "Text": [
+        "Enquanto você caminha em direção ao complexo da Biotechnica, uma realização te atinge.",
+        "Por alguns minutos, você não foi apenas mais um parafuso na engrenagem.",
+        "Foi alguém que fez a diferença, que protegeu pessoas inocentes.",
+        "",
+        "Isso desperta algo que você pensou ter perdido há muito tempo:",
+        "A possibilidade de que sua vida possa ter significado além da rotina corporativa.",
+        "Uma pequena chama de esperança se acende no seu peito."
+      ],
+      "NextNode": "chegada_biotechnica"
+    },
+    "apos_vitoria_bondinho": {
+      "Text": [
+        "O bandido cibernético cai no chão, seus implantes piscando.",
+        "Você está ofegante, mãos tremendo ligeiramente.",
+        "Os outros passageiros te olham, alguns nervosos, outros aliviados.",
+        "",
+        "Os companheiros do cara recuam.",
+        "'Porra', um deles murmura, e eles saem de perto.",
+        "",
+        "Uma mulher se aproxima: 'Valeu. Ele ia nos roubar.'"
+      ],
+      "Options": [
+        {
+          "Text": "Verificar se o bandido precisa de ajuda médica",
+          "NextNode": "verificar_ferimentos_bandido"
+        },
+        {
+          "Text": "Aceitar os agradecimentos modestamente",
+          "NextNode": "modestia_vitoria_bondinho"
+        },
+        {
+          "Text": "Avisar sobre os riscos de andar sozinho",
+          "NextNode": "conselho_seguranca_bondinho"
+        }
+      ]
+    },
+    "verificar_ferimentos_bandido": {
+      "Text": [
+        "Você se aproxima do cara caído.",
+        "Alguns passageiros acham estranho você se importar com quem tentou roubar eles.",
+        "Os implantes dele estão funcionando. Só sobrecarregaram na luta.",
+        "",
+        "'Tá vivo', você constata.",
+        "Ele te olha com raiva, mas não fala nada.",
+        "Não é como se isso fosse mudar alguma coisa mesmo."
+      ],
+      "NextNode": "final_viagem_bondinho"
+    },
+    "modestia_vitoria_bondinho": {
+      "Text": [
+        "'Qualquer um faria o mesmo', você mentêcias.",
+        "A mulher ri: 'Não fariam não. A maioria fingia que não via.'",
+        "Outros passageiros concordam.",
+        "",
+        "Você não sente nada especial. Foi só autodefesa.",
+        "Amanhã você ainda vai estar fodido do mesmo jeito.",
+        "Pelo menos hoje você não foi assaltado."
+      ],
+      "NextNode": "final_viagem_bondinho"
+    },
+    "conselho_seguranca_bondinho": {
+      "Text": [
+        "'Cuidem-se por aí', você fala. 'Tá cheio desses caras.'",
+        "Um homem mais velho balança a cabeça: 'Night City é assim mesmo.'",
+        "'Pois é', você concorda.",
+        "",
+        "Não é como se suas palavras fossem mudar alguma coisa.",
+        "Cada um por si. Sempre foi assim.",
+        "Pelo menos hoje você se defendeu."
+      ],
+      "NextNode": "final_viagem_bondinho"
+    },
+    "apos_derrota_bondinho": {
+      "Text": [
+        "Você cai de joelhos, derrotado. Sua visão está embaçada, o gosto de sangue na boca.",
+        "O bandido cibernético ri, seus implantes brilhando em triunfo.",
+        "'Mais um corporate que pensou que podia brincar de herói!'",
+        "",
+        "Ele vasculha seus bolsos, pegando seus créditos e o terminal.",
+        "Os outros passageiros desviam o olhar, com medo de serem os próximos.",
+        "A humilhação dói mais que os ferimentos físicos."
+      ],
+      "Options": [
+        {
+          "Text": "Tentar memorizar o rosto dos bandidos",
+          "NextNode": "memorizar_agressores_bondinho"
+        },
+        {
+          "Text": "Aceitar a derrota em silêncio",
+          "NextNode": "silencio_derrota_bondinho"
+        },
+        {
+          "Text": "Focar na recuperação por agora",
+          "NextNode": "foco_recuperacao_bondinho"
+        }
+      ]
+    },
+    "memorizar_agressores_bondinho": {
+      "Text": [
+        "Através da dor, você força sua mente a gravar cada detalhe.",
+        "O líder tem uma cicatriz em formato de raio no pescoço. Implantes oculares modelo CyberVision X2.",
+        "O segundo tem tatuagens de gang nas mãos cibernéticas. Sotaque de Heywood.",
+        "",
+        "Talvez algum dia essa informação seja útil.",
+        "Se você sobreviver a Night City tempo suficiente para usar.",
+        "A dor física vai passar. A informação permanece."
+      ],
+      "NextNode": "final_viagem_bondinho_machucado"
+    },
+    "silencio_derrota_bondinho": {
+      "Text": [
+        "Você permanece em silêncio, engolindo a humilhação.",
+        "É a mesma estratégia que usava na escola quando sofria bullying.",
+        "Manter a cabeça baixa, não dar mais motivos para agressão.",
+        "",
+        "O bandido parece satisfeito com sua submissão.",
+        "'Pelo menos esse aprendeu', ele diz aos companheiros.",
+        "Eles se afastam, procurando outras vítimas no vagão."
+      ],
+      "NextNode": "final_viagem_bondinho_machucado"
+    },
+    "foco_recuperacao_bondinho": {
+      "Text": [
+        "Você se concentra em controlar a respiração e avaliar seus ferimentos.",
+        "Nada quebrado, graças a Deus. Só contusões e o ego machucado.",
+        "A dor física é temporária. A lição, permanente.",
+        "",
+        "Em Night City, conhecer seus limites é questão de sobrevivência.",
+        "Você claramente superestimou suas habilidades de combate.",
+        "Melhor viver como covarde que morrer como herói."
+      ],
+      "NextNode": "final_viagem_bondinho_machucado"
+    },
+    "apos_fuga_bondinho": {
+      "Text": [
+        "Você consegue escapar da luta, recuando rapidamente entre os passageiros.",
+        "O bandido cibernético ri com desdém: 'Corre, ratinho corporativo!'",
+        "Outros passageiros te olham com uma mistura de compreensão e desapontamento.",
+        "",
+        "Seu coração bate acelerado, adrenalina correndo pelas veias.",
+        "Você está ileso fisicamente, mas a humilhação queima.",
+        "Fugir foi a decisão pragmática... mas foi a certa?"
+      ],
+      "Options": [
+        {
+          "Text": "Justificar a fuga como sendo sensata",
+          "NextNode": "justificativa_sensata_bondinho"
+        },
+        {
+          "Text": "Sentir vergonha por ter fugido",
+          "NextNode": "vergonha_fuga_bondinho"
+        },
+        {
+          "Text": "Observar como os bandidos agem agora",
+          "NextNode": "observacao_pos_fuga_bondinho"
+        }
+      ]
+    },
+    "justificativa_sensata_bondinho": {
+      "Text": [
+        "'Discrição é a melhor parte da coragem', você repete para si mesmo.",
+        "Em Night City, heróis morrem jovens. Sobreviventes fazem concessões.",
+        "Você tem responsabilidades. Um emprego. Uma vida a preservar.",
+        "",
+        "Ainda assim, algo na sua consciência não se sente confortável.",
+        "E se o bandido machuca alguém que você poderia ter protegido?",
+        "Pragmatismo pode ser apenas covardia com um nome mais bonito."
+      ],
+      "NextNode": "final_viagem_bondinho_pragmatico"
+    },
+    "vergonha_fuga_bondinho": {
+      "Text": [
+        "A vergonha queima mais que qualquer ferimento físico teria queimado.",
+        "Na escola, quando fugiu dos valentões, sentiu a mesma coisa.",
+        "Aquela sensação de ser menor, de não ter coragem quando importava.",
+        "",
+        "Outros passageiros desviam o olhar quando você os encontra.",
+        "Será que te julgam? Ou apenas entendem a realidade cruel de Night City?",
+        "Talvez todos sejam covardes sobrevivendo juntos."
+      ],
+      "NextNode": "final_viagem_bondinho_pragmatico"
+    },
+    "observacao_pos_fuga_bondinho": {
+      "Text": [
+        "De uma distância segura, você observa o grupo de bandidos.",
+        "Eles estão checando outros passageiros, procurando vítimas mais fáceis.",
+        "Uma mulher idosa trêmula entrega sua bolsa sem resistência.",
+        "",
+        "Você memoriza detalhes: rostos, implantes, maneirismos.",
+        "Talvez não tenha coragem para confrontá-los agora,",
+        "mas informação pode ser poder no futuro."
+      ],
+      "NextNode": "final_viagem_bondinho_pragmatico"
+    },
+    "final_viagem_bondinho": {
+      "Text": [
+        "O resto da viagem é mais tranquilo.",
+        "Alguns passageiros te olham, outros não.",
+        "Você evitou ser roubado. Só isso.",
+        "",
+        "Quando o bondinho chega na Biotechnica, você desce junto com todo mundo.",
+        "Mais um dia começando.",
+        "Pelo menos você ainda tem seus créditos."
+      ],
+      "NextNode": "chegada_final_prologo"
+    },
+    "final_viagem_bondinho_machucado": {
+      "Text": [
+        "O resto da viagem é doloroso física e emocionalmente.",
+        "Você limpa o sangue do rosto com a manga do uniforme.",
+        "Alguns passageiros te olham com pena, outros simplesmente ignoram.",
+        "",
+        "Quando o bondinho chega à estação central da Biotechnica, você manca ligeiramente ao sair.",
+        "A lição foi dura, mas clara: em Night City, você está sozinho.",
+        "Sobrevivência é tudo que importa."
+      ],
+      "NextNode": "chegada_final_prologo"
+    },
+    "final_viagem_bondinho_pragmatico": {
+      "Text": [
+        "O resto da viagem passa em reflexão amarga.",
+        "Você observa os passageiros, alguns aliviados, outros ainda tensos.",
+        "A realidade é que você fez a escolha de sobrevivência.",
+        "",
+        "Quando o bondinho chega à estação central da Biotechnica, você se sente mais cínico.",
+        "Heroísmo é um luxo que poucos podem se dar em Night City.",
+        "Pelo menos você ainda está vivo e empregado."
+      ],
+      "NextNode": "chegada_final_prologo"
+    },
+    "fingir_ignorancia": {
+      "Text": [
+        "Você continua fingindo mexer no terminal, virando ligeiramente o corpo para longe.",
+        "Por alguns tensos segundos, o bandido te observa com seus implantes oculares piscando.",
+        "'Ei! Eu estou falando com você!'",
+        "",
+        "A estratégia não funciona. Ele se aproxima mais, irritado pela sua aparente surdez.",
+        "Outros passageiros começam a se afastar, sentindo a tensão crescer."
+      ],
+      "NextNode": "escalacao_tensao"
+    },
+    "fingir_sono": {
+      "Text": [
+        "Você mantém os olhos fechados com força, respirando de forma controlada.",
+        "Sente a presença do bandido se aproximando mais, mas continua fingindo dormir.",
+        "'Esse cara tá me ignorando?' ele murmura para os companheiros.",
+        "",
+        "Por um momento terrível, você sente que pode funcionar...",
+        "Mas então uma mão cibernética agarra seu ombro com força dolorosa.",
+        "'Acorda, princesa!'"
+      ],
+      "NextNode": "confronto_direto"
+    },
+    "evitar_confronto": {
+      "Text": [
+        "Você abre os olhos mas mantém a cabeça baixa, evitando contato visual direto.",
+        "É a postura clássica da vítima submissa - algo que você aprendeu nas ruas de Night City.",
+        "'Pelo menos você tem modos', o bandido diz com um sorriso cruel.",
+        "",
+        "Mas então ele estende a mão: 'Agora me dá seus créditos e seu terminal.'",
+        "A submissão apenas atrasou o inevitável.",
+        "Chegou a hora de decidir: resistir ou ceder?"
+      ],
+      "Options": [
+        {
+          "Text": "Entregar tudo silenciosamente",
+          "NextNode": "capitulacao"
+        },
+        {
+          "Text": "Tentar negociar",
+          "NextNode": "tentativa_negociacao_bondinho"
+        },
+        {
+          "Text": "Resistir fisicamente",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        }
+      ]
+    },
+    "tentativa_retirada": {
+      "Text": [
+        "Você tenta se afastar discretamente, fingindo precisar descer na próxima parada.",
+        "Mas o vagão está lotado e não há muito espaço para manobra.",
+        "O bandido percebe sua tentativa e ri: 'Pra onde você vai, corporate?'",
+        "",
+        "Ele bloqueia seu caminho com o braço cibernético, encostando você contra a parede do vagão.",
+        "Outros passageiros se afastam ainda mais, criando um círculo ao redor da situação.",
+        "Não há escapatória agora."
+      ],
+      "NextNode": "confronto_direto"
+    },
+    "desafio_aceito": {
+      "Text": [
+        "Você mantém o olhar fixo nos implantes oculares vermelhos do bandido.",
+        "É um duelo silencioso de vontades, testando quem vai piscar primeiro.",
+        "Ele sorri lentamente: 'Interessante. Tem fibra este.'",
+        "",
+        "'Mas fibra não paga contas, corporate.'",
+        "Ele estica a mão, ainda mantendo contato visual.",
+        "'Seus créditos. Agora.'"
+      ],
+      "Options": [
+        {
+          "Text": "Continuar desafiando sem recuar",
+          "NextNode": "confronto_direto"
+        },
+        {
+          "Text": "Usar psicologia para intimidar",
+          "NextNode": "intimidacao_tecnica"
+        },
+        {
+          "Text": "Preparar-se para o combate",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        }
+      ]
+    },
+    "submissao_forçada": {
+      "Text": [
+        "Você baixa o olhar, admitindo derrota no duelo silencioso.",
+        "O bandido ri satisfeito: 'Esperto. Sabe qual é o seu lugar.'",
+        "'Agora me dá seus créditos e vamos fingir que nada aconteceu.'",
+        "",
+        "A submissão queima por dentro, lembrando você de todas as vezes na escola",
+        "que teve que se curvar para evitar uma surra pior.",
+        "Mas talvez seja a opção mais inteligente."
+      ],
+      "NextNode": "capitulacao"
+    },
+    "demonstracao_confianca": {
+      "Text": [
+        "Você sorri levemente, demonstrando uma confiança que surpreende até você mesmo.",
+        "'Você tem certeza que quer fazer isso num transporte público?' você pergunta calmamente.",
+        "O bandido hesita por um momento, seus implantes processando sua resposta inesperada.",
+        "",
+        "'Tem câmeras em todo lugar. Segurança corporativa. Consequências.'",
+        "Você está blefando, mas sua voz soa convincente.",
+        "Psicologia reversa pode ser mais efetiva que força bruta."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar o blefe psicológico",
+          "NextNode": "blefe_avancado"
+        },
+        {
+          "Text": "Oferecer uma alternativa",
+          "NextNode": "acordo_mutuo"
+        },
+        {
+          "Text": "Usar a hesitação para atacar",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        }
+      ]
+    },
+    "tentativa_negociacao_bondinho": {
+      "Text": [
+        "'Olha, eu entendo que vocês precisam ganhar a vida', você diz diplomaticamente.",
+        "'Mas eu sou só um funcionário de baixo escalão. Mal tenho créditos para o almoço.'",
+        "O bandido inclina a cabeça, considerando suas palavras.",
+        "",
+        "'Interessante abordagem, corporate. Mas isso não paga minhas contas.'",
+        "'Você pode não ter muito, mas tem algo. E algo é melhor que nada.'",
+        "A negociação não está funcionando como esperado."
+      ],
+      "Options": [
+        {
+          "Text": "Oferecer informação em vez de dinheiro",
+          "NextNode": "oferta_tecnica"
+        },
+        {
+          "Text": "Insistir que não tem nada de valor",
+          "NextNode": "escalacao_tensao"
+        },
+        {
+          "Text": "Tentar formar coalizão com outros passageiros",
+          "NextNode": "formar_alianca"
+        }
+      ]
+    },
+    "capitulacao": {
+      "Text": [
+        "Com resignação amarga, você entrega sua carteira e terminal.",
+        "O bandido conta rapidamente os créditos - apenas 47 eurodollars.",
+        "'Sério? Isso é tudo?' Ele parece quase ofendido pela quantia ridícula.",
+        "",
+        "'Eu avisei que era só um funcionário', você murmura.",
+        "Ele guarda suas coisas e se afasta, resmungando sobre corporativos sem dinheiro.",
+        "Você se sente humilhado, mas pelo menos ainda está inteiro."
+      ],
+      "NextNode": "final_viagem_bondinho_pragmatico"
+    },
+    "explicacao_calma": {
+      "Text": [
+        "'Preciso desses créditos para comer hoje', você explica calmamente.",
+        "'E o terminal tem informações de trabalho importantes. Sem ele, posso perder o emprego.'",
+        "O bandido parece genuinamente surpreso com sua honestidade.",
+        "",
+        "'Cara, você tá sendo sincero ou é o melhor ator que já vi?'",
+        "Seus companheiros também parecem menos agressivos agora.",
+        "Talvez humanizar a situação tenha criado uma pequena conexão."
+      ],
+      "Options": [
+        {
+          "Text": "Continuar sendo honesto sobre sua situação",
+          "NextNode": "acordo_mutuo"
+        },
+        {
+          "Text": "Propor uma alternativa justa",
+          "NextNode": "oferta_tecnica"
+        },
+        {
+          "Text": "Usar a conexão emocional para encerrar",
+          "NextNode": "ultima_chance"
+        }
+      ]
+    },
+    "oferta_tecnica": {
+      "Text": [
+        "'Não tenho muito dinheiro, mas tenho conhecimento', você oferece.",
+        "'Trabalho na Biotechnica. Conheço sistemas, implantes, tecnologia.'",
+        "O bandido levanta uma sobrancelha: 'Continue falando.'",
+        "",
+        "'Seus implantes estão sobrecarregando. Posso ensinar como otimizar o consumo de energia.'",
+        "'Ou como acessar mercados negros de peças de reposição.'",
+        "Conhecimento como moeda de troca - uma abordagem interessante."
+      ],
+      "Options": [
+        {
+          "Text": "Oferecer consultoria técnica regular",
+          "NextNode": "acordo_mutuo"
+        },
+        {
+          "Text": "Dar uma demonstração prática agora",
+          "NextNode": "encerramento_blefe"
+        },
+        {
+          "Text": "Manter a oferta vaga mas tentadora",
+          "NextNode": "ultima_chance"
+        }
+      ]
+    },
+    "acordo_mutuo": {
+      "Text": [
+        "'Que tal isso: não me roubem hoje, e eu posso ajudá-los com problemas técnicos no futuro?'",
+        "O bandido considera seriamente. 'Um corporate como consultor técnico...'",
+        "'Seria útil ter alguém de dentro das corporações.'",
+        "",
+        "Ele olha para os companheiros, que acenam em concordância.",
+        "'Certo, corporate. Mas isso cria uma dívida. Você vai nos dever uma.'",
+        "Não é a solução ideal, mas todos saem ganhando algo."
+      ],
+      "NextNode": "final_viagem_bondinho"
+    },
+    "encerramento_blefe": {
+      "Text": [
+        "Você se afasta lentamente, mantendo a confiança que demonstrou.",
+        "'Pensem no que conversamos', você diz calmamente.",
+        "O bandido te observa ir, claramente respeitando sua abordagem não-violenta.",
+        "",
+        "Você conseguiu sair da situação usando apenas inteligência e psicologia.",
+        "Não houve violência, não houve humilhação total.",
+        "Uma pequena vitória da mente sobre a força bruta."
+      ],
+      "NextNode": "final_viagem_bondinho"
+    },
+    "pressionar_vantagem": {
+      "Text": [
+        "'Olha, vocês claramente não entenderam com quem estão mexendo.'",
+        "Você se inclina para frente, pressionando a vantagem psicológica que ganhou.",
+        "'Eu posso fazer mais que desligar seus implantes. Posso reportar vocês.'",
+        "",
+        "'Biotechnica tem contratos com segurança. Uma palavra minha...'",
+        "É um blefe perigoso, mas o bandido recua visivelmente.",
+        "'Essa não acabou, corporate. Mas não hoje.'"
+      ],
+      "NextNode": "vitoria_sem_violencia"
+    },
+    "analise_detalhada": {
+      "Text": [
+        "Você continua observando, catalogando cada movimento e palavra.",
+        "O líder tem implantes oculares baratos - série CyberOptics B-40.",
+        "O segundo usa estimulantes sintéticos - pupilas dilatadas, tremor nas mãos.",
+        "",
+        "Eles estão planejando abordar a executiva da Arasaka primeiro.",
+        "Depois o estudante com o equipamento eletrônico.",
+        "Você parece estar em terceiro na lista de prioridades."
+      ],
+      "Options": [
+        {
+          "Text": "Tentar alertar a executiva discretamente",
+          "NextNode": "tentar_alerta"
+        },
+        {
+          "Text": "Esperar e se preparar para quando chegarem até você",
+          "NextNode": "preparacao_confronto"
+        },
+        {
+          "Text": "Tentar coordenar uma resposta grupal",
+          "NextNode": "formar_alianca"
+        }
+      ]
+    },
+    "tentar_alerta": {
+      "Text": [
+        "Você se move discretamente em direção à executiva da Arasaka.",
+        "'Com licença', você sussurra. 'Há um grupo suspeito observando você.'",
+        "Ela te olha com desconfiança inicial, mas então nota os bandidos.",
+        "",
+        "Seus implantes corporativos começam a piscar - provavelmente alertando segurança.",
+        "'Obrigada pelo aviso', ela murmura.",
+        "Talvez você tenha acabado de fazer uma aliada poderosa."
+      ],
+      "Options": [
+        {
+          "Text": "Coordenar uma resposta com ela",
+          "NextNode": "formar_alianca"
+        },
+        {
+          "Text": "Se afastar e deixar ela lidar com isso",
+          "NextNode": "preparacao_confronto"
+        },
+        {
+          "Text": "Alertar outros passageiros também",
+          "NextNode": "organizacao_passiva"
+        }
+      ]
+    },
+    "preparacao_confronto": {
+      "Text": [
+        "Você se posiciona estrategicamente, avaliando suas opções.",
+        "Está próximo da saída de emergência. Tem alguns passageiros robustos por perto.",
+        "Suas escolhas na escola moldaram como você lida com confronto.",
+        "",
+        "O bandido líder finalmente nota sua postura alerta e sorri.",
+        "'Olha só, temos um esperto aqui.'",
+        "Chegou a hora da verdade."
+      ],
+      "Options": [
+        {
+          "Text": "Manter postura defensiva",
+          "NextNode": "confronto_direto"
+        },
+        {
+          "Text": "Tomar a iniciativa e atacar primeiro",
+          "StartCombat": "cyber_thug",
+          "VictoryNode": "apos_vitoria_bondinho",
+          "DefeatNode": "apos_derrota_bondinho",
+          "FleeNode": "apos_fuga_bondinho"
+        },
+        {
+          "Text": "Tentar intimidação psicológica",
+          "NextNode": "intimidacao_tecnica"
+        }
+      ]
+    },
+    "formar_alianca": {
+      "Text": [
+        "Você se move entre os passageiros, sussurrando discretamente.",
+        "'Eles vão abordar todos nós. Melhor nos unirmos.'",
+        "A executiva da Arasaka acena em concordância. O homem militar também.",
+        "",
+        "Em poucos minutos, você organizou uma resistência silenciosa.",
+        "Quando os bandidos se aproximam, encontram não uma vítima isolada,",
+        "mas um grupo determinado a não ser intimidado."
+      ],
+      "NextNode": "confronto_grupal"
+    },
+    "planejamento_fuga": {
+      "Text": [
+        "Você avalia as possibilidades de escapar na próxima parada.",
+        "O bondinho vai parar em Watson em 3 minutos.",
+        "Se você conseguir sair lá, pode pegar outro transporte.",
+        "",
+        "Mas isso significaria abandonar os outros passageiros.",
+        "E também chegaria atrasado ao trabalho.",
+        "Decisões difíceis em Night City raramente têm respostas fáceis."
+      ],
+      "Options": [
+        {
+          "Text": "Planejar fuga para a próxima parada",
+          "NextNode": "tentativa_retirada"
+        },
+        {
+          "Text": "Ficar e enfrentar a situação",
+          "NextNode": "preparacao_confronto"
+        },
+        {
+          "Text": "Tentar convencer outros a fugirem juntos",
+          "NextNode": "organizacao_passiva"
+        }
+      ]
+    },
+    "confronto_verbal": {
+      "Text": [
+        "'Olha, amigo, todos nós estamos só tentando sobreviver aqui', você diz firmemente.",
+        "Sua voz é calma mas determinada - uma lição aprendida dos tempos de escola.",
+        "'Você quer créditos? Eu entendo. Mas isso não precisa terminar mal para ninguém.'",
+        "",
+        "O bandido parece surpreso com sua abordagem direta mas respeitosa.",
+        "'Huh. Não esperava isso de um corporate.'",
+        "Talvez haja uma saída que não envolva violência."
+      ],
+      "Options": [
+        {
+          "Text": "Tentar convencê-lo",
+          "NextNode": "acordo_mutuo"
+        },
+        {
+          "Text": "Propor uma troca justa",
+          "NextNode": "oferta_tecnica"
+        },
+        {
+          "Text": "Manter firmeza sem provocar",
+          "NextNode": "ultima_chance"
+        }
+      ]
+    },
+    "organizacao_passiva": {
+      "Text": [
+        "Você se move pelo vagão, discretamente organizando uma resistência passiva.",
+        "'Escondam valores.' 'Fiquem juntos.' 'Não deixem eles isolarem ninguém.'",
+        "É uma forma silenciosa de heroísmo - proteger através da organização.",
+        "",
+        "Quando os bandidos finalmente agem, encontram um vagão preparado.",
+        "Não há vítimas fáceis e isoladas.",
+        "Sua liderança discreta fez a diferença."
+      ],
+      "NextNode": "confronto_grupal"
+    },
+    "confronto_grupal": {
+      "Text": [
+        "Os bandidos param quando veem que não é só você.",
+        "A executiva da Arasaka tem segurança. O cara militar também não parece mole.",
+        "Outros passageiros estão juntos também.",
+        "",
+        "Os bandidos avaliam a situação.",
+        "'Deixa pra lá', o líder fala.",
+        "Eles mudam de vagão."
+      ],
+      "NextNode": "final_viagem_bondinho"
+    },
+    "chegada_final_prologo": {
+      "Text": [
+        "As portas do bondinho se abrem.",
+        "Você desce junto com os outros trabalhadores.",
+        "O complexo da Biotechnica à sua frente - torres de vidro verde.",
+        "",
+        "Você olha o prédio onde trabalha.",
+        "Mais um dia começando.",
+        "A mesma rotina de sempre.",
+        "",
+        "Você ajusta o uniforme e entra no prédio.",
+        "Night City continua a mesma merda.",
+        "Você continua sendo mais um.",
+        "",
+        "Fim do prólogo."
+      ],
+      "Options": [
+        {
+          "Text": "Fim do Prólogo",
+          "NextChapter": "prologo_completo"
+        }
+      ]
+    }
+  }
+}

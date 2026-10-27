@@ -1,3 +1,89 @@
+var __defProp = Object.defineProperty;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __esm = (fn, res, err) => function __init() {
+  if (err) throw err[0];
+  try {
+    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+  } catch (e) {
+    throw err = [e], e;
+  }
+};
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
+// src/PedroOS.Web/Client/core/WindowPressure.ts
+var WindowPressure_exports = {};
+__export(WindowPressure_exports, {
+  WindowPressure: () => WindowPressure
+});
+var WindowPressure;
+var init_WindowPressure = __esm({
+  "src/PedroOS.Web/Client/core/WindowPressure.ts"() {
+    "use strict";
+    WindowPressure = class {
+      constructor(random = () => Math.random(), now = () => Date.now()) {
+        this.random = random;
+        this.now = now;
+      }
+      random;
+      now;
+      nextFailureAt = 0;
+      shouldFail(openWindows) {
+        if (openWindows < 4 || this.now() < this.nextFailureAt) return false;
+        const chance = Math.min(0.6, 0.08 * (openWindows - 3));
+        return this.random() < chance;
+      }
+      recover() {
+        this.nextFailureAt = this.now() + 6e4;
+      }
+    };
+  }
+});
+
+// src/PedroOS.Web/Client/core/WelcomePreference.ts
+var WelcomePreference_exports = {};
+__export(WelcomePreference_exports, {
+  WELCOME_PREFERENCE_KEY: () => WELCOME_PREFERENCE_KEY,
+  WelcomePreference: () => WelcomePreference,
+  welcomePreference: () => welcomePreference
+});
+var WELCOME_PREFERENCE_KEY, WelcomePreference, welcomePreference;
+var init_WelcomePreference = __esm({
+  "src/PedroOS.Web/Client/core/WelcomePreference.ts"() {
+    "use strict";
+    WELCOME_PREFERENCE_KEY = "pedroos.welcome.v1";
+    WelcomePreference = class {
+      constructor(storage = () => localStorage) {
+        this.storage = storage;
+      }
+      storage;
+      value;
+      read() {
+        if (this.value !== void 0) return this.value;
+        this.value = true;
+        try {
+          const saved = JSON.parse(this.storage().getItem(WELCOME_PREFERENCE_KEY) ?? "null");
+          if (saved && typeof saved === "object" && "showOnStartup" in saved && typeof saved.showOnStartup === "boolean") {
+            this.value = saved.showOnStartup;
+          }
+        } catch {
+        }
+        return this.value;
+      }
+      set(showOnStartup) {
+        this.value = showOnStartup;
+        try {
+          this.storage().setItem(WELCOME_PREFERENCE_KEY, JSON.stringify({ showOnStartup }));
+        } catch {
+        }
+      }
+    };
+    welcomePreference = new WelcomePreference();
+  }
+});
+
 // tests/client/unit.test.ts
 import { strict as assert } from "node:assert";
 
@@ -219,6 +305,28 @@ var MinesweeperEngine = class {
   }
 };
 
+// src/PedroOS.Web/Client/core/VirtualPathAliases.ts
+var VIRTUAL_PATH_ALIASES = {
+  projects: "Projetos",
+  moreprojects: "MaisProjetos",
+  aboutme: "SobreMim",
+  documents: "Documentos",
+  experience: "Experiencia",
+  skills: "Habilidades",
+  games: "Jogos",
+  "readme.txt": "Leia-me.txt",
+  "resume.doc": "Curriculo.doc",
+  "career.doc": "Carreira.doc",
+  "development.sys": "Desenvolvimento.sys",
+  "artificialintelligence.sys": "InteligenciaArtificial.sys",
+  "minesweeper.exe": "CampoMinado.exe",
+  "credits.txt": "Creditos.txt",
+  "eastereggs.txt": "Segredos.txt"
+};
+function localizeVirtualPath(path) {
+  return path.split("\\").map((segment) => VIRTUAL_PATH_ALIASES[segment.toLowerCase()] || segment).join("\\");
+}
+
 // src/PedroOS.Web/Client/core/VirtualFileSystemClient.ts
 var VirtualFileSystemClient = class {
   constructor(root) {
@@ -265,7 +373,7 @@ var VirtualFileSystemClient = class {
     if (!normalized) {
       return void 0;
     }
-    return this.byPath.get(normalized.toLowerCase());
+    return this.byPath.get(normalized.toLowerCase()) || this.byPath.get(localizeVirtualPath(normalized).toLowerCase());
   }
   getParentPath(virtualPath) {
     const normalized = this.normalizePath(virtualPath);
@@ -671,5 +779,66 @@ console.log("--- Starting Client Unit Tests ---");
   assert.equal(icons.getPath("my-computer", 32), "/assets/icons/system/my-computer-32.png");
   assert.equal(icons.getPath("unknown", 16), "/assets/icons/system/exe-16.png");
   console.log("\u2713 AppRegistry & IconRegistryClient passed");
+}
+{
+  const { WindowPressure: WindowPressure2 } = await Promise.resolve().then(() => (init_WindowPressure(), WindowPressure_exports));
+  let now = 1e5;
+  let roll = 0.079;
+  let draws = 0;
+  const pressure = new WindowPressure2(() => {
+    draws++;
+    return roll;
+  }, () => now);
+  assert.equal(pressure.shouldFail(3), false);
+  assert.equal(draws, 0);
+  assert.equal(pressure.shouldFail(4), true);
+  roll = 0.08;
+  assert.equal(pressure.shouldFail(4), false);
+  assert.equal(pressure.shouldFail(5), true);
+  roll = 0.6;
+  assert.equal(pressure.shouldFail(50), false, "Probability is capped at 60%.");
+  roll = 0;
+  pressure.recover();
+  const previousDraws = draws;
+  assert.equal(pressure.shouldFail(50), false);
+  assert.equal(draws, previousDraws, "No random draw during recovery cooldown.");
+  now += 59999;
+  assert.equal(pressure.shouldFail(50), false);
+  now++;
+  assert.equal(pressure.shouldFail(4), true);
+  console.log("\u2713 WindowPressure passed");
+}
+{
+  const { WelcomePreference: WelcomePreference2, WELCOME_PREFERENCE_KEY: WELCOME_PREFERENCE_KEY2 } = await Promise.resolve().then(() => (init_WelcomePreference(), WelcomePreference_exports));
+  let saved = null;
+  const storage = { getItem: (key) => {
+    assert.equal(key, WELCOME_PREFERENCE_KEY2);
+    return saved;
+  }, setItem: (key, value) => {
+    assert.equal(key, WELCOME_PREFERENCE_KEY2);
+    saved = value;
+  } };
+  const first = new WelcomePreference2(() => storage);
+  assert.equal(first.read(), true);
+  first.set(false);
+  assert.equal(new WelcomePreference2(() => storage).read(), false);
+  first.set(true);
+  assert.equal(new WelcomePreference2(() => storage).read(), true);
+  saved = "invalid json";
+  assert.equal(new WelcomePreference2(() => storage).read(), true);
+  saved = '{"showOnStartup":"false"}';
+  assert.equal(new WelcomePreference2(() => storage).read(), true);
+  const unavailable = new WelcomePreference2(() => {
+    throw new Error("Storage blocked");
+  });
+  assert.equal(unavailable.read(), true);
+  unavailable.set(false);
+  assert.equal(unavailable.read(), false);
+  const readOnly = new WelcomePreference2(() => ({ getItem: () => null, setItem: () => {
+    throw new Error("Quota exceeded");
+  } }));
+  readOnly.set(false);
+  assert.equal(readOnly.read(), false);
+  console.log("\u2713 WelcomePreference passed");
 }
 console.log("--- ALL CLIENT UNIT TESTS PASSED ---");

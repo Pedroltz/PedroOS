@@ -1,0 +1,13 @@
+<!doctype html>
+<!-- PedroOS Doom player. SPDX-License-Identifier: GPL-2.0-or-later -->
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DOOM — PedroOS 95</title><link rel="stylesheet" href="player.css"></head>
+<body>
+<div id="screen"><canvas id="canvas" width="320" height="200" tabindex="0" aria-label="Tela do jogo DOOM"></canvas><p id="message" role="status">Preparando o jogo...</p></div>
+<div id="touch" aria-label="Controles do jogo">
+ <div><button data-key="ArrowLeft" aria-label="Virar à esquerda">◀</button><button data-key="ArrowUp" aria-label="Avançar">▲</button><button data-key="ArrowRight" aria-label="Virar à direita">▶</button><button data-key="Comma" aria-label="Deslocar à esquerda">Esq.</button><button data-key="Period" aria-label="Deslocar à direita">Dir.</button></div>
+ <div><button data-key="ControlLeft">Atirar</button><button data-key="ArrowDown" aria-label="Recuar">▼</button><button data-key="Space">Usar</button><button data-key="Enter">Enter</button><button data-key="Escape">Menu</button></div>
+ <div><button data-key="ShiftLeft">Correr</button><button data-key="Digit1">1</button><button data-key="Digit2">2</button><button data-key="Digit3">3</button><button data-key="Tab">Mapa</button></div>
+</div>
+<script src="player.js"></script>
+</body></html>

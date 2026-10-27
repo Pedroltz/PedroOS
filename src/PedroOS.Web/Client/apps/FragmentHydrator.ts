@@ -1,56 +1,20 @@
+import { hydrateWelcome } from '../components/Welcome.js';
+import { requestSystemFailure } from '../components/SystemFailure.js';
+import { hydrateSystemInfo } from '../components/SystemInfo.js';
+import { hydrateProjectGallery } from '../components/ProjectGallery.js';
 import type { WindowRecord, IWindowManager } from '../types/index.js';
 
+const delegatedWindows = new WeakSet<HTMLElement>();
+
 export function hydrateWindowFragment(windowEl: HTMLElement, record: WindowRecord, wm: IWindowManager): void {
-  // System Properties App Hydration
-  const syspropsApp = windowEl.querySelector('[data-sysprops-app]');
-  if (syspropsApp) {
-    const tabs = syspropsApp.querySelectorAll<HTMLElement>('[data-sysprops-tab]');
-    const panels = syspropsApp.querySelectorAll<HTMLElement>('[data-sysprops-panel]');
+  const welcome = windowEl.querySelector<HTMLElement>('[data-welcome-app]');
+  if (welcome) hydrateWelcome(welcome);
 
-    const selectTab = (tabId: string): void => {
-      tabs.forEach((t) => {
-        const isMatch = t.dataset.syspropsTab === tabId;
-        t.setAttribute('aria-selected', String(isMatch));
-        t.tabIndex = isMatch ? 0 : -1;
-      });
-      panels.forEach((p) => {
-        p.hidden = p.dataset.syspropsPanel !== tabId;
-      });
-    };
+  const project = windowEl.querySelector<HTMLElement>('[data-project-details]');
+  if (project) hydrateProjectGallery(project);
 
-    tabs.forEach((t) => {
-      t.addEventListener('click', () => {
-        if (t.dataset.syspropsTab) selectTab(t.dataset.syspropsTab);
-      });
-    });
-
-    // Check if initial tab passed in args
-    if (record.args.tab) {
-      selectTab(record.args.tab);
-    }
-
-    // Device Manager tree inspector
-    const skillBtns = syspropsApp.querySelectorAll<HTMLButtonElement>('[data-skill-select]');
-    const titleEl = syspropsApp.querySelector<HTMLElement>('[data-inspector-title]');
-    const driverEl = syspropsApp.querySelector<HTMLElement>('[data-inspector-driver]');
-    const usageEl = syspropsApp.querySelector<HTMLElement>('[data-inspector-usage]');
-    const casesEl = syspropsApp.querySelector<HTMLElement>('[data-inspector-cases]');
-
-    skillBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        skillBtns.forEach((b) => b.classList.remove('selected'));
-        btn.classList.add('selected');
-
-        if (titleEl) titleEl.textContent = btn.dataset.skillName || '';
-        if (driverEl) driverEl.textContent = btn.dataset.skillDriver || '';
-        if (usageEl) usageEl.textContent = btn.dataset.skillUsage || '';
-        if (casesEl) {
-          const rawCases = btn.dataset.skillCases ? btn.dataset.skillCases.split('||') : [];
-          casesEl.innerHTML = rawCases.map((c) => `<li>${c}</li>`).join('');
-        }
-      });
-    });
-  }
+  const info = windowEl.querySelector<HTMLElement>('[data-info-tabs]');
+  if (info) hydrateSystemInfo(info, record.args.tab);
 
   // 3. Resume App Hydration
   const resumeApp = windowEl.querySelector('[data-resume-app]');
@@ -67,7 +31,13 @@ export function hydrateWindowFragment(windowEl: HTMLElement, record: WindowRecor
   }
 
   // 4. Delegate click on buttons that open other apps inside the fragment
+  if (delegatedWindows.has(windowEl)) return;
+  delegatedWindows.add(windowEl);
   windowEl.addEventListener('click', (ev) => {
+    if ((ev.target as HTMLElement).closest('[data-close-fragment]')) {
+      wm.close(record.id);
+      return;
+    }
     const btn = (ev.target as HTMLElement).closest<HTMLElement>('[data-open-app]');
     if (btn?.dataset.openApp) {
       ev.preventDefault();
@@ -75,16 +45,21 @@ export function hydrateWindowFragment(windowEl: HTMLElement, record: WindowRecor
       const slug = btn.dataset.argSlug;
       const path = btn.dataset.argPath;
       const section = btn.dataset.argSection;
+      const command = btn.dataset.argCommand;
       const args: Record<string, string> = {};
       if (slug) args.slug = slug;
       if (path) args.path = path;
       if (section) args.section = section;
+      if (btn.dataset.argTab) args.tab = btn.dataset.argTab;
+      if (btn.dataset.argUrl) args.url = btn.dataset.argUrl;
+      if (command === '2091') args.command = command;
+      if (btn.hasAttribute('data-close-before-open')) wm.close(record.id);
       wm.open(appId, { args });
     }
 
     const bsodBtn = (ev.target as HTMLElement).closest('[data-trigger-bsod]');
     if (bsodBtn) {
-      document.getElementById('bsod-overlay')?.removeAttribute('hidden');
+      requestSystemFailure();
     }
   });
 }

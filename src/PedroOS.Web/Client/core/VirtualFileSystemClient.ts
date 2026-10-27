@@ -1,7 +1,8 @@
+import { localizeVirtualPath } from './VirtualPathAliases.js';
 import type { VirtualNode } from '../types/index.js';
 
 /**
- * Client-side Virtual File System resolver for Explorer.exe, Notepad.exe and Find.
+ * Client-side Virtual File System resolver for Explorer.exe, Bloco de Notas.exe and Find.
  */
 export class VirtualFileSystemClient {
   private readonly byPath = new Map<string, VirtualNode>();
@@ -55,7 +56,7 @@ export class VirtualFileSystemClient {
     if (!normalized) {
       return undefined;
     }
-    return this.byPath.get(normalized.toLowerCase());
+    return this.byPath.get(normalized.toLowerCase()) || this.byPath.get(localizeVirtualPath(normalized).toLowerCase());
   }
 
   public getParentPath(virtualPath: string): string {

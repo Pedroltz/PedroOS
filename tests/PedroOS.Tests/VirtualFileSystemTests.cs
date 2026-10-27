@@ -24,14 +24,28 @@ public class VirtualFileSystemTests
     }
 
     [Theory]
-    [InlineData(@"C:\AboutMe\Readme.txt")]
-    [InlineData(@"C:\Projects\Ofizzy.exe")]
-    [InlineData(@"C:\Projects\RDP-Session-Manager.exe")]
-    [InlineData(@"C:\Experience\Career.doc")]
-    [InlineData(@"C:\Skills\Development.sys")]
-    [InlineData(@"C:\Documents\Resume.doc")]
+    [InlineData(@"C:\Projects", @"C:\Projetos")]
+    [InlineData(@"C:\AboutMe\Readme.txt", @"C:\SobreMim\Leia-me.txt")]
+    [InlineData(@"C:\Documents\Resume.doc", @"C:\Documentos\Curriculo.doc")]
+    [InlineData(@"C:\Games\Minesweeper.exe", @"C:\Jogos\CampoMinado.exe")]
+    public void LegacyPathsResolveToPortugueseNodes(string legacy, string localized)
+    {
+        Assert.Equal(localized, _vfs.ResolvePath(legacy)?.Path);
+        Assert.Same(_vfs.ResolvePath(legacy), _vfs.ResolvePath(localized));
+    }
+
+    [Theory]
+    [InlineData(@"C:\SobreMim\Leia-me.txt")]
+    [InlineData(@"C:\Projetos\Ofizzy.exe")]
+    [InlineData(@"C:\Projetos\RDP-Session-Manager.exe")]
+    [InlineData(@"C:\Projetos\MaisProjetos\TaskProj.exe")]
+    [InlineData(@"C:\Projetos\MaisProjetos\BinaryTreeStudy.exe")]
+    [InlineData(@"C:\Projetos\MaisProjetos\UniNote.exe")]
+    [InlineData(@"C:\Experiencia\Carreira.doc")]
+    [InlineData(@"C:\Habilidades\Desenvolvimento.sys")]
+    [InlineData(@"C:\Documentos\Curriculo.doc")]
     [InlineData(@"C:\Internet\GitHub.url")]
-    [InlineData(@"C:\Games\Minesweeper.exe")]
+    [InlineData(@"C:\Jogos\CampoMinado.exe")]
     public void ResolvePath_ResolvesRequiredFiles(string path)
     {
         var node = _vfs.ResolvePath(path);
@@ -41,7 +55,7 @@ public class VirtualFileSystemTests
 
     [Theory]
     [InlineData(@"C:\..\Windows")]
-    [InlineData(@"C:\Projects\..\..\etc\passwd")]
+    [InlineData(@"C:\Projetos\..\..\etc\passwd")]
     [InlineData(@"D:\Secret")]
     [InlineData(@"/etc/shadow")]
     [InlineData(@"\\network\share")]

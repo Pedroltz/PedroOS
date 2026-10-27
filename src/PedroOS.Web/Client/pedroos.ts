@@ -1,3 +1,5 @@
+import { DoomApp } from './apps/DoomApp.js';
+import { welcomePreference } from './core/WelcomePreference.js';
 import type { BootPayload } from './types/index.js';
 import { DesktopStore } from './core/DesktopStore.js';
 import { AppRegistry } from './core/AppRegistry.js';
@@ -38,9 +40,10 @@ function boot(): void {
 
   // Register client modules
   registry.registerClientApp('explorer', new ExplorerApp(vfs, icons));
-  registry.registerClientApp('projects', new ExplorerApp(vfs, icons, 'C:\\Projects'));
+  registry.registerClientApp('projects', new ExplorerApp(vfs, icons, 'C:\\Projetos'));
   registry.registerClientApp('iexplore', new InternetExplorerApp(icons, data.projects));
   registry.registerClientApp('minesweeper', new MinesweeperApp(icons));
+  registry.registerClientApp('doom', new DoomApp(store));
   registry.registerClientApp('notepad', new NotepadApp(vfs));
   registry.registerClientApp('terminal', new TerminalApp(vfs));
   registry.registerClientApp('find', new FindDialogApp(vfs, icons));
@@ -82,6 +85,11 @@ function boot(): void {
       args: data.initialRoute.args ?? {},
       skipRouteSync: true,
     });
+  }
+
+  // Only a fresh load of the desktop opens the welcome window automatically.
+  if (stripBase(data.initialRoute.path) === '/' && !data.initialRoute.appId && !data.initialRoute.notFound && welcomePreference.read()) {
+    wm.open('welcome', { skipRouteSync: true });
   }
 
   // Handle browser back/forward history navigation

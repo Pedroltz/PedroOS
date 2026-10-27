@@ -33,12 +33,12 @@
                         <span class="title-bar-label">@Model.InitialWindowTitle</span>
                     </div>
                     <div class="title-bar-controls">
-                        <button type="button" aria-label="Minimize" data-win-action="minimize" title="Minimize"></button>
+                        <button type="button" class="minimize" aria-label="Minimizar" data-win-action="minimize" title="Minimizar"></button>
                         @if (app.Maximizable)
                         {
-                            <button type="button" aria-label="Maximize" data-win-action="maximize" title="Maximize"></button>
+                            <button type="button" class="maximize" aria-label="Maximizar" data-win-action="maximize" title="Maximizar"></button>
                         }
-                        <button type="button" aria-label="Close" data-win-action="close" title="Close"></button>
+                        <button type="button" class="close" aria-label="Fechar" data-win-action="close" title="Fechar"></button>
                     </div>
                 </div>
                 <div class="window-body os-window-body" data-window-content>
@@ -76,21 +76,21 @@
                 <div class="title-bar" data-window-drag-handle>
                     <div class="title-bar-text" id="win-404-title">
                         <os-icon key="warning" size="16" class="title-bar-icon" alt="" />
-                        <span class="title-bar-label">PedroOS 95 — File Not Found (404)</span>
+                        <span class="title-bar-label">PedroOS 95 — Arquivo não encontrado (404)</span>
                     </div>
                     <div class="title-bar-controls">
-                        <button type="button" aria-label="Close" data-win-action="close"></button>
+                        <button type="button" class="close" aria-label="Fechar" data-win-action="close"></button>
                     </div>
                 </div>
                 <div class="window-body os-window-body" data-window-content>
                     <div class="dialog-404">
                         <os-icon key="error" size="32" alt="Erro 404" />
                         <div>
-                            <p><strong>Cannot find <code>@HttpContext.Request.Path</code>.</strong></p>
-                            <p>Make sure the path or project name is correct, or use Windows Explorer / Start Menu to browse available applications.</p>
+                            <p><strong>Não foi possível encontrar <code>@HttpContext.Request.Path</code>.</strong></p>
+                            <p>Verifique o caminho ou nome do projeto, ou use o Explorador de Arquivos e o menu Iniciar para encontrar os aplicativos.</p>
                             <div class="dialog-404-actions">
-                                <button type="button" data-open-app="projects">Abrir Projects.exe</button>
-                                <button type="button" data-open-app="explorer" data-arg-path="C:\">Abrir Explorer</button>
+                                <button type="button" data-open-app="projects">Abrir Projetos</button>
+                                <button type="button" data-open-app="explorer" data-arg-path="C:\">Abrir Explorador</button>
                             </div>
                         </div>
                     </div>

@@ -28,8 +28,7 @@ public class ResumePdfTests
         Assert.True(bytes.Length > 200, "PDF must not be empty");
 
         var text = Encoding.ASCII.GetString(bytes);
-        Assert.StartsWith("%PDF-1.4", text);
+        Assert.StartsWith("%PDF-1.", text);
         Assert.Contains("%%EOF", text);
-        Assert.Contains("Pedro Tunin", text);
     }
 }

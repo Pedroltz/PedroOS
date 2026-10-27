@@ -1,13 +1,12 @@
 {
   "name": "Pedro Tunin",
-  "headline": "Engenheiro de Software — Backend (.NET & Python), Linux/DevOps e Sistemas de IA",
-  "location": "Brasil (Remoto)",
-  "summary": "Engenheiro de Software com foco em arquitetura e desenvolvimento backend em C# / ASP.NET Core e Python, administração e automação de infraestrutura Linux/DevOps (Docker, Docker Compose, GitHub Actions, CI/CD) e engenharia de sistemas aplicados de Inteligência Artificial (integração com LLMs, RAG, Embeddings, Agentes e Tool Calling).",
+  "headline": "Desenvolvedor .NET | C#, ASP.NET Core e Angular | IA e DevOps",
+  "location": "Brasil",
+  "summary": "Sou desenvolvedor de software com atuação em C#/.NET, ASP.NET Core, Angular, APIs REST e integrações. Atualmente, trabalho com YMS (gestão de pátios) na Zella Sistemas e tenho experiência anterior com WMS em produção. Utilizo IA como apoio à implementação e evolução do código. Também desenvolvo agentes em Python com LLMs, RAG e tool calling e atuo com Docker, Linux e CI/CD. Sou graduando em Ciência da Computação e busco oportunidades de desenvolvimento .NET.",
   "about": [
     "Construo aplicações completas — do modelo de domínio e banco de dados relacional até a interface web ou desktop e o pipeline de entrega contínua.",
-    "No ecossistema .NET, desenvolvo sistemas web e APIs multi-tenant com C#, ASP.NET Core, Entity Framework Core, PostgreSQL e testes automatizados.",
-    "Em Linux e Python, desenvolvo ferramentas de administração de sistemas e aplicações desktop nativas em GTK 4 / libadwaita, além de APIs com FastAPI.",
-    "Este portfólio (PedroOS 95) foi projetado como um sistema operacional clássico funcional em ASP.NET Core (.NET 10 LTS), Razor Pages e TypeScript."
+    "No ecossistema .NET, desenvolvo sistemas web e APIs multi-tenant com C#, ASP.NET Core, Entity Framework Core, Angular, PostgreSQL/SQL Server e testes automatizados.",
+    "Em Linux, DevOps e IA aplicada, desenvolvo agentes em Python com LLMs, RAG, tool calling e vLLM em GPU, além de manter ambientes Docker e pipelines CI/CD com GitHub Actions e runners self-hosted."
   ],
   "links": [
     {
@@ -24,75 +23,101 @@
     },
     {
       "id": "email",
-      "label": "pedro.tunin@outlook.com",
-      "url": "mailto:pedro.tunin@outlook.com",
+      "label": "pedroluiztuninzx@gmail.com",
+      "url": "mailto:pedroluiztuninzx@gmail.com",
+      "icon": "document"
+    },
+    {
+      "id": "phone",
+      "label": "(14) 99653-7129",
+      "url": "tel:+5514996537129",
       "icon": "document"
     }
   ],
   "experience": [
     {
-      "role": "Engenheiro de Software",
-      "organization": "[PLACEHOLDER: informar nome da empresa autorizada em Data/profile.json]",
-      "period": "2023 — Presente (conforme portfólio anterior — confirmar datas exatas)",
+      "role": "Programador de Sistemas",
+      "organization": "Zella Sistemas",
+      "period": "jun/2026 — atual",
       "location": "Brasil",
       "bullets": [
-        "Desenvolvimento e manutenção de sistemas corporativos, fluxos operacionais/logísticos e integrações com modelos de linguagem (LLMs).",
-        "Atuação com C# / .NET, Python / FastAPI, Angular / TypeScript, bancos de dados relacionais (PostgreSQL / SQL Server), Docker e pipelines CI/CD.",
-        "[PLACEHOLDER: detalhar projetos internos, responsabilidades específicas e resultados verificados em Data/profile.json]"
+        "Desenvolvo e mantenho aplicações YMS com .NET, Angular e Python, atuando em APIs, integrações, automações e evolução de sistemas de gestão de pátios.",
+        "Crio e mantenho ambientes Docker e pipelines CI/CD com GitHub Actions e runners self-hosted, além de atuar na sustentação de servidores Linux, acessos e conectividade.",
+        "Desenvolvo agentes em Python com LLMs, RAG e tool calling, integrando modelos a APIs, ferramentas e serviços internos para automação e acesso contextualizado a informações.",
+        "Executo e integro modelos com vLLM em ambiente com GPU, apoiando serviços internos de IA e experimentação de soluções."
       ],
-      "isPlaceholder": true
+      "isPlaceholder": false
     },
     {
-      "role": "Desenvolvedor de Software & Infraestrutura",
-      "organization": "[PLACEHOLDER: informar organização ou atuação em Data/profile.json]",
-      "period": "2022 — 2023 (conforme portfólio anterior — confirmar datas exatas)",
+      "role": "Assistente de Desenvolvimento de Software",
+      "organization": "Zion Logtec",
+      "period": "jul/2024 — jun/2026",
       "location": "Brasil",
       "bullets": [
-        "Desenvolvimento de aplicações e scripts de automação em Python, C# e Bash.",
-        "Administração de ambientes Linux, conteinerização com Docker e automação de workflows com GitHub Actions.",
-        "[PLACEHOLDER: complementar histórico profissional verificado em Data/profile.json]"
+        "Atuei na sustentação de sistemas WMS em produção, investiguei incidentes e implementei correções em Java, Delphi e Oracle SQL, com análise de causa, testes e homologação.",
+        "Documentei soluções e acompanhei demandas com usuários e equipes técnicas, do diagnóstico à entrega."
       ],
-      "isPlaceholder": true
+      "isPlaceholder": false
     },
     {
-      "role": "Autor & Mantenedor — Projetos Autorais",
-      "organization": "GitHub (github.com/Pedroltz)",
-      "period": "Em andamento",
-      "location": "Remoto",
+      "role": "Projetos e Pesquisa",
+      "organization": "Projetos Autorais & Iniciação Científica",
+      "period": "2024 — atual",
+      "location": "Brasil",
       "bullets": [
-        "Ofizzy: plataforma SaaS multi-tenant para prestadores de serviços e oficinas automotivas (.NET 10, Angular 21, PostgreSQL 18, Docker Compose).",
-        "RDP Session Manager: aplicação nativa GTK 4 / libadwaita em Python para administração de sessões remotas xrdp e compatibilidade Windows via umu/Wine no Linux (GPL-3.0).",
-        "PedroOS 95: portfólio interativo simulando o Windows 95 em ASP.NET Core (.NET 10), Razor Pages e TypeScript."
+        "Ofizzy: desenvolvo uma plataforma de gestão de ordens de serviço, clientes e veículos com C#/.NET, ASP.NET Core, Entity Framework Core e PostgreSQL. Projeto com arquitetura multi-tenant, autenticação, APIs e uso de Docker/CI/CD.",
+        "Vesper: desenvolvi uma aplicação desktop com integração a LLMs via APIs OpenAI e DeepSeek, seleção de modelos e tratamento seguro de credenciais.",
+        "Iniciação Científica / CONIC-SEMESP 2024: pesquisei geração automática de textos usando Cadeias de Markov e apresentei o trabalho em 07/11/2024."
       ],
       "isPlaceholder": false
     }
   ],
   "education": [
     {
-      "course": "Engenharia de Computação / Engenharia de Software",
-      "institution": "[PLACEHOLDER: confirmar instituição e situação acadêmica em Data/profile.json]",
-      "period": "[PLACEHOLDER: período acadêmico]",
-      "isPlaceholder": true
+      "course": "Ciência da Computação",
+      "institution": "UNISAGRADO",
+      "period": "2023 — conclusão prevista: dez/2026",
+      "isPlaceholder": false
+    },
+    {
+      "course": "Técnico em Informática",
+      "institution": "Etec Comendador João Rays",
+      "period": "2021 — 2022",
+      "isPlaceholder": false
+    },
+    {
+      "course": "FDevs - Trilha Backend",
+      "institution": "UPPER",
+      "period": "2025",
+      "isPlaceholder": false
     }
   ],
-  "certifications": [],
+  "certifications": [
+    "C# Completo: POO - Nélio Alves (2024)",
+    "NLP with Python - Jose Portilla (2024)",
+    "Cybersecurity Essentials e Redes de Computadores - Cisco (2022)"
+  ],
   "languages": [
     "Português — Nativo",
-    "Inglês — Avançado / Proficiente"
+    "Inglês: C2 Proficient — EF SET, 76/100 (2026)"
   ],
   "competencies": [
     {
-      "name": "Desenvolvimento Backend & Frontend",
-      "items": ["C#", ".NET 10", "ASP.NET Core", "Entity Framework Core", "Python", "FastAPI", "GTK 4 / libadwaita", "TypeScript", "Angular", "SQL / PostgreSQL"]
+      "name": "Desenvolvimento",
+      "items": ["C#/.NET", "ASP.NET Core", "Entity Framework Core", "Angular", "APIs REST", "Integrações", "Python", "Java"]
     },
     {
-      "name": "Infraestrutura & DevOps",
-      "items": ["Linux (Debian/Ubuntu/Arch)", "Docker", "Docker Compose", "GitHub Actions", "CI/CD", "Bash", "Nginx", "xrdp / FreeRDP", "Terraform", "Kubernetes"]
+      "name": "Dados",
+      "items": ["SQL Server", "PostgreSQL", "Oracle SQL", "SQLite"]
     },
     {
-      "name": "Inteligência Artificial Aplicada",
-      "items": ["Integração com LLMs", "RAG", "Embeddings", "Agentes de IA", "Tool Calling", "vLLM"]
+      "name": "DevOps e Infraestrutura",
+      "items": ["Docker", "Linux", "GitHub Actions", "CI/CD", "Runners Self-Hosted", "Git", "Bash", "Google Cloud", "Automação de Deploys"]
+    },
+    {
+      "name": "IA Aplicada",
+      "items": ["LLMs", "RAG", "Agentes de IA", "Tool Calling", "Integração com APIs", "vLLM", "Execução de Modelos em GPU"]
     }
   ],
-  "resumePdf": null
+  "resumePdf": "/assets/resume/Curriculo_Pedro_Tunin_DotNet_DevOps.pdf"
 }

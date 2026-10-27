@@ -19,7 +19,7 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
 
     const startBtn = page.locator('#start-button');
     await expect(startBtn).toBeVisible();
-    await expect(startBtn).toContainText('Start');
+    await expect(startBtn).toContainText('Iniciar');
   });
 
   // 2. O menu Iniciar abre
@@ -49,7 +49,7 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
 
     const explorerWin = page.locator('.os-window[data-app-id="explorer"]');
     await expect(explorerWin).toBeVisible({ timeout: 5000 });
-    await expect(explorerWin.locator('.title-bar-label')).toContainText('Exploring');
+    await expect(explorerWin.locator('.title-bar-label')).toContainText('Explorando');
   });
 
   // 4. Projetos são listados
@@ -292,9 +292,9 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
     await expect(ofizzyWin).toContainText('Ofizzy');
 
     await page.goto('/skills');
-    await expect(page).toHaveTitle(/System Properties/);
+    await expect(page).toHaveTitle(/Propriedades do Sistema/);
     const sysWin = page.locator('.os-window[data-app-id="sysprops"]');
     await expect(sysWin).toBeVisible();
-    await expect(sysWin).toContainText('Development');
+    await expect(sysWin).toContainText('Desenvolvimento');
   });
 });

@@ -4,10 +4,10 @@
 }
 <div class="app-shell linkedin-app">
     <div class="win95-menubar" role="menubar" aria-label="Menu do LinkedIn">
-        <span class="win95-menu-item"><u>F</u>ile</span>
-        <span class="win95-menu-item"><u>E</u>dit</span>
-        <span class="win95-menu-item"><u>V</u>iew</span>
-        <span class="win95-menu-item"><u>H</u>elp</span>
+        <span class="win95-menu-item"><u>A</u>rquivo</span>
+        <span class="win95-menu-item"><u>E</u>ditar</span>
+        <span class="win95-menu-item">E<u>x</u>ibir</span>
+        <span class="win95-menu-item">A<u>j</u>uda</span>
     </div>
 
     <div class="win95-toolbar" role="toolbar" aria-label="Ações do perfil">
@@ -17,7 +17,7 @@
         </a>
         <button type="button" class="toolbar-btn" data-open-app="resume">
             <os-icon key="resume" size="16" alt="" />
-            <span>Ver Currículo (WordPad)</span>
+            <span>Ver Currículo (Editor de Documentos)</span>
         </button>
         <button type="button" class="toolbar-btn" data-open-app="projects">
             <os-icon key="projects" size="16" alt="" />
@@ -26,7 +26,7 @@
     </div>
 
     <div class="win95-addressbar">
-        <label class="addressbar-label">Address</label>
+        <label class="addressbar-label">Endereço</label>
         <div class="addressbar-field sunken-panel">
             <os-icon key="linkedin" size="16" alt="" />
             <span>@linkedinUrl</span>
@@ -53,13 +53,13 @@
                         Enviar Mensagem por E-mail &#8599;
                     </a>
                     <button type="button" data-open-app="resume">
-                        Abrir Resume.doc
+                        Abrir Currículo
                     </button>
                 </div>
             </header>
 
             <fieldset class="win95-fieldset">
-                <legend>Sobre (About)</legend>
+                <legend>Sobre</legend>
                 <p>@profile.Summary</p>
                 @foreach (var p in profile.About)
                 {
@@ -95,7 +95,7 @@
     </div>
 
     <div class="status-bar">
-        <p class="status-bar-field">Done — @linkedinUrl</p>
-        <p class="status-bar-field">PedroOS Internet Zone</p>
+        <p class="status-bar-field">Concluído — @linkedinUrl</p>
+        <p class="status-bar-field">Zona da Internet do PedroOS</p>
     </div>
 </div>

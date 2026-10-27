@@ -88,7 +88,7 @@ export class WindowManager implements IWindowManager {
       const width = Math.min(def?.defaultWidth ?? 640, work.width - 16);
       const height = Math.min(def?.defaultHeight ?? 440, work.height - 16);
       const x = Math.max(8, Math.round((work.width - width) / 2));
-      const y = Math.max(8, Math.round((work.height - height) / 3));
+      const y = Math.max(8, Math.round((work.height - height) / (appId === 'project' ? 2 : 3)));
       const clamped = this.clampBounds({ x, y, width, height }, def?.minWidth ?? 240, def?.minHeight ?? 180);
 
       const titleLabel = el.querySelector('.title-bar-label')?.textContent?.trim() || def?.title || 'PedroOS';
@@ -131,7 +131,7 @@ export class WindowManager implements IWindowManager {
   public open(appId: string, options: OpenWindowOptions = {}): string {
     const def = this.registry.getDefinition(appId);
     if (!def) {
-      return this.openErrorDialog(`Application "${appId}" is not registered in PedroOS 95.`);
+      return this.openErrorDialog(`O aplicativo "${appId}" não está cadastrado no PedroOS 95.`);
     }
 
     const args = { ...(options.args ?? {}) };
@@ -443,13 +443,14 @@ export class WindowManager implements IWindowManager {
 
   private computeInitialBounds(def: AppDefinition, options: OpenWindowOptions): WindowBounds {
     const work = this.getWorkArea();
-    const width = options.width ?? def.defaultWidth;
-    const height = options.height ?? def.defaultHeight;
+    const centered = def.id === 'project' || def.id === 'welcome';
+    const width = options.width ?? (centered ? Math.min(def.defaultWidth, work.width - 16) : def.defaultWidth);
+    const height = options.height ?? (centered ? Math.min(def.defaultHeight, work.height - 16) : def.defaultHeight);
     const step = (this.cascadeOffset % 6) * 26;
     this.cascadeOffset += 1;
 
-    const defaultX = Math.max(16, Math.min(184 + step, work.width - width - 16));
-    const defaultY = Math.max(14, Math.min(28 + step, work.height - height - 16));
+    const defaultX = centered ? Math.max(0, Math.round((work.width - width) / 2)) : Math.max(16, Math.min(184 + step, work.width - width - 16));
+    const defaultY = centered ? Math.max(0, Math.round((work.height - height) / 2)) : Math.max(14, Math.min(28 + step, work.height - height - 16));
     return this.clampBounds(
       {
         x: options.x ?? defaultX,
@@ -474,10 +475,10 @@ export class WindowManager implements IWindowManager {
 
   private computeDefaultTitle(def: AppDefinition, args: Record<string, string>): string {
     if (def.id === 'project' && args.slug) {
-      return `Project — ${args.slug}`;
+      return `Projeto — ${args.slug}`;
     }
     if (def.id === 'explorer' && args.path) {
-      return `Exploring - ${args.path}`;
+      return `Explorando - ${args.path}`;
     }
     return def.title;
   }
@@ -512,24 +513,27 @@ export class WindowManager implements IWindowManager {
 
     const minBtn = document.createElement('button');
     minBtn.type = 'button';
-    minBtn.setAttribute('aria-label', 'Minimize');
-    minBtn.title = 'Minimize';
+    minBtn.className = 'minimize';
+    minBtn.setAttribute('aria-label', 'Minimizar');
+    minBtn.title = 'Minimizar';
     minBtn.dataset.winAction = 'minimize';
     controls.appendChild(minBtn);
 
     if (record.maximizable) {
       const maxBtn = document.createElement('button');
       maxBtn.type = 'button';
-      maxBtn.setAttribute('aria-label', record.state === 'maximized' ? 'Restore' : 'Maximize');
-      maxBtn.title = record.state === 'maximized' ? 'Restore' : 'Maximize';
+      maxBtn.className = record.state === 'maximized' ? 'restore' : 'maximize';
+      maxBtn.setAttribute('aria-label', record.state === 'maximized' ? 'Restaurar' : 'Maximizar');
+      maxBtn.title = record.state === 'maximized' ? 'Restaurar' : 'Maximizar';
       maxBtn.dataset.winAction = 'maximize';
       controls.appendChild(maxBtn);
     }
 
     const closeBtn = document.createElement('button');
     closeBtn.type = 'button';
-    closeBtn.setAttribute('aria-label', 'Close');
-    closeBtn.title = 'Close';
+    closeBtn.className = 'close';
+    closeBtn.setAttribute('aria-label', 'Fechar');
+    closeBtn.title = 'Fechar';
     closeBtn.dataset.winAction = 'close';
     controls.appendChild(closeBtn);
 
@@ -714,8 +718,10 @@ export class WindowManager implements IWindowManager {
     const maxBtn = el.querySelector<HTMLButtonElement>('[data-win-action="maximize"]');
     if (maxBtn) {
       const isMax = record.state === 'maximized';
-      maxBtn.setAttribute('aria-label', isMax ? 'Restore' : 'Maximize');
-      maxBtn.title = isMax ? 'Restore' : 'Maximize';
+      maxBtn.setAttribute('aria-label', isMax ? 'Restaurar' : 'Maximizar');
+      maxBtn.title = isMax ? 'Restaurar' : 'Maximizar';
+      maxBtn.classList.toggle('restore', isMax);
+      maxBtn.classList.toggle('maximize', !isMax);
     }
 
     el.style.zIndex = String(record.zIndex);
@@ -742,7 +748,7 @@ export class WindowManager implements IWindowManager {
     if (def.content === 'client') {
       const mod = this.registry.getClientModule(def.id);
       if (!mod) {
-        body.innerHTML = `<div class="win95-error-box">Client module for <strong>${this.escapeHtml(def.id)}</strong> is not available.</div>`;
+        body.innerHTML = `<div class="win95-error-box">O módulo do aplicativo <strong>${this.escapeHtml(def.id)}</strong> não está disponível.</div>`;
         return;
       }
       try {
@@ -758,13 +764,13 @@ export class WindowManager implements IWindowManager {
         }
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Unexpected application error';
-        body.innerHTML = `<div class="win95-error-box">Failed to initialize ${this.escapeHtml(def.title)}: ${this.escapeHtml(message)}</div>`;
+        body.innerHTML = `<div class="win95-error-box">Não foi possível iniciar ${this.escapeHtml(def.title)}: ${this.escapeHtml(message)}</div>`;
       }
       return;
     }
 
     // Fragment application: fetch server-rendered Razor Partial View
-    body.innerHTML = `<div class="win95-loading" role="status">${this.icons.render('computer', 16)} <span>Loading ${this.escapeHtml(def.title)}...</span></div>`;
+    body.innerHTML = `<div class="win95-loading" role="status">${this.icons.render('computer', 16)} <span>Carregando ${this.escapeHtml(def.title)}...</span></div>`;
 
     const url = fragmentUrl(def.id, record.args);
 
@@ -788,11 +794,11 @@ export class WindowManager implements IWindowManager {
         }
         body.innerHTML = `
           <div class="win95-error-box" role="alert">
-            ${this.icons.render('error', 32, 'pixel-icon', 'Error')}
+            ${this.icons.render('error', 32, 'pixel-icon', 'Erro')}
             <div>
-              <p><strong>PedroOS 95 could not load ${this.escapeHtml(def.title)}.</strong></p>
-              <p>Check your connection or click Retry.</p>
-              <button type="button" data-retry-fragment>Retry</button>
+              <p><strong>O PedroOS 95 não conseguiu carregar ${this.escapeHtml(def.title)}.</strong></p>
+              <p>Verifique a conexão ou clique em Tentar novamente.</p>
+              <button type="button" data-retry-fragment>Tentar novamente</button>
             </div>
           </div>`;
         body.querySelector('[data-retry-fragment]')?.addEventListener('click', () => {

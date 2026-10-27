@@ -36,7 +36,18 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
     public VirtualNode? ResolvePath(string? virtualPath)
     {
         var normalized = NormalizePath(virtualPath);
-        return string.IsNullOrEmpty(normalized) ? null : _byPath.GetValueOrDefault(normalized);
+        if (string.IsNullOrEmpty(normalized)) return null;
+        if (_byPath.TryGetValue(normalized, out var node)) return node;
+        var aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["Projects"] = "Projetos", ["MoreProjects"] = "MaisProjetos", ["AboutMe"] = "SobreMim",
+            ["Documents"] = "Documentos", ["Experience"] = "Experiencia", ["Skills"] = "Habilidades", ["Games"] = "Jogos",
+            ["Readme.txt"] = "Leia-me.txt", ["Resume.doc"] = "Curriculo.doc", ["Career.doc"] = "Carreira.doc",
+            ["Development.sys"] = "Desenvolvimento.sys", ["ArtificialIntelligence.sys"] = "InteligenciaArtificial.sys",
+            ["Minesweeper.exe"] = "CampoMinado.exe", ["Credits.txt"] = "Creditos.txt", ["EasterEggs.txt"] = "Segredos.txt",
+        };
+        var localized = string.Join('\\', normalized.Split('\\').Select(segment => aliases.GetValueOrDefault(segment, segment)));
+        return _byPath.GetValueOrDefault(localized);
     }
 
     public IReadOnlyList<VirtualNode> ListDirectory(string? virtualPath, bool includeHidden = false)
@@ -139,7 +150,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                 Id = $"file-project-{project.Slug}",
                 Name = project.ExecutableName,
                 Type = VirtualNodeType.Application,
-                Path = $@"C:\Projects\{project.ExecutableName}",
+                Path = $@"C:\Projetos\{project.ExecutableName}",
                 Icon = project.Icon,
                 Size = "64 KB",
                 Description = project.Summary,
@@ -157,7 +168,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
             Id = $"file-project-{project.Slug}",
             Name = project.ExecutableName,
             Type = VirtualNodeType.Application,
-            Path = $@"C:\Projects\MoreProjects\{project.ExecutableName}",
+            Path = $@"C:\Projetos\MaisProjetos\{project.ExecutableName}",
             Icon = project.Icon,
             Size = "32 KB",
             Description = project.Summary,
@@ -172,9 +183,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
         projectNodes.Add(new VirtualNode
         {
             Id = "dir-more-projects",
-            Name = "MoreProjects",
+            Name = "MaisProjetos",
             Type = VirtualNodeType.Folder,
-            Path = @"C:\Projects\MoreProjects",
+            Path = @"C:\Projetos\MaisProjetos",
             Icon = "folder",
             Description = "Outros projetos e experimentos no repositório de trabalho",
             Action = new FileAction { Kind = "navigate" },
@@ -184,43 +195,43 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
         var readmeContent =
             """
             ====================================================================
-            PEDROOS 95 (Build 4.00.950) — LEIAME / README.TXT
+            PEDROOS 95 (Versão 4.00.950) — LEIA-ME.TXT
             ====================================================================
 
             Bem-vindo ao PedroOS 95, o portfólio interativo de Pedro Tunin!
 
             Este ambiente funciona como um sistema operacional clássico direto
             no navegador, construído com ASP.NET Core (.NET 10 LTS), Razor Pages,
-            TypeScript, 98.css (adaptado para Windows 95) e interact.js.
+            TypeScript, 98.css (adaptado para PedroOS 95) e interact.js.
 
             COMO NAVEGAR:
-            - Duplo clique (ou toque simples no celular) nos ícones do Desktop.
-            - Use o botão "Start" na barra inferior para acessar todos os programas.
+            - Duplo clique (ou toque simples no celular) nos ícones da área de trabalho.
+            - Use o botão "Iniciar" na barra inferior para acessar todos os programas.
             - Arraste janelas pela barra de título e redimensione pelas bordas.
-            - Abra C:\Projects para inspecionar projetos como Ofizzy, RDP Session
-              Manager e ZellaPedia.
-            - Abra Resume.doc (WordPad) para ler ou baixar o currículo em PDF.
-            - Abra System Properties para ver as competências técnicas organizadas
+            - Abra C:\Projetos para inspecionar projetos como Ofizzy, RDP Session
+              Manager, TaskProj e AnyComic.
+            - Abra Curriculo.doc (Editor de Documentos) para ler ou baixar o currículo em PDF.
+            - Abra Propriedades do Sistema para ver as competências técnicas organizadas
               como componentes de hardware.
 
             DICAS E ATALHOS DE SISTEMA:
             - Pressione Alt+F4 para fechar a janela ativa.
-            - Pressione Ctrl+Alt+B (ou digite "bsod" em Start > Run...) para testar
+            - Pressione Ctrl+Alt+B (ou digite "bsod" em Iniciar > Executar...) para testar
               a tela azul clássica de diagnóstico (pressione qualquer tecla para voltar).
             - No Campo Minado, experimente digitar "xyzzy" + Enter durante a partida.
-            - Ative "Show hidden files" no Explorer para ver C:\PEDROOS.
+            - Ative "Exibir arquivos ocultos" no Explorador de Arquivos para ver C:\PEDROOS.
             """;
 
         var creditsContent =
             """
             PEDROOS 95 — CRÉDITOS E LICENÇAS DE TERCEIROS
             =============================================
-            - 98.css (MIT License, Copyright (c) 2020 Jordan Scales)
-            - interact.js (MIT License, Copyright (c) Taye Adeyemi)
-            - Pixelarticons (MIT License, Copyright (c) Gerrit Halfmann)
+            - 98.css (Licença MIT, Copyright (c) 2020 Jordan Scales)
+            - interact.js (Licença MIT, Copyright (c) Taye Adeyemi)
+            - Pixelarticons (Licença MIT, Copyright (c) Gerrit Halfmann)
             - Ícones de desktop e aplicativos: pixel art 16x16/32x32/48x48
               original gerada especificamente para o PedroOS 95 seguindo a
-              paleta de 16 cores do Windows 95.
+              paleta clássica de 16 cores do PedroOS 95.
             Consulte THIRD_PARTY_NOTICES.md na raiz do repositório.
             """;
 
@@ -238,9 +249,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                 new VirtualNode
                 {
                     Id = "dir-aboutme",
-                    Name = "AboutMe",
+                    Name = "SobreMim",
                     Type = VirtualNodeType.Folder,
-                    Path = @"C:\AboutMe",
+                    Path = @"C:\SobreMim",
                     Icon = "folder",
                     Description = "Apresentação e instruções de uso do PedroOS 95",
                     Action = new FileAction { Kind = "navigate" },
@@ -249,9 +260,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                         new VirtualNode
                         {
                             Id = "file-readme",
-                            Name = "Readme.txt",
+                            Name = "Leia-me.txt",
                             Type = VirtualNodeType.Text,
-                            Path = @"C:\AboutMe\Readme.txt",
+                            Path = @"C:\SobreMim\Leia-me.txt",
                             Icon = "text",
                             Size = "2 KB",
                             Description = "Instruções de navegação e apresentação do PedroOS 95",
@@ -260,7 +271,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                             {
                                 Kind = "open-app",
                                 AppId = "notepad",
-                                Args = new Dictionary<string, string> { ["path"] = @"C:\AboutMe\Readme.txt" },
+                                Args = new Dictionary<string, string> { ["path"] = @"C:\SobreMim\Leia-me.txt" },
                             },
                         },
                     ],
@@ -268,9 +279,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                 new VirtualNode
                 {
                     Id = "dir-projects",
-                    Name = "Projects",
+                    Name = "Projetos",
                     Type = VirtualNodeType.Folder,
-                    Path = @"C:\Projects",
+                    Path = @"C:\Projetos",
                     Icon = "projects",
                     Description = "Projetos de software de Pedro Tunin",
                     Action = new FileAction { Kind = "navigate" },
@@ -279,9 +290,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                 new VirtualNode
                 {
                     Id = "dir-experience",
-                    Name = "Experience",
+                    Name = "Experiencia",
                     Type = VirtualNodeType.Folder,
-                    Path = @"C:\Experience",
+                    Path = @"C:\Experiencia",
                     Icon = "folder",
                     Description = "Histórico e trajetória profissional",
                     Action = new FileAction { Kind = "navigate" },
@@ -290,12 +301,12 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                         new VirtualNode
                         {
                             Id = "file-career",
-                            Name = "Career.doc",
+                            Name = "Carreira.doc",
                             Type = VirtualNodeType.Document,
-                            Path = @"C:\Experience\Career.doc",
+                            Path = @"C:\Experiencia\Carreira.doc",
                             Icon = "doc",
                             Size = "28 KB",
-                            Description = "Histórico profissional e experiências (WordPad)",
+                            Description = "Histórico profissional e experiências (Editor de Documentos)",
                             Action = new FileAction
                             {
                                 Kind = "open-app",
@@ -308,9 +319,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                 new VirtualNode
                 {
                     Id = "dir-skills",
-                    Name = "Skills",
+                    Name = "Habilidades",
                     Type = VirtualNodeType.Folder,
-                    Path = @"C:\Skills",
+                    Path = @"C:\Habilidades",
                     Icon = "folder",
                     Description = "Drivers e módulos de competências técnicas",
                     Action = new FileAction { Kind = "navigate" },
@@ -319,9 +330,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                         new VirtualNode
                         {
                             Id = "file-skill-dev",
-                            Name = "Development.sys",
+                            Name = "Desenvolvimento.sys",
                             Type = VirtualNodeType.SystemFile,
-                            Path = @"C:\Skills\Development.sys",
+                            Path = @"C:\Habilidades\Desenvolvimento.sys",
                             Icon = "sys",
                             Size = "48 KB",
                             Description = "C#, .NET, ASP.NET Core, Python, TypeScript, Angular, SQL",
@@ -337,7 +348,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                             Id = "file-skill-devops",
                             Name = "DevOps.sys",
                             Type = VirtualNodeType.SystemFile,
-                            Path = @"C:\Skills\DevOps.sys",
+                            Path = @"C:\Habilidades\DevOps.sys",
                             Icon = "sys",
                             Size = "44 KB",
                             Description = "Linux, Docker, Docker Compose, GitHub Actions, CI/CD, Bash, Terraform, Kubernetes",
@@ -351,9 +362,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                         new VirtualNode
                         {
                             Id = "file-skill-ai",
-                            Name = "ArtificialIntelligence.sys",
+                            Name = "InteligenciaArtificial.sys",
                             Type = VirtualNodeType.SystemFile,
-                            Path = @"C:\Skills\ArtificialIntelligence.sys",
+                            Path = @"C:\Habilidades\InteligenciaArtificial.sys",
                             Icon = "sys",
                             Size = "52 KB",
                             Description = "LLMs, RAG, Embeddings, Agentes de IA, Tool Calling, vLLM",
@@ -369,9 +380,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                 new VirtualNode
                 {
                     Id = "dir-documents",
-                    Name = "Documents",
+                    Name = "Documentos",
                     Type = VirtualNodeType.Folder,
-                    Path = @"C:\Documents",
+                    Path = @"C:\Documentos",
                     Icon = "folder",
                     Description = "Documentos e currículo profissional",
                     Action = new FileAction { Kind = "navigate" },
@@ -380,12 +391,12 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                         new VirtualNode
                         {
                             Id = "file-resume",
-                            Name = "Resume.doc",
+                            Name = "Curriculo.doc",
                             Type = VirtualNodeType.Document,
-                            Path = @"C:\Documents\Resume.doc",
+                            Path = @"C:\Documentos\Curriculo.doc",
                             Icon = "resume",
                             Size = "36 KB",
-                            Description = "Currículo completo de Pedro Tunin no WordPad",
+                            Description = "Currículo completo de Pedro Tunin no Editor de Documentos",
                             Action = new FileAction
                             {
                                 Kind = "open-app",
@@ -440,9 +451,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                 new VirtualNode
                 {
                     Id = "dir-games",
-                    Name = "Games",
+                    Name = "Jogos",
                     Type = VirtualNodeType.Folder,
-                    Path = @"C:\Games",
+                    Path = @"C:\Jogos",
                     Icon = "folder",
                     Description = "Jogos clássicos do sistema",
                     Action = new FileAction { Kind = "navigate" },
@@ -450,10 +461,20 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                     [
                         new VirtualNode
                         {
-                            Id = "file-minesweeper",
-                            Name = "Minesweeper.exe",
+                            Id = "file-doom",
+                            Name = "Doom.exe",
                             Type = VirtualNodeType.Application,
-                            Path = @"C:\Games\Minesweeper.exe",
+                            Path = @"C:\Jogos\Doom.exe",
+                            Icon = "2091-retrogame",
+                            Description = "Chocolate Doom com Freedoom e opção de IWAD local",
+                            Action = new FileAction { Kind = "open-app", AppId = "doom" },
+                        },
+                        new VirtualNode
+                        {
+                            Id = "file-minesweeper",
+                            Name = "CampoMinado.exe",
+                            Type = VirtualNodeType.Application,
+                            Path = @"C:\Jogos\CampoMinado.exe",
                             Icon = "minesweeper",
                             Size = "24 KB",
                             Description = "Campo Minado clássico (Iniciante, Intermediário e Avançado)",
@@ -462,6 +483,16 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                                 Kind = "open-app",
                                 AppId = "minesweeper",
                             },
+                        },
+                        new VirtualNode
+                        {
+                            Id = "file-game2091",
+                            Name = "2091.exe",
+                            Type = VirtualNodeType.Application,
+                            Path = @"C:\Jogos\2091.exe",
+                            Icon = "2091-retrogame",
+                            Description = "2091 — aventura cyberpunk jogável (pré-alpha)",
+                            Action = new FileAction { Kind = "open-app", AppId = "terminal", Args = new Dictionary<string, string> { ["command"] = "2091" } },
                         },
                     ],
                 },
@@ -480,9 +511,9 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                         new VirtualNode
                         {
                             Id = "file-credits",
-                            Name = "Credits.txt",
+                            Name = "Creditos.txt",
                             Type = VirtualNodeType.Text,
-                            Path = @"C:\PEDROOS\Credits.txt",
+                            Path = @"C:\PEDROOS\Creditos.txt",
                             Icon = "text",
                             Hidden = true,
                             Size = "1 KB",
@@ -492,25 +523,25 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                             {
                                 Kind = "open-app",
                                 AppId = "notepad",
-                                Args = new Dictionary<string, string> { ["path"] = @"C:\PEDROOS\Credits.txt" },
+                                Args = new Dictionary<string, string> { ["path"] = @"C:\PEDROOS\Creditos.txt" },
                             },
                         },
                         new VirtualNode
                         {
                             Id = "file-secret",
-                            Name = "EasterEggs.txt",
+                            Name = "Segredos.txt",
                             Type = VirtualNodeType.Text,
-                            Path = @"C:\PEDROOS\EasterEggs.txt",
+                            Path = @"C:\PEDROOS\Segredos.txt",
                             Icon = "text",
                             Hidden = true,
                             Size = "1 KB",
                             Description = "Segredos do PedroOS 95",
-                            Content = "Segredos desbloqueados:\n1. Start > Run > digite 'bsod' para acionar a tela azul segura.\n2. No Internet Explorer, navegue para 'about:mozilla' ou 'pedroos://credits'.\n3. No Campo Minado, digite 'xyzzy' + Enter para ativar o radar de pixel no canto superior esquerdo.",
+                            Content = "Segredos desbloqueados:\n1. Iniciar > Executar > digite 'bsod' para acionar a tela azul segura.\n2. No Navegador PedroOS, navegue para 'about:mozilla' ou 'pedroos://credits'.\n3. No Campo Minado, digite 'xyzzy' + Enter para ativar o radar de pixel no canto superior esquerdo.",
                             Action = new FileAction
                             {
                                 Kind = "open-app",
                                 AppId = "notepad",
-                                Args = new Dictionary<string, string> { ["path"] = @"C:\PEDROOS\EasterEggs.txt" },
+                                Args = new Dictionary<string, string> { ["path"] = @"C:\PEDROOS\Segredos.txt" },
                             },
                         },
                     ],

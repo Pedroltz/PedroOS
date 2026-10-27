@@ -1,8 +1,8 @@
 @{
-    var projects = Portfolio.GetProjects();
+    var projects = Portfolio.GetProjects(featuredOnly: true);
 }
 <div class="app-shell explorer-app" data-projects-app>
-    <div class="win95-addressbar"><span>Address</span><span>C:\Projects</span></div>
+    <div class="win95-addressbar"><span>Endereço</span><span>C:\Projetos</span></div>
     <div class="explorer-items-viewport sunken-panel">
         <div class="explorer-items view-large-icons" role="listbox" aria-label="Projetos">
         @foreach (var project in projects)
@@ -12,7 +12,11 @@
                 <span class="explorer-item-name">@project.ExecutableName</span>
             </a>
         }
+            <a class="explorer-item" href="/projects" title="Outros projetos e experimentos no repositório de trabalho">
+                <os-icon key="folder" size="32" alt="" />
+                <span class="explorer-item-name">MaisProjetos</span>
+            </a>
         </div>
     </div>
-    <div class="status-bar"><p class="status-bar-field">@projects.Count object(s)</p><p class="status-bar-field">C:\Projects</p></div>
+    <div class="status-bar"><p class="status-bar-field">@(projects.Count + 1) object(s)</p><p class="status-bar-field">C:\Projetos</p></div>
 </div>

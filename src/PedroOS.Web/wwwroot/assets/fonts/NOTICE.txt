@@ -1,0 +1,8 @@
+The Ultimate Oldschool PC Font Pack v2.2
+Copyright (c) 2016-2020 VileR
+https://int10h.org/oldschool-pc-fonts/
+
+WebPlus_IBM_VGA_8x16.woff is redistributed without modification.
+Licensed under Creative Commons Attribution-ShareAlike 4.0 International.
+https://creativecommons.org/licenses/by-sa/4.0/
+Full license: oldschool-pc-fonts-LICENSE.txt

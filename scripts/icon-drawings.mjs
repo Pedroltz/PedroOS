@@ -22,9 +22,6 @@ export function project16(key) {
       rect(7, 11, 2, 2, 'd'); rect(3, 14, 10, 1);
       if (key === 'github') { line(6, 4, 4, 6, 'w'); line(4, 6, 6, 8, 'w'); line(10, 4, 12, 6, 'w'); line(12, 6, 10, 8, 'w'); }
       else { rect(4, 4, 3, 3, 'y'); rect(8, 5, 4, 1, 'w'); rect(8, 7, 4, 1, 'w'); }
-    } else if (key === 'zellapedia') {
-      box(2, 1, 11, 14, 'n'); rect(3, 2, 1, 11, 'b'); rect(5, 2, 7, 9, 'w');
-      rect(6, 4, 5, 1, 'n'); rect(6, 7, 5, 1, 'd'); box(9, 9, 5, 5, 'c'); line(13, 13, 15, 15);
     } else if (key === 'anycomic') {
       box(1, 1, 13, 14, 'm'); box(3, 2, 10, 11, 'w');
       box(4, 3, 4, 5, 'c'); box(9, 3, 3, 5, 'y'); box(4, 9, 8, 3, 'r');
@@ -50,7 +47,7 @@ export function native32(key) {
   const computer = ['my-computer', 'system', 'display', 'control-panel', 'rdp-session-manager', 'run', 'shutdown'];
   const folder = ['folder', 'folder-open', 'projects', 'explorer'];
   const documents = ['document', 'text', 'doc', 'resume', 'notepad', 'autoapply', 'exe', 'sys', 'project'];
-  const books = ['anycomic', 'zellapedia'];
+  const books = ['anycomic'];
   if (![...computer, ...folder, ...documents, ...books, 'ofizzy', '2091-retrogame', 'github', 'linkedin'].includes(key)) return undefined;
   return drawing(32, ({ rect, line, box }) => {
     const monitor = (x, y, w, h) => {

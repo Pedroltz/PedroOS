@@ -1,0 +1,14 @@
+{
+  "Id": "medkit",
+  "Name": "Medkit",
+  "Description": "Kit médico de emergência. Restaura 25 pontos de saúde.",
+  "Type": "Consumable",
+  "Effect": {
+    "Type": "RestoreHealth",
+    "Value": 25,
+    "Duration": 0
+  },
+  "MaxStack": 15,
+  "IsStackable": true,
+  "IconSymbol": "♥"
+}

@@ -1,21 +1,23 @@
 # PedroOS 95
 
-[![CI](https://github.com/Pedroltz/PedroOS/actions/workflows/ci.yml/badge.svg)](https://github.com/Pedroltz/PedroOS/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![.NET 10](https://img.shields.io/badge/.NET-10-512BD4) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6)
+[![CI & Deploy](https://github.com/Pedroltz/PedroOS/actions/workflows/ci.yml/badge.svg)](https://github.com/Pedroltz/PedroOS/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![.NET 10](https://img.shields.io/badge/.NET-10-512BD4) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6)
 
-> Um portfólio profissional interativo e sistema operacional virtual completo inspirado no Microsoft Windows 95, desenvolvido com **ASP.NET Core (.NET 10 LTS)**, **Razor Pages**, **TypeScript**, **98.css** e **interact.js**.
+> Um portfólio profissional interativo e sistema operacional virtual completo inspirado no visual clássico dos anos 90, desenvolvido com **ASP.NET Core (.NET 10 LTS)**, **Razor Pages**, **TypeScript**, **98.css** e **interact.js**.
+>
+> 🔗 **Acesse online (URL fixa):** **[https://pedroltz.github.io/PedroOS/](https://pedroltz.github.io/PedroOS/)**
 
 ---
 
 ## 1. Visão Geral
 
-O **PedroOS 95** transforma o portfólio de **Pedro Tunin** em uma experiência imersiva de sistema operacional retrô acessível diretamente pelo navegador. Todos os aplicativos são funcionais e integrados ao mesmo ambiente desktop, apresentando projetos reais (.NET 10, Python, Linux/DevOps, IA), currículo em WordPad, competências em System Properties, navegador Internet Explorer simulado e Campo Minado.
+O **PedroOS 95** transforma o portfólio de **Pedro Tunin** em uma experiência imersiva de sistema operacional retrô em português acessível diretamente pelo navegador. Todos os aplicativos são funcionais e integrados ao mesmo ambiente desktop, apresentando projetos reais (.NET, Python, Linux/DevOps, IA), currículo no Editor de Documentos (`Curriculo.doc`), competências em Propriedades do Sistema, Navegador PedroOS, Terminal PedroOS com execução nativa em PTY do jogo **2091**, **DOOM** (Chocolate Doom / Freedoom) e **Campo Minado**.
 
 ### Características Visuais & Direção Artística:
-- Desktop verde-petróleo autêntico (`#008080`) com suporte a padrões clássicos (Bricks, Weave, Scottie, Dots).
+- Desktop verde-petróleo autêntico (`#008080`) com suporte a padrões clássicos (Classic Teal, Bricks, Weave, Scottie, Dots).
 - Janelas cinza (`#c0c0c0`) com relevo 3D chanfrado e profundidade.
 - Barras de título azul-marinho (`#000080`) para janelas ativas e cinza para inativas.
-- Ícones em pixel art 16x16, 32x32 e 48x48 gerados exclusivamente com a paleta clássica de 16 cores.
-- Botões clássicos com efeito de clique pressionado e fontes tipo MS Sans Serif sem suavização anti-aliasing artificial.
+- Ícones e cursores em pixel art 16x16, 32x32 e 48x48 gerados proceduralmente com a paleta clássica de 16 cores.
+- Interface 100% localizada em português (com suporte a aliases legados em inglês no sistema de arquivos e terminal).
 - Responsividade total: janelas livres com arraste e redimensionamento no desktop/tablet, e modo tela cheia adaptado para smartphones.
 
 ---
@@ -23,27 +25,26 @@ O **PedroOS 95** transforma o portfólio de **Pedro Tunin** em uma experiência 
 ## 2. Stack Tecnológica
 
 ### Backend
-- **.NET 10 LTS** & C#
-- **ASP.NET Core Razor Pages** com Partial Views
-- **Injeção de Dependência** & Serviços Tipados (`IPortfolioCatalog`, `IAppCatalog`, `IVirtualFileSystem`, `IIconRegistry`, `IResumePdfService`)
-- **JSON Abstractions**: Dados desacoplados em `Data/projects.json`, `Data/skills.json` e `Data/profile.json` prontos para transição futura para banco relacional.
+- **.NET 10 LTS** & C# (`PedroOS.Web` + `Game2091.Native`)
+- **ASP.NET Core Razor Pages** com Partial Views e endpoints de fragmentos
+- **Injeção de Dependência** & Serviços Tipados (`IPortfolioCatalog`, `IAppCatalog`, `IVirtualFileSystem`, `IIconRegistry`, `IResumePdfService`, `Game2091TerminalService`)
+- **Catálogo em JSON**: Dados desacoplados em `Data/projects.json`, `Data/skills.json` e `Data/profile.json`.
 - **Segurança**: Middleware de headers HTTP (`CSP`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`) e validação estrita de paths e identificadores.
-- **SEO Nativo**: Server-Side Rendering com pre-renderização da janela solicitada diretamente no HTML inicial para crawlers e compartilhamento social (`OG Tags`).
+- **SEO Nativo**: Server-Side Rendering com pré-renderização da janela solicitada diretamente no HTML inicial para crawlers e compartilhamento social (`OG Tags`, `sitemap.xml`, `robots.txt`).
 
 ### Frontend
-- **TypeScript** modular sem frameworks SPA pesados (sem React, Vue ou Angular no shell).
-- **WindowManager** reutilizável, independente das aplicações, com suporte a multi-instâncias, z-index, arraste e redimensionamento via **interact.js**.
-- **DesktopStore**: Gerenciamento de estado reativo e granular com emissão de eventos específicos para evitar re-renderizações desnecessárias.
-- **Sistema de Arquivos Virtual (C:\...)**: Navegação baseada em árvore de metadados sem acesso ao sistema de arquivos do servidor.
-- **98.css** adaptada para a identidade visual do Windows 95.
-- **esbuild** para compilação e empacotamento rápido e enxuto.
+- **TypeScript** modular sem frameworks SPA pesados.
+- **WindowManager** reutilizável com suporte a multi-instâncias, z-index, arraste e redimensionamento via **interact.js**.
+- **DesktopStore**: Gerenciamento de estado reativo e granular.
+- **Sistema de Arquivos Virtual (`C:\...`)**: Navegação baseada em árvore de metadados (`C:\Projetos`, `C:\Projetos\MaisProjetos`, `C:\Documentos`, `C:\Experiencia`, `C:\Habilidades`, `C:\Jogos`, `C:\Internet`, `C:\SobreMim`, `C:\PEDROOS`).
+- **xterm.js** carregado sob demanda para sessões de terminal PTY do jogo nativo `2091.exe`.
+- **98.css** adaptada para a identidade visual do PedroOS 95 e **esbuild** para empacotamento rápido.
 
-### Qualidade & Automação
-- **xUnit**: Suíte completa de testes unitários para catálogo, sistema de arquivos, rotas e geração de PDF.
-- **Playwright**: Suíte de testes ponta a ponta (E2E) cobrindo os 15 fluxos do sistema.
-- **ESLint** & **TypeScript Compiler** (`tsc --noEmit`).
-- **Docker**: Build multi-stage enxuto (Node.js 24 + .NET 10 SDK → ASP.NET Core Runtime).
-- **GitHub Actions**: Pipeline de CI automatizado com build, lint e testes.
+### Qualidade, Containerização & CI/CD
+- **xUnit** (`.NET`), testes unitários de cliente TypeScript e testes Python de PTY (`unittest`).
+- **Playwright**: Suíte E2E cobrindo desktop, explorador, projetos, galeria, terminal, DOOM, 2091, Campo Minado, navegador, localização e BSOD.
+- **Docker / OCI Container**: Build multi-stage enxuto (Node.js 24 + .NET 10 SDK → ASP.NET Core Runtime + Python 3).
+- **GitHub Actions CI/CD**: Pipeline automatizado que executa build e testes, faz deploy automático no container OCI rodando no servidor mobile (Android/Termux via Cloudflare Tunnel) e em seguida atualiza o gateway na URL fixa do GitHub Pages.
 
 ---
 
@@ -52,92 +53,92 @@ O **PedroOS 95** transforma o portfólio de **Pedro Tunin** em uma experiência 
 ```text
 PedroOS/
 ├── src/
-│   └── PedroOS.Web/
-│       ├── Pages/
-│       │   ├── Index.cshtml              # Desktop Shell + SSR de Janelas
-│       │   ├── Index.cshtml.cs           # Boot loader e resolução de rotas
-│       │   ├── Apps/
-│       │   │   ├── WindowFragment.cshtml # Endpoint de fragmentos Razor parciais
-│       │   │   └── WindowFragment.cshtml.cs
-│       │   ├── Shared/
-│       │   │   ├── Desktop/              # Partials do Desktop (Taskbar, StartMenu, Icons, BSOD)
-│       │   │   └── Apps/                 # Partials das Apps (Projects, Resume, SysProps, About)
-│       │   ├── _ViewImports.cshtml
-│       │   └── _ViewStart.cshtml
-│       ├── Models/                       # Modelos tipados (Project, Skill, Profile, VirtualNode)
-│       ├── Services/                     # Serviços de domínio (.NET)
-│       ├── Data/                         # Catálogo de dados editáveis (JSON)
-│       │   ├── projects.json
-│       │   ├── skills.json
-│       │   ├── profile.json
-│       │   └── icons.json
-│       ├── Client/                       # Código TypeScript frontend
-│       │   ├── core/                     # WindowManager, DesktopStore, VFS, AppRegistry
-│       │   ├── components/               # DesktopController (Taskbar, Menus, Atalhos)
-│       │   ├── apps/                     # Explorer, Internet Explorer, Minesweeper, Notepad, MS-DOS Prompt, Dialogs
-│       │   ├── types/                    # Tipos e interfaces TypeScript
-│       │   └── pedroos.ts                # Ponto de entrada do bundle
-│       ├── wwwroot/
-│       │   ├── css/                      # 98.css e pedroos.css
-│       │   ├── js/                       # pedroos.js empacotado pelo esbuild
-│       │   └── assets/                   # Ícones, screenshots e wallpapers
-│       ├── Program.cs                    # Configuração de DI, rotas e middlewares
-│       └── PedroOS.Web.csproj
+│   ├── PedroOS.Web/
+│   │   ├── Pages/
+│   │   │   ├── Index.cshtml                  # Desktop Shell + SSR de Janelas
+│   │   │   ├── Apps/WindowFragment.cshtml    # Endpoint de fragmentos Razor parciais
+│   │   │   └── Shared/
+│   │   │       ├── Desktop/                  # Taskbar, StartMenu, DesktopIcons, ContextMenu, BSOD
+│   │   │       └── Apps/                     # Welcome, Projects, ProjectDetails, Resume, SysProps, SkillDetails, GitHub, LinkedIn, About
+│   │   ├── Models/                           # Modelos tipados (Project, SkillCategory, Profile, VirtualNode, AppDefinition)
+│   │   ├── Services/                         # Serviços de domínio (.NET) e Game2091TerminalService
+│   │   ├── Terminal/pty_host.py              # Host PTY em Python para execução isolada do 2091 nativo
+│   │   ├── Data/                             # Catálogo editável (projects.json, skills.json, profile.json, icons.json)
+│   │   ├── Client/                           # Código TypeScript frontend
+│   │   │   ├── core/                         # WindowManager, DesktopStore, VFS, VirtualPathAliases, WindowPressure, BasePath
+│   │   │   ├── components/                   # DesktopController, ClassicMenu, ProjectGallery, SystemInfo, SystemFailure, Welcome
+│   │   │   ├── apps/                         # ExplorerApp, InternetExplorerApp, MinesweeperApp, DoomApp, NotepadApp, TerminalApp, NativeGameTerminal, SystemDialogsApp
+│   │   │   └── pedroos.ts                    # Ponto de entrada do bundle
+│   │   ├── wwwroot/                          # Assets estáticos (css, js, icons, cursors, fonts, games, resume PDF, screenshots)
+│   │   └── Program.cs                        # Configuração de DI, WebSockets, rotas, SEO e endpoint de deploy
+│   └── Game2091.Native/                      # Jogo de aventura cyberpunk 2091 original em C# (.NET 10)
 ├── tests/
-│   ├── PedroOS.Tests/                    # Testes unitários xUnit (.NET)
-│   ├── PedroOS.E2E/                      # Testes ponta a ponta Playwright
-│   └── client/                           # Testes unitários do motor TypeScript
+│   ├── PedroOS.Tests/                        # Testes unitários xUnit (.NET)
+│   ├── PedroOS.E2E/                          # Suíte ponta a ponta Playwright
+│   ├── client/                               # Testes unitários TypeScript e verificação de ícones
+│   └── terminal/                             # Testes do backend PTY nativo
 ├── scripts/
-│   ├── build.mjs                         # Build esbuild do frontend
-│   ├── generate-icons.mjs                # Gerador procedural de pixel art 16x16/32x32/48x48
-│   └── test-client.mjs                   # Executor de testes unitários do frontend
-├── Dockerfile                            # Dockerfile multi-stage
-├── docker-compose.yml                    # Orquestração local com Docker
-├── .github/workflows/ci.yml              # Pipeline CI
-├── package.json                          # Toolchain frontend
-├── tsconfig.json                         # Configuração TypeScript
-├── THIRD_PARTY_NOTICES.md                # Atribuições e licenças
-└── README.md
+│   ├── build.mjs                             # Build esbuild do frontend + vendor xterm
+│   ├── generate-icons.mjs                    # Gerador procedural de ícones pixel art
+│   ├── generate-cursors.mjs                  # Gerador de cursores clássicos (.cur / .png)
+│   ├── export-static.mjs                     # Exportador estático para GitHub Pages
+│   ├── inject-live-redirect.mjs              # Injetor de redirecionamento automático para o container ao vivo
+│   └── import-2091-native.mjs                # Importador dos fontes originais do 2091
+├── Dockerfile                                # Dockerfile multi-stage (.NET 10 + Node 24)
+├── docker-compose.yml                        # Orquestração com Docker Compose
+├── .github/workflows/ci.yml                  # Pipeline CI + CD (Container no Celular + GitHub Pages)
+├── PedroOS.slnx                              # Solution .NET
+└── package.json                              # Scripts e dependências de frontend
 ```
 
 ---
 
-## 4. Aplicativos Internos
+## 4. Aplicativos e Estrutura do Sistema de Arquivos (`C:\`)
 
-| Aplicativo | Executável / Atalho | Descrição |
+| Aplicativo | Caminho / Atalho | Descrição |
 | :--- | :--- | :--- |
-| **Windows Explorer** | `Explorer.exe` | Navegador de arquivos com árvore de pastas, modos ícones/lista, barra de endereços e histórico. |
-| **Projects Explorer** | `Projects.exe` | Central de projetos com visualização em grade e tabela detalhada. |
-| **Ofizzy** | `Ofizzy.exe` | Plataforma SaaS multi-tenant de gestão operacional (.NET 10, Angular 21, PostgreSQL 18). |
-| **RDP Session Manager** | `RDP-Session-Manager.exe` | Aplicação desktop Linux nativa em GTK 4 / libadwaita e Python para administração xrdp. |
-| **ZellaPedia** | `ZellaPedia.exe` | Sistema de pesquisa e recuperação documental corporativa (placeholder transparente). |
-| **Resume.doc** | `WordPad` | Visualizador de currículo com histórico, formação, projetos e **download de PDF real**. |
-| **System Properties** | `System Properties` | Painel de controle que apresenta as habilidades de Pedro como componentes de hardware. |
-| **Internet Explorer** | `IExplore.exe` | Simulação do IE clássico com favoritos, histórico, páginas internas e links externos seguros. |
-| **Minesweeper** | `Winmine.exe` | Campo Minado com primeiro clique seguro, dificuldades, temporizador LED e modo touch. |
-| **Notepad** | `Notepad.exe` | Editor de texto para leitura de `Readme.txt`, notas e segredos do sistema. |
-| **MS-DOS Prompt** | `Command.com` | Terminal estilo Windows 95 com `dir`, `cd`, `type`, `tree`, `start` e mais (`help` lista tudo). |
-| **Find** | `Find: All Files` | Mecanismo de busca textual sobre arquivos e projetos virtuais. |
-| **Run...** | `Run` | Execução rápida de comandos (`ofizzy`, `minesweeper`, `explorer`, `bsod`, etc.). |
-| **Display Properties** | `Display` | Configuração de papel de parede (Classic Teal, Bricks, Weave, Scottie, Dots). |
-| **Shut Down** | `Shut Down` | Janela clássica de desligamento, reinício e easter eggs. |
+| **Explorador de Arquivos** | `C:\` | Navegador de arquivos com árvore de pastas, modos ícones grandes/pequenos/lista/detalhes, barra de endereços e menu de contexto. |
+| **Projetos** | `C:\Projetos` | Diretório principal de projetos em destaque e subpasta `MaisProjetos`. |
+| **Editor de Documentos** | `C:\Documentos\Curriculo.doc` | Visualizador do currículo atualizado de Pedro Tunin com **download do PDF oficial** (`/resume/pdf`). |
+| **Propriedades do Sistema** | `C:\Habilidades\*.sys` | Painel que apresenta as competências de Desenvolvimento, DevOps e IA como drivers e dispositivos de hardware. |
+| **Navegador PedroOS** | `pedroos://home` | Navegador clássico com páginas internas (`pedroos://projects`, `pedroos://resume`, `pedroos://skills`, `about:mozilla`). |
+| **Terminal PedroOS** | `cmd` / `terminal` | Terminal interativo (`dir`, `cd`, `type`, `tree`, `start`, `help`) e execução nativa do jogo `2091.exe`. |
+| **DOOM** | `C:\Jogos\Doom.exe` | Chocolate Doom (WebAssembly) com Freedoom Phase 1 integrado e suporte a upload de IWAD local. |
+| **2091 — RetroGame** | `C:\Jogos\2091.exe` | Aventura textual cyberpunk em C# executada em PTY real no backend dentro do Terminal PedroOS. |
+| **Campo Minado** | `C:\Jogos\CampoMinado.exe` | Campo Minado clássico com primeiro clique seguro, três níveis de dificuldade e contador LED. |
+| **Bloco de Notas** | `C:\SobreMim\Leia-me.txt` | Editor de texto para leitura de `Leia-me.txt`, `Creditos.txt` e `Segredos.txt`. |
+| **GitHub & LinkedIn** | `C:\Internet\*.url` | Janelas dedicadas com os repositórios fixados do GitHub (`@Pedroltz`) e perfil profissional no LinkedIn. |
+| **Utilitários de Sistema** | Menu Iniciar | **Boas-vindas**, **Localizar**, **Executar...**, **Propriedades de Vídeo** e **Desligar o PedroOS**. |
+
+### Organização de `C:\Projetos` e `C:\Projetos\MaisProjetos`
+
+No **Explorador de Arquivos** (`C:\Projetos`), os projetos são organizados em dois níveis:
+
+- **`C:\Projetos` (Destaques principais):**
+  - `Ofizzy.exe` — Plataforma SaaS multi-tenant de gestão operacional (.NET 10, Angular 21, PostgreSQL 18).
+  - `RDP-Session-Manager.exe` — Aplicação desktop nativa GTK 4 / libadwaita em Python para administração de sessões remotas xrdp.
+  - `AnyComic.exe` — Sistema web em ASP.NET Core MVC e PostgreSQL para catalogação e leitura de mangás.
+  - `2091-RetroGame.exe` — Aventura textual cyberpunk em C# com motor narrativo dirigido por JSON.
+  - 📁 **`MaisProjetos`** (`C:\Projetos\MaisProjetos`):
+    - `BinaryTreeStudy.exe` — Estudo de árvores binárias de busca (BST) em Python e C++.
+    - `UniNote.exe` — Aplicação acadêmica em Angular integrada a API .NET para organização de notas.
+    - `TaskProj.exe` — Gerenciador de tarefas com Angular, API .NET 9 e Firebase Authentication.
+    - `AutoApply.exe` — Assistente de candidaturas em Python/FastAPI baseado em Evidence Ledger.
 
 ---
 
 ## 5. Rotas Públicas & SEO
 
-Todas as rotas abaixo são processadas pelo servidor, incluem metatags canônicas, Open Graph e pre-renderizam a janela correspondente:
+Todas as rotas abaixo são processadas pelo servidor, incluem metatags canônicas, Open Graph e pré-renderizam a janela correspondente:
 
 - `/` — Desktop principal do PedroOS 95.
-- `/projects` — Abre a central `Projects.exe`.
-- `/projects/ofizzy` — Abre diretamente os detalhes do projeto Ofizzy.
-- `/projects/rdp-session-manager` — Abre diretamente os detalhes do RDP Session Manager.
-- `/projects/{slug}` — Abre os detalhes de qualquer projeto cadastrado em `Data/projects.json`.
-- `/resume` — Abre o currículo profissional no WordPad (`Resume.doc`).
-- `/resume/pdf` — Gera e baixa o arquivo `Pedro-Tunin-Resume.pdf`.
-- `/skills` — Abre o painel `System Properties`.
-- `/sitemap.xml` — Mapa do site para motores de busca.
-- `/robots.txt` — Diretrizes para indexadores.
+- `/projects` — Abre o explorador em `C:\Projetos`.
+- `/projects/{slug}` — Abre diretamente a janela de detalhes de qualquer projeto (`ofizzy`, `rdp-session-manager`, `anycomic`, `2091-retrogame`, `taskproj`, `binary-tree-study`, `uninotes-web`, `autoapply`).
+- `/resume` — Abre o currículo profissional no Editor de Documentos (`Curriculo.doc`).
+- `/resume/pdf` — Baixa o currículo em PDF (`Curriculo_Pedro_Tunin_DotNet_DevOps.pdf`).
+- `/skills` — Abre o painel `Propriedades do Sistema`.
+- `/healthz` — Healthcheck JSON do servidor.
+- `/sitemap.xml` & `/robots.txt` — Indexação para motores de busca.
 
 ---
 
@@ -146,93 +147,69 @@ Todas as rotas abaixo são processadas pelo servidor, incluem metatags canônica
 ### Pré-requisitos
 - [.NET 10 SDK](https://dotnet.microsoft.com/)
 - [Node.js 24 LTS](https://nodejs.org/)
+- Python 3 (para o host PTY do jogo `2091.exe`)
 
 ### Passo a Passo
 
 ```bash
 # 1. Instalar dependências frontend
-npm install
+npm ci
 
-# 2. Gerar ícones pixel art originais
+# 2. Gerar ícones pixel art e compilar o bundle frontend (esbuild)
 npm run icons
-
-# 3. Compilar o bundle frontend (esbuild)
 npm run build
 
-# 4. Executar a aplicação ASP.NET Core
+# 3. Executar a aplicação ASP.NET Core
 dotnet run --project src/PedroOS.Web/PedroOS.Web.csproj
 ```
-
-Acesse no navegador:
-**http://localhost:5159**
 
 ---
 
 ## 7. Executando os Testes
 
-### Testes Unitários de Frontend (TypeScript)
 ```bash
-npm run test:client
-```
-
-### Validação de Tipos e Lint
-```bash
+# Validação de Tipos, Lint e Testes Unitários de Frontend
 npm run typecheck
 npm run lint
-```
+npm run test:client
 
-### Testes Unitários .NET (xUnit)
-```bash
-dotnet test
-```
+# Testes Unitários .NET (xUnit) e Backend PTY (Python)
+dotnet test tests/PedroOS.Tests/PedroOS.Tests.csproj
+npm run test:terminal-backend
 
-### Testes Ponta a Ponta (Playwright E2E)
-```bash
-# Instalar binários do Chromium (primeira vez)
-npx playwright install --with-deps chromium
-
-# Executar suíte E2E
+# Suíte Ponta a Ponta (Playwright E2E)
 npm run test:e2e
 ```
 
 ---
 
-## 8. Execução com Docker
+## 8. Execução com Docker e Deploy Contínuo (Celular + GitHub Pages)
 
+### Docker Local
 ```bash
-# Build da imagem Docker
-docker build -t pedroos-95 .
-
-# Execução do container na porta 8080
-docker run -d -p 8080:8080 --name pedroos pedroos-95
+docker compose up --build -d
+# Acesse em http://localhost:8080
 ```
 
-Acesse: **http://localhost:8080**
+### Pipeline CI/CD Híbrido (`.github/workflows/ci.yml`)
+A cada push na branch `main`, o GitHub Actions executa automaticamente:
+1. **`build-and-test`**: Compila o frontend e a solution `.NET 10`, valida lint/typecheck e executa todos os testes unitários e E2E.
+2. **`deploy-phone`**: Envia o pacote de release (`pedroos-release.tar.gz`) via HTTPS (Cloudflare Tunnel) para o endpoint autenticado `/api/internal/deploy` do container OCI `pedroos-95` hospedado no servidor mobile (Android/Termux + `proot-distro`), reiniciando a aplicação automaticamente e validando o `/healthz`.
+3. **`deploy-github-pages`**: Após o deploy no celular, publica a build na branch `gh-pages` (**https://pedroltz.github.io/PedroOS/**). Ao acessar a URL fixa do GitHub Pages, o script [`inject-live-redirect.mjs`](scripts/inject-live-redirect.mjs) verifica em tempo real se o túnel do celular está online e redireciona o visitante para o container ao vivo; caso o celular esteja offline, mantém a versão estática exportada como fallback automático.
 
 ---
 
-### Deploy no GitHub Pages (CI/CD)
-
-A cada push na `main`, o workflow [`ci.yml`](.github/workflows/ci.yml) roda build, lint, testes (frontend, .NET e E2E) e, se tudo passar, publica o site em **https://pedroltz.github.io/PedroOS/**.
-
-Como o GitHub Pages só serve arquivos estáticos, o script [`scripts/export-static.mjs`](scripts/export-static.mjs) sobe a aplicação ASP.NET Core, percorre todas as rotas (`/`, `/projects`, `/projects/{slug}`, `/resume`, `/skills`), os fragmentos de janela e o PDF do currículo, e grava um site estático em `dist/pages` com os caminhos ajustados para a subpasta (`/PedroOS`). O cliente usa [`BasePath.ts`](src/PedroOS.Web/Client/core/BasePath.ts) para se adaptar a esse prefixo; no servidor normal nada muda.
-
-```bash
-npm run build
-dotnet build src/PedroOS.Web -c Release
-npm run export:pages -- --base /PedroOS --site https://pedroltz.github.io
-```
 ## 9. Atalhos e Segredos (Easter Eggs)
 
-- **Alt + F4**: Fecha a janela atualmente focada.
-- **Ctrl + Alt + B**: Dispara voluntariamente a tela azul clássica (BSOD segura). Pressione qualquer tecla para retornar.
-- **Start > Run...**: Digite `bsod` para testar a tela azul, ou digite o nome de qualquer executável (`ofizzy`, `winmine`, `notepad`, `cmd`).
-- **Campo Minado**: Digite `xyzzy` + Enter durante a partida para ativar o pixel espião no canto superior esquerdo.
-- **Internet Explorer**: Navegue até `about:mozilla` para ler um versículo secreto de *The Book of PedroOS*.
-- **Arquivos Ocultos**: No Windows Explorer, clique no botão `Hidden` para exibir a pasta secreta `C:\PEDROOS` com `Credits.txt` e `EasterEggs.txt`.
+- **Alt + F4**: Fecha a janela ativa.
+- **Ctrl + Alt + B**: Aciona a tela azul clássica de diagnóstico (pressione qualquer tecla para voltar). A partir da 4ª janela aberta simultaneamente, também há chance progressiva de tela azul.
+- **Iniciar → Executar...**: Digite `bsod`, `ofizzy`, `campominado`, `doom`, `2091`, `curriculo` ou `cmd`.
+- **Campo Minado**: Digite `xyzzy` + Enter durante a partida para ativar o radar de pixel no canto superior esquerdo.
+- **Navegador PedroOS**: Navegue até `about:mozilla` ou `pedroos://credits`.
+- **Arquivos Ocultos**: No Explorador de Arquivos (`Exibir → Mostrar arquivos ocultos`), acesse `C:\PEDROOS` para ler `Creditos.txt` e `Segredos.txt`.
 
 ---
 
 ## 10. Licenças & Atribuições
 
-Consulte o arquivo [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) para detalhes completos de licenças de terceiros (98.css, interact.js, Pixelarticons).
+Consulte o arquivo [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) para detalhes completos de licenças de terceiros (98.css, interact.js, Pixelarticons, xterm.js, Chocolate Doom e Freedoom).

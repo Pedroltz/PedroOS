@@ -24,7 +24,7 @@ public class PortfolioCatalogTests
         var slugs = projects.Select(p => p.Slug).ToList();
         Assert.Contains("ofizzy", slugs);
         Assert.Contains("rdp-session-manager", slugs);
-        Assert.Contains("zellapedia", slugs);
+        Assert.DoesNotContain("zellapedia", slugs);
     }
 
     [Fact]
@@ -54,12 +54,17 @@ public class PortfolioCatalogTests
     }
 
     [Fact]
-    public void ZellaPedia_IsExplicitlyMarkedAsPlaceholder()
+    public void PinnedGitHubProjects_AreAllAvailableInPortfolio()
     {
-        var zella = _catalog.GetProjectBySlug("zellapedia");
-        Assert.NotNull(zella);
-        Assert.True(zella.IsPlaceholder);
-        Assert.False(string.IsNullOrWhiteSpace(zella.PlaceholderNote));
+        var expected = new[] { "rdp-session-manager", "anycomic", "taskproj", "binary-tree-study", "2091-retrogame", "uninotes-web" };
+        var pinned = _catalog.GetProjects().Where(p => p.GitHubPinnedOrder.HasValue).OrderBy(p => p.GitHubPinnedOrder).ToList();
+        Assert.Equal(expected, pinned.Select(p => p.Slug));
+        Assert.All(pinned, project => { Assert.False(project.IsPlaceholder); Assert.NotEmpty(project.Stack); Assert.NotNull(project.RepositoryUrl); });
+        var moreSlugs = new HashSet<string> { "taskproj", "binary-tree-study", "uninotes-web" };
+        Assert.All(pinned, project => Assert.Equal(!moreSlugs.Contains(project.Slug), project.Featured));
+        Assert.Null(_catalog.GetProjectBySlug("zellapedia"));
+        var slugs = _catalog.GetProjects().Select(p => p.Slug).ToHashSet();
+        Assert.All(_catalog.GetSkillCategories().SelectMany(c => c.Items).SelectMany(s => s.RelatedProjects), slug => Assert.Contains(slug, slugs));
     }
 
     [Fact]

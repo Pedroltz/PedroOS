@@ -2,6 +2,15 @@
 
 PedroOS 95 incorporates open-source software and resources subject to the following notices and licenses:
 
+## Oldschool PC Font Pack — IBM VGA 8x16
+
+- **Author:** VileR, copyright (c) 2016-2020
+- **Project:** The Ultimate Oldschool PC Font Pack v2.2, https://int10h.org/oldschool-pc-fonts/
+- **Font:** `WebPlus_IBM_VGA_8x16.woff`, redistributed without modification.
+- **License:** Creative Commons Attribution-ShareAlike 4.0 International, https://creativecommons.org/licenses/by-sa/4.0/
+- **Local license:** `src/PedroOS.Web/wwwroot/assets/fonts/oldschool-pc-fonts-LICENSE.txt`.
+- Used by the MS-DOS Prompt at its original 16px size. The remaining application chrome uses the existing Pixelated MS Sans Serif font.
+
 ---
 
 ## 1. 98.css
@@ -119,3 +128,18 @@ Sources reviewed on 2026-10-22, without importing their artwork:
 - No proprietary Microsoft binaries, DLLs, or copyrighted ICO files were copied into this repository.
 - Reference projects researched: Memphis (infofintech/memphis), ChiDoors (DawnVespero/ChiDoors), React95 (react95/react95), Windows Icon Archive (limehawk.github.io/windows-icon-archive).
 - Windows, Windows 95, and related brand names are trademarks of Microsoft Corporation. This project is a non-commercial personal portfolio simulation and is not affiliated with or endorsed by Microsoft Corporation.
+
+## xterm.js
+
+- **Project:** xterm.js 6.0.0 — https://github.com/xtermjs/xterm.js
+- **Authors:** The xterm.js authors; SourceLair Private Company; Christopher Jeffrey.
+- **License:** MIT. The full license is distributed at `wwwroot/js/vendor/xterm-LICENSE.txt`.
+- Used only to render and relay the original C# console inside MS-DOS Prompt; no game rules execute in xterm.js.
+
+## Newtonsoft.Json
+
+- **Project:** Json.NET 13.0.3 — https://github.com/JamesNK/Newtonsoft.Json
+- **Author:** James Newton-King.
+- **License:** MIT. Used by the original 2091 C# sources; the license is included with the native runtime.
+
+A integração local do 2091 inclui a faixa usada no projeto original: “Cyberpunk 2077 - Never Fade Away __ Knight972 ret..mp3”, copiada para `assets/games/2091/title.mp3`. Os direitos da gravação e da composição pertencem aos respectivos titulares.

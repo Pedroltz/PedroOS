@@ -1,0 +1,23 @@
+DOOM no PedroOS 95 — componentes de terceiros
+
+Motor: Chocolate Doom / Cloudflare doom-wasm, GPL-2.0.
+Binários inalterados obtidos de https://github.com/danborden1/doom-web
+Correspondem à publicação Saketh-Chandra/doom-wasm-pwa
+5b1e1fe7385b6f0b19d60dece6adbf88f6842e20 (gh-pages).
+Fonte correspondente: Saketh-Chandra/doom-wasm-pwa@a77edfd8bbc7
+https://github.com/Saketh-Chandra/doom-wasm-pwa/tree/a77edfd8bbc7
+O arquivo chocolate-doom-source.tar.gz contém essa árvore completa,
+incluindo scripts de compilação. Licença: COPYING.
+O código player.js e player.html desta integração é GPL-2.0-or-later.
+
+Dados: Freedoom: Phase 1, versão 0.13.0, BSD-3-Clause.
+https://github.com/freedoom/freedoom/releases/tag/v0.13.0
+Licença: FREEDOOM-COPYING.txt. Créditos: FREEDOOM-CREDITS.txt.
+Freedoom tem mapas, gráficos e sons próprios; não contém dados comerciais de Doom.
+Arquivos WAD escolhidos pelo usuário permanecem apenas nesta sessão do navegador.
+
+Arquivos distribuídos (SHA-256):
+f8670d5e86cc7a96426b56da7a164b46473879f2338f2fe24c192cb1628a30b1  websockets-doom.js
+4a55e4381d374b9bf347116e8c6f52547bb990fd7fc28a5e21af354830f80f78  websockets-doom.wasm
+7323bcc168c5a45ff10749b339960e98314740a734c30d4b9f3337001f9e703d  freedoom1.wad
+5a032348f8eeccca644eb0e4ce09b4fe57dcab7ecfbd040650f5b7f058680bb2  chocolate-doom-source.tar.gz

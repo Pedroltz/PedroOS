@@ -1,3 +1,4 @@
+import { mountSystemFailure, requestSystemFailure } from './SystemFailure.js';
 import type { IWindowManager, WindowRecord } from '../types/index.js';
 import { DesktopStore } from '../core/DesktopStore.js';
 import { IconRegistryClient } from '../core/IconRegistryClient.js';
@@ -19,7 +20,7 @@ export class DesktopController {
     this.setupTaskbar();
     this.setupStartMenu();
     this.setupContextMenu();
-    this.setupBsod();
+    mountSystemFailure(this.store);
     this.setupGlobalKeyboard();
     this.setupClock();
     this.setupWallpaperSubscription();
@@ -224,6 +225,7 @@ export class DesktopController {
         const args: Record<string, string> = {};
         if (path) args.path = path;
         if (slug) args.slug = slug;
+        if (action.dataset.argCommand === '2091') args.command = '2091';
 
         this.wm.open(appId, { args });
         this.closeStartMenu();
@@ -301,23 +303,6 @@ export class DesktopController {
     });
   }
 
-  private setupBsod(): void {
-    const bsod = document.getElementById('bsod-overlay');
-    if (!bsod) return;
-
-    const hide = (): void => {
-      bsod.setAttribute('hidden', '');
-    };
-
-    bsod.addEventListener('click', hide);
-    window.addEventListener('keydown', (e) => {
-      if (!bsod.hasAttribute('hidden')) {
-        e.preventDefault();
-        hide();
-      }
-    });
-  }
-
   private setupGlobalKeyboard(): void {
     window.addEventListener('keydown', (ev) => {
       // Alt+F4: close active window
@@ -329,10 +314,10 @@ export class DesktopController {
         }
       }
 
-      // Ctrl+Alt+B: trigger safe BSOD
+      // Ctrl+Alt+B: show system failure diagnostics
       if (ev.ctrlKey && ev.altKey && (ev.key === 'b' || ev.key === 'B')) {
         ev.preventDefault();
-        document.getElementById('bsod-overlay')?.removeAttribute('hidden');
+        requestSystemFailure();
       }
 
       // Esc: close start menu or context menu

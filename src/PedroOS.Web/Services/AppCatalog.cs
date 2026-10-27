@@ -36,7 +36,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "explorer",
-                Title = "Exploring - C:\\",
+                Title = "Explorando - C:\\",
                 Icon = "explorer",
                 Content = AppContentKind.Client,
                 DefaultWidth = 680,
@@ -48,7 +48,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "projects",
-                Title = "Projects - C:\\Projects",
+                Title = "Projetos - C:\\Projetos",
                 Icon = "projects",
                 Content = AppContentKind.Client,
                 DefaultWidth = 680,
@@ -61,11 +61,11 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "project",
-                Title = "Project Details",
+                Title = "Detalhes do projeto",
                 Icon = "project",
                 Content = AppContentKind.Fragment,
-                DefaultWidth = 660,
-                DefaultHeight = 470,
+                DefaultWidth = 880,
+                DefaultHeight = 650,
                 MinWidth = 360,
                 MinHeight = 280,
                 MultiInstance = true,
@@ -75,7 +75,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "resume",
-                Title = "Resume.doc - WordPad",
+                Title = "Currículo — Editor de Documentos",
                 Icon = "resume",
                 Content = AppContentKind.Fragment,
                 DefaultWidth = 680,
@@ -88,11 +88,11 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "sysprops",
-                Title = "System Properties",
+                Title = "Propriedades do Sistema",
                 Icon = "system",
                 Content = AppContentKind.Fragment,
-                DefaultWidth = 540,
-                DefaultHeight = 460,
+                DefaultWidth = 580,
+                DefaultHeight = 510,
                 MinWidth = 360,
                 MinHeight = 320,
                 MultiInstance = false,
@@ -101,7 +101,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "iexplore",
-                Title = "Microsoft Internet Explorer",
+                Title = "Navegador PedroOS",
                 Icon = "iexplore",
                 Content = AppContentKind.Client,
                 DefaultWidth = 700,
@@ -136,22 +136,34 @@ public sealed partial class AppCatalog : IAppCatalog
             },
             new AppDefinition
             {
+                Id = "doom",
+                Title = "DOOM — PedroOS 95",
+                Icon = "2091-retrogame",
+                Content = AppContentKind.Client,
+                DefaultWidth = 720,
+                DefaultHeight = 570,
+                MinWidth = 320,
+                MinHeight = 300,
+                MultiInstance = false,
+            },
+            new AppDefinition
+            {
                 Id = "minesweeper",
-                Title = "Minesweeper",
+                Title = "Campo Minado",
                 Icon = "minesweeper",
                 Content = AppContentKind.Client,
-                DefaultWidth = 220,
-                DefaultHeight = 340,
+                DefaultWidth = 280,
+                DefaultHeight = 330,
                 MinWidth = 200,
-                MinHeight = 300,
-                Resizable = false,
+                MinHeight = 260,
+                Resizable = true,
                 Maximizable = false,
                 MultiInstance = false,
             },
             new AppDefinition
             {
                 Id = "notepad",
-                Title = "Readme.txt - Notepad",
+                Title = "Leia-me — Bloco de Notas",
                 Icon = "notepad",
                 Content = AppContentKind.Client,
                 DefaultWidth = 520,
@@ -163,7 +175,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "terminal",
-                Title = "MS-DOS Prompt",
+                Title = "Terminal PedroOS",
                 Icon = "msdos",
                 Content = AppContentKind.Client,
                 DefaultWidth = 640,
@@ -174,22 +186,35 @@ public sealed partial class AppCatalog : IAppCatalog
             },
             new AppDefinition
             {
-                Id = "about",
-                Title = "About PedroOS 95",
+                Id = "welcome",
+                Title = "Bem-vindo ao PedroOS 95",
                 Icon = "logo",
                 Content = AppContentKind.Fragment,
-                DefaultWidth = 440,
-                DefaultHeight = 360,
-                MinWidth = 340,
-                MinHeight = 280,
+                DefaultWidth = 580,
+                DefaultHeight = 390,
+                MinWidth = 300,
+                MinHeight = 300,
                 Resizable = false,
                 Maximizable = false,
+                MultiInstance = false,
+                Hidden = true,
+            },
+            new AppDefinition
+            {
+                Id = "about",
+                Title = "Sobre o PedroOS 95",
+                Icon = "logo",
+                Content = AppContentKind.Fragment,
+                DefaultWidth = 510,
+                DefaultHeight = 430,
+                MinWidth = 340,
+                MinHeight = 320,
                 MultiInstance = false,
             },
             new AppDefinition
             {
                 Id = "find",
-                Title = "Find: All Files",
+                Title = "Localizar: todos os arquivos",
                 Icon = "find",
                 Content = AppContentKind.Client,
                 DefaultWidth = 480,
@@ -201,7 +226,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "run",
-                Title = "Run",
+                Title = "Executar",
                 Icon = "run",
                 Content = AppContentKind.Client,
                 DefaultWidth = 370,
@@ -216,7 +241,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "display",
-                Title = "Display Properties",
+                Title = "Propriedades de Vídeo",
                 Icon = "display",
                 Content = AppContentKind.Client,
                 DefaultWidth = 420,
@@ -230,7 +255,7 @@ public sealed partial class AppCatalog : IAppCatalog
             new AppDefinition
             {
                 Id = "shutdown",
-                Title = "Shut Down PedroOS",
+                Title = "Desligar o PedroOS",
                 Icon = "shutdown",
                 Content = AppContentKind.Client,
                 DefaultWidth = 360,
@@ -264,7 +289,7 @@ public sealed partial class AppCatalog : IAppCatalog
                 AppId: string.Empty,
                 Args: null,
                 PageTitle: "PedroOS 95 — Portfólio Interativo de Pedro Tunin",
-                MetaDescription: "Portfólio profissional interativo de Pedro Tunin que simula o sistema operacional Windows 95 com projetos reais (.NET 10, Python, Linux/DevOps e IA), currículo e aplicativos funcionais.",
+                MetaDescription: "Portfólio profissional interativo de Pedro Tunin que apresenta o ambiente PedroOS 95 com projetos reais (.NET 10, Python, Linux/DevOps e IA), currículo e aplicativos funcionais.",
                 CanonicalPath: "/");
         }
 
@@ -274,7 +299,7 @@ public sealed partial class AppCatalog : IAppCatalog
                 AppId: "projects",
                 Args: null,
                 PageTitle: "Projetos — PedroOS 95 (Pedro Tunin)",
-                MetaDescription: "Catálogo de projetos de software de Pedro Tunin: Ofizzy (.NET 10, Angular, PostgreSQL), RDP Session Manager (Python, GTK 4, Linux xrdp), ZellaPedia e mais.",
+                MetaDescription: "Catálogo de projetos de software de Pedro Tunin: Ofizzy (.NET 10, Angular, PostgreSQL), RDP Session Manager (Python, GTK 4, Linux xrdp), TaskProj, AnyComic, BinaryTreeStudy, UniNote e 2091.",
                 CanonicalPath: "/projects");
         }
 
@@ -300,7 +325,7 @@ public sealed partial class AppCatalog : IAppCatalog
             return new RouteResolution(
                 AppId: "resume",
                 Args: null,
-                PageTitle: "Currículo (Resume.doc) — Pedro Tunin — PedroOS 95",
+                PageTitle: "Currículo (Curriculo.doc) — Pedro Tunin — PedroOS 95",
                 MetaDescription: "Currículo profissional de Pedro Tunin: experiência em Engenharia de Software (.NET, Python, TypeScript/Angular, Linux, Docker, CI/CD e Inteligência Artificial).",
                 CanonicalPath: "/resume");
         }
@@ -310,7 +335,7 @@ public sealed partial class AppCatalog : IAppCatalog
             return new RouteResolution(
                 AppId: "sysprops",
                 Args: new Dictionary<string, string> { ["tab"] = "dev" },
-                PageTitle: "System Properties (Habilidades Técnicas) — PedroOS 95",
+                PageTitle: "Propriedades do Sistema (Habilidades Técnicas) — PedroOS 95",
                 MetaDescription: "Propriedades do Sistema de Pedro Tunin: competências em Desenvolvimento (C#, .NET, ASP.NET Core, Python, TypeScript, Angular, SQL), DevOps/Linux e Inteligência Artificial.",
                 CanonicalPath: "/skills");
         }

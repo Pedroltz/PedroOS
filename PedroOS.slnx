@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Game2091.Native/Game2091.Native.csproj" />
     <Project Path="src/PedroOS.Web/PedroOS.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">

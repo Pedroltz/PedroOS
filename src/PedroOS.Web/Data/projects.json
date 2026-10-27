@@ -97,11 +97,6 @@
     "license": "GPL-3.0",
     "screenshots": [
       {
-        "src": "/assets/screenshots/rdp-session-manager/RDPSM.png",
-        "alt": "Interface principal do RDP Session Manager em GTK 4 / libadwaita",
-        "caption": "Interface GTK 4 / libadwaita do RDP Session Manager"
-      },
-      {
         "src": "/assets/screenshots/rdp-session-manager/rdp-session-manager-header.png",
         "alt": "Visão geral do projeto RDP Session Manager",
         "caption": "Apresentação visual do RDP Session Manager"
@@ -109,32 +104,8 @@
     ],
     "featured": true,
     "isPlaceholder": false,
-    "placeholderNote": null
-  },
-  {
-    "slug": "zellapedia",
-    "name": "ZellaPedia",
-    "executableName": "ZellaPedia.exe",
-    "icon": "zellapedia",
-    "summary": "Projeto de busca documental corporativa com navegação por arquivos, pesquisa e recuperação de informações.",
-    "description": "Sistema voltado à organização, navegação por diretórios e documentos, pesquisa textual e recuperação de informações em base documental corporativa.",
-    "problem": "Centralizar o acesso e a pesquisa rápida sobre acervos de documentos internos e bases de conhecimento corporativas.",
-    "solution": "Interface de navegação documental combinada a mecanismos de indexação, busca e recuperação estruturada de informações.",
-    "stack": [
-      "[PLACEHOLDER: confirmar stack exata do ZellaPedia em Data/projects.json]"
-    ],
-    "highlights": [
-      "Navegação estruturada por arquivos e categorias documentais.",
-      "Pesquisa e recuperação de informações corporativas."
-    ],
-    "status": "[PLACEHOLDER: repositório privado / detalhes técnicos públicos não localizados no workspace]",
-    "repositoryUrl": null,
-    "demoUrl": null,
-    "license": null,
-    "screenshots": [],
-    "featured": true,
-    "isPlaceholder": true,
-    "placeholderNote": "Os detalhes técnicos, stack exata, métricas e capturas de tela do ZellaPedia não estão disponíveis publicamente nos repositórios inspecionados. Edite Data/projects.json para preencher dados autorizados."
+    "placeholderNote": null,
+    "gitHubPinnedOrder": 1
   },
   {
     "slug": "anycomic",
@@ -159,9 +130,10 @@
     "demoUrl": null,
     "license": null,
     "screenshots": [],
-    "featured": false,
+    "featured": true,
     "isPlaceholder": false,
-    "placeholderNote": null
+    "placeholderNote": null,
+    "gitHubPinnedOrder": 2
   },
   {
     "slug": "2091-retrogame",
@@ -178,16 +150,18 @@
       "JSON"
     ],
     "highlights": [
-      "Motor narrativo dirigido por dados JSON e sistema de save/load."
+      "Motor narrativo dirigido por dados JSON e sistema de save/load.",
+      "Jogo C# original executado no backend, com interface de terminal dentro do Terminal PedroOS do PedroOS."
     ],
     "status": "Pre-Alpha / Em desenvolvimento",
     "repositoryUrl": "https://github.com/Pedroltz/2091-RetroGame",
     "demoUrl": null,
     "license": null,
     "screenshots": [],
-    "featured": false,
+    "featured": true,
     "isPlaceholder": false,
-    "placeholderNote": null
+    "placeholderNote": null,
+    "gitHubPinnedOrder": 5
   },
   {
     "slug": "autoapply",
@@ -216,5 +190,99 @@
     "featured": false,
     "isPlaceholder": false,
     "placeholderNote": null
+  },
+  {
+    "slug": "taskproj",
+    "name": "TaskProj",
+    "executableName": "TaskProj.exe",
+    "icon": "exe",
+    "summary": "Gerenciador de tarefas com Angular, API .NET 9 e autenticação Firebase.",
+    "description": "Aplicação web para cadastro de usuários e gerenciamento de tarefas pessoais. O frontend Angular utiliza componentes standalone, formulários e HttpClient, integrado a uma API ASP.NET Core com Entity Framework Core e SQL Server.",
+    "problem": "Organizar tarefas pessoais com acesso autenticado e acompanhamento de prioridade, prazo e situação.",
+    "solution": "Interface Angular com cadastro e login via Firebase, proteção de rotas e operações de criação, edição, exclusão e listagem de tarefas por usuário.",
+    "stack": [
+      "Angular",
+      "TypeScript",
+      ".NET 9",
+      "ASP.NET Core Web API",
+      "Entity Framework Core",
+      "SQL Server",
+      "Firebase Authentication"
+    ],
+    "highlights": [
+      "Cadastro e login com Firebase Authentication e validação de token no backend.",
+      "Gerenciamento de tarefas por usuário, com prioridade, prazo e situação.",
+      "Frontend organizado em páginas e componentes standalone."
+    ],
+    "status": "Repositório público no GitHub",
+    "repositoryUrl": "https://github.com/Pedroltz/TaskProj",
+    "demoUrl": null,
+    "license": null,
+    "screenshots": [],
+    "featured": false,
+    "isPlaceholder": false,
+    "placeholderNote": null,
+    "gitHubPinnedOrder": 3
+  },
+  {
+    "slug": "binary-tree-study",
+    "name": "BinaryTreeStudy",
+    "executableName": "BinaryTreeStudy.exe",
+    "icon": "sys",
+    "summary": "Estudo de árvores binárias de busca com implementações em Python e C++.",
+    "description": "Projeto didático com implementações de uma árvore binária de busca (BST) em Python e C++, com menu de texto para interação com a estrutura de dados.",
+    "problem": "Compreender a organização de árvores binárias de busca e seus algoritmos fundamentais.",
+    "solution": "Implementações em duas linguagens que permitem inserir valores, pesquisar elementos e percorrer a árvore em ordem crescente.",
+    "stack": [
+      "Python",
+      "C++",
+      "Estruturas de dados",
+      "Árvore binária de busca"
+    ],
+    "highlights": [
+      "Inserção e busca respeitando a ordenação da árvore.",
+      "Percurso em ordem para exibir os valores ordenados.",
+      "Menu de console para experimentar as operações."
+    ],
+    "status": "Repositório público no GitHub",
+    "repositoryUrl": "https://github.com/Pedroltz/BinaryTreeStudy",
+    "demoUrl": null,
+    "license": null,
+    "screenshots": [],
+    "featured": false,
+    "isPlaceholder": false,
+    "placeholderNote": null,
+    "gitHubPinnedOrder": 4
+  },
+  {
+    "slug": "uninotes-web",
+    "name": "UniNote",
+    "executableName": "UniNote.exe",
+    "icon": "document",
+    "summary": "Aplicação acadêmica em Angular para organizar anotações de aula e tarefas.",
+    "description": "Frontend web desenvolvido em Angular e TypeScript, com Bootstrap, para cadastrar e consultar anotações acadêmicas organizadas em pastas. Integra-se a um backend .NET 6 mantido em repositório separado.",
+    "problem": "Manter anotações e informações acadêmicas organizadas e acessíveis em um único ambiente.",
+    "solution": "Interface web para cadastro e organização de notas em pastas, consulta do conteúdo e integração com a API acadêmica.",
+    "stack": [
+      "Angular",
+      "TypeScript",
+      "Bootstrap",
+      ".NET 6 (API integrada)",
+      "Entity Framework Core (API integrada)"
+    ],
+    "highlights": [
+      "Cadastro de anotações e organização por pastas.",
+      "Frontend Angular integrado a uma API .NET 6.",
+      "Backend documentado no repositório ViiKDev/uninotes-api."
+    ],
+    "status": "Repositório público no GitHub",
+    "repositoryUrl": "https://github.com/Pedroltz/uninotes-web",
+    "demoUrl": null,
+    "license": null,
+    "screenshots": [],
+    "featured": false,
+    "isPlaceholder": false,
+    "placeholderNote": null,
+    "gitHubPinnedOrder": 6
   }
 ]

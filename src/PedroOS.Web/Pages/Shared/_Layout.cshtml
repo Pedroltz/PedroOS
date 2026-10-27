@@ -1,6 +1,6 @@
 @{
     var title = ViewData["Title"] as string ?? "PedroOS 95 — Portfólio Interativo de Pedro Tunin";
-    var description = ViewData["MetaDescription"] as string ?? "Portfólio profissional interativo de Pedro Tunin simulando o Microsoft Windows 95.";
+    var description = ViewData["MetaDescription"] as string ?? "Portfólio profissional interativo de Pedro Tunin com interface de sistema operacional clássico.";
     var canonicalPath = ViewData["CanonicalPath"] as string ?? Context.Request.Path.Value ?? "/";
     var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
     var canonicalUrl = $"{baseUrl}{canonicalPath}";
@@ -33,6 +33,7 @@
     <meta name="twitter:image" content="@ogImage" />
 
     <link rel="stylesheet" href="/css/98.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/css/xterm.css" asp-append-version="true" />
     <link rel="stylesheet" href="/css/pedroos.css" asp-append-version="true" />
 </head>
 <body>

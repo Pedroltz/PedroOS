@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const baseURL = process.env.PEDROOS_BASE_URL || 'http://localhost:5159';
+
 export default defineConfig({
   testDir: '.',
   outputDir: '../../test-results/playwright',
@@ -9,7 +11,10 @@ export default defineConfig({
   workers: 1,
   reporter: 'list',
   use: {
-    baseURL: process.env.PEDROOS_BASE_URL || 'http://localhost:5159',
+    baseURL,
+    // Existing navigation suites start with the welcome preference disabled.
+    // welcome.spec.ts overrides this to exercise the real first-visit behavior.
+    storageState: { cookies: [], origins: [{ origin: new URL(baseURL).origin, localStorage: [{ name: 'pedroos.welcome.v1', value: '{"showOnStartup":false}' }] }] },
     trace: 'on-first-retry',
     viewport: { width: 1280, height: 720 },
   },

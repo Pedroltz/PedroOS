@@ -13,7 +13,7 @@ const pairs = [
 ];
 const finalImages = readdirSync(join(output, 'final')).filter(name => name.endsWith('.png'));
 const manifest = JSON.parse(readFileSync('src/PedroOS.Web/Data/icons.json', 'utf8'));
-const projects = ['ofizzy', 'rdp-session-manager', 'zellapedia', 'anycomic', '2091-retrogame', 'autoapply'];
+const projects = ['ofizzy', 'rdp-session-manager', 'anycomic', '2091-retrogame', 'autoapply'];
 writeFileSync(join(output, 'index.html'), `<!doctype html><html lang="pt-BR"><meta charset="utf-8">
 <title>PedroOS 95 — auditoria visual</title><style>
 body{margin:20px;font:16px/1.5 system-ui;background:#f4f4f4;color:#222}h1,h2{line-height:1.2}

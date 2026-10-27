@@ -1,0 +1,14 @@
+@model PedroOS.Web.Models.Skill
+@{ var projects = Portfolio.GetProjects().ToDictionary(p => p.Slug, StringComparer.OrdinalIgnoreCase); }
+<article class="system-skill-detail">
+    <header><h3>@Model.Name</h3><p class="system-driver">Controlador: <code>@Model.Driver</code></p></header>
+    <p>@Model.Usage</p>
+    @if (Model.UseCases.Count > 0)
+    {
+        <h4>Aplicações na prática</h4><ul>@foreach (var useCase in Model.UseCases) { <li>@useCase</li> }</ul>
+    }
+    @if (Model.RelatedProjects.Any(slug => projects.ContainsKey(slug)))
+    {
+        <h4>Projetos relacionados</h4><div class="system-actions">@foreach (var slug in Model.RelatedProjects) { if (projects.TryGetValue(slug, out var project)) { <button type="button" data-open-app="project" data-arg-slug="@project.Slug">@project.Name</button> } }</div>
+    }
+</article>

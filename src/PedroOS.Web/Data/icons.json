@@ -745,25 +745,6 @@
         16
       ]
     },
-    "zellapedia": {
-      "category": "projects",
-      "description": "ZellaPedia",
-      "sizes": [
-        16,
-        32,
-        48
-      ],
-      "variants": {
-        "16": "/assets/icons/projects/zellapedia-16.png",
-        "32": "/assets/icons/projects/zellapedia-32.png",
-        "48": "/assets/icons/projects/zellapedia-48.png"
-      },
-      "fallback": "exe",
-      "attribution": "Original PedroOS pixel artwork",
-      "nativeSizes": [
-        16
-      ]
-    },
     "project": {
       "category": "projects",
       "description": "Project",

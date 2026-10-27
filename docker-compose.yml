@@ -6,7 +6,15 @@ services:
     image: pedroos-95:latest
     container_name: pedroos-95
     restart: unless-stopped
+    init: true
+    pids_limit: 256
+    mem_limit: 1g
+    volumes:
+      - native-saves:/app/data
     ports:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+
+volumes:
+  native-saves:

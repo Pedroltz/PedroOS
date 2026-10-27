@@ -3,13 +3,13 @@
     var featuredProjects = Portfolio.GetProjects(featuredOnly: true);
 }
 <div class="app-shell resume-app" data-resume-app>
-    <div class="win95-menubar" role="menubar" aria-label="Menu do WordPad">
-        <span class="win95-menu-item"><u>F</u>ile</span>
-        <span class="win95-menu-item"><u>E</u>dit</span>
-        <span class="win95-menu-item"><u>V</u>iew</span>
-        <span class="win95-menu-item"><u>I</u>nsert</span>
-        <span class="win95-menu-item">F<u>o</u>rmat</span>
-        <span class="win95-menu-item"><u>H</u>elp</span>
+    <div class="win95-menubar" role="menubar" aria-label="Menu do Editor de Documentos">
+        <span class="win95-menu-item"><u>A</u>rquivo</span>
+        <span class="win95-menu-item"><u>E</u>ditar</span>
+        <span class="win95-menu-item">E<u>x</u>ibir</span>
+        <span class="win95-menu-item"><u>I</u>nserir</span>
+        <span class="win95-menu-item">F<u>o</u>rmatar</span>
+        <span class="win95-menu-item">A<u>j</u>uda</span>
     </div>
 
     <div class="win95-toolbar" role="toolbar" aria-label="Barra de ferramentas do currículo">
@@ -47,7 +47,7 @@
         <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
     </div>
 
-    <div class="wordpad-sheet sunken-panel" tabindex="0" aria-label="Documento Resume.doc">
+    <div class="wordpad-sheet sunken-panel" tabindex="0" aria-label="Documento do currículo">
         <article class="wordpad-document">
             <header class="resume-header">
                 <h2 class="resume-name">@profile.Name</h2>
@@ -63,7 +63,7 @@
                     <a class="button" href="/resume" target="_blank" rel="noopener noreferrer">Visualizar Currículo (/resume)</a>
                     <a class="button" href="/resume/pdf" download="Pedro-Tunin-Resume.pdf">Baixar PDF</a>
                     <button type="button" data-open-app="projects">Ver Projetos</button>
-                    <button type="button" data-open-app="sysprops">Ver System Properties</button>
+                    <button type="button" data-open-app="sysprops">Ver Propriedades do Sistema</button>
                 </div>
             </header>
 
@@ -85,7 +85,7 @@
                             <strong>@exp.Role</strong> — <span>@exp.Organization</span>
                             @if (exp.IsPlaceholder)
                             {
-                                <span class="win95-badge-placeholder" title="Edite Data/profile.json para atualizar este campo">PLACEHOLDER</span>
+                                <span class="win95-badge-placeholder" title="Edite Data/profile.json para atualizar este campo">A PREENCHER</span>
                             }
                         </div>
                         <div class="resume-item-sub">@exp.Period | @exp.Location</div>
@@ -138,9 +138,13 @@
                         <strong>@edu.Course</strong> — <span>@edu.Institution</span> (@edu.Period)
                         @if (edu.IsPlaceholder)
                         {
-                            <span class="win95-badge-placeholder">PLACEHOLDER</span>
+                            <span class="win95-badge-placeholder">A PREENCHER</span>
                         }
                     </div>
+                }
+                @if (profile.Certifications.Count > 0)
+                {
+                    <p><strong>Certificações:</strong> @string.Join(" | ", profile.Certifications)</p>
                 }
                 @if (profile.Languages.Count > 0)
                 {
@@ -164,7 +168,7 @@
     </div>
 
     <div class="status-bar">
-        <p class="status-bar-field">C:\Documents\Resume.doc (configurável em Data/profile.json)</p>
-        <p class="status-bar-field">WordPad — UTF-8</p>
+        <p class="status-bar-field">C:\Documentos\Curriculo.doc (configurável em Data/profile.json)</p>
+        <p class="status-bar-field">Editor de Documentos — UTF-8</p>
     </div>
 </div>
