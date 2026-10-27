@@ -7,27 +7,42 @@ import { join, resolve } from 'node:path';
 
 const outDir = resolve(process.argv[2] || 'dist/pages');
 const gistId = process.argv[3] || 'f2c4bf1b6963b96f45da7b3e006ba8b6';
+if (!/^[a-f0-9]+$/i.test(gistId)) throw new Error('Invalid Gist ID');
 
 const redirectScript = `<script>
 (function() {
-  if (location.search.indexOf('static=1') !== -1) return;
-  fetch('https://api.github.com/gists/${gistId}', { cache: 'no-store' })
-    .then(function(r) { return r.json(); })
+  if (new URLSearchParams(location.search).get('static') === '1') return;
+  function getJson(url) {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function() { ctrl.abort(); }, 8000);
+    return fetch(url, { mode: 'cors', cache: 'no-store', signal: ctrl.signal })
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .finally(function() { clearTimeout(timer); });
+  }
+  getJson('https://api.github.com/gists/${gistId}')
     .then(function(d) {
       var raw = d && d.files && d.files['pedroos-tunnel.json'] && d.files['pedroos-tunnel.json'].content;
       if (!raw) return;
       var info = JSON.parse(raw);
       if (!info || !info.url) return;
-      var targetBase = info.url.replace(/\\/+$/, '');
-      var subPath = location.pathname.replace(/^\\/PedroOS/i, '') || '/';
-      var ctrl = new AbortController();
-      var timer = setTimeout(function() { ctrl.abort(); }, 3500);
-      fetch(targetBase + '/healthz', { mode: 'no-cors', cache: 'no-store', signal: ctrl.signal })
-        .then(function() {
-          clearTimeout(timer);
+      var target = new URL(info.url);
+      if (target.protocol !== 'https:' || target.username || target.password) return;
+      var targetBase = target.origin;
+      if (targetBase === location.origin) return;
+      var meta = document.querySelector('meta[name="pedroos-base"]');
+      var base = meta ? meta.content.replace(/\\/+$/, '') : '/PedroOS';
+      var subPath = location.pathname;
+      if (base && (subPath === base || subPath.indexOf(base + '/') === 0)) {
+        subPath = subPath.slice(base.length) || '/';
+      }
+      return getJson(targetBase + '/healthz').then(function(health) {
+        if (health.status === 'ok' && health.os === 'PedroOS 95') {
           location.replace(targetBase + subPath + location.search + location.hash);
-        })
-        .catch(function() { clearTimeout(timer); });
+        }
+      });
     })
     .catch(function() {});
 })();

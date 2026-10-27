@@ -10,6 +10,8 @@ builder.Services.AddSingleton<IAppCatalog, AppCatalog>();
 builder.Services.AddSingleton<IVirtualFileSystem, VirtualFileSystemService>();
 builder.Services.AddSingleton<IResumePdfService, ResumePdfService>();
 builder.Services.AddSingleton<Game2091TerminalService>();
+builder.Services.AddCors(options => options.AddPolicy("PagesHealth", policy =>
+    policy.WithOrigins("https://pedroltz.github.io").WithMethods("GET")));
 
 builder.Services.AddRazorPages(options =>
 {
@@ -66,6 +68,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
+app.UseCors();
 app.UseWebSockets(new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(30), KeepAliveTimeout = TimeSpan.FromSeconds(20) });
 app.MapGet("/api/game2091/status", (HttpContext context, Game2091TerminalService terminal) => Results.Ok(new { available = terminal.Available, busy = terminal.IsBusy(context) }));
 app.Map("/api/game2091/terminal", (HttpContext context, Game2091TerminalService terminal) => terminal.HandleAsync(context));
@@ -100,7 +103,11 @@ app.MapGet("/sitemap.xml", (HttpContext ctx, IPortfolioCatalog portfolio) =>
     return Results.Text(sb.ToString(), "application/xml", Encoding.UTF8);
 });
 
-app.MapGet("/healthz", () => Results.Ok(new { status = "ok", os = "PedroOS 95" }));
+app.MapGet("/healthz", (HttpContext context) =>
+{
+    context.Response.Headers.CacheControl = "no-store";
+    return Results.Ok(new { status = "ok", os = "PedroOS 95" });
+}).RequireCors("PagesHealth");
 
 app.MapPost("/api/internal/deploy", async (HttpContext ctx, IHostApplicationLifetime lifetime) =>
 {

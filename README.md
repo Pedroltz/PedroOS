@@ -199,6 +199,39 @@ A cada push na branch `main`, o GitHub Actions executa automaticamente:
 
 ---
 
+### Manter o endereço do celular atualizado
+
+O endereço `trycloudflare.com` é temporário: quando o processo do túnel encerra,
+o endereço antigo pode deixar de funcionar. O GitHub Pages consulta o arquivo
+`pedroos-tunnel.json` no Gist para descobrir o endereço atual. O backend precisa
+estar em execução e acessível por esse túnel; publicar o front não inicia o celular.
+
+Com o backend em `http://127.0.0.1:8080`, execute no celular, no lugar do comando
+manual `cloudflared tunnel --url ...`:
+
+```bash
+# Requer Python 3, cloudflared e um token GitHub com permissão de escrita no Gist.
+# Configure GITHUB_TOKEN no ambiente do celular; nunca no front ou no Gist público.
+python scripts/phone-tunnel.py
+# Para outra porta:
+python scripts/phone-tunnel.py --origin http://127.0.0.1:5000
+```
+
+O script aguarda o backend, inicia o túnel, valida `/healthz` e atualiza o Gist.
+Se o processo `cloudflared` encerrar, ele cria outro túnel e registra o novo endereço.
+Mantenha esse script ativo no celular. Ele não inicia o container e não substitui
+um serviço de inicialização automática do Android/Termux.
+
+O Pages só redireciona após receber HTTP 200 com a identificação do PedroOS em
+`/healthz`. Esse endpoint permite leitura pela origem `https://pedroltz.github.io`.
+Atualize o backend e o Pages juntos para usar essa verificação. Para abrir a versão
+estática explicitamente, use `https://pedroltz.github.io/PedroOS/?static=1`.
+O pipeline publica o Pages mesmo se a etapa de deploy no celular falhar, desde que
+o build e os testes tenham passado, mantendo o fallback público atualizado.
+Também pode ser executado manualmente em **Actions → CI & Deploy → Run workflow**
+na branch `main`. O runner hospedado no GitHub depende do túnel para alcançar o
+celular; ele não consegue reiniciar um túnel offline sem um acesso independente.
+
 ## 9. Atalhos e Segredos (Easter Eggs)
 
 - **Alt + F4**: Fecha a janela ativa.
