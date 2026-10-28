@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script>
+(function() {
+  if (new URLSearchParams(location.search).get('static') === '1') return;
+  function getJson(url) {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function() { ctrl.abort(); }, 8000);
+    return fetch(url, { mode: 'cors', cache: 'no-store', signal: ctrl.signal })
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .finally(function() { clearTimeout(timer); });
+  }
+  getJson('https://api.github.com/gists/f2c4bf1b6963b96f45da7b3e006ba8b6')
+    .then(function(d) {
+      var raw = d && d.files && d.files['pedroos-tunnel.json'] && d.files['pedroos-tunnel.json'].content;
+      if (!raw) return;
+      var info = JSON.parse(raw);
+      if (!info || !info.url) return;
+      var target = new URL(info.url);
+      if (target.protocol !== 'https:' || target.username || target.password) return;
+      var targetBase = target.origin;
+      if (targetBase === location.origin) return;
+      var meta = document.querySelector('meta[name="pedroos-base"]');
+      var base = meta ? meta.content.replace(/\/+$/, '') : '/PedroOS';
+      var subPath = location.pathname;
+      if (base && (subPath === base || subPath.indexOf(base + '/') === 0)) {
+        subPath = subPath.slice(base.length) || '/';
+      }
+      return getJson(targetBase + '/healthz').then(function(health) {
+        if (health.status === 'ok' && health.os === 'PedroOS 95') {
+          location.replace(targetBase + subPath + location.search + location.hash);
+        }
+      });
+    })
+    .catch(function() {});
+})();
+</script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoApply (Evidence Ledger) &#x2014; Projetos &#x2014; PedroOS 95</title>
+    <meta name="description" content="Assistente de candidaturas em Python/FastAPI com arquitetura &#x27;Zero-Alucina&#xE7;&#xE3;o&#x27; baseada em Evidence Ledger e revis&#xE3;o humana." />
+    <meta name="author" content="Pedro Tunin" />
+    <meta name="theme-color" content="#008080" />
+    <link rel="canonical" href="https://Pedroltz.github.io/PedroOS/projects/autoapply" />
+    <link rel="icon" href="/PedroOS/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/PedroOS/assets/icons/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PedroOS 95" />
+    <meta property="og:title" content="AutoApply (Evidence Ledger) &#x2014; Projetos &#x2014; PedroOS 95" />
+    <meta property="og:description" content="Assistente de candidaturas em Python/FastAPI com arquitetura &#x27;Zero-Alucina&#xE7;&#xE3;o&#x27; baseada em Evidence Ledger e revis&#xE3;o humana." />
+    <meta property="og:url" content="https://Pedroltz.github.io/PedroOS/projects/autoapply" />
+    <meta property="og:image" content="https://Pedroltz.github.io/PedroOS/assets/og-image.png" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AutoApply (Evidence Ledger) &#x2014; Projetos &#x2014; PedroOS 95" />
+    <meta name="twitter:description" content="Assistente de candidaturas em Python/FastAPI com arquitetura &#x27;Zero-Alucina&#xE7;&#xE3;o&#x27; baseada em Evidence Ledger e revis&#xE3;o humana." />
+    <meta name="twitter:image" content="https://Pedroltz.github.io/PedroOS/assets/og-image.png" />
+
+    <link rel="stylesheet" href="/PedroOS/css/98.css?v=IgFVmj1BxkXKfKMULZSI5o5vPXn7kS9aysYCGsdeZsA" />
+    <link rel="stylesheet" href="/PedroOS/css/xterm.css?v=hUp8D7cOixoIPBZ5ergnKZ-xh0T1rTTyJ7SDN-Myk8Y" />
+    <link rel="stylesheet" href="/PedroOS/css/pedroos.css?v=11rlid28C-0r_P14InXfW321O1G6NdFiGG8kq5bVns0" />
+    <meta name="pedroos-base" content="/PedroOS" />
+    <meta name="pedroos-static" content="true" />
+</head>
+<body>
+    
+<main class="desktop" id="desktop" aria-label="Área de trabalho do PedroOS 95">
+    <h1 class="sr-only">PedroOS 95 — Portfólio Interativo de Pedro Tunin</h1>
+
+    <nav class="desktop-icons" id="desktop-icons" aria-label="Atalhos da área de trabalho">
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-my-computer"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="explorer"
+                    data-arg-key="path"
+                    data-arg-value="C:\"
+                    aria-label="Meu Computador">
+                <img draggable="false" src="/PedroOS/assets/icons/system/my-computer-32.png?v=nGAzfNGuDqPx2BvT4Ir0XH967GaOzFQro7Tkp6Q9JXE" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Meu Computador</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-explorer"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="explorer"
+                    data-arg-key="path"
+                    data-arg-value="C:\"
+                    aria-label="Explorador de Arquivos">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/explorer-32.png?v=IBbWagv9aYEo8Ew-g9U48WWw0vq5tF_s07ekbkh9Gzs" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Explorador de Arquivos</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-projects"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="projects"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="Projetos">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/projects-32.png?v=xXOK9xgbB09CaOYMvZSMUFvWYOsxHWeptzcCdl2A818" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Projetos</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-ofizzy"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="project"
+                    data-arg-key="slug"
+                    data-arg-value="ofizzy"
+                    aria-label="Ofizzy">
+                <img draggable="false" src="/PedroOS/assets/icons/projects/ofizzy-32.png?v=7N2CtxlLoqq9oVkTLi6PRUcnMxVwz1uOdbw1_Hwy3Xc" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Ofizzy</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-rdp"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="project"
+                    data-arg-key="slug"
+                    data-arg-value="rdp-session-manager"
+                    aria-label="RDP Session Manager">
+                <img draggable="false" src="/PedroOS/assets/icons/projects/rdp-session-manager-32.png?v=rcH1nEiWvxuXetcbNtDRREWrT3XU1UHW9IIWMCOgKQg" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">RDP Session Manager</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-resume"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="resume"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="Curr&#xED;culo">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/resume-32.png?v=sSJx-ZN-lWoefAdV1xMkKP0rdcw1L9n2Tgt6AsUYaVk" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Curr&#xED;culo</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-sysprops"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="sysprops"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="Propriedades do Sistema">
+                <img draggable="false" src="/PedroOS/assets/icons/system/system-32.png?v=C7772xutEhHf2y8uJ9Bi3phRw-BwQ0YR8kSP8GKhKlA" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Propriedades do Sistema</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-iexplore"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="iexplore"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="Navegador PedroOS">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/iexplore-32.png?v=YOYWasT6mloTm9mPx9fgIq1g2fRUn7uTNnTHv3YQxTI" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Navegador PedroOS</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-minesweeper"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="minesweeper"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="Campo Minado">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/minesweeper-32.png?v=6X7i390yVHgqsC71b6mZOFzP-ULrKVVTmaQw_3r5fnc" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Campo Minado</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-readme"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="notepad"
+                    data-arg-key="path"
+                    data-arg-value="C:\SobreMim\Leia-me.txt"
+                    aria-label="Leia-me">
+                <img draggable="false" src="/PedroOS/assets/icons/system/text-32.png?v=PwzpOlukmbatud7Wop442VPaf35-s4i9c2y1kUSlnfw" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Leia-me</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-msdos"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="terminal"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="Terminal PedroOS">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/msdos-32.png?v=e3iQ8fHborODJAo0mcdok8ErUwweRqJciA2ynau8Fko" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Terminal PedroOS</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-github"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="github"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="GitHub">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/github-32.png?v=Gi49PIIsxbwtF4-tNW1aWdIAOjoUQYOWjjAiQ3xPjk0" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">GitHub</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-linkedin"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="linkedin"
+                    data-arg-key=""
+                    data-arg-value=""
+                    aria-label="LinkedIn">
+                <img draggable="false" src="/PedroOS/assets/icons/applications/linkedin-32.png?v=lz6AnJXfiG-vWqYXTEPV2wdr3r72B3NglmvHeuVS51w" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">LinkedIn</span>
+            </button>
+            <button type="button"
+                    class="desktop-icon"
+                    id="icon-recycle"
+                    data-desktop-icon
+                    data-action="app"
+                    data-app-id="explorer"
+                    data-arg-key="path"
+                    data-arg-value="C:\PEDROOS"
+                    aria-label="Lixeira">
+                <img draggable="false" src="/PedroOS/assets/icons/system/recycle-bin-32.png?v=F3FGc2axIftKxEotIrL60RPSfNKoHjW3wpPTMKcA95k" width="32" height="32" alt="" class="pixel-icon" />
+                <span class="desktop-icon-label">Lixeira</span>
+            </button>
+</nav>
+
+
+    <section class="desktop-windows" id="desktop-windows" aria-label="Janelas de aplicativos">
+            <section class="window os-window active"
+                     id="win-ssr-1"
+                     role="dialog"
+                     aria-label="AutoApply (Evidence Ledger) (AutoApply.exe)"
+                     data-prerendered-window="true"
+                     data-window-id="win-ssr-1"
+                     data-app-id="project"
+                     data-instance-key="project:autoapply"
+                     data-window-icon="autoapply"
+                     data-arg-slug="autoapply"
+                     style="left: 96px; top: 32px; width: 880px; height: 650px; z-index: 20;">
+                <div class="title-bar" data-window-drag-handle>
+                    <div class="title-bar-text">
+                        <img class="pixel-icon title-bar-icon" src="/PedroOS/assets/icons/projects/autoapply-16.png?v=6cHoD5R3U4czPopsEWKk7uuU9BK8YbAY4JrIeabShPA" width="16" height="16" alt="" draggable="false" />
+                        <span class="title-bar-label">AutoApply (Evidence Ledger) (AutoApply.exe)</span>
+                    </div>
+                    <div class="title-bar-controls">
+                        <button type="button" class="minimize" aria-label="Minimizar" data-win-action="minimize" title="Minimizar"></button>
+                            <button type="button" class="maximize" aria-label="Maximizar" data-win-action="maximize" title="Maximizar"></button>
+                        <button type="button" class="close" aria-label="Fechar" data-win-action="close" title="Fechar"></button>
+                    </div>
+                </div>
+                <div class="window-body os-window-body" data-window-content>
+                            <div class="app-shell project-details-app" data-project-details="autoapply" data-project-title="AutoApply (Evidence Ledger) (AutoApply.exe)" data-project-icon="autoapply">
+    <div class="win95-toolbar" role="toolbar" aria-label="Ações do projeto AutoApply (Evidence Ledger)">
+        <button type="button" class="toolbar-btn" data-open-app="projects">
+            <img src="/PedroOS/assets/icons/applications/projects-16.png?v=FOoGZfmkXZy-Sf5rsSTsQuT4_m9ySTlEmfEyp9N9GkI" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+            <span>Todos os projetos</span>
+        </button>
+        <button type="button" class="toolbar-btn" data-open-app="explorer" data-arg-path="C:\Projetos">
+            <img src="/PedroOS/assets/icons/applications/explorer-16.png?v=QUwGqWoEXAxYQd1Aesb2yYjCFROCHVPUmtbuvSoj0L8" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+            <span>C:\Projetos</span>
+        </button>
+        <span class="toolbar-sep" aria-hidden="true"></span>
+    </div>
+
+    <div class="project-details-body sunken-panel" tabindex="0" aria-label="Detalhes de AutoApply (Evidence Ledger)">
+      <div class="project-content">
+        <header class="project-banner">
+            <img class="pixel-icon project-banner-icon" src="/PedroOS/assets/icons/projects/autoapply-32.png?v=XxL5vVoxrwesZXbuaUY6va8op8NhyKH38mzpfgq85vg" width="32" height="32" alt="&#xCD;cone de AutoApply (Evidence Ledger)" draggable="false" />
+            <div class="project-banner-meta">
+                <h2 class="project-banner-title">AutoApply (Evidence Ledger)</h2>
+                <p class="project-banner-summary">Assistente de candidaturas em Python/FastAPI com arquitetura &#x27;Zero-Alucina&#xE7;&#xE3;o&#x27; baseada em Evidence Ledger e revis&#xE3;o humana.</p>
+                <dl class="project-properties">
+                    <dt>Situação:</dt><dd>Projeto local / em desenvolvimento</dd>
+                </dl>
+            </div>
+        </header>
+
+
+        <fieldset class="win95-fieldset project-gallery-section"><legend>Capturas de tela (0)</legend>
+                <div class="project-gallery-empty sunken-panel">
+                    <img src="/PedroOS/assets/icons/system/folder-32.png?v=qX9Sz8rEOMOCfJR_GREE9_eAxcAWCWuYAd2HAmMQ4-I" width="32" height="32" alt="" draggable="false" class="pixel-icon" />
+                    <p>Este projeto ainda não possui capturas públicas.</p>
+                    <span>Conheça os detalhes e as tecnologias abaixo.</span>
+                </div>
+        </fieldset>
+        <div class="project-grid-two">
+            <fieldset class="win95-fieldset">
+                <legend>Problema Abordado</legend>
+                <p>Evitar gera&#xE7;&#xE3;o de informa&#xE7;&#xF5;es n&#xE3;o verificadas na adapta&#xE7;&#xE3;o de curr&#xED;culos e respostas t&#xE9;cnicas.</p>
+            </fieldset>
+            <fieldset class="win95-fieldset">
+                <legend>Solução Desenvolvida</legend>
+                <p>Pipeline com Evidence Ledger que restringe a gera&#xE7;&#xE3;o a fatos comprovados e exige valida&#xE7;&#xE3;o humana.</p>
+            </fieldset>
+        </div>
+
+        <fieldset class="win95-fieldset">
+            <legend>Descrição e detalhes técnicos</legend>
+            <p>Backend modular em Python 3.12 e FastAPI com SQLAlchemy 2.0 ass&#xED;ncrono e Pydantic v2 para apoio a candidaturas t&#xE9;cnicas com rastreabilidade de evid&#xEA;ncias e aprova&#xE7;&#xE3;o humana (human-in-the-loop).</p>
+                <ul class="win95-list">
+                        <li>Arquitetura em mon&#xF3;lito modular com valida&#xE7;&#xE3;o estrita de evid&#xEA;ncias e human-in-the-loop.</li>
+                </ul>
+        </fieldset>
+
+        <fieldset class="win95-fieldset">
+            <legend>Tecnologias utilizadas</legend>
+            <ul class="project-technology-list sunken-panel">
+                    <li><img src="/PedroOS/assets/icons/system/sys-16.png?v=DFUxtcrxLlB8Ha4Ufkfq5SUvJ53bYAT1ZBgi_XCJhCs" width="16" height="16" alt="" draggable="false" class="pixel-icon" /><span>Python 3.12</span></li>
+                    <li><img src="/PedroOS/assets/icons/system/sys-16.png?v=DFUxtcrxLlB8Ha4Ufkfq5SUvJ53bYAT1ZBgi_XCJhCs" width="16" height="16" alt="" draggable="false" class="pixel-icon" /><span>FastAPI</span></li>
+                    <li><img src="/PedroOS/assets/icons/system/sys-16.png?v=DFUxtcrxLlB8Ha4Ufkfq5SUvJ53bYAT1ZBgi_XCJhCs" width="16" height="16" alt="" draggable="false" class="pixel-icon" /><span>SQLAlchemy 2.0 Async</span></li>
+                    <li><img src="/PedroOS/assets/icons/system/sys-16.png?v=DFUxtcrxLlB8Ha4Ufkfq5SUvJ53bYAT1ZBgi_XCJhCs" width="16" height="16" alt="" draggable="false" class="pixel-icon" /><span>Pydantic v2</span></li>
+                    <li><img src="/PedroOS/assets/icons/system/sys-16.png?v=DFUxtcrxLlB8Ha4Ufkfq5SUvJ53bYAT1ZBgi_XCJhCs" width="16" height="16" alt="" draggable="false" class="pixel-icon" /><span>SQL</span></li>
+            </ul>
+        </fieldset>
+
+        <div class="project-footer-links">
+            <button type="button" data-open-app="sysprops">Competências relacionadas</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-bar">
+        <p class="status-bar-field">C:\Projetos\AutoApply.exe</p>
+        <p class="status-bar-field">5 tecnologias listadas</p>
+    </div>
+</div>
+
+                </div>
+            </section>
+
+    </section>
+
+    <nav class="start-menu window" id="start-menu" aria-label="Menu Iniciar" hidden>
+    <div class="start-menu-banner" aria-hidden="true">
+        <span class="start-menu-banner-text"><strong>PedroOS</strong> 95</span>
+    </div>
+    <ul class="start-menu-list" role="menu">
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img src="/PedroOS/assets/icons/system/folder-16.png?v=fHQSOkdxN4VJoZqHQKBMda8a__AHan5ci0EACK9gywA" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label"><u>P</u>rogramas</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Programas">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="explorer" data-arg-path="C:\">
+                        <img src="/PedroOS/assets/icons/applications/explorer-16.png?v=QUwGqWoEXAxYQd1Aesb2yYjCFROCHVPUmtbuvSoj0L8" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Explorador de Arquivos</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="projects">
+                        <img src="/PedroOS/assets/icons/applications/projects-16.png?v=FOoGZfmkXZy-Sf5rsSTsQuT4_m9ySTlEmfEyp9N9GkI" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Explorador de Projetos</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="resume">
+                        <img src="/PedroOS/assets/icons/applications/resume-16.png?v=VL9z1RBGVd3-7zN6ebG_p8GGhK3jzO1F_E3RWrQ5dxo" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Editor de Documentos (Currículo)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="iexplore">
+                        <img src="/PedroOS/assets/icons/applications/iexplore-16.png?v=GgUlARRNcKjVYeBA9OpKhSLm__dIJ6YHPQ8P4YDOZcA" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Navegador PedroOS</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="doom">
+                        <img src="/PedroOS/assets/icons/projects/2091-retrogame-16.png?v=wEw6A00e2vs3BcYD3oleL1yPFjub2umHVMBdlDBrkPg" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>DOOM / Freedoom</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="minesweeper">
+                        <img src="/PedroOS/assets/icons/applications/minesweeper-16.png?v=QtckIC8kE8yRaoYYOkfJigbXRlIpL5-IVv-doGVchk8" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Campo Minado</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="notepad" data-arg-path="C:\SobreMim\Leia-me.txt">
+                        <img src="/PedroOS/assets/icons/applications/notepad-16.png?v=zW8AKrbvHrJXNBWLLEXyM8BzV28_9vuBjYKfPyZMK74" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Bloco de Notas (Leia-me)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="terminal">
+                        <img src="/PedroOS/assets/icons/applications/msdos-16.png?v=QreCc5kELnGwxZuNEY_DliY0YBRMvAZWOygQe4ELxVY" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Terminal PedroOS</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="terminal" data-arg-command="2091">
+                        <img src="/PedroOS/assets/icons/projects/2091-retrogame-16.png?v=wEw6A00e2vs3BcYD3oleL1yPFjub2umHVMBdlDBrkPg" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>2091 — RetroGame</span>
+                    </button>
+                </li>
+            </ul>
+        </li>
+
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img src="/PedroOS/assets/icons/applications/projects-16.png?v=FOoGZfmkXZy-Sf5rsSTsQuT4_m9ySTlEmfEyp9N9GkI" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label">Pr<u>o</u>jetos</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Projetos">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="projects">
+                        <img src="/PedroOS/assets/icons/applications/projects-16.png?v=FOoGZfmkXZy-Sf5rsSTsQuT4_m9ySTlEmfEyp9N9GkI" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Todos os projetos</span>
+                    </button>
+                </li>
+                <li class="start-menu-separator" role="separator"></li>
+                    <li role="none">
+                        <button type="button" class="start-menu-action" role="menuitem" data-open-app="project" data-arg-slug="ofizzy">
+                            <img src="/PedroOS/assets/icons/projects/ofizzy-16.png?v=AXKF4xjhVKiZCThcqEh-DH3pqQTYUfwem3rr_cYuEqc" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                            <span>Ofizzy</span>
+                        </button>
+                    </li>
+                    <li role="none">
+                        <button type="button" class="start-menu-action" role="menuitem" data-open-app="project" data-arg-slug="rdp-session-manager">
+                            <img src="/PedroOS/assets/icons/projects/rdp-session-manager-16.png?v=JKeUOsunEQ54P06f066Bn51rF49GgbniFZRYnvYvG-U" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                            <span>RDP Session Manager</span>
+                        </button>
+                    </li>
+                    <li role="none">
+                        <button type="button" class="start-menu-action" role="menuitem" data-open-app="project" data-arg-slug="anycomic">
+                            <img src="/PedroOS/assets/icons/projects/anycomic-16.png?v=SbKXXVl7cVwn0DSKVUu_nhi4yBNjvYENA1H1GaxL694" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                            <span>AnyComic</span>
+                        </button>
+                    </li>
+                    <li role="none">
+                        <button type="button" class="start-menu-action" role="menuitem" data-open-app="project" data-arg-slug="2091-retrogame">
+                            <img src="/PedroOS/assets/icons/projects/2091-retrogame-16.png?v=wEw6A00e2vs3BcYD3oleL1yPFjub2umHVMBdlDBrkPg" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                            <span>2091 &#x2014; RetroGame</span>
+                        </button>
+                    </li>
+            </ul>
+        </li>
+
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img src="/PedroOS/assets/icons/system/doc-16.png?v=PzQjBmoya9YSAxNkfyPbnPQ_Ot1cNpzqR0eH6KunWwE" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label"><u>D</u>ocumentos</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Documentos">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="resume">
+                        <img src="/PedroOS/assets/icons/applications/resume-16.png?v=VL9z1RBGVd3-7zN6ebG_p8GGhK3jzO1F_E3RWrQ5dxo" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Currículo</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="resume" data-arg-section="experience">
+                        <img src="/PedroOS/assets/icons/system/doc-16.png?v=PzQjBmoya9YSAxNkfyPbnPQ_Ot1cNpzqR0eH6KunWwE" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Histórico profissional</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="notepad" data-arg-path="C:\SobreMim\Leia-me.txt">
+                        <img src="/PedroOS/assets/icons/system/text-16.png?v=zW8AKrbvHrJXNBWLLEXyM8BzV28_9vuBjYKfPyZMK74" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Leia-me</span>
+                    </button>
+                </li>
+                <li class="start-menu-separator" role="separator"></li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="github">
+                        <img src="/PedroOS/assets/icons/applications/github-16.png?v=jdcBBCaRVaFBSXVvGIihcN2mW4CkP9en0pOipmnkyj4" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>GitHub (@Pedroltz)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="linkedin">
+                        <img src="/PedroOS/assets/icons/applications/linkedin-16.png?v=RiG2tP4inwUhy_DJ19AyfBvEpnci9xF8puHjuFh9Emc" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>LinkedIn (pedrotunin)</span>
+                    </button>
+                </li>
+            </ul>
+        </li>
+
+        <li class="start-menu-item has-submenu" role="none">
+            <button type="button" class="start-menu-trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                <img src="/PedroOS/assets/icons/system/control-panel-16.png?v=zNUQCapolz5Qa6WB8k-UGyYyMmptRhbsB4UYe90YGOU" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label"><u>C</u>onfigurações</span>
+                <span class="start-menu-arrow" aria-hidden="true">&#9656;</span>
+            </button>
+            <ul class="start-submenu window" role="menu" aria-label="Configurações">
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="sysprops">
+                        <img src="/PedroOS/assets/icons/system/system-16.png?v=j_9K1gCJyET0R8Dw6M8wmkz_uCfJoOUcwZaZ-vBJWB4" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Propriedades do Sistema (Habilidades)</span>
+                    </button>
+                </li>
+                <li role="none">
+                    <button type="button" class="start-menu-action" role="menuitem" data-open-app="display">
+                        <img src="/PedroOS/assets/icons/system/display-16.png?v=-eFb_G_Zpz8GBaY4evkBU_pciz0Rki5o-5FwpW1Vfx8" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                        <span>Propriedades de Vídeo</span>
+                    </button>
+                </li>
+            </ul>
+        </li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="find">
+                <img src="/PedroOS/assets/icons/system/find-16.png?v=HzRUG6MkHVVc6dmO2QIY_22WElTgoVAVO0wbMsQEH_M" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label"><u>L</u>ocalizar arquivos ou projetos...</span>
+            </button>
+        </li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="welcome">
+                <img src="/PedroOS/assets/icons/system/logo-16.png?v=I-rRj2_7oKSWrh7mqnUm6Cqkv-j0z3wIOWEvpdSMw9U" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label">Boas-vindas</span>
+            </button>
+        </li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="about">
+                <img src="/PedroOS/assets/icons/system/help-16.png?v=0oNPQm-Fsi0D0kLkH9P8RXwjjmufj27-8KyhmOIJ5sk" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label"><u>S</u>obre o PedroOS 95</span>
+            </button>
+        </li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="run">
+                <img src="/PedroOS/assets/icons/system/run-16.png?v=-ntXa2E9vMCJ90ERvpuffdlbL82wMBsbhkVrEJNm_aQ" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label">E<u>x</u>ecutar...</span>
+            </button>
+        </li>
+
+        <li class="start-menu-separator" role="separator"></li>
+
+        <li class="start-menu-item" role="none">
+            <button type="button" class="start-menu-action" role="menuitem" data-open-app="shutdown">
+                <img src="/PedroOS/assets/icons/system/shutdown-16.png?v=WnNGjxuN-F-maa1zG0ON0Cp_Qe8HxQ5LiEU6qfpGTi4" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+                <span class="start-menu-label"><u>D</u>esligar...</span>
+            </button>
+        </li>
+    </ul>
+</nav>
+
+    <div class="context-menu window" id="desktop-context-menu" role="menu" aria-label="Menu de contexto da área de trabalho" hidden>
+    <button type="button" class="context-menu-item" role="menuitem" data-open-app="explorer" data-arg-path="C:\">
+        Abrir o Explorador de Arquivos
+    </button>
+    <button type="button" class="context-menu-item" role="menuitem" data-open-app="projects">
+        Abrir Projetos
+    </button>
+    <button type="button" class="context-menu-item" role="menuitem" data-open-app="resume">
+        Abrir Currículo
+    </button>
+    <div class="context-menu-separator" role="separator"></div>
+    <button type="button" class="context-menu-item" role="menuitem" data-context-action="arrange">
+        Organizar ícones por nome
+    </button>
+    <button type="button" class="context-menu-item" role="menuitem" data-context-action="cascade">
+        Organizar janelas em cascata
+    </button>
+    <button type="button" class="context-menu-item" role="menuitem" data-context-action="refresh">
+        Atualizar área de trabalho
+    </button>
+    <div class="context-menu-separator" role="separator"></div>
+    <button type="button" class="context-menu-item" role="menuitem" data-open-app="display">
+        Propriedades de Vídeo
+    </button>
+    <button type="button" class="context-menu-item" role="menuitem" data-open-app="sysprops">
+        Propriedades do Sistema
+    </button>
+</div>
+
+    <header class="taskbar" id="taskbar" role="banner" aria-label="Barra de tarefas do PedroOS 95">
+    <button type="button"
+            class="start-button"
+            id="start-button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="start-menu"
+            aria-label="Iniciar">
+        <img src="/PedroOS/assets/icons/system/logo-16.png?v=I-rRj2_7oKSWrh7mqnUm6Cqkv-j0z3wIOWEvpdSMw9U" width="16" height="16" alt="" draggable="false" class="pixel-icon" />
+        <span>Iniciar</span>
+    </button>
+
+    <span class="taskbar-divider" aria-hidden="true"></span>
+
+    <div class="taskbar-windows" id="taskbar-windows" role="group" aria-label="Janelas em execução"></div>
+
+    <div class="taskbar-tray" role="region" aria-label="Área de notificação">
+        <button type="button"
+                class="tray-icon-btn"
+                id="tray-sound-toggle"
+                data-sound-toggle
+                aria-label="Alternar efeitos sonoros"
+                title="Efeitos sonoros do sistema">
+            <img id="tray-sound-icon" src="/PedroOS/assets/icons/system/speaker-16.png?v=_jLk7yxoLG-g1kuOwN_MW0RZgLgpXVX3y1Pm0r78-pQ" width="16" height="16" alt="Som ativo" draggable="false" class="pixel-icon" />
+        </button>
+        <button type="button"
+                class="tray-icon-btn"
+                data-open-app="sysprops"
+                aria-label="Abrir Propriedades do Sistema"
+                title="PedroOS 95 — Propriedades do Sistema">
+            <img src="/PedroOS/assets/icons/system/system-16.png?v=j_9K1gCJyET0R8Dw6M8wmkz_uCfJoOUcwZaZ-vBJWB4" width="16" height="16" alt="Sistema" draggable="false" class="pixel-icon" />
+        </button>
+        <time class="taskbar-clock" id="taskbar-clock" aria-live="off">12:00</time>
+    </div>
+</header>
+
+    <div class="bsod-overlay" id="bsod-overlay" role="dialog" aria-modal="true" aria-labelledby="bsod-title" aria-describedby="bsod-message bsod-detail" tabindex="-1" hidden>
+    <div class="bsod-box">
+        <div class="bsod-banner" id="bsod-title">PedroOS 95</div>
+        <p id="bsod-message" data-bsod-message>Memória insuficiente para executar esta operação.</p>
+        <p id="bsod-detail" data-bsod-detail>O gerenciador de memória não conseguiu reservar espaço para outro aplicativo.</p>
+        <p class="bsod-diagnostics"><span data-bsod-code>MEMORY_ALLOCATION_FAILURE</span><br /><span data-bsod-windows></span></p>
+        <ul>
+            <li>Pressione qualquer tecla para tentar continuar.</li>
+            <li>Ao retornar à área de trabalho, feche os aplicativos de que não precisa para liberar recursos do sistema.</li>
+        </ul>
+        <p class="bsod-prompt">Pressione qualquer tecla ou clique para continuar <span class="bsod-cursor">_</span></p>
+    </div>
+</div>
+
+</main>
+
+<script id="pedroos-boot-data" type="application/json">{"apps":[{"id":"explorer","title":"Explorando - C:\\","icon":"explorer","content":"client","defaultWidth":680,"defaultHeight":440,"minWidth":360,"minHeight":260,"resizable":true,"maximizable":true,"multiInstance":true,"hidden":false},{"id":"projects","title":"Projetos - C:\\Projetos","icon":"projects","content":"client","defaultWidth":680,"defaultHeight":450,"minWidth":360,"minHeight":260,"resizable":true,"maximizable":true,"multiInstance":false,"route":"/projects","hidden":false},{"id":"project","title":"Detalhes do projeto","icon":"project","content":"fragment","defaultWidth":880,"defaultHeight":650,"minWidth":360,"minHeight":280,"resizable":true,"maximizable":true,"multiInstance":true,"route":"/projects/{slug}","hidden":true},{"id":"resume","title":"Curr\u00EDculo \u2014 Editor de Documentos","icon":"resume","content":"fragment","defaultWidth":680,"defaultHeight":480,"minWidth":360,"minHeight":280,"resizable":true,"maximizable":true,"multiInstance":false,"route":"/resume","hidden":false},{"id":"sysprops","title":"Propriedades do Sistema","icon":"system","content":"fragment","defaultWidth":580,"defaultHeight":510,"minWidth":360,"minHeight":320,"resizable":true,"maximizable":true,"multiInstance":false,"route":"/skills","hidden":false},{"id":"iexplore","title":"Navegador PedroOS","icon":"iexplore","content":"client","defaultWidth":700,"defaultHeight":470,"minWidth":380,"minHeight":280,"resizable":true,"maximizable":true,"multiInstance":true,"hidden":false},{"id":"linkedin","title":"Pedro Tunin - LinkedIn","icon":"linkedin","content":"fragment","defaultWidth":660,"defaultHeight":480,"minWidth":360,"minHeight":280,"resizable":true,"maximizable":true,"multiInstance":false,"hidden":false},{"id":"github","title":"Pedro Tunin (@Pedroltz) - GitHub","icon":"github","content":"fragment","defaultWidth":680,"defaultHeight":500,"minWidth":360,"minHeight":280,"resizable":true,"maximizable":true,"multiInstance":false,"hidden":false},{"id":"doom","title":"DOOM \u2014 PedroOS 95","icon":"2091-retrogame","content":"client","defaultWidth":720,"defaultHeight":570,"minWidth":320,"minHeight":300,"resizable":true,"maximizable":true,"multiInstance":false,"hidden":false},{"id":"minesweeper","title":"Campo Minado","icon":"minesweeper","content":"client","defaultWidth":280,"defaultHeight":330,"minWidth":200,"minHeight":260,"resizable":true,"maximizable":false,"multiInstance":false,"hidden":false},{"id":"notepad","title":"Leia-me \u2014 Bloco de Notas","icon":"notepad","content":"client","defaultWidth":520,"defaultHeight":380,"minWidth":280,"minHeight":200,"resizable":true,"maximizable":true,"multiInstance":true,"hidden":false},{"id":"terminal","title":"Terminal PedroOS","icon":"msdos","content":"client","defaultWidth":640,"defaultHeight":400,"minWidth":320,"minHeight":200,"resizable":true,"maximizable":true,"multiInstance":true,"hidden":false},{"id":"welcome","title":"Bem-vindo ao PedroOS 95","icon":"logo","content":"fragment","defaultWidth":580,"defaultHeight":390,"minWidth":300,"minHeight":300,"resizable":false,"maximizable":false,"multiInstance":false,"hidden":true},{"id":"about","title":"Sobre o PedroOS 95","icon":"logo","content":"fragment","defaultWidth":510,"defaultHeight":430,"minWidth":340,"minHeight":320,"resizable":true,"maximizable":true,"multiInstance":false,"hidden":false},{"id":"find","title":"Localizar: todos os arquivos","icon":"find","content":"client","defaultWidth":480,"defaultHeight":360,"minWidth":340,"minHeight":260,"resizable":true,"maximizable":true,"multiInstance":false,"hidden":false},{"id":"run","title":"Executar","icon":"run","content":"client","defaultWidth":370,"defaultHeight":200,"minWidth":320,"minHeight":180,"resizable":false,"maximizable":false,"multiInstance":false,"hidden":true},{"id":"display","title":"Propriedades de V\u00EDdeo","icon":"display","content":"client","defaultWidth":420,"defaultHeight":370,"minWidth":340,"minHeight":310,"resizable":false,"maximizable":false,"multiInstance":false,"hidden":false},{"id":"shutdown","title":"Desligar o PedroOS","icon":"shutdown","content":"client","defaultWidth":360,"defaultHeight":230,"minWidth":320,"minHeight":210,"resizable":false,"maximizable":false,"multiInstance":false,"hidden":true}],"vfsRoot":{"id":"drive-c","name":"PedroOS (C:)","type":"drive","path":"C:\\","icon":"drive","action":{"kind":"navigate"},"description":"Disco Local Virtual (C:)","hidden":false,"children":[{"id":"dir-aboutme","name":"SobreMim","type":"folder","path":"C:\\SobreMim","icon":"folder","action":{"kind":"navigate"},"description":"Apresenta\u00E7\u00E3o e instru\u00E7\u00F5es de uso do PedroOS 95","hidden":false,"children":[{"id":"file-readme","name":"Leia-me.txt","type":"text","path":"C:\\SobreMim\\Leia-me.txt","icon":"text","action":{"kind":"open-app","appId":"notepad","args":{"path":"C:\\SobreMim\\Leia-me.txt"}},"description":"Instru\u00E7\u00F5es de navega\u00E7\u00E3o e apresenta\u00E7\u00E3o do PedroOS 95","size":"2 KB","content":"====================================================================\nPEDROOS 95 (Vers\u00E3o 4.00.950) \u2014 LEIA-ME.TXT\n====================================================================\n\nBem-vindo ao PedroOS 95, o portf\u00F3lio interativo de Pedro Tunin!\n\nEste ambiente funciona como um sistema operacional cl\u00E1ssico direto\nno navegador, constru\u00EDdo com ASP.NET Core (.NET 10 LTS), Razor Pages,\nTypeScript, 98.css (adaptado para PedroOS 95) e interact.js.\n\nCOMO NAVEGAR:\n- Duplo clique (ou toque simples no celular) nos \u00EDcones da \u00E1rea de trabalho.\n- Use o bot\u00E3o \u0022Iniciar\u0022 na barra inferior para acessar todos os programas.\n- Arraste janelas pela barra de t\u00EDtulo e redimensione pelas bordas.\n- Abra C:\\Projetos para inspecionar projetos como Ofizzy, RDP Session\n  Manager, TaskProj e AnyComic.\n- Abra Curriculo.doc (Editor de Documentos) para ler ou baixar o curr\u00EDculo em PDF.\n- Abra Propriedades do Sistema para ver as compet\u00EAncias t\u00E9cnicas organizadas\n  como componentes de hardware.\n\nDICAS E ATALHOS DE SISTEMA:\n- Pressione Alt\u002BF4 para fechar a janela ativa.\n- Pressione Ctrl\u002BAlt\u002BB (ou digite \u0022bsod\u0022 em Iniciar \u003E Executar...) para testar\n  a tela azul cl\u00E1ssica de diagn\u00F3stico (pressione qualquer tecla para voltar).\n- No Campo Minado, experimente digitar \u0022xyzzy\u0022 \u002B Enter durante a partida.\n- Ative \u0022Exibir arquivos ocultos\u0022 no Explorador de Arquivos para ver C:\\PEDROOS.","hidden":false}]},{"id":"dir-projects","name":"Projetos","type":"folder","path":"C:\\Projetos","icon":"projects","action":{"kind":"navigate"},"description":"Projetos de software de Pedro Tunin","hidden":false,"children":[{"id":"file-project-ofizzy","name":"Ofizzy.exe","type":"application","path":"C:\\Projetos\\Ofizzy.exe","icon":"ofizzy","action":{"kind":"open-app","appId":"project","args":{"slug":"ofizzy"}},"description":"Plataforma SaaS multi-tenant de gest\u00E3o operacional para prestadores de servi\u00E7os e oficinas automotivas.","size":"64 KB","hidden":false},{"id":"file-project-rdp-session-manager","name":"RDP-Session-Manager.exe","type":"application","path":"C:\\Projetos\\RDP-Session-Manager.exe","icon":"rdp-session-manager","action":{"kind":"open-app","appId":"project","args":{"slug":"rdp-session-manager"}},"description":"Aplica\u00E7\u00E3o desktop nativa GTK 4 / libadwaita para administra\u00E7\u00E3o de sess\u00F5es remotas xrdp e compatibilidade Windows via Wine/umu no Linux.","size":"64 KB","hidden":false},{"id":"file-project-anycomic","name":"AnyComic.exe","type":"application","path":"C:\\Projetos\\AnyComic.exe","icon":"anycomic","action":{"kind":"open-app","appId":"project","args":{"slug":"anycomic"}},"description":"Sistema web em ASP.NET Core MVC para gerenciamento e leitura de mang\u00E1s e cat\u00E1logo de animes.","size":"64 KB","hidden":false},{"id":"file-project-2091-retrogame","name":"2091-RetroGame.exe","type":"application","path":"C:\\Projetos\\2091-RetroGame.exe","icon":"2091-retrogame","action":{"kind":"open-app","appId":"project","args":{"slug":"2091-retrogame"}},"description":"Jogo de aventura textual cyberpunk em C# (.NET 8) com narrativa dirigida por JSON e sistema de save/load.","size":"64 KB","hidden":false},{"id":"dir-more-projects","name":"MaisProjetos","type":"folder","path":"C:\\Projetos\\MaisProjetos","icon":"folder","action":{"kind":"navigate"},"description":"Outros projetos e experimentos no reposit\u00F3rio de trabalho","hidden":false,"children":[{"id":"file-project-autoapply","name":"AutoApply.exe","type":"application","path":"C:\\Projetos\\MaisProjetos\\AutoApply.exe","icon":"autoapply","action":{"kind":"open-app","appId":"project","args":{"slug":"autoapply"}},"description":"Assistente de candidaturas em Python/FastAPI com arquitetura \u0027Zero-Alucina\u00E7\u00E3o\u0027 baseada em Evidence Ledger e revis\u00E3o humana.","size":"32 KB","hidden":false},{"id":"file-project-taskproj","name":"TaskProj.exe","type":"application","path":"C:\\Projetos\\MaisProjetos\\TaskProj.exe","icon":"exe","action":{"kind":"open-app","appId":"project","args":{"slug":"taskproj"}},"description":"Gerenciador de tarefas com Angular, API .NET 9 e autentica\u00E7\u00E3o Firebase.","size":"32 KB","hidden":false},{"id":"file-project-binary-tree-study","name":"BinaryTreeStudy.exe","type":"application","path":"C:\\Projetos\\MaisProjetos\\BinaryTreeStudy.exe","icon":"sys","action":{"kind":"open-app","appId":"project","args":{"slug":"binary-tree-study"}},"description":"Estudo de \u00E1rvores bin\u00E1rias de busca com implementa\u00E7\u00F5es em Python e C\u002B\u002B.","size":"32 KB","hidden":false},{"id":"file-project-uninotes-web","name":"UniNote.exe","type":"application","path":"C:\\Projetos\\MaisProjetos\\UniNote.exe","icon":"document","action":{"kind":"open-app","appId":"project","args":{"slug":"uninotes-web"}},"description":"Aplica\u00E7\u00E3o acad\u00EAmica em Angular para organizar anota\u00E7\u00F5es de aula e tarefas.","size":"32 KB","hidden":false}]}]},{"id":"dir-experience","name":"Experiencia","type":"folder","path":"C:\\Experiencia","icon":"folder","action":{"kind":"navigate"},"description":"Hist\u00F3rico e trajet\u00F3ria profissional","hidden":false,"children":[{"id":"file-career","name":"Carreira.doc","type":"document","path":"C:\\Experiencia\\Carreira.doc","icon":"doc","action":{"kind":"open-app","appId":"resume","args":{"section":"experience"}},"description":"Hist\u00F3rico profissional e experi\u00EAncias (Editor de Documentos)","size":"28 KB","hidden":false}]},{"id":"dir-skills","name":"Habilidades","type":"folder","path":"C:\\Habilidades","icon":"folder","action":{"kind":"navigate"},"description":"Drivers e m\u00F3dulos de compet\u00EAncias t\u00E9cnicas","hidden":false,"children":[{"id":"file-skill-dev","name":"Desenvolvimento.sys","type":"systemFile","path":"C:\\Habilidades\\Desenvolvimento.sys","icon":"sys","action":{"kind":"open-app","appId":"sysprops","args":{"tab":"development"}},"description":"C#, .NET, ASP.NET Core, Python, TypeScript, Angular, SQL","size":"48 KB","hidden":false},{"id":"file-skill-devops","name":"DevOps.sys","type":"systemFile","path":"C:\\Habilidades\\DevOps.sys","icon":"sys","action":{"kind":"open-app","appId":"sysprops","args":{"tab":"devops"}},"description":"Linux, Docker, Docker Compose, GitHub Actions, CI/CD, Bash, Terraform, Kubernetes","size":"44 KB","hidden":false},{"id":"file-skill-ai","name":"InteligenciaArtificial.sys","type":"systemFile","path":"C:\\Habilidades\\InteligenciaArtificial.sys","icon":"sys","action":{"kind":"open-app","appId":"sysprops","args":{"tab":"ai"}},"description":"LLMs, RAG, Embeddings, Agentes de IA, Tool Calling, vLLM","size":"52 KB","hidden":false}]},{"id":"dir-documents","name":"Documentos","type":"folder","path":"C:\\Documentos","icon":"folder","action":{"kind":"navigate"},"description":"Documentos e curr\u00EDculo profissional","hidden":false,"children":[{"id":"file-resume","name":"Curriculo.doc","type":"document","path":"C:\\Documentos\\Curriculo.doc","icon":"resume","action":{"kind":"open-app","appId":"resume"},"description":"Curr\u00EDculo completo de Pedro Tunin no Editor de Documentos","size":"36 KB","hidden":false}]},{"id":"dir-internet","name":"Internet","type":"folder","path":"C:\\Internet","icon":"folder","action":{"kind":"navigate"},"description":"Atalhos para perfis externos e navegador","hidden":false,"children":[{"id":"file-github-url","name":"GitHub.url","type":"shortcut","path":"C:\\Internet\\GitHub.url","icon":"github","action":{"kind":"open-app","appId":"github"},"description":"Perfil oficial no GitHub (https://github.com/Pedroltz)","size":"1 KB","hidden":false},{"id":"file-linkedin-url","name":"LinkedIn.url","type":"shortcut","path":"C:\\Internet\\LinkedIn.url","icon":"linkedin","action":{"kind":"open-app","appId":"linkedin"},"description":"Perfil oficial no LinkedIn (https://www.linkedin.com/in/pedrotunin/)","size":"1 KB","hidden":false}]},{"id":"dir-games","name":"Jogos","type":"folder","path":"C:\\Jogos","icon":"folder","action":{"kind":"navigate"},"description":"Jogos cl\u00E1ssicos do sistema","hidden":false,"children":[{"id":"file-doom","name":"Doom.exe","type":"application","path":"C:\\Jogos\\Doom.exe","icon":"2091-retrogame","action":{"kind":"open-app","appId":"doom"},"description":"Chocolate Doom com Freedoom e op\u00E7\u00E3o de IWAD local","hidden":false},{"id":"file-minesweeper","name":"CampoMinado.exe","type":"application","path":"C:\\Jogos\\CampoMinado.exe","icon":"minesweeper","action":{"kind":"open-app","appId":"minesweeper"},"description":"Campo Minado cl\u00E1ssico (Iniciante, Intermedi\u00E1rio e Avan\u00E7ado)","size":"24 KB","hidden":false},{"id":"file-game2091","name":"2091.exe","type":"application","path":"C:\\Jogos\\2091.exe","icon":"2091-retrogame","action":{"kind":"open-app","appId":"terminal","args":{"command":"2091"}},"description":"2091 \u2014 aventura cyberpunk jog\u00E1vel (pr\u00E9-alpha)","hidden":false}]},{"id":"dir-pedroos-sys","name":"PEDROOS","type":"folder","path":"C:\\PEDROOS","icon":"folder","action":{"kind":"navigate"},"description":"Diret\u00F3rio oculto de sistema e easter eggs","hidden":true,"children":[{"id":"file-credits","name":"Creditos.txt","type":"text","path":"C:\\PEDROOS\\Creditos.txt","icon":"text","action":{"kind":"open-app","appId":"notepad","args":{"path":"C:\\PEDROOS\\Creditos.txt"}},"description":"Cr\u00E9ditos e atribui\u00E7\u00F5es de c\u00F3digo aberto","size":"1 KB","content":"PEDROOS 95 \u2014 CR\u00C9DITOS E LICEN\u00C7AS DE TERCEIROS\n=============================================\n- 98.css (Licen\u00E7a MIT, Copyright (c) 2020 Jordan Scales)\n- interact.js (Licen\u00E7a MIT, Copyright (c) Taye Adeyemi)\n- Pixelarticons (Licen\u00E7a MIT, Copyright (c) Gerrit Halfmann)\n- \u00CDcones de desktop e aplicativos: pixel art 16x16/32x32/48x48\n  original gerada especificamente para o PedroOS 95 seguindo a\n  paleta cl\u00E1ssica de 16 cores do PedroOS 95.\nConsulte THIRD_PARTY_NOTICES.md na raiz do reposit\u00F3rio.","hidden":true},{"id":"file-secret","name":"Segredos.txt","type":"text","path":"C:\\PEDROOS\\Segredos.txt","icon":"text","action":{"kind":"open-app","appId":"notepad","args":{"path":"C:\\PEDROOS\\Segredos.txt"}},"description":"Segredos do PedroOS 95","size":"1 KB","content":"Segredos desbloqueados:\n1. Iniciar \u003E Executar \u003E digite \u0027bsod\u0027 para acionar a tela azul segura.\n2. No Navegador PedroOS, navegue para \u0027about:mozilla\u0027 ou \u0027pedroos://credits\u0027.\n3. No Campo Minado, digite \u0027xyzzy\u0027 \u002B Enter para ativar o radar de pixel no canto superior esquerdo.","hidden":true}]}]},"icons":{"my-computer":{"category":"system","description":"My Computer","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/my-computer-16.png?v=m-zuRkXHt1MFDtvar4hXR8USJ-5wZNT2WvbDFx987dA","32":"/PedroOS/assets/icons/system/my-computer-32.png?v=nGAzfNGuDqPx2BvT4Ir0XH967GaOzFQro7Tkp6Q9JXE","48":"/PedroOS/assets/icons/system/my-computer-48.png?v=FwYe40r6p4EHjTjMVZs7tY02huULvmEDOHBVzr0wt0E"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"drive":{"category":"system","description":"Local disk","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/drive-16.png?v=-ddrxGEMwLUWjkD6TBHQ7y8u8NEql96ZRiSFQ93Xoqw","32":"/PedroOS/assets/icons/system/drive-32.png?v=dhnvP-9gsRsRQ_secfkbEVCb4DmQmtQN-eWKxqwRJa4","48":"/PedroOS/assets/icons/system/drive-48.png?v=toFsLCP09pcZJjcJKz1ybl45i8GEKclsxC0fyz5-fdE"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"folder":{"category":"system","description":"Folder","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/folder-16.png?v=fHQSOkdxN4VJoZqHQKBMda8a__AHan5ci0EACK9gywA","32":"/PedroOS/assets/icons/system/folder-32.png?v=qX9Sz8rEOMOCfJR_GREE9_eAxcAWCWuYAd2HAmMQ4-I","48":"/PedroOS/assets/icons/system/folder-48.png?v=3DRUe1AZEsRGqsDVV0hSZQ4LN3Ls0XelPJZCHNz-WwE"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"folder-open":{"category":"system","description":"Open folder","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/folder-open-16.png?v=3n1-NPqhimoXA2zmqg2Xn_7vzpy0A925G-td3XkwijU","32":"/PedroOS/assets/icons/system/folder-open-32.png?v=ltJ7ojKbRaprwfu-04x3ktpFRgKvAFGZTx0Wld9LmWQ","48":"/PedroOS/assets/icons/system/folder-open-48.png?v=GWuHROJdrQp2fIC_lfyHJnpVOjuI5mWABVolxbTXRA8"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"recycle-bin":{"category":"system","description":"Recycle Bin","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/recycle-bin-16.png?v=Ha7sepvcU9QxJBfr91KXvmNuHwJFBB3dBz8rPTEjNL4","32":"/PedroOS/assets/icons/system/recycle-bin-32.png?v=F3FGc2axIftKxEotIrL60RPSfNKoHjW3wpPTMKcA95k","48":"/PedroOS/assets/icons/system/recycle-bin-48.png?v=hWX_4wnvArp6zP0a90e--_mQN17IQTcEgtL5BsH4N34"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"document":{"category":"system","description":"Document","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/document-16.png?v=QxzNWvVppCZoCg95bM53xcwUkrBZrompBV7oG64W5GY","32":"/PedroOS/assets/icons/system/document-32.png?v=3pjQgfA4E1UyrZdomcoECYdicqnB6RSPKYz9djgg8zA","48":"/PedroOS/assets/icons/system/document-48.png?v=InmkKBNhQ-0-47pj_ADO1GHA0yHvs8I1wDpOp1JRLcM"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"text":{"category":"system","description":"Text document","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/text-16.png?v=zW8AKrbvHrJXNBWLLEXyM8BzV28_9vuBjYKfPyZMK74","32":"/PedroOS/assets/icons/system/text-32.png?v=PwzpOlukmbatud7Wop442VPaf35-s4i9c2y1kUSlnfw","48":"/PedroOS/assets/icons/system/text-48.png?v=B_GsqJbH3OmD_Mi09XDkdU3m7pEQgJpGMZuEx1Fa__I"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"doc":{"category":"system","description":"WordPad document","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/doc-16.png?v=PzQjBmoya9YSAxNkfyPbnPQ_Ot1cNpzqR0eH6KunWwE","32":"/PedroOS/assets/icons/system/doc-32.png?v=LcTBEmpxBOgtYEXrACwf2U0DmSh1gB__WXWY1xm3sSw","48":"/PedroOS/assets/icons/system/doc-48.png?v=lzdwzzIH5baHKscBeiaLAwaq1KwAB0z_KA3upPtO588"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"exe":{"category":"system","description":"Application","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/exe-16.png?v=i2BWxHndS6UP13ToqtgBA-Jjse3mLxjsNMa4mD2MinM","32":"/PedroOS/assets/icons/system/exe-32.png?v=Q-uln9N5Ro1f_5_EDUNjOfUwuBGBL2TCeNsO6XXtTRs","48":"/PedroOS/assets/icons/system/exe-48.png?v=qvIZWqwbze5QYKukVwO_qfSa3OF1VBKNV0PP4dBpzmk"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"sys":{"category":"system","description":"System file","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/sys-16.png?v=DFUxtcrxLlB8Ha4Ufkfq5SUvJ53bYAT1ZBgi_XCJhCs","32":"/PedroOS/assets/icons/system/sys-32.png?v=Pf49y7BMC6W2BQIbST7U0Law7neMkMJIs7LUsydxQtg","48":"/PedroOS/assets/icons/system/sys-48.png?v=M8jOQP3Rp3L-wkZMfORcMXyryxPVutDjNMd3q-CB7kQ"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"url":{"category":"system","description":"Internet shortcut","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/url-16.png?v=vQm6EYRgEZHhqwaKHufj8rdtDax91XINARnS44QLp58","32":"/PedroOS/assets/icons/system/url-32.png?v=WIfdvtZ2woqfHp_YY0cO5UXG9SZ9BNNX1D414t0PP3c","48":"/PedroOS/assets/icons/system/url-48.png?v=mTQaf_2C1Lj1RGTDzQD3ZOUcOXxtrIBBg2amneQ_ElQ"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"control-panel":{"category":"system","description":"Control Panel","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/control-panel-16.png?v=zNUQCapolz5Qa6WB8k-UGyYyMmptRhbsB4UYe90YGOU","32":"/PedroOS/assets/icons/system/control-panel-32.png?v=vfyCQlkWfURVhNCJkPLyXC4i--9KGuR0ocSi2tYM3xk","48":"/PedroOS/assets/icons/system/control-panel-48.png?v=lrkjtfP5lbJwFLT0_2Mw2gHdTRwz5mMgaf3BC_KXPP8"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"display":{"category":"system","description":"Display","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/display-16.png?v=-eFb_G_Zpz8GBaY4evkBU_pciz0Rki5o-5FwpW1Vfx8","32":"/PedroOS/assets/icons/system/display-32.png?v=pV1gbXRYy6pTvYCQXN9FZMcjoggIChZn4rAG85pC20k","48":"/PedroOS/assets/icons/system/display-48.png?v=6UF7qBQAk-vmeZjqxjQ0oP96lxOGtWaLidl3T_24abE"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"system":{"category":"system","description":"System","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/system-16.png?v=j_9K1gCJyET0R8Dw6M8wmkz_uCfJoOUcwZaZ-vBJWB4","32":"/PedroOS/assets/icons/system/system-32.png?v=C7772xutEhHf2y8uJ9Bi3phRw-BwQ0YR8kSP8GKhKlA","48":"/PedroOS/assets/icons/system/system-48.png?v=O199fAS3qTYK9s24vGtKmddoRhn8LXsG6DQXWj9MK_c"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"help":{"category":"system","description":"Help","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/help-16.png?v=0oNPQm-Fsi0D0kLkH9P8RXwjjmufj27-8KyhmOIJ5sk","32":"/PedroOS/assets/icons/system/help-32.png?v=NXnPLnT8QpuwSFw7itIKRM8FCioqQJNOSbWWqxvoIbs","48":"/PedroOS/assets/icons/system/help-48.png?v=Y1TwQtY-2hhO4n-p_LYqxzqUMy_LhLpvaq_kwtJQCIo"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"info":{"category":"system","description":"Information","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/info-16.png?v=xICA987VDbBMFZ4Yn3vBZkIsYUvjmVGoL2PfEgJ84nM","32":"/PedroOS/assets/icons/system/info-32.png?v=UnhwXQMsCc_DLkiAsIAGL0nWyCvZUdHSAA238B3aof4","48":"/PedroOS/assets/icons/system/info-48.png?v=lMBOaNTyF31x_F_YBzA1gNV8BYSb7vuo-FhLwysXxbI"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"warning":{"category":"system","description":"Warning","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/warning-16.png?v=D6AAJFMDZcd1Fzw4_UP-bjtpbR3q5NNmAlxPCVMp1A4","32":"/PedroOS/assets/icons/system/warning-32.png?v=JKG7a0KihYev8N73ZkrSfMy8PiZt6hJLLcMW5KArIRs","48":"/PedroOS/assets/icons/system/warning-48.png?v=E8JUb5OSuSJhddbHMtmssAokUyleQivFdeLLtaRtmkE"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"error":{"category":"system","description":"Error","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/error-16.png?v=KpL36lV6YrVEukV-XHZvopo0sEJ-gtTTuJcgVclnJ8o","32":"/PedroOS/assets/icons/system/error-32.png?v=XcyP8blWKfXjz4IUQ8tQlNKgE23CpoZmJDV90XoeczE","48":"/PedroOS/assets/icons/system/error-48.png?v=RzbFD_Hnk_QLqMb7u3mAmXfi1Q56nbgD37y5of7s9EY"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"run":{"category":"system","description":"Run","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/run-16.png?v=-ntXa2E9vMCJ90ERvpuffdlbL82wMBsbhkVrEJNm_aQ","32":"/PedroOS/assets/icons/system/run-32.png?v=KsULAcW0SKpF_ubucmBYvjXqGmIE22lSLfSdQNVBN88","48":"/PedroOS/assets/icons/system/run-48.png?v=lwbdz2kKit4-bx4nURr7tPfcJhdkIUmqpAddmOF95kk"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"find":{"category":"system","description":"Find","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/find-16.png?v=HzRUG6MkHVVc6dmO2QIY_22WElTgoVAVO0wbMsQEH_M","32":"/PedroOS/assets/icons/system/find-32.png?v=Ud0NqUu5pavg0-lHlPVL7A3SRu5V17bwXgBkqCnHjTg","48":"/PedroOS/assets/icons/system/find-48.png?v=gY2EyRpWfGfMa_v4CrUHg5NCG_fHhOVT9DB6UcUxbuU"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"shutdown":{"category":"system","description":"Shut Down","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/shutdown-16.png?v=WnNGjxuN-F-maa1zG0ON0Cp_Qe8HxQ5LiEU6qfpGTi4","32":"/PedroOS/assets/icons/system/shutdown-32.png?v=e7qzuFXqFoNCNJcMgHifBeWLU-V1wKcPD9jfHKuz7O0","48":"/PedroOS/assets/icons/system/shutdown-48.png?v=DIhoaGIq299xDGsRcCAeIisl9hx_6F4j93BhoEgdQec"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"power":{"category":"system","description":"Power","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/power-16.png?v=_oCE5XjV7d6Cq2dQP-kY3KQjYynd1m31MSOYugBlYSM","32":"/PedroOS/assets/icons/system/power-32.png?v=5L_vWAmbwvJX9P1W0YrlIuti8S_u-lCfPXtWG7rkbDk","48":"/PedroOS/assets/icons/system/power-48.png?v=ZNfa6tzksn-rDqYYWEpDlLXTCn1lDPfgHBos4FvbhbY"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"logo":{"category":"system","description":"PedroOS logo","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/logo-16.png?v=I-rRj2_7oKSWrh7mqnUm6Cqkv-j0z3wIOWEvpdSMw9U","32":"/PedroOS/assets/icons/system/logo-32.png?v=6ykxDY6c7HW9mIsUPy--eHx_6YKoKnetMb9r4pZnRW8","48":"/PedroOS/assets/icons/system/logo-48.png?v=pVn8nWKrZ8x4XacaBwEEnFFcWFPfPaHikAvFGOIMmFI"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"speaker":{"category":"system","description":"Volume","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/speaker-16.png?v=_jLk7yxoLG-g1kuOwN_MW0RZgLgpXVX3y1Pm0r78-pQ","32":"/PedroOS/assets/icons/system/speaker-32.png?v=apODj2WHvtKcCPTNx2QcUbekgc_lt9vtEEAZP3J4H_o","48":"/PedroOS/assets/icons/system/speaker-48.png?v=r3ivnG5D5nf7jonbC4ipfBHzdFo6ALSALw2hewQ0NMQ"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"speaker-muted":{"category":"system","description":"Volume muted","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/system/speaker-muted-16.png?v=Vk_cLsYBmZqEkQPkC5TEWRw1vFb6gi-ZYN_0V6TafOY","32":"/PedroOS/assets/icons/system/speaker-muted-32.png?v=wZ9cOaPrzoLP_7alhOjpw-sXDHAEKH2IxN2ZWcjLmLI","48":"/PedroOS/assets/icons/system/speaker-muted-48.png?v=6_ZpmZxmlQJ7VSIyMu0RuklhLqg71ziFMQzoHO_xNxU"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"explorer":{"category":"applications","description":"Explorer","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/explorer-16.png?v=QUwGqWoEXAxYQd1Aesb2yYjCFROCHVPUmtbuvSoj0L8","32":"/PedroOS/assets/icons/applications/explorer-32.png?v=IBbWagv9aYEo8Ew-g9U48WWw0vq5tF_s07ekbkh9Gzs","48":"/PedroOS/assets/icons/applications/explorer-48.png?v=XSCtU51yRjpXQnpLk29lx7TJluJZXz9R_Boa1G6Tfjo"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"iexplore":{"category":"applications","description":"Internet Explorer","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/iexplore-16.png?v=GgUlARRNcKjVYeBA9OpKhSLm__dIJ6YHPQ8P4YDOZcA","32":"/PedroOS/assets/icons/applications/iexplore-32.png?v=YOYWasT6mloTm9mPx9fgIq1g2fRUn7uTNnTHv3YQxTI","48":"/PedroOS/assets/icons/applications/iexplore-48.png?v=P-LS8wmQSHdtvNMwF9hEpUgFX7vODy1fuG37LlvObJw"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"minesweeper":{"category":"applications","description":"Minesweeper","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/minesweeper-16.png?v=QtckIC8kE8yRaoYYOkfJigbXRlIpL5-IVv-doGVchk8","32":"/PedroOS/assets/icons/applications/minesweeper-32.png?v=6X7i390yVHgqsC71b6mZOFzP-ULrKVVTmaQw_3r5fnc","48":"/PedroOS/assets/icons/applications/minesweeper-48.png?v=y6aGxwZaDzSQ35TYnGq29aHrNJh8MHra3YM8M61XJMQ"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"projects":{"category":"applications","description":"Projects","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/projects-16.png?v=FOoGZfmkXZy-Sf5rsSTsQuT4_m9ySTlEmfEyp9N9GkI","32":"/PedroOS/assets/icons/applications/projects-32.png?v=xXOK9xgbB09CaOYMvZSMUFvWYOsxHWeptzcCdl2A818","48":"/PedroOS/assets/icons/applications/projects-48.png?v=KufYZtO8-28ljExtFAdLaOzWD2LoI8VzRtI40BaaBfk"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"resume":{"category":"applications","description":"Resume","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/resume-16.png?v=VL9z1RBGVd3-7zN6ebG_p8GGhK3jzO1F_E3RWrQ5dxo","32":"/PedroOS/assets/icons/applications/resume-32.png?v=sSJx-ZN-lWoefAdV1xMkKP0rdcw1L9n2Tgt6AsUYaVk","48":"/PedroOS/assets/icons/applications/resume-48.png?v=y4CYs3wMfHv3JeqqQb2d3DXkjlwgyRLvbgr1tF-MAoc"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"notepad":{"category":"applications","description":"Notepad","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/notepad-16.png?v=zW8AKrbvHrJXNBWLLEXyM8BzV28_9vuBjYKfPyZMK74","32":"/PedroOS/assets/icons/applications/notepad-32.png?v=PwzpOlukmbatud7Wop442VPaf35-s4i9c2y1kUSlnfw","48":"/PedroOS/assets/icons/applications/notepad-48.png?v=B_GsqJbH3OmD_Mi09XDkdU3m7pEQgJpGMZuEx1Fa__I"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"msdos":{"category":"applications","description":"MS-DOS Prompt","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/msdos-16.png?v=QreCc5kELnGwxZuNEY_DliY0YBRMvAZWOygQe4ELxVY","32":"/PedroOS/assets/icons/applications/msdos-32.png?v=e3iQ8fHborODJAo0mcdok8ErUwweRqJciA2ynau8Fko","48":"/PedroOS/assets/icons/applications/msdos-48.png?v=b9ncdYkJbKK0uyeww6CC-qLp7MPJpsKAWT6BIjvPxyc"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"github":{"category":"applications","description":"GitHub","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/github-16.png?v=jdcBBCaRVaFBSXVvGIihcN2mW4CkP9en0pOipmnkyj4","32":"/PedroOS/assets/icons/applications/github-32.png?v=Gi49PIIsxbwtF4-tNW1aWdIAOjoUQYOWjjAiQ3xPjk0","48":"/PedroOS/assets/icons/applications/github-48.png?v=5N4RBl-RG7ii5CEX5xNLrHuh7hhm5c9Gd6VWPTmrhM8"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"linkedin":{"category":"applications","description":"LinkedIn","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/applications/linkedin-16.png?v=RiG2tP4inwUhy_DJ19AyfBvEpnci9xF8puHjuFh9Emc","32":"/PedroOS/assets/icons/applications/linkedin-32.png?v=lz6AnJXfiG-vWqYXTEPV2wdr3r72B3NglmvHeuVS51w","48":"/PedroOS/assets/icons/applications/linkedin-48.png?v=OtI3K-Agq7g5hysDy61M3h3b7RpkTF7LxTQ9pJuyhcI"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"ofizzy":{"category":"projects","description":"Ofizzy","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/projects/ofizzy-16.png?v=AXKF4xjhVKiZCThcqEh-DH3pqQTYUfwem3rr_cYuEqc","32":"/PedroOS/assets/icons/projects/ofizzy-32.png?v=7N2CtxlLoqq9oVkTLi6PRUcnMxVwz1uOdbw1_Hwy3Xc","48":"/PedroOS/assets/icons/projects/ofizzy-48.png?v=RhlPgAP2Xbd4gOXIvaLrcwC30WoKlABfe2RKpFYGX0g"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"anycomic":{"category":"projects","description":"AnyComic illustrated comic book","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/projects/anycomic-16.png?v=SbKXXVl7cVwn0DSKVUu_nhi4yBNjvYENA1H1GaxL694","32":"/PedroOS/assets/icons/projects/anycomic-32.png?v=cqJE_C9JwemCNDPcQu9q5vhUHUL8t-YWlGuzqOMj36k","48":"/PedroOS/assets/icons/projects/anycomic-48.png?v=hLqdr7YRsnzvTEo3606OUmt7JEOGGJpGnvKy5oL-WCw"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16,32]},"2091-retrogame":{"category":"projects","description":"2091 retro game controller","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/projects/2091-retrogame-16.png?v=wEw6A00e2vs3BcYD3oleL1yPFjub2umHVMBdlDBrkPg","32":"/PedroOS/assets/icons/projects/2091-retrogame-32.png?v=9c9awG_y7j1C41TiytfQJ15R-lt9eXJFb8vAAkMysAI","48":"/PedroOS/assets/icons/projects/2091-retrogame-48.png?v=n1ym8tCBKMa1QljHgmBn0Y_SgVRS6woafWrHgAWTCAI"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16,32]},"autoapply":{"category":"projects","description":"AutoApply automated form","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/projects/autoapply-16.png?v=6cHoD5R3U4czPopsEWKk7uuU9BK8YbAY4JrIeabShPA","32":"/PedroOS/assets/icons/projects/autoapply-32.png?v=XxL5vVoxrwesZXbuaUY6va8op8NhyKH38mzpfgq85vg","48":"/PedroOS/assets/icons/projects/autoapply-48.png?v=YtJkEqZkMp2TjPjHE195SzGhPS5Prn_LVYAT1UT64FE"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16,32]},"rdp-session-manager":{"category":"projects","description":"RDP Session Manager","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/projects/rdp-session-manager-16.png?v=JKeUOsunEQ54P06f066Bn51rF49GgbniFZRYnvYvG-U","32":"/PedroOS/assets/icons/projects/rdp-session-manager-32.png?v=rcH1nEiWvxuXetcbNtDRREWrT3XU1UHW9IIWMCOgKQg","48":"/PedroOS/assets/icons/projects/rdp-session-manager-48.png?v=KvDcBEGn4rpVI-caLys8SxO9SWDqJDsvWm0A7UiJIA4"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"project":{"category":"projects","description":"Project","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/projects/project-16.png?v=KIH05HPpvxZ6tPrj1XFYu_DVNXVQKbG55egM_gkNHbk","32":"/PedroOS/assets/icons/projects/project-32.png?v=C1Xl43lr0LRPBqrV7J39Jzjzu4PktbdHaMdN0MkrwAg","48":"/PedroOS/assets/icons/projects/project-48.png?v=xa8-M01Okz246Pflikb1jcB7yhp9pHbvkJBOkSeh1gA"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"mine":{"category":"ui","description":"Mine","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/ui/mine-16.png?v=QtckIC8kE8yRaoYYOkfJigbXRlIpL5-IVv-doGVchk8","32":"/PedroOS/assets/icons/ui/mine-32.png?v=6X7i390yVHgqsC71b6mZOFzP-ULrKVVTmaQw_3r5fnc","48":"/PedroOS/assets/icons/ui/mine-48.png?v=y6aGxwZaDzSQ35TYnGq29aHrNJh8MHra3YM8M61XJMQ"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"flag":{"category":"ui","description":"Flag","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/ui/flag-16.png?v=SGXCKvA6hG5Egez04SctIEcCOrPgaGMjzoG3FTT0Ngw","32":"/PedroOS/assets/icons/ui/flag-32.png?v=hD9c5NVXUvNnfSIfl08bmZjkVDHEs4S645J3pcSI_VI","48":"/PedroOS/assets/icons/ui/flag-48.png?v=Ama1PTOYCN0fn81-gwnpjIhHhPdvkarrYOhhLZ3tsWM"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"face-smile":{"category":"ui","description":"Smile","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/ui/face-smile-16.png?v=8GH_3XEMTQo_1GmL3JcUmHtlef1Ghe5mPUWkDjB9dR4","32":"/PedroOS/assets/icons/ui/face-smile-32.png?v=YIrj2eLfkt92fZRF6onOEDSLyUdzPyDpimOuewjnFfA","48":"/PedroOS/assets/icons/ui/face-smile-48.png?v=_pNBEAkBmr7_ZJdoCj6OyZPKHkQxK0a4aIxaNp7eu7c"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"face-wow":{"category":"ui","description":"Surprised","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/ui/face-wow-16.png?v=bsQVYbOEhDZ3fTIruSauuldKvhS757oETsmTSA1uGAA","32":"/PedroOS/assets/icons/ui/face-wow-32.png?v=d4qcFhLZsrxXGN4nMdsmOo6d8K1PnpjQ2gDA6DjTsaM","48":"/PedroOS/assets/icons/ui/face-wow-48.png?v=pVsBQMgNYdEEGGix_7-g-K-_DGS5LhRd2GmmyIVKSrs"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"face-dead":{"category":"ui","description":"Game over","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/ui/face-dead-16.png?v=QE2IN8RkvCBpuzWibxCErvG3DhTRZFxQma5MMFY1tIA","32":"/PedroOS/assets/icons/ui/face-dead-32.png?v=2yQ77yKCcW8xpz0VkcF66b7-G95Gfado0ZsRrp4wd5Q","48":"/PedroOS/assets/icons/ui/face-dead-48.png?v=RRzashX5wdUWurlf4_P74OaktzEhIh0AzuxzqK2ZZxI"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"face-cool":{"category":"ui","description":"Winner","sizes":[16,32,48],"variants":{"16":"/PedroOS/assets/icons/ui/face-cool-16.png?v=yTS1JogoGbp4-KGD7QWJK8wAirzNK1WVlSVKoCiQDi4","32":"/PedroOS/assets/icons/ui/face-cool-32.png?v=gZFC9hK9j_upmvheIlzgomACLf02A5DkRAA9FA0V7lI","48":"/PedroOS/assets/icons/ui/face-cool-48.png?v=SvwrIpp0QN4qI8ZcCZTf1cgquvStip6zs8EwvuW2C5Q"},"fallback":"exe","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-arrow-left":{"category":"ui","description":"arrow-left","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-arrow-left-16.png?v=7ImOVZsAGsH89f3C4Il6id61emC4tH1ZKmXBTeChh4M"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-arrow-right":{"category":"ui","description":"arrow-right","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-arrow-right-16.png?v=9V8hYJHUSVy9QLtDxucuC_PgDwSQ4AT8r9QB7wmONO4"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-arrow-up":{"category":"ui","description":"arrow-up","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-arrow-up-16.png?v=kUbfPP60vDuaCwA6xsjJ_-BGZc7kIKHtRnoSJuHH_LQ"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-reload":{"category":"ui","description":"reload","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-reload-16.png?v=LYyZt4yHpqs364U_VGgDj8YuG5NO_h3viLqw6bchfxk"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-home":{"category":"ui","description":"home","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-home-16.png?v=8fSCvso9SEpumbE0M-8dtLjE3ibXRd9RzYEGzzcxt_w"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-close":{"category":"ui","description":"close","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-close-16.png?v=XQblVNnhVxqdo7oCAGDfiYA4-CgqWb5MHHv3l2N3QRA"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-search":{"category":"ui","description":"search","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-search-16.png?v=OPoRjVPBj2I7LKwPNHEfRg1pQj_6p2Ln7fZj_DSqwpA"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-bookmark":{"category":"ui","description":"bookmark","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-bookmark-16.png?v=0--qQq6t14nIREs1jX8ZjN_Fh8nbkuqcrFfGcdI8Caw"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-external-link":{"category":"ui","description":"external-link","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-external-link-16.png?v=C15p84m_GnsMR6nfnokulVSPzL10FYGf5S5LCgAe8a0"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-printer":{"category":"ui","description":"printer","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-printer-16.png?v=TcDfgqCQIa6BVmxCiSO1OBb06-lu7I07aE1ruud-MJs"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-download":{"category":"ui","description":"download","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-download-16.png?v=C15p84m_GnsMR6nfnokulVSPzL10FYGf5S5LCgAe8a0"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-mail":{"category":"ui","description":"mail","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-mail-16.png?v=DXPtcSFqAihNxn3WaKUPj89uCg4jb27THElR15E6Em8"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-folder":{"category":"ui","description":"folder","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-folder-16.png?v=FhbgYxDUmb3K7KKhgtM99rNqZQOAAV8KVCBGUUt4r4w"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-file":{"category":"ui","description":"file","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-file-16.png?v=0--qQq6t14nIREs1jX8ZjN_Fh8nbkuqcrFfGcdI8Caw"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-cut":{"category":"ui","description":"cut","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-cut-16.png?v=dIq6y59SPAIuxHkLslEZVEdhpJ5fUf538llhzM9_zP0"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-copy":{"category":"ui","description":"copy","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-copy-16.png?v=lQhnZvnMCrVJMuVc-S_XmQ5aaVnhBAgATjUrB7G1Eco"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-clipboard":{"category":"ui","description":"clipboard","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-clipboard-16.png?v=olUGvDxvopZXz7CGBK41FrtjBSuZ4f4epOZf5eTogP8"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-undo":{"category":"ui","description":"undo","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-undo-16.png?v=LYyZt4yHpqs364U_VGgDj8YuG5NO_h3viLqw6bchfxk"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-trash":{"category":"ui","description":"trash","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-trash-16.png?v=WQflxZNT-cG3HPjv8jBbPutLToHFbVOmY9Vv3GBw9_o"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-sliders":{"category":"ui","description":"sliders","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-sliders-16.png?v=KtiZ6VVyLbUbTTAAhMgS2rqg3PQXBmVroVR5U_-LVPw"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-layout":{"category":"ui","description":"layout","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-layout-16.png?v=0J5FA2gxX5Zk1NAz-CesSHM_rXLbNpspcaXIFvxvRpc"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-grid-3x3":{"category":"ui","description":"grid-3x3","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-grid-3x3-16.png?v=0J5FA2gxX5Zk1NAz-CesSHM_rXLbNpspcaXIFvxvRpc"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-bulletlist":{"category":"ui","description":"bulletlist","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-bulletlist-16.png?v=GsiIoI5MsGlTlLdR8xaXXgJ28wmL-Kgl07V7VFLejLA"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-card-text":{"category":"ui","description":"card-text","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-card-text-16.png?v=v2nF1cC_sz-YfRIst-nMMdOqTRKeOVxGDO8C4TnThBM"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]},"glyph-check":{"category":"ui","description":"check","sizes":[16],"variants":{"16":"/PedroOS/assets/icons/ui/glyph-check-16.png?v=e1RXGtL4sBOz6jnDJz2e1T7Iz8DsixgdsO9P1o2J73g"},"fallback":"glyph-file","attribution":"Original PedroOS pixel artwork","nativeSizes":[16]}},"projects":[{"slug":"ofizzy","name":"Ofizzy","executableName":"Ofizzy.exe","icon":"ofizzy","summary":"Plataforma SaaS multi-tenant de gest\u00E3o operacional para prestadores de servi\u00E7os e oficinas automotivas.","stack":["C#",".NET 10","ASP.NET Core 10 Web API","Entity Framework Core","PostgreSQL 18","Angular 21","TypeScript","PrimeNG","Tailwind CSS","QuestPDF","Nginx","Docker Compose","GitHub Actions"],"repositoryUrl":"https://github.com/Pedroltz/ofizzy","featured":true},{"slug":"rdp-session-manager","name":"RDP Session Manager","executableName":"RDP-Session-Manager.exe","icon":"rdp-session-manager","summary":"Aplica\u00E7\u00E3o desktop nativa GTK 4 / libadwaita para administra\u00E7\u00E3o de sess\u00F5es remotas xrdp e compatibilidade Windows via Wine/umu no Linux.","stack":["Python","GTK 4","libadwaita","Linux","xrdp","FreeRDP","Wine / umu","PolicyKit","Bash","GitHub Actions"],"repositoryUrl":"https://github.com/Pedroltz/rdp-session-manager","demoUrl":"https://pedroltz.github.io/rdp-session-manager/","featured":true},{"slug":"anycomic","name":"AnyComic","executableName":"AnyComic.exe","icon":"anycomic","summary":"Sistema web em ASP.NET Core MVC para gerenciamento e leitura de mang\u00E1s e cat\u00E1logo de animes.","stack":["C#","ASP.NET Core 8 MVC","Entity Framework Core 9","PostgreSQL 15"],"repositoryUrl":"https://github.com/Pedroltz/AnyComic","featured":true},{"slug":"2091-retrogame","name":"2091 \u2014 RetroGame","executableName":"2091-RetroGame.exe","icon":"2091-retrogame","summary":"Jogo de aventura textual cyberpunk em C# (.NET 8) com narrativa dirigida por JSON e sistema de save/load.","stack":["C#",".NET 8","JSON"],"repositoryUrl":"https://github.com/Pedroltz/2091-RetroGame","featured":true},{"slug":"autoapply","name":"AutoApply (Evidence Ledger)","executableName":"AutoApply.exe","icon":"autoapply","summary":"Assistente de candidaturas em Python/FastAPI com arquitetura \u0027Zero-Alucina\u00E7\u00E3o\u0027 baseada em Evidence Ledger e revis\u00E3o humana.","stack":["Python 3.12","FastAPI","SQLAlchemy 2.0 Async","Pydantic v2","SQL"],"featured":false},{"slug":"taskproj","name":"TaskProj","executableName":"TaskProj.exe","icon":"exe","summary":"Gerenciador de tarefas com Angular, API .NET 9 e autentica\u00E7\u00E3o Firebase.","stack":["Angular","TypeScript",".NET 9","ASP.NET Core Web API","Entity Framework Core","SQL Server","Firebase Authentication"],"repositoryUrl":"https://github.com/Pedroltz/TaskProj","featured":false},{"slug":"binary-tree-study","name":"BinaryTreeStudy","executableName":"BinaryTreeStudy.exe","icon":"sys","summary":"Estudo de \u00E1rvores bin\u00E1rias de busca com implementa\u00E7\u00F5es em Python e C\u002B\u002B.","stack":["Python","C\u002B\u002B","Estruturas de dados","\u00C1rvore bin\u00E1ria de busca"],"repositoryUrl":"https://github.com/Pedroltz/BinaryTreeStudy","featured":false},{"slug":"uninotes-web","name":"UniNote","executableName":"UniNote.exe","icon":"document","summary":"Aplica\u00E7\u00E3o acad\u00EAmica em Angular para organizar anota\u00E7\u00F5es de aula e tarefas.","stack":["Angular","TypeScript","Bootstrap",".NET 6 (API integrada)","Entity Framework Core (API integrada)"],"repositoryUrl":"https://github.com/Pedroltz/uninotes-web","featured":false}],"initialRoute":{"path":"/projects/autoapply","appId":"project","args":{"slug":"autoapply"},"notFound":false}}</script>
+
+    <script src="/PedroOS/js/pedroos.js?v=wVBUFk9NdNUMn3NBOuDhxUwag3mM2bLFSrCz4xHiW7M" defer></script>
+</body>
+</html>

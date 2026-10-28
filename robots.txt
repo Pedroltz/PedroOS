@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://Pedroltz.github.io/PedroOS/sitemap.xml
