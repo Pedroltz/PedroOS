@@ -70,7 +70,11 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseRouting();
 app.UseCors();
 app.UseWebSockets(new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(30), KeepAliveTimeout = TimeSpan.FromSeconds(20) });
-app.MapGet("/api/game2091/status", (HttpContext context, Game2091TerminalService terminal) => Results.Ok(new { available = terminal.Available, busy = terminal.IsBusy(context) }));
+app.MapGet("/api/game2091/status", (HttpContext context, Game2091TerminalService terminal) =>
+{
+    context.Response.Headers.CacheControl = "no-store";
+    return Results.Ok(new { available = terminal.Available, busy = terminal.IsBusy(context) });
+}).RequireCors("PagesHealth");
 app.Map("/api/game2091/terminal", (HttpContext context, Game2091TerminalService terminal) => terminal.HandleAsync(context));
 
 app.MapGet("/resume/pdf", (IResumePdfService pdfService) =>

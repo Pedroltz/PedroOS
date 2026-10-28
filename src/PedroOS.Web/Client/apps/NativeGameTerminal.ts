@@ -1,5 +1,33 @@
 import type { Terminal as XTerm } from '@xterm/xterm';
-import { withBase } from '../core/BasePath.js';
+import { IS_STATIC, withBase } from '../core/BasePath.js';
+
+const TUNNEL_GIST_URL = 'https://api.github.com/gists/f2c4bf1b6963b96f45da7b3e006ba8b6';
+const VISITOR_STORAGE_KEY = 'pedroos.2091.visitor';
+
+function getOrCreateVisitorId(): string {
+  try {
+    const existing = localStorage.getItem(VISITOR_STORAGE_KEY);
+    if (existing && /^[0-9a-f]{64}$/i.test(existing)) return existing.toLowerCase();
+    const bytes = new Uint8Array(32);
+    crypto.getRandomValues(bytes);
+    const created = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+    localStorage.setItem(VISITOR_STORAGE_KEY, created);
+    return created;
+  } catch {
+    return '';
+  }
+}
+
+async function resolveBackendOrigin(signal: AbortSignal): Promise<string | null> {
+  if (!IS_STATIC) return null;
+  const res = await fetch(TUNNEL_GIST_URL, { cache: 'no-store', signal });
+  if (!res.ok) return null;
+  const data = await res.json();
+  const raw = data?.files?.['pedroos-tunnel.json']?.content;
+  if (typeof raw !== 'string') return null;
+  const parsed = JSON.parse(raw) as { url?: string };
+  return parsed?.url ? parsed.url.replace(/\/+$/, '') : null;
+}
 
 /** Only transport/rendering lives here. All gameplay runs in the original C# executable. */
 export class NativeGameTerminal {
@@ -22,9 +50,14 @@ export class NativeGameTerminal {
     this.container.addEventListener('pointerdown', this.resumeMusic);
     this.container.addEventListener('keydown', this.resumeMusic);
     try {
+      const remoteOrigin = await resolveBackendOrigin(this.abort.signal);
+      const visitorId = remoteOrigin ? getOrCreateVisitorId() : '';
+      const statusUrl = remoteOrigin
+        ? `${remoteOrigin}/api/game2091/status${visitorId ? `?visitor=${visitorId}` : ''}`
+        : withBase('/api/game2091/status');
       const deadline = Date.now() + 7000;
       while (!this.done) {
-        const status = await fetch(withBase('/api/game2091/status'), { signal: this.abort.signal });
+        const status = await fetch(statusUrl, { signal: this.abort.signal });
         if (!status.ok) throw new Error('backend');
         const availability = await status.json();
         if (!availability.available) throw new Error('backend');
@@ -62,10 +95,13 @@ export class NativeGameTerminal {
       });
       host.querySelector('textarea')?.setAttribute('aria-label', 'Entrada do jogo 2091');
       this.resize();
-      const endpoint = new URL(withBase('/api/game2091/terminal'), location.href);
+      const endpoint = remoteOrigin
+        ? new URL('/api/game2091/terminal', remoteOrigin)
+        : new URL(withBase('/api/game2091/terminal'), location.href);
       endpoint.protocol = endpoint.protocol === 'https:' ? 'wss:' : 'ws:';
       endpoint.searchParams.set('cols', String(this.cols));
       endpoint.searchParams.set('rows', String(this.rows));
+      if (visitorId) endpoint.searchParams.set('visitor', visitorId);
       this.socket = new WebSocket(endpoint);
       this.input = this.terminal.onData((data) => this.send({ type: 'input', data }));
       this.socket.onopen = () => {

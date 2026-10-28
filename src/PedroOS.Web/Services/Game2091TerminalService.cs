@@ -13,7 +13,7 @@ public sealed class Game2091TerminalOptions
     public string GameDirectory { get; set; } = Path.Combine(AppContext.BaseDirectory, "game2091");
     public string DataDirectory { get; set; } = ".local-data/game2091";
     public string Python { get; set; } = "python3";
-    public string[] AllowedOrigins { get; set; } = [];
+    public string[] AllowedOrigins { get; set; } = ["https://pedroltz.github.io"];
     public int MaxSessions { get; set; } = 4;
     public int IdleMinutes { get; set; } = 15;
     public int LifetimeMinutes { get; set; } = 120;
@@ -38,9 +38,14 @@ public sealed class Game2091TerminalService : IDisposable
         _slots = new SemaphoreSlim(Math.Clamp(_options.MaxSessions, 1, 32));
     }
 
+    private static string? GetValidVisitorId(string? value) =>
+        value is { Length: 64 } && value.All(char.IsAsciiHexDigit) ? value.ToLowerInvariant() : null;
+
     public bool Available => _options.Enabled && OperatingSystem.IsLinux()
         && File.Exists(Path.Combine(_options.GameDirectory, "Game2091.Native.dll")) && File.Exists(_helper);
-    public bool IsBusy(HttpContext context) => context.Request.Cookies[CookieName] is { } visitor && _active.ContainsKey(visitor);
+    public bool IsBusy(HttpContext context) =>
+        (GetValidVisitorId(context.Request.Cookies[CookieName]) ?? GetValidVisitorId(context.Request.Query["visitor"])) is { } visitor
+        && _active.ContainsKey(visitor);
 
     public async Task HandleAsync(HttpContext context)
     {
@@ -51,8 +56,9 @@ public sealed class Game2091TerminalService : IDisposable
         if (!string.Equals(origin, sameOrigin, StringComparison.OrdinalIgnoreCase)
             && !_options.AllowedOrigins.Contains(origin, StringComparer.OrdinalIgnoreCase))
         { context.Response.StatusCode = 403; return; }
-        var visitor = context.Request.Cookies[CookieName];
-        if (visitor is null || visitor.Length != 64 || visitor.Any(c => !char.IsAsciiHexDigit(c)))
+        var visitor = GetValidVisitorId(context.Request.Cookies[CookieName])
+            ?? GetValidVisitorId(context.Request.Query["visitor"]);
+        if (visitor is null)
         {
             visitor = Convert.ToHexString(RandomNumberGenerator.GetBytes(32)).ToLowerInvariant();
             context.Response.Cookies.Append(CookieName, visitor, new CookieOptions
