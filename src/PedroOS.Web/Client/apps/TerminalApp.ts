@@ -1,7 +1,7 @@
 import { mountClassicMenu } from '../components/ClassicMenu.js';
 import type { AppMountContext, ClientAppModule, VirtualNode } from '../types/index.js';
 import { VirtualFileSystemClient } from '../core/VirtualFileSystemClient.js';
-import { NativeGameTerminal } from './NativeGameTerminal.js';
+import { secrets } from '../core/SecretSession.js';
 
 const BANNER = [
   'PedroOS 95',
@@ -16,12 +16,12 @@ const HELP = [
   '  COLOR [xy]      Muda as cores (ex.: COLOR 0A). COLOR sem argumento restaura',
   '  DATE            Mostra a data atual',
   '  DIR [caminho]    Lista arquivos e pastas (/B: nomes, /A: ocultos)',
+  '  DOOM            Abre o DOOM em sua própria janela (executado no navegador)',
   '  ECHO texto      Exibe uma mensagem',
   '  EXIT / SAIR     Fecha o prompt',
   '  HELP            Mostra esta lista',
   '  MEM             Mostra a memória (virtual)',
   '  START app       Abre um programa (explorador, bloco, navegador, campominado...)',
-  '  2091            Abre a aventura cyberpunk 2091',
   '  TIME            Mostra a hora atual',
   '  TITLE texto     Muda o título da janela',
   '  TREE [caminho]  Mostra a árvore de pastas',
@@ -108,7 +108,6 @@ export class TerminalApp implements ClientAppModule {
             <input type="text" class="terminal-input" data-terminal-input spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Linha de comando" />
           </form>
         </div>
-        <div class="terminal-native" data-terminal-native hidden></div>
         <div class="status-bar">
           <p class="status-bar-field" data-terminal-path>C:\\</p>
           <p class="status-bar-field">HELP: comandos · TAB: completar</p>
@@ -122,8 +121,6 @@ export class TerminalApp implements ClientAppModule {
     const promptEl = ctx.container.querySelector<HTMLElement>('[data-terminal-prompt]')!;
     const input = ctx.container.querySelector<HTMLInputElement>('[data-terminal-input]')!;
     const pathLabel = ctx.container.querySelector<HTMLElement>('[data-terminal-path]')!;
-    const nativeContainer = ctx.container.querySelector<HTMLElement>('[data-terminal-native]')!;
-    let native: NativeGameTerminal | undefined;
     let disposed = false;
 
     let cwd = 'C:\\';
@@ -142,30 +139,13 @@ export class TerminalApp implements ClientAppModule {
     };
 
     const updatePrompt = (): void => {
+      secrets.visit(cwd);
       promptEl.textContent = `${cwd}>`;
       pathLabel.textContent = cwd;
     };
 
-    const startNativeGame = (): void => {
-      if (native) { native.focus(); return; }
-      const wasMaximized = ctx.container.closest('.os-window')?.classList.contains('maximized');
-      ctx.windowManager.maximize(ctx.windowId);
-      screen.hidden = true;
-      nativeContainer.hidden = false;
-      native = new NativeGameTerminal(nativeContainer, (message) => {
-        native = undefined;
-        if (disposed) return;
-        if (wasMaximized) ctx.windowManager.maximize(ctx.windowId);
-        else ctx.windowManager.restore(ctx.windowId);
-        nativeContainer.hidden = true;
-        screen.hidden = false;
-        ctx.setTitle('Terminal PedroOS', 'msdos');
-        print(['', message, '']);
-        updatePrompt();
-        input.focus();
-        screen.scrollTop = screen.scrollHeight;
-      });
-      void native.start();
+    const startDoom = (): void => {
+      ctx.windowManager.open('doom', { args: { autoStart: 'true' } });
     };
 
     const resolve = (raw: string): string => {
@@ -274,13 +254,8 @@ export class TerminalApp implements ClientAppModule {
         case 'doom':
         case 'doom.exe':
         case 'freedoom':
-          ctx.windowManager.open('doom');
-          break;
-        case '2091':
-        case '2091.exe':
-        case '2091-retrogame':
-        case '2091-retrogame.exe':
-          startNativeGame();
+        case 'freedoom.exe':
+          startDoom();
           break;
         case 'help':
         case 'ajuda':
@@ -367,8 +342,8 @@ export class TerminalApp implements ClientAppModule {
           break;
         }
         case 'start': {
-          if (/^2091(?:-retrogame)?(?:\.exe)?$/i.test(arg.trim())) {
-            startNativeGame();
+          if (/^(?:doom|freedoom)(?:\.exe)?$/i.test(arg.trim())) {
+            startDoom();
             break;
           }
           if (!arg.trim()) {
@@ -377,6 +352,11 @@ export class TerminalApp implements ClientAppModule {
           }
           const path = resolve(arg);
           const node = path ? this.vfs.resolvePath(path) : undefined;
+          if (node?.action?.kind === 'unlock-secret') { secrets.unlockArcade(); break; }
+          if (node?.action?.kind === 'open-app' && node.action.appId && !node.children) {
+            ctx.windowManager.open(node.action.appId, { args: node.action.args ?? {} });
+            break;
+          }
           if (node?.children) {
             ctx.windowManager.open('explorer', { args: { path: node.path } });
             break;
@@ -427,7 +407,7 @@ export class TerminalApp implements ClientAppModule {
       draft = '';
       completion = undefined;
       const closed = run(value);
-      if (!closed && !native) {
+      if (!closed) {
         updatePrompt();
         screen.scrollTop = screen.scrollHeight;
       }
@@ -506,18 +486,6 @@ export class TerminalApp implements ClientAppModule {
       if (!action) return;
       closeMenus();
       if (action === 'exit') { ctx.windowManager.close(ctx.windowId); return; }
-      if (native) {
-        if (action === 'clear') native.clear();
-        else if (action === 'select') native.selectAll();
-        else if (action === 'copy') {
-          try { const text = native.selection(); if (text) await navigator.clipboard.writeText(text); } catch { pathLabel.textContent = 'Use Ctrl+C para copiar a seleção.'; }
-        } else if (action === 'paste') {
-          try { native.paste(await navigator.clipboard.readText()); } catch { pathLabel.textContent = 'Use Ctrl+V para colar no jogo.'; }
-        } else if (action === 'explore') ctx.windowManager.open('explorer', { args: { path: cwd } });
-        else pathLabel.textContent = '2091: setas e Enter. Use os menus do jogo para salvar e sair.';
-        if (action !== 'select' && action !== 'explore') native?.focus();
-        return;
-      }
       if (action === 'explore') ctx.windowManager.open('explorer', { args: { path: cwd } });
       if (action === 'clear') output.replaceChildren();
       if (action === 'help') print(HELP);
@@ -561,12 +529,10 @@ export class TerminalApp implements ClientAppModule {
     queueMicrotask(() => {
       if (disposed) return;
       input.focus();
-      if (ctx.args.command === '2091') { input.value = '2091'; form.requestSubmit(); }
     });
 
     return () => {
       disposed = true;
-      native?.dispose();
       form.removeEventListener('submit', onSubmit);
       input.removeEventListener('keydown', onKey);
       input.removeEventListener('input', onInput);

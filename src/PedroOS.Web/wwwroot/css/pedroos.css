@@ -47,6 +47,65 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Boot stays above the SSR desktop until the client has finished starting. */
+body:has(#boot-screen:not([hidden])) #desktop { visibility: hidden; }
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 200000;
+  background: #000;
+  color: #d8d8d8;
+  outline: none;
+  cursor: var(--cursor-arrow);
+}
+.boot-console {
+  padding: clamp(18px, 5vw, 56px);
+  font: clamp(12px, 1.65vw, 19px)/1.5 "Courier New", monospace;
+}
+.boot-console pre { margin: 0; font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
+.boot-cursor { animation: boot-blink 1s steps(1) infinite; }
+.boot-splash {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 12px 58px;
+}
+.boot-artwork { position: relative; width: min(100%, 800px, calc((100dvh - 180px) * 4 / 3)); }
+.boot-artwork img { display: block; width: 100%; height: auto; }
+.boot-loading { height: 8px; background: #b6c8dc; overflow: hidden; }
+.boot-loading span {
+  display: block;
+  width: 28%;
+  height: 100%;
+  background: repeating-linear-gradient(90deg, #008080 0 7px, #000080 7px 10px);
+  animation: boot-sweep 2.2s linear infinite;
+}
+.boot-prompt { min-height: 80px; text-align: center; padding: 4px 8px; }
+.boot-prompt p { font: 13px/1.5 "Courier New", monospace; margin: 12px 0; color: #dedede; }
+.boot-prompt button { min-height: 30px; min-width: 150px; padding: 4px 16px; }
+.boot-skip {
+  position: absolute;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  right: max(16px, env(safe-area-inset-right));
+  background: transparent;
+  color: #c0c0c0;
+  box-shadow: none;
+  border: 1px solid #666;
+  min-height: 32px;
+  padding: 6px 12px;
+  font: 12px "Courier New", monospace;
+}
+.boot-skip:focus-visible { outline: 1px dotted #fff; outline-offset: 3px; }
+@keyframes boot-blink { 50% { opacity: 0; } }
+@keyframes boot-sweep { from { transform: translateX(-100%); } to { transform: translateX(460%); } }
+@media (prefers-reduced-motion: reduce) {
+  .boot-cursor, .boot-loading span { animation: none; }
+  .boot-loading span { width: 100%; }
+}
+
 /* Screen reader only utility */
 .sr-only {
   position: absolute;
@@ -2156,10 +2215,6 @@ a[href]:not([aria-disabled="true"]),
   appearance: none;
 }
 
-/* The native game is a process inside the existing CMD window. */
-.terminal-native { flex: 1; display: flex; flex-direction: column; min-height: 0; color: #000; }
-.native-terminal-body { flex: 1; min-height: 0; overflow: auto; margin: 2px; background: var(--term-bg); padding: 6px; }
-.terminal-native .xterm-helper-textarea { background: transparent !important; box-shadow: none !important; }
 }
 
 /* Internet Explorer: classic chrome and personal intranet portal. */
@@ -2378,6 +2433,17 @@ a[href]:not([aria-disabled="true"]),
 
 /* DOOM runs in its own document so its engine and input die with the window. */
 .doom-app { min-height: 0; min-width: 0; }
+.neon-fist-app { min-height: 0; min-width: 0; background: #000; }
+.neon-fist-app iframe { display: block; border: 0; width: 100%; min-height: 0; flex: 1; background: #05040a; }
+.retro-game-app { min-height: 0; min-width: 0; background: #000; }
+.retro-game-app iframe { display: block; border: 0; width: 100%; min-height: 0; flex: 1; background: #000; }
+.pedroos-screen-saver { position: fixed; inset: 0; z-index: 2147483647; overflow: hidden; background: #000; cursor: none; touch-action: none; }
+.screen-saver-logo { position: absolute; top: 0; left: 0; width: 210px; padding: 12px; color: #0ff; border: 4px double currentColor; font-family: "PedroOS VGA", monospace; box-sizing: border-box; will-change: transform; }
+.screen-saver-logo strong { display: block; font-size: 38px; line-height: 1; font-weight: normal; }
+.screen-saver-logo span { display: block; font-size: 26px; text-align: right; }
+.saver-preview { height: 110px; display: grid; place-items: center; background: #000; color: #0ff; border: 4px ridge #808080; margin: 8px 0 16px; font: 24px "PedroOS VGA", monospace; }
+.display-tabs [role="tab"] { min-width: 0; padding: 5px 8px; border-bottom: 0; }
+.display-tabs [role="tab"][aria-selected="true"] { position: relative; z-index: 1; background: #c0c0c0; font-weight: bold; }
 .doom-app [hidden] { display: none !important; }
 .doom-app .win95-toolbar { flex-wrap: wrap; flex-shrink: 0; gap: 3px; padding: 4px; }
 .doom-app .win95-toolbar button { min-width: 0; padding: 4px 8px; }

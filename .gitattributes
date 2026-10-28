@@ -3,6 +3,19 @@
 *.ico binary
 *.woff binary
 *.woff2 binary
+*.webp binary
+*.wasm binary
+*.data binary
+*.wad binary
+*.wav binary
+*.zip binary
+*.tar.gz binary
 *.map -diff
 src/PedroOS.Web/wwwroot/js/pedroos.js -diff linguist-generated
 src/PedroOS.Web/wwwroot/css/98.css linguist-vendored
+# Preserve upstream game distributions, including DOS document formatting.
+src/PedroOS.Web/wwwroot/assets/games/omf2097/MANUAL.txt binary -whitespace linguist-vendored
+src/PedroOS.Web/wwwroot/assets/games/omf2097/ORIGINAL-LICENSE.txt -text -whitespace linguist-vendored
+src/PedroOS.Web/wwwroot/assets/games/omf2097/wdosbox.js -text -whitespace linguist-vendored
+src/PedroOS.Web/wwwroot/assets/games/omf2097/js-dos.js -text linguist-vendored
+src/PedroOS.Web/wwwroot/assets/games/opentyrian/index.js -text linguist-vendored

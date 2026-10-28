@@ -30,6 +30,8 @@ public sealed record Project
 public sealed record ProjectScreenshot
 {
     public required string Src { get; init; }
+    public string PreviewSrc => Path.ChangeExtension(Src, ".preview.webp");
+    public string ThumbnailSrc => Path.ChangeExtension(Src, ".thumb.webp");
     public required string Alt { get; init; }
     public string? Caption { get; init; }
 }

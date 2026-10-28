@@ -21,6 +21,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
     private readonly VirtualNode _root;
     private readonly Dictionary<string, VirtualNode> _byPath = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, VirtualNode> _byId = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _hiddenPaths = new(StringComparer.OrdinalIgnoreCase);
 
     public VirtualFileSystemService(IPortfolioCatalog portfolio)
     {
@@ -73,7 +74,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
         var term = query.Trim();
         return _byPath.Values
             .Where(n => n.Type != VirtualNodeType.Drive)
-            .Where(n => includeHidden || !n.Hidden)
+            .Where(n => includeHidden || !_hiddenPaths.Contains(n.Path))
             .Where(n =>
                 n.Name.Contains(term, StringComparison.OrdinalIgnoreCase) ||
                 n.Path.Contains(term, StringComparison.OrdinalIgnoreCase) ||
@@ -121,8 +122,10 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
         return segments.Length == 0 ? @"C:\" : @"C:\" + string.Join('\\', segments);
     }
 
-    private void Index(VirtualNode node)
+    private void Index(VirtualNode node, bool hiddenParent = false)
     {
+        var hidden = hiddenParent || node.Hidden;
+        if (hidden) _hiddenPaths.Add(node.Path);
         _byPath[node.Path] = node;
         _byId[node.Id] = node;
         if (node.Children is null)
@@ -132,7 +135,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
 
         foreach (var child in node.Children)
         {
-            Index(child);
+            Index(child, hidden);
         }
     }
 
@@ -246,6 +249,7 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
             Action = new FileAction { Kind = "navigate" },
             Children =
             [
+                .. SecretFiles.Create(),
                 new VirtualNode
                 {
                     Id = "dir-aboutme",
@@ -459,13 +463,19 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                     Action = new FileAction { Kind = "navigate" },
                     Children =
                     [
+                        new VirtualNode { Id = "file-skifree", Name = "SkiFree.exe", Path = @"C:\Jogos\SkiFree.exe", Type = VirtualNodeType.Application,
+                            Icon = "skifree", Description = "Esqui clássico com mouse, teclado ou toque", Action = new FileAction { Kind = "open-app", AppId = "skifree" } },
+                        new VirtualNode { Id = "file-opentyrian", Name = "OpenTyrian.exe", Path = @"C:\Jogos\OpenTyrian.exe", Type = VirtualNodeType.Application,
+                            Icon = "opentyrian", Description = "Tyrian — nave de tiro arcade clássica", Action = new FileAction { Kind = "open-app", AppId = "opentyrian" } },
+                        new VirtualNode { Id = "file-omf2097", Name = "OneMustFall2097.exe", Path = @"C:\Jogos\OneMustFall2097.exe", Type = VirtualNodeType.Application,
+                            Icon = "omf2097", Description = "One Must Fall 2097 — luta clássica de robôs", Action = new FileAction { Kind = "open-app", AppId = "omf2097" } },
                         new VirtualNode
                         {
                             Id = "file-doom",
                             Name = "Doom.exe",
                             Type = VirtualNodeType.Application,
                             Path = @"C:\Jogos\Doom.exe",
-                            Icon = "2091-retrogame",
+                            Icon = "gamepad",
                             Description = "Chocolate Doom com Freedoom e opção de IWAD local",
                             Action = new FileAction { Kind = "open-app", AppId = "doom" },
                         },
@@ -483,16 +493,6 @@ public sealed class VirtualFileSystemService : IVirtualFileSystem
                                 Kind = "open-app",
                                 AppId = "minesweeper",
                             },
-                        },
-                        new VirtualNode
-                        {
-                            Id = "file-game2091",
-                            Name = "2091.exe",
-                            Type = VirtualNodeType.Application,
-                            Path = @"C:\Jogos\2091.exe",
-                            Icon = "2091-retrogame",
-                            Description = "2091 — aventura cyberpunk jogável (pré-alpha)",
-                            Action = new FileAction { Kind = "open-app", AppId = "terminal", Args = new Dictionary<string, string> { ["command"] = "2091" } },
                         },
                     ],
                 },

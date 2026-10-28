@@ -1,188 +1,72 @@
-name: CI & Deploy (Phone + GitHub Pages)
-
+name: CI & Deploy (GitHub Pages)
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
-
+    branches: [main, master]
 permissions:
-  contents: write
-  pages: write
-  id-token: write
-
+  contents: read
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js 24
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'npm'
-
-      - name: Set up .NET 10
-        uses: actions/setup-dotnet@v4
+          cache: npm
+      - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
-
-      - name: Install npm dependencies
-        run: npm ci
-
-      - name: Generate pixel icons and assets
-        run: npm run icons
-
-      - name: Build frontend bundle
-        run: npm run build
-
-      - name: Typecheck TypeScript
-        run: npm run typecheck
-
-      - name: Lint Frontend
-        run: npm run lint
-
-      - name: Run Client Unit Tests
-        run: npm run test:client
-
-      - name: Verify phone tunnel endpoint registration
-        run: python3 -m unittest discover -s tests/phone -v
-
-      - name: Restore .NET Solution
-        run: dotnet restore PedroOS.slnx
-
-      - name: Build .NET Solution
-        run: dotnet build PedroOS.slnx --no-restore -c Release
-
-      - name: Run .NET Unit Tests
-        run: dotnet test tests/PedroOS.Tests/PedroOS.Tests.csproj --no-build -c Release --verbosity normal
-
-      - name: Verify original game terminal and process cleanup
-        run: npm run test:terminal-backend
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: Run Playwright E2E Tests
+      - run: npm ci
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test:client
+      - run: dotnet restore PedroOS.slnx
+      - run: dotnet build PedroOS.slnx --no-restore -c Release
+      - run: dotnet test tests/PedroOS.Tests/PedroOS.Tests.csproj --no-build -c Release
+      - run: npx playwright install --with-deps chromium
+      - name: Test local development server
         run: npm run test:e2e
         env:
           CI: true
-
-      - name: Upload Test Results Artifact
+      - name: Export static site
+        run: npm run export:pages -- --base "/${{ github.event.repository.name }}" --site "https://${{ github.repository_owner }}.github.io"
+      - name: Test actual static site without a backend
+        run: npm run test:static
+        env:
+          CI: true
+          PEDROOS_TEST_BASE: /${{ github.event.repository.name }}
+      - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-results
           path: test-results/
           if-no-files-found: ignore
-
-      - name: Export static site + live redirect for GitHub Pages
+      - name: Upload Pages artifact
         if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        run: |
-          npm run export:pages -- --base "/${{ github.event.repository.name }}" --site "https://${{ github.repository_owner }}.github.io"
-          node scripts/inject-live-redirect.mjs dist/pages f2c4bf1b6963b96f45da7b3e006ba8b6
-
-      - name: Upload GitHub Pages Bundle
-        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v4
         with:
-          name: pedroos-pages
           path: dist/pages
-
-      - name: Publish .NET Release Bundle for Phone Container
-        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        run: |
-          dotnet publish src/PedroOS.Web/PedroOS.Web.csproj -c Release -o dist/publish /p:UseAppHost=false
-          tar -czf dist/pedroos-release.tar.gz -C dist/publish .
-
-      - name: Upload Phone Release Artifact
-        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        uses: actions/upload-artifact@v4
-        with:
-          name: pedroos-release
-          path: dist/pedroos-release.tar.gz
-
-  deploy-phone:
-    name: 1. Deploy to Phone Docker Container
+  deploy:
     needs: build-and-test
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Download Phone Release Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: pedroos-release
-
-      - name: Push Release to Phone Container via Cloudflare Tunnel
-        env:
-          DEPLOY_TOKEN: ${{ secrets.PEDROOS_DEPLOY_TOKEN }}
-          GIST_ID: f2c4bf1b6963b96f45da7b3e006ba8b6
-        run: |
-          set -e
-          TUNNEL_URL=$(curl -fsSL --connect-timeout 10 --max-time 30 "https://api.github.com/gists/${GIST_ID}" | python3 -c "import sys, json; d=json.load(sys.stdin); print(json.loads(d['files']['pedroos-tunnel.json']['content']).get('url','').rstrip('/'))")
-          if [ -z "$TUNNEL_URL" ]; then
-            echo "::error::Phone tunnel URL is empty in Gist. Start the tunnel on the phone and register its current URL."
-            exit 1
-          fi
-          echo "Deploying to phone container at: $TUNNEL_URL"
-          if ! curl -fsS --connect-timeout 10 --max-time 20 --retry 2 --retry-delay 3 --retry-all-errors \
-            "${TUNNEL_URL}/healthz" -o /tmp/phone_health.json; then
-            echo "::error::Phone tunnel is unreachable. This hosted runner cannot restart Android or cloudflared through an offline tunnel. Restore the phone tunnel and update pedroos-tunnel.json in the Gist, then rerun this workflow. GitHub Pages will still publish the static fallback."
-            exit 1
-          fi
-          HTTP_CODE=$(curl -sS -o /tmp/deploy_resp.json -w "%{http_code}" \
-            --connect-timeout 10 --max-time 180 \
-            -X POST "${TUNNEL_URL}/api/internal/deploy" \
-            -H "X-Deploy-Token: ${DEPLOY_TOKEN}" \
-            -H "Content-Type: application/gzip" \
-            --data-binary @pedroos-release.tar.gz) || HTTP_CODE="000"
-          cat /tmp/deploy_resp.json || true
-          if [ "$HTTP_CODE" != "200" ]; then
-            echo "Failed to deploy to phone (HTTP $HTTP_CODE)"
-            exit 1
-          fi
-          echo "Waiting for phone container to restart and pass healthcheck..."
-          sleep 3
-          for i in $(seq 1 30); do
-            HC=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "${TUNNEL_URL}/healthz" || true)
-            if [ "$HC" = "200" ]; then
-              echo "Phone container is healthy (HTTP 200)!"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "Phone container did not become healthy in time."
-          exit 1
-
-  deploy-github-pages:
-    name: 2. Publish to GitHub Pages (Fixed URL)
-    needs: [ build-and-test, deploy-phone ]
-    # Keep the public fallback up to date even when the phone/tunnel is offline.
-    if: always() && needs.build-and-test.result == 'success' && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Download GitHub Pages Bundle
-        uses: actions/download-artifact@v4
-        with:
-          name: pedroos-pages
-          path: dist/pages
-
-      - name: Publish to gh-pages branch
-        run: |
-          git -C dist/pages init -b gh-pages
-          git -C dist/pages config user.name "github-actions[bot]"
-          git -C dist/pages config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C dist/pages add -A
-          git -C dist/pages commit -m "Deploy PedroOS (${GITHUB_SHA::7})"
-          git -C dist/pages push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages:gh-pages
+      - uses: actions/configure-pages@v5
+      - name: Publish static site
+        id: deployment
+        uses: actions/deploy-pages@v4

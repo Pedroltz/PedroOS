@@ -1,4 +1,5 @@
 import { requestSystemFailure } from '../components/SystemFailure.js';
+import { secrets } from '../core/SecretSession.js';
 import type { AppMountContext, ClientAppModule } from '../types/index.js';
 import { IconRegistryClient } from '../core/IconRegistryClient.js';
 import { withBase } from '../core/BasePath.js';
@@ -147,10 +148,6 @@ export class RunDialogApp implements ClientAppModule {
         ctx.windowManager.open('minesweeper');
         return;
       }
-      if (/^2091(?:-retrogame)?(?:\.exe)?$/.test(cmd)) {
-        ctx.windowManager.open('terminal', { args: { command: '2091' } });
-        return;
-      }
       if (cmd === 'iexplore' || cmd === 'ie') {
         ctx.windowManager.open('iexplore');
         return;
@@ -205,9 +202,11 @@ export class DisplayPropertiesApp implements ClientAppModule {
     ctx.container.innerHTML = `
       <div class="app-shell display-properties-app">
         <menu role="tablist" class="display-tabs">
-          <li role="tab" aria-selected="true">Plano de fundo</li>
+            <li role="presentation"><button type="button" role="tab" aria-selected="true" aria-controls="display-wallpaper" id="tab-wallpaper" data-display-tab="wallpaper">Plano de fundo</button></li>
+            <li role="presentation"><button type="button" role="tab" aria-selected="false" aria-controls="display-saver" id="tab-saver" data-display-tab="saver">Proteção de tela</button></li>
         </menu>
         <div class="display-panel window">
+          <div id="display-wallpaper" role="tabpanel" aria-labelledby="tab-wallpaper" data-display-wallpaper>
           <div class="display-monitor-preview">
             ${this.icons.render('display', 48)}
             <div class="monitor-screen" data-monitor-screen></div>
@@ -222,6 +221,17 @@ export class DisplayPropertiesApp implements ClientAppModule {
               <label><input type="radio" name="wall" value="dots" ${current === 'dots' ? 'checked' : ''} /> Pontos</label>
             </div>
           </fieldset>
+          </div>
+          <div id="display-saver" role="tabpanel" aria-labelledby="tab-saver" data-display-saver hidden>
+            <div class="saver-preview" aria-hidden="true"><strong>PedroOS 95</strong></div>
+            <fieldset class="win95-fieldset">
+              <legend>Proteção de tela</legend>
+              <div class="field-row"><input type="checkbox" id="saver-enabled-${ctx.windowId}" data-saver-enabled ${secrets.saver.enabled ? 'checked' : ''} /><label for="saver-enabled-${ctx.windowId}">Ativar proteção de tela</label></div>
+              <p><label>Esperar <select data-saver-minutes aria-label="Tempo de espera">${[1, 2, 5].map(minutes => `<option value="${minutes}" ${minutes === secrets.saver.minutes ? 'selected' : ''}>${minutes} minuto${minutes === 1 ? '' : 's'}</option>`).join('')}</select></label></p>
+              <button type="button" data-saver-preview>Visualizar</button>
+              <p>Mova o mouse, toque ou pressione uma tecla para voltar.</p>
+            </fieldset>
+          </div>
           <div class="display-actions">
             <button type="button" class="win95-btn-primary" data-display-ok>OK</button>
             <button type="button" data-display-cancel>Cancelar</button>
@@ -236,9 +246,26 @@ export class DisplayPropertiesApp implements ClientAppModule {
     const okBtn = ctx.container.querySelector<HTMLButtonElement>('[data-display-ok]')!;
     const cancelBtn = ctx.container.querySelector<HTMLButtonElement>('[data-display-cancel]')!;
     const applyBtn = ctx.container.querySelector<HTMLButtonElement>('[data-display-apply]')!;
+    for (const tab of ctx.container.querySelectorAll<HTMLButtonElement>('[data-display-tab]')) {
+      tab.addEventListener('click', () => {
+        const saver = tab.dataset.displayTab === 'saver';
+        ctx.container.querySelector<HTMLElement>('[data-display-wallpaper]')!.hidden = saver;
+        ctx.container.querySelector<HTMLElement>('[data-display-saver]')!.hidden = !saver;
+        for (const item of ctx.container.querySelectorAll('[data-display-tab]')) item.setAttribute('aria-selected', String(item === tab));
+      });
+    }
+    ctx.container.querySelector('[data-saver-preview]')!.addEventListener('click', () => secrets.preview());
+    const ensureTheme = (): void => {
+      if (!secrets.arcade || ctx.container.querySelector('[data-arcade-wallpaper]')) return;
+      const label = document.createElement('label');
+      label.dataset.arcadeWallpaper = '';
+      label.innerHTML = `<input type="radio" name="wall" value="arcade" ${current === 'arcade' ? 'checked' : ''} /> Arcade — edição secreta`;
+      ctx.container.querySelector('.display-patterns-list')!.appendChild(label);
+      label.addEventListener('change', updatePreview);
+    };
 
     const getSelected = (): string => {
-      for (const r of radios) {
+      for (const r of ctx.container.querySelectorAll<HTMLInputElement>('input[name="wall"]')) {
         if (r.checked) return r.value;
       }
       return 'solid';
@@ -254,14 +281,22 @@ export class DisplayPropertiesApp implements ClientAppModule {
     };
 
     radios.forEach((r) => r.addEventListener('change', updatePreview));
+    ensureTheme();
+    const unsubscribe = secrets.subscribe(ensureTheme);
     updatePreview();
 
-    applyBtn.addEventListener('click', () => {
+    const apply = (): void => {
       this.store.setWallpaper(getSelected());
+      secrets.configureSaver(ctx.container.querySelector<HTMLInputElement>('[data-saver-enabled]')!.checked,
+        Number(ctx.container.querySelector<HTMLSelectElement>('[data-saver-minutes]')!.value));
+    };
+
+    applyBtn.addEventListener('click', () => {
+      apply();
     });
 
     okBtn.addEventListener('click', () => {
-      this.store.setWallpaper(getSelected());
+      apply();
       ctx.windowManager.close(ctx.windowId);
     });
 
@@ -270,6 +305,7 @@ export class DisplayPropertiesApp implements ClientAppModule {
     });
 
     return () => {
+      unsubscribe();
       ctx.container.innerHTML = '';
     };
   }
@@ -310,6 +346,7 @@ export class ShutDownDialogApp implements ClientAppModule {
       const val = (form.elements.namedItem('sd-action') as RadioNodeList).value;
 
       if (val === 'restart') {
+        try { sessionStorage.removeItem('pedroos.boot.seen.v1'); } catch { /* Storage is optional. */ }
         window.location.href = withBase('/');
       } else if (val === 'bsod') {
         requestSystemFailure();

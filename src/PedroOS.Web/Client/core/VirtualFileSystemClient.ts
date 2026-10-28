@@ -7,17 +7,20 @@ import type { VirtualNode } from '../types/index.js';
 export class VirtualFileSystemClient {
   private readonly byPath = new Map<string, VirtualNode>();
   private readonly byId = new Map<string, VirtualNode>();
+  private readonly hiddenPaths = new Set<string>();
 
   public constructor(private readonly root: VirtualNode) {
     this.index(root);
   }
 
-  private index(node: VirtualNode): void {
+  private index(node: VirtualNode, hiddenParent = false): void {
+    const hidden = hiddenParent || !!node.hidden;
+    if (hidden) this.hiddenPaths.add(node.path.toLowerCase());
     this.byPath.set(node.path.toLowerCase(), node);
     this.byId.set(node.id.toLowerCase(), node);
     if (node.children) {
       for (const child of node.children) {
-        this.index(child);
+        this.index(child, hidden);
       }
     }
   }
@@ -103,7 +106,7 @@ export class VirtualFileSystemClient {
       if (node.type === 'drive') {
         continue;
       }
-      if (!includeHidden && node.hidden) {
+      if (!includeHidden && this.hiddenPaths.has(node.path.toLowerCase())) {
         continue;
       }
       if (

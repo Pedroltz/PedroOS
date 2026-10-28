@@ -1,7 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test('system properties has readable summary, accessible keyboard tabs and category shortcuts', async ({ page, isMobile }) => {
-  await page.goto('/skills');
+  await page.goto('./skills');
   const app = page.locator('.os-window[data-app-id="sysprops"]');
   await expect(app.locator('[data-info-panel="general"]')).toBeVisible();
   await expect(app.locator('.system-summary')).toContainText('competências');
@@ -23,7 +23,7 @@ test('system properties has readable summary, accessible keyboard tabs and categ
 });
 
 test('device manager selects actual experience, collapses groups and opens related projects', async ({ page, isMobile }) => {
-  await page.goto('/skills');
+  await page.goto('./skills');
   const app = page.locator('.os-window[data-app-id="sysprops"]');
   await app.getByRole('tab', { name: 'Gerenciador de Dispositivos' }).click();
   const inspector = app.locator('[data-skill-inspector]');
@@ -45,7 +45,7 @@ test('device manager selects actual experience, collapses groups and opens relat
 });
 
 test('about dialog has architecture, credits, licenses and a working close action', async ({ page, isMobile }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.locator('#start-button').click();
   await page.locator('[data-open-app="about"]').click();
   const app = page.locator('.os-window[data-app-id="about"]');
@@ -65,7 +65,7 @@ test('about dialog has architecture, credits, licenses and a working close actio
 });
 
 test('reopening system properties keeps one tab controller', async ({ page }) => {
-  await page.goto('/skills');
+  await page.goto('./skills');
   const system = page.locator('.os-window[data-app-id="sysprops"]');
   await page.locator('#start-button').click();
   await page.locator('[data-open-app="about"]').click();

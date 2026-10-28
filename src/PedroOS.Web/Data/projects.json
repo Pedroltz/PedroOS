@@ -136,34 +136,6 @@
     "gitHubPinnedOrder": 2
   },
   {
-    "slug": "2091-retrogame",
-    "name": "2091 — RetroGame",
-    "executableName": "2091-RetroGame.exe",
-    "icon": "2091-retrogame",
-    "summary": "Jogo de aventura textual cyberpunk em C# (.NET 8) com narrativa dirigida por JSON e sistema de save/load.",
-    "description": "Aventura textual interativa ambientada em 2091, executada em console com motor narrativo baseado em arquivos JSON e persistência de estado.",
-    "problem": "Explorar arquitetura desacoplada de narrativa interativa e estado de jogo em C#.",
-    "solution": "Motor de console em .NET 8 com cenas e escolhas carregadas de JSON e serialização de progresso.",
-    "stack": [
-      "C#",
-      ".NET 8",
-      "JSON"
-    ],
-    "highlights": [
-      "Motor narrativo dirigido por dados JSON e sistema de save/load.",
-      "Jogo C# original executado no backend, com interface de terminal dentro do Terminal PedroOS do PedroOS."
-    ],
-    "status": "Pre-Alpha / Em desenvolvimento",
-    "repositoryUrl": "https://github.com/Pedroltz/2091-RetroGame",
-    "demoUrl": null,
-    "license": null,
-    "screenshots": [],
-    "featured": true,
-    "isPlaceholder": false,
-    "placeholderNote": null,
-    "gitHubPinnedOrder": 5
-  },
-  {
     "slug": "autoapply",
     "name": "AutoApply (Evidence Ledger)",
     "executableName": "AutoApply.exe",

@@ -1,7 +1,7 @@
-import { test, expect, type Page, type Locator } from '@playwright/test';
+import { test, expect, type Page, type Locator } from './fixtures.js';
 
 async function openBrowser(page: Page, mobile: boolean): Promise<Locator> {
-  await page.goto('/');
+  await page.goto('./');
   if (mobile) await page.locator('#icon-iexplore').click();
   else await page.locator('#icon-iexplore').dblclick();
   const app = page.locator('.os-window[data-app-id="iexplore"]').last();

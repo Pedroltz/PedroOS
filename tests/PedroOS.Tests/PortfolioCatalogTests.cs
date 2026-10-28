@@ -56,7 +56,7 @@ public class PortfolioCatalogTests
     [Fact]
     public void PinnedGitHubProjects_AreAllAvailableInPortfolio()
     {
-        var expected = new[] { "rdp-session-manager", "anycomic", "taskproj", "binary-tree-study", "2091-retrogame", "uninotes-web" };
+        var expected = new[] { "rdp-session-manager", "anycomic", "taskproj", "binary-tree-study", "uninotes-web" };
         var pinned = _catalog.GetProjects().Where(p => p.GitHubPinnedOrder.HasValue).OrderBy(p => p.GitHubPinnedOrder).ToList();
         Assert.Equal(expected, pinned.Select(p => p.Slug));
         Assert.All(pinned, project => { Assert.False(project.IsPlaceholder); Assert.NotEmpty(project.Stack); Assert.NotNull(project.RepositoryUrl); });

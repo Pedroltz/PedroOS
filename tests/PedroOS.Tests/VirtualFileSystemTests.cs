@@ -46,6 +46,9 @@ public class VirtualFileSystemTests
     [InlineData(@"C:\Documentos\Curriculo.doc")]
     [InlineData(@"C:\Internet\GitHub.url")]
     [InlineData(@"C:\Jogos\CampoMinado.exe")]
+    [InlineData(@"C:\Jogos\SkiFree.exe")]
+    [InlineData(@"C:\Jogos\OpenTyrian.exe")]
+    [InlineData(@"C:\Jogos\OneMustFall2097.exe")]
     public void ResolvePath_ResolvesRequiredFiles(string path)
     {
         var node = _vfs.ResolvePath(path);
@@ -81,5 +84,19 @@ public class VirtualFileSystemTests
         var results = _vfs.Search("ofizzy");
         Assert.NotEmpty(results);
         Assert.Contains(results, r => r.Name.Contains("Ofizzy"));
+    }
+
+    [Fact]
+    public void SecretsAreDiscoverableWithoutLeakingHiddenDescendantsInSearch()
+    {
+        Assert.DoesNotContain(_vfs.ListDirectory(@"C:\"), n => n.Name == "Segredos");
+        Assert.Contains(_vfs.ListDirectory(@"C:\", true), n => n.Name == "Segredos");
+        Assert.Empty(_vfs.Search("NeonFist"));
+        Assert.Single(_vfs.Search("NeonFist", true));
+        Assert.NotEmpty(_vfs.ListDirectory(@"C:\Segredos"));
+        Assert.Equal("unlock-secret", _vfs.ResolvePath(@"C:\Segredos\Arcade.theme")?.Action?.Kind);
+        Assert.Contains(@"C:\", _vfs.ResolvePath(@"C:\Lixeira\nao_apagar.txt")!.Content!);
+        Assert.Equal("neon-fist", _vfs.ResolvePath(@"C:\Segredos\Disquete\NeonFist.exe")?.Action?.AppId);
+        Assert.NotNull(_vfs.ResolvePath(@"C:\PEDROOS\Segredos.txt"));
     }
 }

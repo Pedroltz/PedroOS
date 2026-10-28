@@ -14,7 +14,7 @@ public enum VirtualNodeType
 /// <summary>Action executed when a virtual file is opened.</summary>
 public sealed record FileAction
 {
-    /// <summary>"open-app", "open-url" or "navigate" (folders).</summary>
+    /// <summary>"open-app", "open-url", "unlock-secret" or "navigate" (folders).</summary>
     public required string Kind { get; init; }
     public string? AppId { get; init; }
     /// <summary>Arguments passed to the application (e.g. project slug, tab id).</summary>

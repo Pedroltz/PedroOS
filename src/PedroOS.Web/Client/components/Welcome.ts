@@ -3,8 +3,8 @@ import { welcomePreference } from '../core/WelcomePreference.js';
 const hydrated = new WeakSet<HTMLElement>();
 const tips = [
   ['Explore o desktop', 'Abra os ícones com um duplo clique. No celular, basta um toque. Use o menu Iniciar para encontrar os aplicativos do portfólio.'],
-  ['Projetos em destaque', 'A janela GitHub apresenta os seis projetos fixados no perfil de Pedro Tunin. Todos também têm uma ficha própria no catálogo de projetos.'],
-  ['Uma aventura no terminal', 'Há um jogo de aventura textual no desktop. Abra o Terminal PedroOS, digite 2091 e pressione Enter para conhecer esse projeto.'],
+  ['Projetos em destaque', 'A janela GitHub apresenta uma seleção de projetos do perfil de Pedro Tunin. Todos também têm uma ficha própria no catálogo de projetos.'],
+  ['Jogos no navegador', 'Abra Meu Computador e explore C:\\Jogos. Os jogos usam o processamento do seu navegador. Você também pode digitar doom no Terminal PedroOS.'],
   ['Um endereço diferente', 'O navegador guarda uma página especial. Abra o Navegador PedroOS e digite about:mozilla na barra de endereço.'],
   ['Um segredo no Campo Minado', 'Com o Campo Minado aberto, digite xyzzy para ativar o pixel espião. Passe o ponteiro sobre as casas e observe o canto superior esquerdo.'],
   ['Recursos do sistema', 'Até um desktop clássico tem seus limites. Muitas janelas abertas podem esgotar os recursos do PedroOS 95 e provocar uma tela azul.'],

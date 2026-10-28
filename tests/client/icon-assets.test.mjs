@@ -50,10 +50,10 @@ test('every registered icon variant exists at its advertised dimensions with har
 });
 test('established project icons retain distinct small and large assets', () => {
   const assets = new Set();
-  for (const key of ['ofizzy', 'rdp-session-manager', 'anycomic', '2091-retrogame', 'autoapply']) {
+  for (const key of ['ofizzy', 'rdp-session-manager', 'anycomic', 'gamepad', 'autoapply']) {
     const entry = manifest.icons[key];
     assert.ok(entry.variants[16] && entry.variants[32]);
-    if (['anycomic', '2091-retrogame', 'autoapply'].includes(key)) assert.deepEqual(entry.nativeSizes, [16, 32]);
+    if (['anycomic', 'gamepad', 'autoapply'].includes(key)) assert.deepEqual(entry.nativeSizes, [16, 32]);
     assert.ok(entry.attribution);
     for (const size of [16, 32]) {
       const art = readFileSync(new URL('wwwroot' + entry.variants[size], web)).toString('base64');

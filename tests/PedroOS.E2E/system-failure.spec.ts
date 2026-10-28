@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures.js';
 import type { IWindowManager } from '../../src/PedroOS.Web/Client/types/index.js';
 
 type DesktopDebug = { wm: IWindowManager; store: { getAllWindows(): { id: string }[] } };
@@ -12,7 +12,7 @@ async function openWindows(page: Page, count: number) {
 test('window pressure starts at four, preserves applications and respects the recovery interval', async ({ page, isMobile }) => {
   await page.clock.install();
   await page.addInitScript(() => { Math.random = () => 0; });
-  await page.goto('/');
+  await page.goto('./');
   const overlay = page.locator('#bsod-overlay');
   await openWindows(page, 3);
   await expect(overlay).toBeHidden();
@@ -48,7 +48,7 @@ test('window pressure starts at four, preserves applications and respects the re
 
 test('a large window count is a probability, and focusing an existing app is not a new allocation', async ({ page }) => {
   await page.addInitScript(() => { Math.random = () => .99; });
-  await page.goto('/skills');
+  await page.goto('./skills');
   await openWindows(page, 15);
   await expect(page.locator('#bsod-overlay')).toBeHidden();
   await page.evaluate(() => { Math.random = () => 0; });
@@ -60,7 +60,7 @@ test('a large window count is a probability, and focusing an existing app is not
 });
 
 test('manual diagnostics use the same classic screen with different system errors', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   const overlay = page.locator('#bsod-overlay');
   for (const [random, code] of [[0, 'MEMORY_ALLOCATION_FAILURE'], [.4, 'SYSTEM_RESOURCES_EXHAUSTED'], [.8, 'VIRTUAL_MEMORY_ERROR']] as const) {
     await page.evaluate(random => { Math.random = () => random; }, random);

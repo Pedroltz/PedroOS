@@ -53,7 +53,7 @@ export function hydrateProjectGallery(project: HTMLElement): void {
     const shot = shots[selected];
     preview.hidden = false;
     gallery.querySelector<HTMLElement>('[data-project-preview-error]')!.hidden = true;
-    preview.src = shot.dataset.src!; preview.alt = shot.dataset.alt || '';
+    preview.src = shot.dataset.preview || shot.dataset.src!; preview.alt = shot.dataset.alt || '';
     previewLink.href = shot.dataset.src!;
     previewLink.setAttribute('aria-label', `Ampliar imagem ${selected + 1}: ${shot.dataset.alt || ''}`);
     caption.textContent = shot.dataset.caption || '';

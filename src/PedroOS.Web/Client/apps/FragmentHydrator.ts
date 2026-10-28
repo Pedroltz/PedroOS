@@ -45,14 +45,12 @@ export function hydrateWindowFragment(windowEl: HTMLElement, record: WindowRecor
       const slug = btn.dataset.argSlug;
       const path = btn.dataset.argPath;
       const section = btn.dataset.argSection;
-      const command = btn.dataset.argCommand;
       const args: Record<string, string> = {};
       if (slug) args.slug = slug;
       if (path) args.path = path;
       if (section) args.section = section;
       if (btn.dataset.argTab) args.tab = btn.dataset.argTab;
       if (btn.dataset.argUrl) args.url = btn.dataset.argUrl;
-      if (command === '2091') args.command = command;
       if (btn.hasAttribute('data-close-before-open')) wm.close(record.id);
       wm.open(appId, { args });
     }

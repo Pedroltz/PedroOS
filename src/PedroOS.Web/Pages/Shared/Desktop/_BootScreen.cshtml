@@ -1,0 +1,21 @@
+<section id="boot-screen" class="boot-screen" data-boot-phase="logs" aria-label="Inicialização do PedroOS 95" tabindex="-1">
+    <div class="boot-console" data-boot-console>
+        <pre data-boot-log aria-hidden="true">PedroOS BIOS v1.0
+Copyright (C) Pedro Tunin
+
+</pre>
+        <span class="boot-cursor" aria-hidden="true">_</span>
+    </div>
+    <div class="boot-splash" data-boot-splash hidden>
+        <div class="boot-artwork">
+            <img src="/assets/boot/pedroos-95-splash.webp" alt="PedroOS 95 — Pedro Tunin. Um monitor com prompt de comando sobre um céu azul com nuvens." width="1448" height="1086" fetchpriority="high" />
+            <div class="boot-loading" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="boot-prompt">
+            <p data-boot-status role="status">Iniciando o PedroOS 95…</p>
+            <button type="button" data-boot-start hidden>Iniciar com som</button>
+        </div>
+    </div>
+    <button type="button" class="boot-skip" data-boot-skip>Pular inicialização (Esc)</button>
+</section>
+<noscript><style>#boot-screen { display: none; } body:has(#boot-screen:not([hidden])) #desktop { visibility: visible; }</style></noscript>

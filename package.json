@@ -7,21 +7,22 @@
   "type": "module",
   "scripts": {
     "start": "dotnet run --project src/PedroOS.Web",
-    "dev": "node scripts/build.mjs && dotnet run --project src/PedroOS.Web",
-    "build": "node scripts/build.mjs",
-    "build:dev": "node scripts/build.mjs --dev",
+    "dev": "npm run build:dev && dotnet run --project src/PedroOS.Web",
+    "build": "npm run images && node scripts/build.mjs",
+    "build:dev": "npm run images && node scripts/build.mjs --dev",
     "watch": "node scripts/build.mjs --dev --watch",
     "icons": "node scripts/generate-icons.mjs",
     "cursors": "node scripts/generate-cursors.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint \"src/PedroOS.Web/Client/**/*.ts\" \"tests/PedroOS.E2E/**/*.ts\" \"tests/client/**/*.ts\"",
-    "test:client": "node scripts/test-client.mjs && node --test tests/client/icon-assets.test.mjs tests/client/live-redirect.test.mjs",
+    "test:client": "node scripts/test-client.mjs && node --test tests/client/icon-assets.test.mjs",
     "export:pages": "node scripts/export-static.mjs",
     "test:e2e": "playwright test -c tests/PedroOS.E2E/playwright.config.ts",
-    "test:terminal-backend": "python3 -m unittest discover -s tests/terminal -v"
+    "images": "node scripts/optimize-images.mjs",
+    "test:static": "node scripts/test-static.mjs",
+    "preview:pages": "node scripts/serve-static.mjs"
   },
   "dependencies": {
-    "@xterm/xterm": "^6.0.0",
     "98.css": "^0.1.21",
     "interactjs": "^1.10.28"
   },
@@ -33,6 +34,7 @@
     "eslint": "^10.13.0",
     "globals": "^17.13.0",
     "pixelarticons": "^2.4.2",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0"
   }

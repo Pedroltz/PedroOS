@@ -1,4 +1,4 @@
-import { test, expect, type Locator } from '@playwright/test';
+import { test, expect, type Locator } from './fixtures.js';
 
 async function command(terminal: Locator, line: string): Promise<void> {
   const input = terminal.locator('[data-terminal-input]');
@@ -7,7 +7,7 @@ async function command(terminal: Locator, line: string): Promise<void> {
 }
 
 test.beforeEach(async ({ page, isMobile }) => {
-  await page.goto('/');
+  await page.goto('./');
   const icon = page.locator('#icon-msdos');
   if (isMobile) await icon.click();
   else await icon.dblclick();

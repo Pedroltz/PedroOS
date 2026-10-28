@@ -1,7 +1,7 @@
-import { test, expect, type Page, type Locator } from '@playwright/test';
+import { test, expect, type Page, type Locator } from './fixtures.js';
 
 async function openProject(page: Page, slug = 'ofizzy'): Promise<Locator> {
-  await page.goto(`/projects/${slug}`);
+  await page.goto(`./projects/${slug}`);
   const app = page.locator(`.os-window[data-instance-key="project:${slug}"]`);
   await expect(app.locator('[data-project-details]')).toBeVisible();
   return app;
@@ -11,7 +11,7 @@ test('project windows are centered and their preview images load at a useful siz
   const app = await openProject(page);
   const preview = app.locator('[data-project-preview-image]');
   await expect(preview).toBeVisible();
-  await expect.poll(() => preview.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBe(1920);
+  await expect.poll(() => preview.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBe(960);
   const image = await preview.boundingBox();
   expect(image!.width).toBeGreaterThan(isMobile ? 250 : 450);
   const window = await app.boundingBox();
@@ -63,7 +63,7 @@ test('the image viewer fits screenshots, exposes original resolution and support
 test('thumbnails and gallery buttons stay in sync and navigate with the keyboard', async ({ page }) => {
   const app = await openProject(page);
   await app.locator('[data-project-shot="2"]').click();
-  await expect(app.locator('[data-project-preview-image]')).toHaveAttribute('src', /work-order-editor.png$/);
+  await expect(app.locator('[data-project-preview-image]')).toHaveAttribute('src', /work-order-editor.preview.webp$/);
   await expect(app.locator('[data-project-caption]')).toContainText('Editor de OS');
   await expect(app.locator('[data-project-shot="2"]')).toHaveAttribute('aria-pressed', 'true');
   await page.keyboard.press('ArrowRight');
@@ -82,7 +82,7 @@ test('thumbnails and gallery buttons stay in sync and navigate with the keyboard
 test('the same layout supports other projects and a meaningful state without screenshots', async ({ page, isMobile }) => {
   const app = await openProject(page, 'rdp-session-manager');
   await expect(app.locator('[data-project-shot]')).toHaveCount(1);
-  await expect(app.locator('[data-project-preview-image]')).toHaveAttribute('src', /rdp-session-manager-header.png$/);
+  await expect(app.locator('[data-project-preview-image]')).toHaveAttribute('src', /rdp-session-manager-header.preview.webp$/);
   await expect(app.locator('img[src$="RDPSM.png"]')).toHaveCount(0);
   await app.getByRole('button', { name: 'Ampliar imagem' }).click();
   await page.keyboard.press('ArrowRight');
@@ -117,7 +117,7 @@ test('reopening a project keeps one gallery controller and image navigation per 
 });
 
 test('unavailable images show a recovery message while the project remains usable', async ({ page }) => {
-  await page.route('**/assets/screenshots/ofizzy/dashboard.png', route => route.fulfill({ status: 404, body: 'missing' }));
+  await page.route('**/assets/screenshots/ofizzy/dashboard.*', route => route.fulfill({ status: 404, body: 'missing' }));
   const app = await openProject(page);
   await expect(app.locator('[data-project-preview-error]')).toBeVisible();
   await app.getByRole('button', { name: 'Ampliar imagem' }).click();

@@ -1,7 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 async function openGame(page: import('@playwright/test').Page, isMobile: boolean) {
-  await page.goto('/');
+  await page.goto('./');
   const icon = page.locator('#icon-minesweeper');
   if (isMobile) await icon.click(); else await icon.dblclick();
   return page.locator('.os-window[data-app-id="minesweeper"]');

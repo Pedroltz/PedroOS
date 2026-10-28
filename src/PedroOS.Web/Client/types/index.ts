@@ -67,7 +67,7 @@ export type VirtualNodeType =
   | 'shortcut';
 
 export interface FileAction {
-  kind: 'open-app' | 'open-url' | 'navigate';
+  kind: 'open-app' | 'open-url' | 'navigate' | 'unlock-secret';
   appId?: string;
   args?: Record<string, string>;
   url?: string;

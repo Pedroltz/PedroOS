@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures.js';
 
 async function openIcon(page: Page, id: string, mobile: boolean): Promise<void> {
   const icon = page.locator(`#icon-${id}`);
@@ -6,7 +6,7 @@ async function openIcon(page: Page, id: string, mobile: boolean): Promise<void> 
 }
 
 test('desktop, explorer and window controls default to Portuguese and PedroOS identity', async ({ page, isMobile }) => {
-  await page.goto('/');
+  await page.goto('./');
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
   await expect(page.locator('#start-button')).toHaveText('Iniciar');
   await expect(page.locator('#icon-my-computer')).toContainText('Meu Computador');
@@ -38,7 +38,7 @@ test('desktop, explorer and window controls default to Portuguese and PedroOS id
 });
 
 test('system pages, browser menus and utility dialogs use Portuguese', async ({ page, isMobile }) => {
-  await page.goto('/skills');
+  await page.goto('./skills');
   await expect(page).toHaveTitle(/Propriedades do Sistema/);
   const system = page.locator('.os-window[data-app-id="sysprops"]');
   await expect(system).toContainText('PedroOS 95');

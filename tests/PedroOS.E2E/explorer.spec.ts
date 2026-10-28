@@ -1,7 +1,7 @@
-import { test, expect, type Locator, type Page } from '@playwright/test';
+import { test, expect, type Locator, type Page } from './fixtures.js';
 
 async function openExplorer(page: Page, mobile: boolean): Promise<Locator> {
-  await page.goto('/');
+  await page.goto('./');
   const icon = page.locator('#icon-explorer');
   if (mobile) await icon.click(); else await icon.dblclick();
   const app = page.locator('.os-window[data-app-id="explorer"]');
