@@ -10,7 +10,6 @@ test('cold startup stays under 1 MiB and never contacts a backend or downloads g
   page.on('websocket', socket => sockets.push(socket.url()));
   await page.goto('./');
   await expect(page.locator('#pedroos-boot-data')).not.toContainText('2091');
-  await page.getByRole('button', { name: 'Iniciar com som', exact: true }).click();
   await expect(page.locator('#boot-screen')).toBeHidden({ timeout: 12_000 });
   await page.waitForLoadState('networkidle');
   await expect(page.locator('#start-button')).toBeVisible();
