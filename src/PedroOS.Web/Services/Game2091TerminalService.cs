@@ -47,14 +47,27 @@ public sealed class Game2091TerminalService : IDisposable
         (GetValidVisitorId(context.Request.Cookies[CookieName]) ?? GetValidVisitorId(context.Request.Query["visitor"])) is { } visitor
         && _active.ContainsKey(visitor);
 
+    public bool IsOriginAllowed(HttpRequest request)
+    {
+        var origin = request.Headers.Origin.ToString();
+        if (_options.AllowedOrigins.Contains(origin, StringComparer.OrdinalIgnoreCase)) return true;
+        if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri)
+            || (uri.Scheme != "http" && uri.Scheme != "https")
+            || uri.UserInfo.Length != 0 || uri.AbsolutePath != "/"
+            || uri.Query.Length != 0 || uri.Fragment.Length != 0) return false;
+
+        // Cloudflare terminates TLS and forwards HTTP with the public Host intact.
+        // Accept HTTPS for that exact authority without trusting forwarded headers
+        // or allowing unrelated trycloudflare.com hosts.
+        return string.Equals(uri.Authority, request.Host.Value, StringComparison.OrdinalIgnoreCase)
+            && (uri.Scheme == request.Scheme || uri.Scheme == "https");
+    }
+
     public async Task HandleAsync(HttpContext context)
     {
         if (!Available) { context.Response.StatusCode = 503; return; }
         if (!context.WebSockets.IsWebSocketRequest) { context.Response.StatusCode = 400; return; }
-        var origin = context.Request.Headers.Origin.ToString();
-        var sameOrigin = $"{context.Request.Scheme}://{context.Request.Host}";
-        if (!string.Equals(origin, sameOrigin, StringComparison.OrdinalIgnoreCase)
-            && !_options.AllowedOrigins.Contains(origin, StringComparer.OrdinalIgnoreCase))
+        if (!IsOriginAllowed(context.Request))
         { context.Response.StatusCode = 403; return; }
         var visitor = GetValidVisitorId(context.Request.Cookies[CookieName])
             ?? GetValidVisitorId(context.Request.Query["visitor"]);
