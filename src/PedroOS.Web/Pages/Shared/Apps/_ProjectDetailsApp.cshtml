@@ -27,13 +27,6 @@
                 <span>Demonstração / Site &#8599;</span>
             </a>
         }
-        @if (project.Slug == "2091-retrogame")
-        {
-            <button type="button" class="toolbar-btn" data-open-app="terminal" data-arg-command="2091">
-                <os-icon key="2091-retrogame" size="16" alt="" />
-                <span>Jogar 2091</span>
-            </button>
-        }
     </div>
 
     <div class="project-details-body sunken-panel" tabindex="0" aria-label="Detalhes de @project.Name">
@@ -87,7 +80,7 @@
                     </div>
                     <div class="project-preview-stage sunken-panel">
                         <a class="project-preview-link" href="@firstShot.Src" target="_blank" rel="noopener noreferrer" data-project-enlarge aria-label="Ampliar captura de @project.Name">
-                            <img src="@firstShot.Src" alt="@firstShot.Alt" class="project-preview-image" data-project-preview-image decoding="async" />
+                            <img src="@firstShot.PreviewSrc" alt="@firstShot.Alt" class="project-preview-image" data-project-preview-image decoding="async" />
                         </a>
                         <p class="project-image-error" data-project-preview-error role="status" hidden>Não foi possível carregar esta imagem. Selecione outra captura ou tente abri-la em uma nova aba.</p>
                     </div>
@@ -96,8 +89,8 @@
                         @for (var index = 0; index < project.Screenshots.Count; index++)
                         {
                             var shot = project.Screenshots[index];
-                            <button type="button" class="project-thumbnail" data-project-shot="@index" data-src="@shot.Src" data-alt="@shot.Alt" data-caption="@(string.IsNullOrWhiteSpace(shot.Caption) ? shot.Alt : shot.Caption)" aria-label="Ver imagem @(index + 1): @shot.Alt" aria-pressed="@(index == 0 ? "true" : "false")" title="@shot.Caption">
-                                <img src="@shot.Src" alt="" loading="lazy" decoding="async" />
+                            <button type="button" class="project-thumbnail" data-project-shot="@index" data-src="@shot.Src" data-preview="@shot.PreviewSrc" data-alt="@shot.Alt" data-caption="@(string.IsNullOrWhiteSpace(shot.Caption) ? shot.Alt : shot.Caption)" aria-label="Ver imagem @(index + 1): @shot.Alt" aria-pressed="@(index == 0 ? "true" : "false")" title="@shot.Caption">
+                                <img src="@shot.ThumbnailSrc" alt="" loading="lazy" decoding="async" />
                                 <span>@(index + 1)</span>
                             </button>
                         }

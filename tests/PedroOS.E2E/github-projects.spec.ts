@@ -1,13 +1,13 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
-const pinned = ['rdp-session-manager', 'anycomic', 'taskproj', 'binary-tree-study', '2091-retrogame', 'uninotes-web'];
+const pinned = ['rdp-session-manager', 'anycomic', 'taskproj', 'binary-tree-study', 'uninotes-web'];
 
-test('GitHub shows the six pinned repositories in profile order and opens each portfolio entry', async ({ page, isMobile }) => {
-  await page.goto('/');
+test('GitHub shows selected repositories in profile order and opens each portfolio entry', async ({ page, isMobile }) => {
+  await page.goto('./');
   if (isMobile) await page.locator('#icon-github').click(); else await page.locator('#icon-github').dblclick();
   const app = page.locator('.os-window[data-app-id="github"]');
   const cards = app.locator('[data-github-pinned]');
-  await expect(cards).toHaveCount(6);
+  await expect(cards).toHaveCount(pinned.length);
   expect(await cards.evaluateAll(items => items.map(el => (el as HTMLElement).dataset.githubPinned))).toEqual(pinned);
   await expect(app).not.toContainText('ZellaPedia');
   for (const slug of pinned) {
@@ -24,9 +24,9 @@ test('GitHub shows the six pinned repositories in profile order and opens each p
 });
 
 test('all pinned projects appear in the project explorer and have direct routes', async ({ page, request }) => {
-  await page.goto('/projects');
+  await page.goto('./projects');
   const explorer = page.locator('.os-window[data-app-id="projects"]');
-  for (const name of ['RDP-Session-Manager.exe', 'AnyComic.exe', '2091-RetroGame.exe', 'MaisProjetos']) {
+  for (const name of ['RDP-Session-Manager.exe', 'AnyComic.exe', 'MaisProjetos']) {
     await expect(explorer.locator('.explorer-item-name', { hasText: name })).toHaveCount(1);
   }
   await explorer.locator('[data-exp-address]').fill('C:\\Projetos\\MaisProjetos');
@@ -35,6 +35,6 @@ test('all pinned projects appear in the project explorer and have direct routes'
     await expect(explorer.locator('.explorer-item-name', { hasText: name })).toHaveCount(1);
   }
   await expect(explorer).not.toContainText('ZellaPedia');
-  for (const slug of pinned) expect((await request.get(`/projects/${slug}`)).status()).toBe(200);
-  expect((await request.get('/projects/zellapedia')).status()).toBe(404);
+  for (const slug of pinned) expect((await request.get(`./projects/${slug}`)).status()).toBe(200);
+  expect((await request.get('./projects/zellapedia')).status()).toBe(404);
 });

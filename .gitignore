@@ -23,7 +23,8 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Native terminal visitor saves (never ship these)
+# Local scratch data and Python import caches (never ship these)
 .local-data/
+.local/
 __pycache__/
 *.py[cod]

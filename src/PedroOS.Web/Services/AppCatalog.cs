@@ -33,6 +33,18 @@ public sealed partial class AppCatalog : IAppCatalog
         _portfolio = portfolio;
         _apps =
         [
+            new AppDefinition { Id = "skifree", Title = "SkiFree — PedroOS 95", Icon = "skifree", Content = AppContentKind.Client,
+                DefaultWidth = 640, DefaultHeight = 500, MinWidth = 320, MinHeight = 300, MultiInstance = false, Hidden = true },
+            new AppDefinition { Id = "opentyrian", Title = "OpenTyrian — PedroOS 95", Icon = "opentyrian", Content = AppContentKind.Client,
+                DefaultWidth = 720, DefaultHeight = 570, MinWidth = 320, MinHeight = 300, MultiInstance = false, Hidden = true },
+            new AppDefinition { Id = "omf2097", Title = "One Must Fall 2097 — PedroOS 95", Icon = "omf2097", Content = AppContentKind.Client,
+                DefaultWidth = 720, DefaultHeight = 570, MinWidth = 320, MinHeight = 300, MultiInstance = false, Hidden = true },
+            new AppDefinition
+            {
+                Id = "neon-fist", Title = "Neon Fist — PedroOS 95", Icon = "gamepad",
+                Content = AppContentKind.Client, DefaultWidth = 850, DefaultHeight = 540,
+                MinWidth = 320, MinHeight = 300, MultiInstance = false, Hidden = true,
+            },
             new AppDefinition
             {
                 Id = "explorer",
@@ -138,7 +150,7 @@ public sealed partial class AppCatalog : IAppCatalog
             {
                 Id = "doom",
                 Title = "DOOM — PedroOS 95",
-                Icon = "2091-retrogame",
+                Icon = "gamepad",
                 Content = AppContentKind.Client,
                 DefaultWidth = 720,
                 DefaultHeight = 570,
@@ -299,7 +311,7 @@ public sealed partial class AppCatalog : IAppCatalog
                 AppId: "projects",
                 Args: null,
                 PageTitle: "Projetos — PedroOS 95 (Pedro Tunin)",
-                MetaDescription: "Catálogo de projetos de software de Pedro Tunin: Ofizzy (.NET 10, Angular, PostgreSQL), RDP Session Manager (Python, GTK 4, Linux xrdp), TaskProj, AnyComic, BinaryTreeStudy, UniNote e 2091.",
+                MetaDescription: "Catálogo de projetos de software de Pedro Tunin: Ofizzy (.NET 10, Angular, PostgreSQL), RDP Session Manager (Python, GTK 4, Linux xrdp), TaskProj, AnyComic, BinaryTreeStudy, UniNote.",
                 CanonicalPath: "/projects");
         }
 

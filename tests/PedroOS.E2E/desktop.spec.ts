@@ -1,8 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.describe('PedroOS 95 — End-to-End Test Suite', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('domcontentloaded');
   });
 
@@ -177,7 +177,7 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
     await expect(resumeWin).toContainText('Pedro Tunin');
     await expect(resumeWin).toContainText('Baixar PDF');
 
-    const downloadLink = resumeWin.locator('a[href="/resume/pdf"]').first();
+    const downloadLink = resumeWin.locator('a[download="Pedro-Tunin-Resume.pdf"]').first();
     await expect(downloadLink).toBeVisible();
   });
 
@@ -284,14 +284,14 @@ test.describe('PedroOS 95 — End-to-End Test Suite', () => {
 
   // 15. Rotas diretas funcionam após atualização da página
   test('15. direct SEO routes render server-side correctly', async ({ page }) => {
-    await page.goto('/projects/ofizzy');
+    await page.goto('./projects/ofizzy');
     await expect(page).toHaveTitle(/Ofizzy/);
 
     const ofizzyWin = page.locator('.os-window[data-instance-key="project:ofizzy"]');
     await expect(ofizzyWin).toBeVisible();
     await expect(ofizzyWin).toContainText('Ofizzy');
 
-    await page.goto('/skills');
+    await page.goto('./skills');
     await expect(page).toHaveTitle(/Propriedades do Sistema/);
     const sysWin = page.locator('.os-window[data-app-id="sysprops"]');
     await expect(sysWin).toBeVisible();

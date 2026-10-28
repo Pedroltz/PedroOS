@@ -14,7 +14,8 @@
         ("icon-msdos", "Terminal PedroOS", "msdos", "app", "terminal", null, null),
         ("icon-github", "GitHub", "github", "app", "github", null, null),
         ("icon-linkedin", "LinkedIn", "linkedin", "app", "linkedin", null, null),
-        ("icon-recycle", "Lixeira", "recycle-bin", "app", "explorer", "path", @"C:\PEDROOS"),
+        ("icon-recycle", "Lixeira", "recycle-bin", "app", "explorer", "path", @"C:\Lixeira"),
+        ("icon-secret-disk", "Disquete secreto", "floppy", "app", "explorer", "path", @"C:\Segredos\Disquete"),
     };
 }
 <nav class="desktop-icons" id="desktop-icons" aria-label="Atalhos da área de trabalho">
@@ -40,6 +41,7 @@
             <button type="button"
                     class="desktop-icon"
                     id="@item.Id"
+                    hidden="@(item.Id == "icon-secret-disk")"
                     data-desktop-icon
                     data-action="app"
                     data-app-id="@item.Target"

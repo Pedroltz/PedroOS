@@ -336,12 +336,15 @@ var VirtualFileSystemClient = class {
   root;
   byPath = /* @__PURE__ */ new Map();
   byId = /* @__PURE__ */ new Map();
-  index(node) {
+  hiddenPaths = /* @__PURE__ */ new Set();
+  index(node, hiddenParent = false) {
+    const hidden = hiddenParent || !!node.hidden;
+    if (hidden) this.hiddenPaths.add(node.path.toLowerCase());
     this.byPath.set(node.path.toLowerCase(), node);
     this.byId.set(node.id.toLowerCase(), node);
     if (node.children) {
       for (const child of node.children) {
-        this.index(child);
+        this.index(child, hidden);
       }
     }
   }
@@ -416,7 +419,7 @@ var VirtualFileSystemClient = class {
       if (node.type === "drive") {
         continue;
       }
-      if (!includeHidden && node.hidden) {
+      if (!includeHidden && this.hiddenPaths.has(node.path.toLowerCase())) {
         continue;
       }
       if (node.name.toLowerCase().includes(q) || node.path.toLowerCase().includes(q) || node.description && node.description.toLowerCase().includes(q)) {

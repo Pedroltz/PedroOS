@@ -25,7 +25,7 @@ export function project16(key) {
     } else if (key === 'anycomic') {
       box(1, 1, 13, 14, 'm'); box(3, 2, 10, 11, 'w');
       box(4, 3, 4, 5, 'c'); box(9, 3, 3, 5, 'y'); box(4, 9, 8, 3, 'r');
-    } else if (key === '2091-retrogame') {
+    } else if (key === 'gamepad') {
       box(1, 5, 14, 8); rect(3, 4, 10, 2, 'g'); rect(4, 7, 2, 5); rect(3, 8, 4, 2);
       rect(10, 7, 2, 2, 'r'); rect(12, 10, 2, 2, 'b'); rect(7, 11, 2, 1, 'd');
       line(8, 4, 8, 1); line(8, 1, 12, 1);
@@ -43,12 +43,12 @@ export function project16(key) {
 export function native32(key) {
   // Preserve the established artwork for existing applications. Only the three
   // projects that previously shared a generic icon need new large compositions.
-  if (!['anycomic', '2091-retrogame', 'autoapply'].includes(key)) return undefined;
+  if (!['anycomic', 'gamepad', 'autoapply'].includes(key)) return undefined;
   const computer = ['my-computer', 'system', 'display', 'control-panel', 'rdp-session-manager', 'run', 'shutdown'];
   const folder = ['folder', 'folder-open', 'projects', 'explorer'];
   const documents = ['document', 'text', 'doc', 'resume', 'notepad', 'autoapply', 'exe', 'sys', 'project'];
   const books = ['anycomic'];
-  if (![...computer, ...folder, ...documents, ...books, 'ofizzy', '2091-retrogame', 'github', 'linkedin'].includes(key)) return undefined;
+  if (![...computer, ...folder, ...documents, ...books, 'ofizzy', 'gamepad', 'github', 'linkedin'].includes(key)) return undefined;
   return drawing(32, ({ rect, line, box }) => {
     const monitor = (x, y, w, h) => {
       box(x, y, w, h, 'g'); rect(x + 1, y + 1, w - 2, 1, 'w'); rect(x + 1, y + 1, 1, h - 2, 'w');
@@ -85,7 +85,7 @@ export function native32(key) {
     } else if (key === 'ofizzy') {
       box(10, 5, 12, 7); rect(12, 7, 8, 4, '.'); box(2, 11, 28, 18, 'm');
       rect(3, 12, 26, 6, 'r'); rect(3, 12, 26, 1, 'w'); rect(3, 20, 26, 1, 'd'); box(14, 17, 4, 7, 'y'); rect(4, 26, 24, 1, 'r');
-    } else if (key === '2091-retrogame') {
+    } else if (key === 'gamepad') {
       line(16, 9, 16, 3); line(16, 3, 26, 3); box(3, 10, 26, 18); rect(5, 9, 22, 2, 'g');
       rect(4, 11, 24, 1, 'w'); rect(8, 14, 3, 9); rect(5, 17, 9, 3); box(20, 14, 4, 4, 'r'); box(24, 20, 4, 4, 'b'); rect(15, 23, 4, 1, 'd');
     } else {

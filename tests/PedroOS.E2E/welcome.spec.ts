@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures.js';
 import type { IWindowManager } from '../../src/PedroOS.Web/Client/types/index.js';
 
 test.use({ storageState: { cookies: [], origins: [] } });
@@ -10,7 +10,7 @@ async function reopen(page: Page) {
 }
 
 test('first visit presents a centered classic portfolio window and all six tips', async ({ page, isMobile }) => {
-  await page.goto('/');
+  await page.goto('./');
   const app = page.locator(selector);
   await expect(app.locator('[data-welcome-app]')).toBeVisible();
   await expect(app).toContainText('portfólio interativo de Pedro Tunin');
@@ -24,7 +24,7 @@ test('first visit presents a centered classic portfolio window and all six tips'
   await expect(app.locator('[data-welcome-tip-title]')).toHaveText('Explore o desktop');
   await page.screenshot({ path: `test-results/welcome-${isMobile ? 'mobile' : 'desktop'}.png` });
   const next = app.getByRole('button', { name: 'Próxima dica' });
-  for (const title of ['Projetos em destaque', 'Uma aventura no terminal', 'Um endereço diferente', 'Um segredo no Campo Minado', 'Recursos do sistema', 'Explore o desktop']) {
+  for (const title of ['Projetos em destaque', 'Jogos no navegador', 'Um endereço diferente', 'Um segredo no Campo Minado', 'Recursos do sistema', 'Explore o desktop']) {
     await next.focus(); await page.keyboard.press('Enter');
     await expect(app.locator('[data-welcome-tip-title]')).toHaveText(title);
     await expect(next).toBeFocused();
@@ -41,7 +41,7 @@ test('first visit presents a centered classic portfolio window and all six tips'
 });
 
 test('startup preference persists, can be reenabled and closing does not change it', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   const app = page.locator(selector);
   await app.locator('[data-welcome-startup-label]').click();
   await expect(app.getByRole('checkbox')).not.toBeChecked();
@@ -62,7 +62,7 @@ test('startup preference persists, can be reenabled and closing does not change 
 
 for (const [label, id, route] of [['Explorar projetos', 'projects', '/projects'], ['Ver currículo', 'resume', '/resume'], ['Competências', 'sysprops', '/skills']]) {
   test(`${label} closes the welcome window before opening its application`, async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await page.locator(selector).getByRole('button', { name: label, exact: true }).click();
     await expect(page.locator(selector)).toHaveCount(0);
     await expect(page.locator(`.os-window[data-app-id="${id}"]`)).toBeVisible();
@@ -77,7 +77,7 @@ for (const [label, id, route] of [['Explorar projetos', 'projects', '/projects']
 
 test('direct links and missing pages do not auto-open welcome', async ({ page }) => {
   for (const path of ['/projects', '/projects/ofizzy', '/resume', '/skills', '/not-found']) {
-    await page.goto(path);
+    await page.goto('.' + path);
     await expect(page.locator('#start-button')).toBeVisible();
     await expect(page.locator(selector)).toHaveCount(0);
   }
@@ -85,7 +85,7 @@ test('direct links and missing pages do not auto-open welcome', async ({ page })
 
 test('unavailable storage retains preference for the current visit', async ({ page }) => {
   await page.addInitScript(() => { Object.defineProperty(window, 'localStorage', { get() { throw new Error('Storage disabled'); } }); });
-  await page.goto('/');
+  await page.goto('./');
   await page.locator(`${selector} [data-welcome-startup-label]`).click();
   await page.locator(`${selector} [data-close-fragment]`).click();
   await reopen(page);
@@ -96,7 +96,7 @@ test('unavailable storage retains preference for the current visit', async ({ pa
 
 test('a short narrow screen keeps welcome actions accessible without horizontal overflow', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 420 });
-  await page.goto('/');
+  await page.goto('./');
   const app = page.locator(selector);
   await expect(app.locator('[data-welcome-app]')).toBeVisible();
   await expect(app.getByRole('checkbox')).toBeInViewport();

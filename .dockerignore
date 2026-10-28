@@ -1,8 +1,0 @@
-**/.git
-**/.vs
-**/bin
-**/obj
-**/node_modules
-**/test-results
-*.log
-**/.local-data

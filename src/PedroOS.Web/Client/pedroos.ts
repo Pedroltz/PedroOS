@@ -1,4 +1,9 @@
+import { runBootSequence } from './components/BootSequence.js';
 import { DoomApp } from './apps/DoomApp.js';
+import { NeonFistApp } from './apps/NeonFistApp.js';
+import { RetroGameApp } from './apps/RetroGameApp.js';
+import { mountDesktopSecrets } from './components/DesktopSecrets.js';
+import { secrets } from './core/SecretSession.js';
 import { welcomePreference } from './core/WelcomePreference.js';
 import type { BootPayload } from './types/index.js';
 import { DesktopStore } from './core/DesktopStore.js';
@@ -44,6 +49,10 @@ function boot(): void {
   registry.registerClientApp('iexplore', new InternetExplorerApp(icons, data.projects));
   registry.registerClientApp('minesweeper', new MinesweeperApp(icons));
   registry.registerClientApp('doom', new DoomApp(store));
+  registry.registerClientApp('neon-fist', new NeonFistApp(store));
+  registry.registerClientApp('skifree', new RetroGameApp(store, 'skifree', 'SkiFree'));
+  registry.registerClientApp('opentyrian', new RetroGameApp(store, 'opentyrian', 'OpenTyrian'));
+  registry.registerClientApp('omf2097', new RetroGameApp(store, 'omf2097', 'One Must Fall 2097'));
   registry.registerClientApp('notepad', new NotepadApp(vfs));
   registry.registerClientApp('terminal', new TerminalApp(vfs));
   registry.registerClientApp('find', new FindDialogApp(vfs, icons));
@@ -78,6 +87,7 @@ function boot(): void {
   // Initialize Desktop shell (icons, taskbar, start menu, BSOD, context menu)
   const controller = new DesktopController(store, wm, icons, sound);
   controller.init();
+  mountDesktopSecrets(store);
 
   // If page was loaded on an app route but SSR didn't pre-render it (e.g. client navigation)
   if (data.initialRoute.appId && store.getAllWindows().length === 0 && !data.initialRoute.notFound) {
@@ -125,11 +135,17 @@ function boot(): void {
     vfs,
     icons,
     sound,
+    secrets,
   };
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', boot);
-} else {
+async function start(): Promise<void> {
+  await runBootSequence();
   boot();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => { void start(); });
+} else {
+  void start();
 }

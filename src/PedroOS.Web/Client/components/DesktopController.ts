@@ -82,7 +82,7 @@ export class DesktopController {
 
     // Arrow navigation
     container.addEventListener('keydown', (ev) => {
-      const icons = Array.from(container.querySelectorAll<HTMLElement>('[data-desktop-icon]'));
+      const icons = Array.from(container.querySelectorAll<HTMLElement>('[data-desktop-icon]')).filter(icon => !icon.hidden);
       if (icons.length === 0) return;
 
       const idx = selectedIcon ? icons.indexOf(selectedIcon) : -1;
@@ -225,7 +225,6 @@ export class DesktopController {
         const args: Record<string, string> = {};
         if (path) args.path = path;
         if (slug) args.slug = slug;
-        if (action.dataset.argCommand === '2091') args.command = '2091';
 
         this.wm.open(appId, { args });
         this.closeStartMenu();

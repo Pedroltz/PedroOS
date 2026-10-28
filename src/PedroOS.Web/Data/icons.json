@@ -96,6 +96,82 @@
         16
       ]
     },
+    "floppy": {
+      "category": "system",
+      "description": "Secret floppy disk",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/system/floppy-16.png",
+        "32": "/assets/icons/system/floppy-32.png",
+        "48": "/assets/icons/system/floppy-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "skifree": {
+      "category": "applications",
+      "description": "SkiFree skier",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/skifree-16.png",
+        "32": "/assets/icons/applications/skifree-32.png",
+        "48": "/assets/icons/applications/skifree-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "opentyrian": {
+      "category": "applications",
+      "description": "OpenTyrian spaceship",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/opentyrian-16.png",
+        "32": "/assets/icons/applications/opentyrian-32.png",
+        "48": "/assets/icons/applications/opentyrian-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
+    "omf2097": {
+      "category": "applications",
+      "description": "One Must Fall robot",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/omf2097-16.png",
+        "32": "/assets/icons/applications/omf2097-32.png",
+        "48": "/assets/icons/applications/omf2097-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16
+      ]
+    },
     "document": {
       "category": "system",
       "description": "Document",
@@ -686,26 +762,6 @@
         32
       ]
     },
-    "2091-retrogame": {
-      "category": "projects",
-      "description": "2091 retro game controller",
-      "sizes": [
-        16,
-        32,
-        48
-      ],
-      "variants": {
-        "16": "/assets/icons/projects/2091-retrogame-16.png",
-        "32": "/assets/icons/projects/2091-retrogame-32.png",
-        "48": "/assets/icons/projects/2091-retrogame-48.png"
-      },
-      "fallback": "exe",
-      "attribution": "Original PedroOS pixel artwork",
-      "nativeSizes": [
-        16,
-        32
-      ]
-    },
     "autoapply": {
       "category": "projects",
       "description": "AutoApply automated form",
@@ -1251,6 +1307,26 @@
       "attribution": "Original PedroOS pixel artwork",
       "nativeSizes": [
         16
+      ]
+    },
+    "gamepad": {
+      "category": "applications",
+      "description": "Retro game controller",
+      "sizes": [
+        16,
+        32,
+        48
+      ],
+      "variants": {
+        "16": "/assets/icons/applications/gamepad-16.png",
+        "32": "/assets/icons/applications/gamepad-32.png",
+        "48": "/assets/icons/applications/gamepad-48.png"
+      },
+      "fallback": "exe",
+      "attribution": "Original PedroOS pixel artwork",
+      "nativeSizes": [
+        16,
+        32
       ]
     }
   },

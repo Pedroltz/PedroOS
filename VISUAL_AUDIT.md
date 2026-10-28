@@ -2,7 +2,7 @@
 
 Auditoria executada em 22/10/2026. Implementação em Razor Pages, TypeScript e CSS, sem dependências novas.
 
-Revisão após feedback visual: os desenhos simplificados foram rejeitados pelo usuário. Todos os PNGs antigos de desktop e aplicativos foram restaurados exatamente à arte do commit original, preservando as correções de layout. Apenas AnyComic, 2091 RetroGame e AutoApply mantêm desenhos novos. As capturas finais e a galeria foram atualizadas e novamente inspecionadas.
+Revisão após feedback visual: os desenhos simplificados foram rejeitados pelo usuário. Todos os PNGs antigos de desktop e aplicativos foram restaurados exatamente à arte do commit original, preservando as correções de layout. Apenas AnyComic, Gamepad e AutoApply mantêm desenhos novos. As capturas finais e a galeria foram atualizadas e novamente inspecionadas.
 
 ## Referência e evidências
 
@@ -46,7 +46,7 @@ Capturas finais, inspecionadas visualmente:
 | Ordenação por tamanho comparava strings | Comparação numérica em bytes; cabeçalho acessível por teclado |
 | Projects tinha cards e uma tabela próprios | Reutilização de `ExplorerApp` sobre o mesmo VFS, mantendo `C:\Projects\MoreProjects`, navegação, seleção e quatro modos |
 | Caminho SSR e abertura dinâmica tinham estruturas diferentes | Janela SSR é adotada pelo Window Manager e monta o mesmo módulo; fallback Razor apresenta links de executáveis para todos os projetos |
-| AnyComic, 2091 e AutoApply compartilhavam o ícone genérico | Arte própria e variantes nativas de 16/32 px para os seis projetos |
+| AnyComic, Gamepad e AutoApply compartilhavam o ícone genérico | Arte própria e variantes nativas de 16/32 px para os seis projetos |
 | Desenhos simplificados perderam o detalhe da arte anterior | Arte original restaurada para todos os ícones existentes, incluindo suas variantes de escala inteira; três projetos adicionais possuem composições nativas de 32 px |
 | Glyphs SVG de grade 24 px eram reduzidos para 16 px | 25 glyphs originais desenhados em grade nativa de 16 px, dentro do mesmo registro |
 | Substituição dos ícones conhecidos de GitHub e LinkedIn descaracterizou o desktop | Ícones originais restaurados conforme preferência do usuário; URLs e conteúdo profissional preservados |
@@ -76,7 +76,7 @@ Capturas finais, inspecionadas visualmente:
 | RDP Session Manager | Monitores e conexão remota | 16 / 32 px |
 | ZellaPedia | Livro com lupa original | 16 / 32 px |
 | AnyComic | Livro com painéis coloridos | 16 / 32 px |
-| 2091 RetroGame | Controle de videogame com fio | 16 / 32 px |
+| Gamepad | Controle de videogame com fio | 16 / 32 px |
 | AutoApply | Formulário com seta de automação | 16 / 32 px |
 
 As fontes sugeridas foram avaliadas. Memphis declara MIT, ChiDoors CC BY-SA 4.0 e o conjunto gratuito Pixelarticons MIT. Não foi importada arte dessas fontes nesta correção. Os SVGs antigos foram preservados com seus avisos, mas as referências de toolbar agora usam arte original. [Licenças e fontes](THIRD_PARTY_NOTICES.md).

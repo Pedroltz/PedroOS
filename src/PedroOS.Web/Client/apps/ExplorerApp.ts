@@ -2,6 +2,7 @@ import type { AppMountContext, ClientAppModule, VirtualNode } from '../types/ind
 import { IconRegistryClient } from '../core/IconRegistryClient.js';
 import { VirtualFileSystemClient } from '../core/VirtualFileSystemClient.js';
 import { mountClassicMenu } from '../components/ClassicMenu.js';
+import { secrets } from '../core/SecretSession.js';
 
 const NODE_TYPE_LABELS: Record<string, string> = { drive: 'Disco local', folder: 'Pasta de arquivos', application: 'Aplicativo', document: 'Documento de texto', text: 'Arquivo de texto', systemFile: 'Arquivo do sistema', shortcut: 'Atalho' };
 
@@ -313,6 +314,7 @@ export class ExplorerApp implements ClientAppModule {
         window.open(node.action.url, '_blank', 'noopener,noreferrer');
         return;
       }
+      if (node.action?.kind === 'unlock-secret') { secrets.unlockArcade(); return; }
       if (node.action?.kind === 'open-app' && node.action.appId) {
         ctx.windowManager.open(node.action.appId, { args: node.action.args ?? {} });
       }
@@ -593,6 +595,7 @@ export class ExplorerApp implements ClientAppModule {
     };
 
     const render = (): void => {
+      secrets.visit(currentPath);
       addressInput.value = currentPath;
       addressIcon.src = this.icons.getPath(currentPath === 'C:\\' ? 'drive' : 'folder-open', 16);
       paneTitleEl.textContent = `Conteúdo de '${currentPath}'`;

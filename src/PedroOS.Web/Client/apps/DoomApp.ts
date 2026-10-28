@@ -22,18 +22,15 @@ export class DoomApp implements ClientAppModule {
     const abort = new AbortController();
     ctx.container.innerHTML = `
       <div class="app-shell doom-app" data-doom-app>
-        <div class="win95-toolbar" role="toolbar" aria-label="Controles de DOOM">
-          <button type="button" data-doom-start>Jogar Freedoom</button>
-          <button type="button" data-doom-pause disabled>Pausar</button>
-          <button type="button" data-doom-restart disabled>Reiniciar</button>
-          <button type="button" data-doom-mute aria-pressed="false" disabled>Silenciar</button>
-          <button type="button" data-doom-upload>Carregar WAD...</button>
-          <button type="button" data-doom-default hidden>Usar Freedoom</button>
-          <input type="file" data-doom-file accept=".wad,.iwad" hidden aria-label="Arquivo IWAD do Doom" />
-        </div>
         <div class="doom-stage sunken-panel">
           <div class="doom-launcher" data-doom-launcher>
             <h2>DOOM</h2><p>Chocolate Doom + Freedoom: Phase 1</p>
+            <p>
+              <button type="button" data-doom-start>Jogar Freedoom</button>
+              <button type="button" data-doom-upload>Carregar WAD...</button>
+              <button type="button" data-doom-default hidden>Usar Freedoom</button>
+              <input type="file" data-doom-file accept=".wad,.iwad" hidden aria-label="Arquivo IWAD do Doom" />
+            </p>
             <p>Abra o jogo para explorar os mapas de Freedoom ou carregue um arquivo IWAD do seu Doom original.</p>
             <p>Primeiro carregamento do Freedoom: cerca de 35 MB, somente ao jogar.</p>
             <p>O jogo é executado no navegador. O arquivo escolhido não é enviado ao servidor.</p>
@@ -48,15 +45,12 @@ export class DoomApp implements ClientAppModule {
     const frame = root.querySelector<HTMLIFrameElement>('[data-doom-frame]')!;
     const launcher = root.querySelector<HTMLElement>('[data-doom-launcher]')!;
     const start = root.querySelector<HTMLButtonElement>('[data-doom-start]')!;
-    const pause = root.querySelector<HTMLButtonElement>('[data-doom-pause]')!;
-    const restart = root.querySelector<HTMLButtonElement>('[data-doom-restart]')!;
-    const mute = root.querySelector<HTMLButtonElement>('[data-doom-mute]')!;
     const file = root.querySelector<HTMLInputElement>('[data-doom-file]')!;
     const upload = root.querySelector<HTMLButtonElement>('[data-doom-upload]')!;
     const defaults = root.querySelector<HTMLButtonElement>('[data-doom-default]')!;
     const status = root.querySelector<HTMLElement>('[data-doom-status]')!;
     let selection: { name: string; bytes: Uint8Array } | null = null;
-    let manualPause = false, muted = false, running = false, loading = false, disposed = false;
+    let running = false, loading = false, disposed = false;
     let generation = 0;
     let lastPaused: boolean | undefined;
     const post = (data: object): void => frame.contentWindow?.postMessage({ source: 'pedroos-doom-host', ...data }, location.origin);
@@ -65,20 +59,19 @@ export class DoomApp implements ClientAppModule {
       const record = this.store.getWindow(ctx.windowId);
       const blue = document.getElementById('bsod-overlay');
       const auto = document.hidden || record?.state === 'minimized' || this.store.getActiveWindowId() !== ctx.windowId || this.store.isStartMenuOpen() || !!blue && !blue.hidden;
-      const value = manualPause || auto;
+      const value = auto;
       if (lastPaused !== value) { lastPaused = value; post({ type: 'pause', value }); }
-      pause.textContent = manualPause ? 'Continuar' : 'Pausar';
       if (running) status.textContent = `${value ? 'Pausado' : 'Em execução'} · ${selectionLabel()}`;
     };
     const reset = (): void => {
       frame.src = 'about:blank'; frame.hidden = true; launcher.hidden = false;
-      running = false; loading = false; lastPaused = undefined; manualPause = false;
-      start.disabled = false; pause.disabled = true; restart.disabled = true; mute.disabled = true; upload.disabled = false;
+      running = false; loading = false; lastPaused = undefined;
+      start.disabled = false; upload.disabled = false;
     };
     const play = (): void => {
       if (loading || running) return;
       loading = true; status.textContent = `Carregando · ${selectionLabel()}`;
-      start.disabled = true; upload.disabled = true; restart.disabled = false;
+      start.disabled = true; upload.disabled = true;
       launcher.hidden = true; frame.hidden = false;
       lastPaused = undefined;
       const url = new URL(withBase('/assets/games/doom/player.html'), location.href);
@@ -90,11 +83,11 @@ export class DoomApp implements ClientAppModule {
       switch (event.data.type) {
         case 'loaded':
           post({ type: 'start', name: selection?.name, wad: selection ? selection.bytes.buffer : undefined });
-          post({ type: 'mute', value: muted }); syncPause(); break;
+          syncPause(); break;
         case 'ready':
           status.textContent = 'Clique ou toque na tela do jogo para iniciar e ativar o som'; break;
         case 'running':
-          loading = false; running = true; pause.disabled = false; mute.disabled = false; upload.disabled = false;
+          loading = false; running = true;
           syncPause(); break;
         case 'error':
           reset(); status.textContent = 'Não foi possível iniciar o jogo. Tente novamente ou selecione outro IWAD.'; break;
@@ -104,9 +97,6 @@ export class DoomApp implements ClientAppModule {
       }
     }, { signal: abort.signal });
     start.addEventListener('click', play);
-    pause.addEventListener('click', () => { manualPause = !manualPause; syncPause(); });
-    mute.addEventListener('click', () => { muted = !muted; mute.setAttribute('aria-pressed', String(muted)); mute.textContent = muted ? 'Ativar som' : 'Silenciar'; post({ type: 'mute', value: muted }); });
-    restart.addEventListener('click', () => { reset(); play(); });
     upload.addEventListener('click', () => file.click());
     file.addEventListener('change', async () => {
       const chosen = file.files?.[0]; file.value = '';
@@ -127,6 +117,7 @@ export class DoomApp implements ClientAppModule {
     const observer = new MutationObserver(syncPause);
     const blue = document.getElementById('bsod-overlay');
     if (blue) observer.observe(blue, { attributes: true, attributeFilter: ['hidden'] });
+    if (ctx.args.autoStart === 'true') play();
     return () => {
       disposed = true; abort.abort(); unsubscribe(); observer.disconnect();
       frame.src = 'about:blank'; frame.remove(); selection = null; ctx.container.replaceChildren();

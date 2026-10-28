@@ -23,6 +23,30 @@ const PALETTE = {
 
 // ---------------------------------------------------------------- sprites
 const S = {};
+S.floppy = [
+  '................', '.kkkkkkkkkkkkk..', '.knnwwwwwwwnnnk.', '.knnwddddgwnnnk.',
+  '.knnwddddgwnnnk.', '.knnwwwwwwwnnnk.', '.knnnnnnnnnnnnk.', '.knnnnnnnnnnnnk.',
+  '.knnkkkkkkknnnk.', '.knkwwwwwwwknnk.', '.knkwdddddwknnk.', '.knkwwwwwwwknnk.',
+  '.knkwdddddwknnk.', '.knkwwwwwwwknnk.', '.kkkkkkkkkkkkkk.', '................',
+];
+S.skifree = [
+  '................','......kkkk......','......krrk......','......kggk......',
+  '......kkkk......','....kbbbbk......','...kbbbbbbk.....','...k.kbbk.k.....',
+  '..k..kbbk..k....','.....kkkk.......','....kggggk......','...kggkkggk.....',
+  '..kkgk..kgkk....','.krrk....krrk...','krrk......krrk..','kkkk......kkkk..',
+];
+S.opentyrian = [
+  '................','.......kk.......','......kcck......','......kcck......',
+  '.....kkwwkk.....','..k..kwwwwk..k..','.kwk.kwwwwk.kwk.','.kwwkkwccwkkwwk.',
+  '.kwwwwwccwwwwwk.','kwwwwwwccwwwwwwk','kwwkkwwwwwwkkwwk','kkkk.kkggkk.kkkk',
+  '.....krrrrk.....','......kyyk......','.......kk.......','................',
+];
+S.omf2097 = [
+  '................','.....kkkkkk.....','....kddddddk....','....kgrrrrgk....',
+  '....kggggggk....','..kk.kkkkkk.kk..','.kddkddddddkddk.','.kggkggggggkggk.',
+  '.kggkggbbggkggk.','.kkk.kggggk.kkk.','.....kkkkkk.....','....kddkkddk....',
+  '....kggkkggk....','...kgggkkgggk...','...kkkkkkkkkk...','................',
+];
 
 S.computer = [
   '................',
@@ -559,6 +583,10 @@ const ICONS = {
   'folder': ['system', S.folder, 'Folder'],
   'folder-open': ['system', S.folderOpen, 'Open folder'],
   'recycle-bin': ['system', S.recycle, 'Recycle Bin'],
+  'floppy': ['system', S.floppy, 'Secret floppy disk'],
+  'skifree': ['applications', S.skifree, 'SkiFree skier'],
+  'opentyrian': ['applications', S.opentyrian, 'OpenTyrian spaceship'],
+  'omf2097': ['applications', S.omf2097, 'One Must Fall robot'],
   'document': ['system', S.document, 'Document'],
   'text': ['system', S.text, 'Text document'],
   'doc': ['system', S.wordpad, 'WordPad document'],
@@ -592,7 +620,7 @@ const ICONS = {
   // projects
   'ofizzy': ['projects', S.ofizzy, 'Ofizzy'],
   'anycomic': ['projects', project16('anycomic'), 'AnyComic illustrated comic book'],
-  '2091-retrogame': ['projects', project16('2091-retrogame'), '2091 retro game controller'],
+  'gamepad': ['applications', project16('gamepad'), 'Retro game controller'],
   'autoapply': ['projects', project16('autoapply'), 'AutoApply automated form'],
   'rdp-session-manager': ['projects', overlay(S.remoteMonitor, O8.arrow, 0, 8), 'RDP Session Manager'],
   'project': ['projects', overlay(S.exe, O8.gear, 8, 8), 'Project'],
@@ -783,6 +811,13 @@ for (const [name, rows] of Object.entries(patterns)) {
 }
 
 // Contact sheet for visual review (not shipped)
+const arcade = canvas(64, 64, [12, 6, 38]);
+for (let x = 0; x < 64; x += 16) arcade.rect(x, 0, 1, 64, [55, 16, 92]);
+for (let y = 0; y < 64; y += 16) arcade.rect(0, y, 64, 1, [55, 16, 92]);
+arcade.rect(30, 27, 2, 8, PALETTE.c); arcade.rect(27, 30, 8, 2, PALETTE.c);
+arcade.rect(8, 10, 2, 2, PALETTE.P); arcade.rect(49, 51, 2, 2, PALETTE.P);
+writeFileSync(join(wallDir, 'arcade.png'), arcade.png());
+
 if (process.argv.includes('--sheet')) {
   const keys = Object.keys(ICONS);
   const cols = 10, cell = 40;

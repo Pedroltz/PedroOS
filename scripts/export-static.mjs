@@ -7,7 +7,7 @@
 // Requires the frontend bundle (npm run build) and a built .NET project (dotnet build -c Release).
 import { spawn } from 'node:child_process';
 import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, extname, join, resolve } from 'node:path';
+import { dirname, extname, isAbsolute, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -21,6 +21,10 @@ function arg(name, fallback) {
 const base = arg('base', '/PedroOS').replace(/\/+$/, '');
 const site = arg('site', 'https://pedroltz.github.io').replace(/\/+$/, '');
 const out = resolve(root, arg('out', 'dist/pages'));
+const outRelative = relative(join(root, 'dist'), out);
+if (!outRelative || outRelative.startsWith('..') || isAbsolute(outRelative)) {
+  throw new Error('Static output must be a subdirectory of dist/.');
+}
 const port = Number(arg('port', '5199'));
 const origin = `http://localhost:${port}`;
 const publicBase = `${site}${base}`;
