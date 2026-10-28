@@ -4,7 +4,8 @@ import { dirname } from 'node:path';
 
 const url = process.argv[2] || 'http://127.0.0.1:5170/PedroOS/';
 const output = process.argv[3] || 'test-results/startup-after.json';
-const browser = await chromium.launch();
+// Include the original chime in the budget even on a fresh browser profile.
+const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
 try {
   const results = [];
   for (const [device, options] of [['desktop', { viewport: { width: 1280, height: 720 } }], ['mobile', devices['Pixel 5']]]) {
@@ -14,7 +15,6 @@ try {
     page.on('request', r => requests.push(r.url()));
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(url);
-    await page.getByRole('button', { name: 'Iniciar com som', exact: true }).click();
     await page.locator('#boot-screen').waitFor({ state: 'hidden', timeout: 15_000 });
     await page.waitForLoadState('networkidle');
     const resources = await page.evaluate(() => {

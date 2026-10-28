@@ -54,15 +54,30 @@ body:has(#boot-screen:not([hidden])) #desktop { visibility: hidden; }
   inset: 0;
   z-index: 200000;
   background: #000;
-  color: #d8d8d8;
+  color: #c0c0c0;
   outline: none;
   cursor: var(--cursor-arrow);
 }
 .boot-console {
-  padding: clamp(18px, 5vw, 56px);
-  font: clamp(12px, 1.65vw, 19px)/1.5 "Courier New", monospace;
+  padding: 16px;
+  visibility: hidden;
+  font: 400 16px/16px "PedroOS VGA", monospace;
+  font-synthesis: none;
+  font-kerning: none;
+  font-variant-ligatures: none;
 }
-.boot-console pre { margin: 0; font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
+.boot-screen[data-boot-font-ready] .boot-console { visibility: visible; }
+.boot-console pre {
+  background: transparent;
+  color: inherit;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 .boot-cursor { animation: boot-blink 1s steps(1) infinite; }
 .boot-splash {
   width: 100%;
@@ -71,9 +86,9 @@ body:has(#boot-screen:not([hidden])) #desktop { visibility: hidden; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 12px 58px;
+  padding: 0;
 }
-.boot-artwork { position: relative; width: min(100%, 800px, calc((100dvh - 180px) * 4 / 3)); }
+.boot-artwork { position: relative; width: min(100%, 960px, calc((100dvh - 8px) * 4 / 3)); }
 .boot-artwork img { display: block; width: 100%; height: auto; }
 .boot-loading { height: 8px; background: #b6c8dc; overflow: hidden; }
 .boot-loading span {
@@ -83,22 +98,7 @@ body:has(#boot-screen:not([hidden])) #desktop { visibility: hidden; }
   background: repeating-linear-gradient(90deg, #008080 0 7px, #000080 7px 10px);
   animation: boot-sweep 2.2s linear infinite;
 }
-.boot-prompt { min-height: 80px; text-align: center; padding: 4px 8px; }
-.boot-prompt p { font: 13px/1.5 "Courier New", monospace; margin: 12px 0; color: #dedede; }
-.boot-prompt button { min-height: 30px; min-width: 150px; padding: 4px 16px; }
-.boot-skip {
-  position: absolute;
-  bottom: max(16px, env(safe-area-inset-bottom));
-  right: max(16px, env(safe-area-inset-right));
-  background: transparent;
-  color: #c0c0c0;
-  box-shadow: none;
-  border: 1px solid #666;
-  min-height: 32px;
-  padding: 6px 12px;
-  font: 12px "Courier New", monospace;
-}
-.boot-skip:focus-visible { outline: 1px dotted #fff; outline-offset: 3px; }
+@media (max-width: 480px) { .boot-console { padding: 8px; } }
 @keyframes boot-blink { 50% { opacity: 0; } }
 @keyframes boot-sweep { from { transform: translateX(-100%); } to { transform: translateX(460%); } }
 @media (prefers-reduced-motion: reduce) {

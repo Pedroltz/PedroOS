@@ -1,3 +1,5 @@
+import { withBase } from './BasePath.js';
+
 /**
  * Optional retro sound synthesizer using Web Audio API.
  * Never throws if AudioContext is unavailable or blocked.
@@ -5,6 +7,8 @@
 export class SoundEffects {
   private enabled = true;
   private ctx: AudioContext | null = null;
+  private startupAudio: HTMLAudioElement | null = null;
+  private startupTimeout = 0;
 
   public isEnabled(): boolean {
     return this.enabled;
@@ -12,10 +16,11 @@ export class SoundEffects {
 
   public setEnabled(enabled: boolean): void {
     this.enabled = enabled;
+    if (!enabled) this.stopStartup();
   }
 
   public toggle(): boolean {
-    this.enabled = !this.enabled;
+    this.setEnabled(!this.enabled);
     if (this.enabled) {
       this.playClick();
     }
@@ -24,6 +29,33 @@ export class SoundEffects {
 
   public playClick(): void {
     this.tone(880, 0.025, 'square', 0.03);
+  }
+
+  /** Best-effort autoplay, once at the desktop transition; never delays boot. */
+  public playStartup(): void {
+    if (!this.enabled || typeof document === 'undefined' || document.hidden) return;
+    this.stopStartup();
+    try {
+      const audio = new Audio(withBase('/assets/boot/windows-95-startup.wav'));
+      this.startupAudio = audio;
+      audio.volume = 0.65;
+      const stop = (): void => { if (this.startupAudio === audio) this.stopStartup(); };
+      audio.addEventListener('ended', stop, { once: true });
+      audio.addEventListener('error', stop, { once: true });
+      this.startupTimeout = window.setTimeout(stop, 7500);
+      void audio.play().catch(stop);
+    } catch { this.stopStartup(); }
+  }
+
+  private stopStartup(): void {
+    globalThis.clearTimeout(this.startupTimeout);
+    const audio = this.startupAudio;
+    this.startupAudio = null;
+    if (audio) {
+      audio.pause();
+      audio.removeAttribute('src');
+      audio.load();
+    }
   }
 
   public playOpen(): void {

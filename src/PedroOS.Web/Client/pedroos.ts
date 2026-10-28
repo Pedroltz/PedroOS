@@ -22,7 +22,7 @@ import { FindDialogApp, RunDialogApp, DisplayPropertiesApp, ShutDownDialogApp } 
 import { hydrateWindowFragment } from './apps/FragmentHydrator.js';
 import { DesktopController } from './components/DesktopController.js';
 
-function boot(): void {
+function boot(sound: SoundEffects): void {
   const bootScript = document.getElementById('pedroos-boot-data');
   if (!bootScript?.textContent) {
     console.error('PedroOS 95: Boot data not found in page DOM.');
@@ -41,7 +41,6 @@ function boot(): void {
   const registry = new AppRegistry(data.apps);
   const icons = new IconRegistryClient(data.icons);
   const vfs = new VirtualFileSystemClient(data.vfsRoot);
-  const sound = new SoundEffects();
 
   // Register client modules
   registry.registerClientApp('explorer', new ExplorerApp(vfs, icons));
@@ -140,8 +139,9 @@ function boot(): void {
 }
 
 async function start(): Promise<void> {
-  await runBootSequence();
-  boot();
+  const sound = new SoundEffects();
+  await runBootSequence(sound);
+  boot(sound);
 }
 
 if (document.readyState === 'loading') {
